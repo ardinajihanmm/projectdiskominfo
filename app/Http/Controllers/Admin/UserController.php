@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.user.index');
+        return view('user.dashboard');
     }
 }

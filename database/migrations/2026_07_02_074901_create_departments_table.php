@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('agency_id')
+                ->constrained('agencies')
+                ->cascadeOnDelete();
+
+            $table->string('nama_bidang');
+            $table->boolean('status')->default(true);
+
             $table->timestamps();
         });
     }

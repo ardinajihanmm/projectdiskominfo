@@ -21,34 +21,35 @@ class Ticket extends Model
         'completed_at'
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONSHIP
-    |--------------------------------------------------------------------------
-    */
-
-    // Ticket dimiliki oleh satu user
+    /**
+     * Ticket dimiliki oleh satu user.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Ticket memilih satu layanan
+    /**
+     * Ticket berasal dari satu layanan.
+     */
     public function service()
     {
         return $this->belongsTo(Service::class);
     }
 
-    // Ticket memiliki banyak komentar
+    /**
+     * Ticket memiliki banyak komentar.
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // Ticket memiliki banyak lampiran
+    /**
+     * Ticket memiliki banyak lampiran.
+     */
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
     }
-
 }

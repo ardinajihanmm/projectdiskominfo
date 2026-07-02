@@ -9,13 +9,10 @@ class Attachment extends Model
 {
     use HasFactory;
 
-    protected $table = 'ticket_attachments';
-
     protected $fillable = [
         'ticket_id',
         'nama_file',
-        'path_file',
-        'mime_type',
+        'file_path',
     ];
 
     public function ticket()

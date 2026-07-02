@@ -32,17 +32,11 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Satu user dapat memiliki banyak tiket.
-     */
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }
 
-    /**
-     * Satu user dapat membuat banyak komentar.
-     */
     public function comments()
     {
         return $this->hasMany(Comment::class);

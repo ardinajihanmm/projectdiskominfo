@@ -16,14 +16,4 @@ class Service extends Model
         'sla',
         'status',
     ];
-
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function tickets()
-    {
-        return $this->hasMany(Ticket::class);
-    }
 }

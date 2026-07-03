@@ -117,8 +117,8 @@
 
             @endif
 
-            <a href="{{ route('ticket.history') }}"
-               class="btn btn-secondary mt-3">
+            <a href="{{ route('user.ticket.history') }}"
+                class="btn btn-secondary mt-3">
                 Kembali
             </a>
 

@@ -54,19 +54,22 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
+Route::middleware(['auth', 'role:user'])
+    ->prefix('user')
+    ->name('user.')
+    ->group(function () {
 
-    Route::get('/dashboard', [UserDashboard::class, 'index'])->name('user.dashboard');
+        Route::get('/dashboard', [UserDashboard::class, 'index'])->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
-    Route::get('/ticket/create', [UserTicket::class, 'create'])->name('ticket.create');
-    Route::post('/ticket/store', [UserTicket::class, 'store'])->name('ticket.store');
+        Route::get('/ticket/create', [UserTicket::class, 'create'])->name('ticket.create');
+        Route::post('/ticket/store', [UserTicket::class, 'store'])->name('ticket.store');
 
-    Route::get('/ticket/history', [UserTicket::class, 'history'])->name('ticket.history');
+        Route::get('/ticket/history', [UserTicket::class, 'history'])->name('ticket.history');
 
-    Route::get('/ticket/{id}', [UserTicket::class, 'detail'])->name('ticket.detail');
-});
+        Route::get('/ticket/{id}', [UserTicket::class, 'detail'])->name('ticket.detail');
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -74,16 +77,17 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
 
-    Route::resource('ticket', AdminTicket::class);
-
-    Route::resource('service', ServiceController::class);
-
-    Route::resource('user', UserController::class);
-});
+        Route::resource('ticket', AdminTicket::class)->names('ticket');
+        Route::resource('service', ServiceController::class)->names('service');
+        Route::resource('user', UserController::class)->names('user');
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -91,11 +95,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
+Route::middleware(['auth', 'role:staff'])
+    ->prefix('staff')
+    ->name('staff.')
+    ->group(function () {
 
-    Route::get('/dashboard', [StaffDashboard::class, 'index'])->name('staff.dashboard');
+        Route::get('/dashboard', [StaffDashboard::class, 'index'])->name('dashboard');
 
-    Route::resource('ticket', StaffTicket::class);
-
-    Route::resource('comment', CommentController::class);
-});
+        Route::resource('ticket', StaffTicket::class)->names('ticket');
+        Route::resource('comment', CommentController::class)->names('comment');
+    });

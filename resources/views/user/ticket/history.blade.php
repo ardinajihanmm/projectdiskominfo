@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between mb-3">
         <h2>Riwayat Pengajuan Tiket</h2>
 
-        <a href="{{ route('ticket.create') }}" class="btn btn-primary">
+        <a href="{{ route('user.ticket.create') }}" class="btn btn-primary">
             + Buat Tiket
         </a>
     </div>
@@ -73,7 +73,7 @@
 
                 <td>
 
-                    <a href="{{ route('ticket.detail',$ticket->id) }}"
+                    <a href="{{ route('user.ticket.detail',$ticket->id) }}"
                        class="btn btn-sm btn-info">
                         Detail
                     </a>

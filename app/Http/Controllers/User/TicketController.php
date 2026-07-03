@@ -17,7 +17,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $services = Service::where('status', true)->get();
+        $services = Service::all();
 
         return view('user.ticket.create', compact('services'));
     }
@@ -46,8 +46,7 @@ class TicketController extends Controller
 
         if ($request->hasFile('lampiran')) {
 
-            $path = $request->file('lampiran')
-                ->store('attachments', 'public');
+            $path = $request->file('lampiran')->store('attachments', 'public');
 
             Attachment::create([
                 'ticket_id' => $ticket->id,
@@ -56,8 +55,7 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('ticket.history')
+        return redirect('/user/ticket/history')
             ->with('success', 'Pengajuan tiket berhasil dibuat.');
     }
 

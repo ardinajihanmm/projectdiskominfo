@@ -16,9 +16,9 @@
         </div>
     @endif
 
-    <form action="{{ route('ticket.store') }}"
-          method="POST"
-          enctype="multipart/form-data">
+    <form action="{{ route('user.ticket.store') }}"
+      method="POST"
+      enctype="multipart/form-data">
 
         @csrf
 

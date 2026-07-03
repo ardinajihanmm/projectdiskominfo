@@ -1,32 +1,42 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
-
 @section('content')
+
 <div class="container mt-5">
+
     <h2>Login</h2>
 
-    <form action="{{ url('/login') }}" method="POST">
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <form action="{{ route('login') }}" method="POST">
+
         @csrf
 
         <div class="mb-3">
             <label>Email</label>
-            <input type="email" name="email" class="form-control">
+            <input type="email" name="email" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label>Password</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" name="password" class="form-control" required>
         </div>
 
         <button class="btn btn-primary">
             Login
         </button>
+
     </form>
 
     <p class="mt-3">
         Belum punya akun?
-        <a href="{{ url('/register') }}">Daftar</a>
+        <a href="{{ route('register') }}">Daftar</a>
     </p>
+
 </div>
+
 @endsection

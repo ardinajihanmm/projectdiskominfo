@@ -17,18 +17,23 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'no_hp' => 'required|string|max:20',
+            'instansi' => 'nullable|string|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'no_hp' => $request->no_hp,
+            'instansi' => $request->instansi,
             'role' => 'user',
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/login')->with('success', 'Registrasi berhasil.');
+        return redirect()->route('login')
+            ->with('success', 'Registrasi berhasil.');
     }
 }

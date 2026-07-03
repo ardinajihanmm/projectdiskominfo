@@ -24,10 +24,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'no_hp' => 'required',
-            'instansi' => 'required',
             'password' => 'required|min:6',
             'role' => 'required|in:admin,staff,user',
         ]);
@@ -35,66 +33,48 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'instansi' => $request->instansi,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
 
-        return redirect()
-            ->route('admin.user.index')
-            ->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('admin.user.index')
+            ->with('success', 'User berhasil ditambahkan');
     }
 
-    public function show(string $id)
+    public function edit(User $user)
     {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        $user = User::findOrFail($id);
-
         return view('admin.user.edit', compact('user'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($id);
-
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'no_hp' => 'required',
-            'instansi' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required|in:admin,staff,user',
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'instansi' => $request->instansi,
             'role' => $request->role,
         ]);
 
-        if ($request->filled('password')) {
+        if ($request->password) {
             $user->update([
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
             ]);
         }
 
-        return redirect()
-            ->route('admin.user.index')
-            ->with('success', 'User berhasil diupdate.');
+        return redirect()->route('admin.user.index')
+            ->with('success', 'User berhasil diupdate');
     }
 
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        User::findOrFail($id)->delete();
+        $user->delete();
 
-        return redirect()
-            ->route('admin.user.index')
-            ->with('success', 'User berhasil dihapus.');
+        return redirect()->route('admin.user.index')
+            ->with('success', 'User berhasil dihapus');
     }
 }

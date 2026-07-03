@@ -1,49 +1,96 @@
-@extends('layouts.user')
-
-@section('title', 'Riwayat Pengajuan')
+@extends('layouts.app')
 
 @section('content')
 
 <div class="container mt-4">
 
-    <h2>Riwayat Pengajuan</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Riwayat Pengajuan Tiket</h2>
 
-    <table class="table table-bordered">
+        <a href="{{ route('ticket.create') }}" class="btn btn-primary">
+            + Buat Tiket
+        </a>
+    </div>
 
-        <thead>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
             <tr>
-
+                <th width="5%">No</th>
                 <th>Kode</th>
                 <th>Layanan</th>
+                <th>Judul</th>
                 <th>Status</th>
-                <th>Prioritas</th>
-                <th>Aksi</th>
-
+                <th>Dibuat</th>
+                <th width="10%">Aksi</th>
             </tr>
-
         </thead>
 
         <tbody>
 
+        @forelse($tickets as $ticket)
+
             <tr>
 
-                <td>-</td>
-                <td>-</td>
-                <td>To Do</td>
-                <td>Sedang</td>
+                <td>{{ $loop->iteration }}</td>
+
+                <td>{{ $ticket->kode_ticket }}</td>
+
+                <td>
+                    {{ $ticket->service->nama_layanan ?? '-' }}
+                </td>
+
+                <td>{{ $ticket->judul }}</td>
+
+                <td>
+                    @if($ticket->status == 'To Do')
+                        <span class="badge bg-secondary">To Do</span>
+
+                    @elseif($ticket->status == 'In Progress')
+                        <span class="badge bg-warning text-dark">
+                            In Progress
+                        </span>
+
+                    @elseif($ticket->status == 'Done')
+                        <span class="badge bg-success">Done</span>
+
+                    @else
+                        <span class="badge bg-danger">
+                            Rejected
+                        </span>
+                    @endif
+                </td>
+
+                <td>
+                    {{ $ticket->created_at->format('d-m-Y H:i') }}
+                </td>
 
                 <td>
 
-                    <a href="#" class="btn btn-info btn-sm">
-
+                    <a href="{{ route('ticket.detail',$ticket->id) }}"
+                       class="btn btn-sm btn-info">
                         Detail
-
                     </a>
 
                 </td>
 
             </tr>
+
+        @empty
+
+            <tr>
+                <td colspan="7" class="text-center">
+                    Belum ada pengajuan tiket.
+                </td>
+            </tr>
+
+        @endforelse
 
         </tbody>
 

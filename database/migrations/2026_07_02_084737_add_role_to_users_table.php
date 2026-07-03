@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Middleware;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class RoleMiddleware
+return new class extends Migration
 {
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function up(): void
     {
-        if (!auth()->check()) {
-            return redirect('/login');
-        }
-
-        if (auth()->user()->role != $role) {
-            abort(403, 'Akses ditolak.');
-        }
-
-        return $next($request);
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->default('user');
+        });
     }
-}
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
+    }
+};

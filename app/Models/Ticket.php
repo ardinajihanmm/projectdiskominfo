@@ -19,21 +19,33 @@ class Ticket extends Model
         'status',
     ];
 
+    /**
+     * Relasi ke user
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Relasi ke layanan
+     */
     public function service()
     {
         return $this->belongsTo(Service::class);
     }
 
+    /**
+     * Relasi ke komentar
+     */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 
+    /**
+     * Relasi ke lampiran
+     */
     public function attachments()
     {
         return $this->hasMany(Attachment::class);

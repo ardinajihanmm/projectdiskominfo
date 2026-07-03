@@ -16,7 +16,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('nama_file');
-            $table->string('file_path');
+            $table->string('path_file');
 
             $table->timestamps();
         });

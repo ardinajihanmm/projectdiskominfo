@@ -1,49 +1,83 @@
-@extends('layouts.user')
-
-@section('title', 'Pengajuan Layanan')
+@extends('layouts.app')
 
 @section('content')
 
 <div class="container mt-4">
 
-    <h2>Pengajuan Layanan</h2>
+    <h2>Buat Pengajuan Tiket</h2>
 
-    <form enctype="multipart/form-data">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('ticket.store') }}"
+          method="POST"
+          enctype="multipart/form-data">
+
+        @csrf
 
         <div class="mb-3">
-            <label>Layanan</label>
+            <label class="form-label">Layanan</label>
+            <select name="service_id" class="form-control" required>
+                <option value="">-- Pilih Layanan --</option>
 
-            <select class="form-control">
-
-                <option>Wifi Desa</option>
-                <option>Domain desa.id</option>
-                <option>Jaringan Intra Pemerintah</option>
-                <option>Website</option>
-                <option>Pusat Data</option>
-                <option>Subdomain</option>
-                <option>SPLP IPPD</option>
-
+                @foreach($services as $service)
+                    <option value="{{ $service->id }}">
+                        {{ $service->nama_layanan }}
+                    </option>
+                @endforeach
             </select>
         </div>
 
         <div class="mb-3">
-            <label>Judul</label>
-            <input type="text" class="form-control">
+            <label class="form-label">Judul Pengajuan</label>
+            <input
+                type="text"
+                name="judul"
+                class="form-control"
+                value="{{ old('judul') }}"
+                required>
         </div>
 
         <div class="mb-3">
-            <label>Deskripsi</label>
-            <textarea class="form-control"></textarea>
+            <label class="form-label">Deskripsi</label>
+            <textarea
+                name="deskripsi"
+                rows="6"
+                class="form-control"
+                required>{{ old('deskripsi') }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label>Lampiran</label>
-            <input type="file" class="form-control">
+            <label class="form-label">
+                Lampiran (Opsional)
+            </label>
+
+            <input
+                type="file"
+                name="lampiran"
+                class="form-control"
+                accept=".jpg,.jpeg,.png,.pdf">
+
+            <small class="text-muted">
+                Format: JPG, JPEG, PNG, PDF (Maks. 2 MB)
+            </small>
         </div>
 
-        <button class="btn btn-success">
-            Kirim
+        <button type="submit" class="btn btn-primary">
+            Kirim Tiket
         </button>
+
+        <a href="{{ route('user.dashboard') }}"
+           class="btn btn-secondary">
+            Kembali
+        </a>
 
     </form>
 

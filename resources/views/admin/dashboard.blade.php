@@ -122,46 +122,120 @@
 
                 </a>
             </div>
-
         </div>
-
     </div>
 </div>
 
-<div class="card shadow mt-4">
+{{-- Statistik Chart --}}
+<div class="card shadow border-0 mt-4">
     <div class="card-header bg-primary text-white">
-        Statistik Tiket
+        <h5 class="mb-0">
+            <i class="bi bi-bar-chart-fill me-2"></i>
+            Statistik Tiket
+        </h5>
     </div>
 
     <div class="card-body">
-        <canvas id="ticketChart"></canvas>
+        <div class="row align-items-center">
+
+            <div class="col-md-5">
+                <div id="chartData"
+                    data-todo="{{ $todo }}"
+                    data-progress="{{ $progress }}"
+                    data-done="{{ $done }}"
+                    style="height:300px;">
+                    <canvas id="ticketChart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+
+                <div class="row text-center">
+
+                    <div class="col-md-4">
+                        <div class="card border-warning shadow-sm">
+                            <div class="card-body">
+                                <h3 class="text-warning">{{ $todo }}</h3>
+                                <small>To Do</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-info shadow-sm">
+                            <div class="card-body">
+                                <h3 class="text-info">{{ $progress }}</h3>
+                                <small>In Progress</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-success shadow-sm">
+                            <div class="card-body">
+                                <h3 class="text-success">{{ $done }}</h3>
+                                <small>Done</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h4 class="text-center fw-bold text-primary">
+                    Total Tiket : {{ $totalTicket }}
+                </h4>
+
+            </div>
+
+        </div>
     </div>
 </div>
 
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-const ctx=document.getElementById('ticketChart');
+document.addEventListener('DOMContentLoaded', function () {
 
-new Chart(ctx,{
-    type:'bar',
-    data:{
-        labels:['To Do','In Progress','Done'],
-        datasets:[{
-            label:'Jumlah Tiket',
-            data:[
-                {{ $todo }},
-                {{ $progress }},
-                {{ $done }}
-            ],
-            backgroundColor:[
-                '#ffc107',
-                '#0dcaf0',
-                '#198754'
-            ]
-        }]
-    }
+    const chart = document.getElementById('chartData');
+
+    const todo = parseInt(chart.dataset.todo);
+    const progress = parseInt(chart.dataset.progress);
+    const done = parseInt(chart.dataset.done);
+
+    const ctx = document.getElementById('ticketChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['To Do', 'In Progress', 'Done'],
+            datasets: [{
+                label: 'Jumlah Tiket',
+                data: [todo, progress, done],
+                backgroundColor: [
+                    '#FFC107',
+                    '#0DCAF0',
+                    '#198754'
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
 });
 </script>
-
+@endpush
 @endsection

@@ -6,6 +6,37 @@
 
     <div class="d-flex justify-content-between mb-3">
         <h2>Kelola Tiket</h2>
+        <form action="{{ route('admin.ticket.index') }}"
+      method="GET"
+      class="mb-3">
+
+    <div class="input-group">
+
+        <span class="input-group-text bg-primary text-white">
+            <i class="bi bi-search"></i>
+        </span>
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Cari kode tiket, judul, atau pelapor..."
+            value="{{ $search ?? '' }}">
+
+        <button class="btn btn-primary">
+            Cari
+        </button>
+
+        @if(!empty($search))
+            <a href="{{ route('admin.ticket.index') }}"
+               class="btn btn-outline-secondary">
+                Reset
+            </a>
+        @endif
+
+    </div>
+
+</form>
     </div>
 
     @if(session('success'))
@@ -13,7 +44,21 @@
             {{ session('success') }}
         </div>
     @endif
+    <div class="mb-3 d-flex gap-2">
 
+    <a href="{{ route('admin.ticket.export.pdf') }}"
+       class="btn btn-danger">
+        <i class="bi bi-file-earmark-pdf"></i>
+        Export PDF
+    </a>
+
+    <a href="{{ route('admin.ticket.export.excel') }}"
+       class="btn btn-success">
+        <i class="bi bi-file-earmark-excel"></i>
+        Export Excel
+    </a>
+
+    </div>
     <table class="table table-bordered table-striped">
 
         <thead class="table-dark">

@@ -5,6 +5,32 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Data Layanan</h2>
+        <form action="{{ route('admin.service.index') }}" method="GET" class="mb-3">
+    <div class="input-group">
+
+        <span class="input-group-text bg-primary text-white">
+            <i class="bi bi-search"></i>
+        </span>
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Cari nama layanan..."
+            value="{{ $search ?? '' }}">
+
+        <button class="btn btn-primary">
+            Cari
+        </button>
+
+        @if(!empty($search))
+            <a href="{{ route('admin.service.index') }}" class="btn btn-outline-secondary">
+                Reset
+            </a>
+        @endif
+
+    </div>
+</form>
 
         <a href="{{ route('admin.service.create') }}" class="btn btn-primary">
             + Tambah Layanan

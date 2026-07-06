@@ -94,6 +94,14 @@ Route::middleware(['auth','role:admin'])
 
         Route::resource('ticket',AdminTicket::class)
             ->names('ticket');
+            
+        Route::get('/ticket/export/pdf',
+            [AdminTicket::class,'exportPdf'])
+            ->name('ticket.export.pdf');
+
+        Route::get('/ticket/export/excel',
+            [AdminTicket::class,'exportExcel'])
+            ->name('ticket.export.excel');
 
         Route::resource('service',ServiceController::class)
             ->names('service');
@@ -104,6 +112,7 @@ Route::middleware(['auth','role:admin'])
         Route::put('/ticket/{ticket}/assign',
             [AdminTicket::class,'assign'])
             ->name('ticket.assign');
+
     });
 
 /*

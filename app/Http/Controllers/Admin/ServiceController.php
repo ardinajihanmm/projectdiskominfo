@@ -9,11 +9,18 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::with('department')->latest()->get();
+    $search = $request->search;
 
-        return view('admin.service.index', compact('services'));
+    $services = Service::when($search, function ($query) use ($search) {
+        $query->where('nama_layanan', 'like', "%{$search}%")
+              ->orWhere('deskripsi', 'like', "%{$search}%");
+    })
+    ->latest()
+    ->paginate(10);
+
+    return view('admin.service.index', compact('services', 'search'));
     }
 
     public function create()

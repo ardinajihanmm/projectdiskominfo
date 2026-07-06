@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -12,16 +13,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Statistik
         $total = Ticket::count();
 
         $todo = Ticket::where('status', 'To Do')->count();
-
         $progress = Ticket::where('status', 'In Progress')->count();
-
         $done = Ticket::where('status', 'Done')->count();
 
-        // 5 tiket terbaru
         $recent = Ticket::with(['user', 'service'])
             ->latest()
             ->take(5)
@@ -39,27 +36,33 @@ class DashboardController extends Controller
     /**
      * Kanban Board
      */
-    public function kanban()
+    public function kanban(Request $request)
     {
-        $todo = Ticket::with(['user', 'service'])
-            ->where('status', 'To Do')
-            ->latest()
-            ->get();
+        $search = $request->search;
 
-        $progress = Ticket::with(['user', 'service'])
-            ->where('status', 'In Progress')
-            ->latest()
-            ->get();
+        $query = Ticket::with(['user', 'service']);
 
-        $done = Ticket::with(['user', 'service'])
-            ->where('status', 'Done')
-            ->latest()
-            ->get();
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_ticket', 'like', "%{$search}%")
+                  ->orWhere('judul', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($user) use ($search) {
+                      $user->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $tickets = $query->latest()->get();
+
+        $todo = $tickets->where('status', 'To Do');
+        $progress = $tickets->where('status', 'In Progress');
+        $done = $tickets->where('status', 'Done');
 
         return view('staff.kanban', compact(
             'todo',
             'progress',
-            'done'
+            'done',
+            'search'
         ));
     }
 }

@@ -13,7 +13,35 @@
             Kelola status tiket dengan drag & drop
         </small>
     </div>
+<form action="{{ route('staff.kanban') }}" method="GET" class="mb-4">
 
+    <div class="input-group">
+
+        <span class="input-group-text bg-primary text-white">
+            <i class="bi bi-search"></i>
+        </span>
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Cari kode tiket, judul, atau nama pelapor..."
+            value="{{ $search ?? '' }}">
+
+        <button class="btn btn-primary">
+            Cari
+        </button>
+
+        @if(!empty($search))
+            <a href="{{ route('staff.kanban') }}"
+               class="btn btn-outline-secondary">
+                Reset
+            </a>
+        @endif
+
+    </div>
+
+</form>
     <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
         <i class="bi bi-arrow-left"></i>
         Dashboard

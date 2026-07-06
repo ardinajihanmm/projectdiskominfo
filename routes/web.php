@@ -13,12 +13,13 @@ use App\Http\Controllers\Staff\DashboardController as StaffDashboard;
 
 // User
 use App\Http\Controllers\User\TicketController as UserTicket;
-use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 
 // Admin
 use App\Http\Controllers\Admin\TicketController as AdminTicket;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 
 // Staff
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
@@ -62,7 +63,7 @@ Route::middleware(['auth','role:user'])
         Route::get('/dashboard',[UserDashboard::class,'index'])
             ->name('dashboard');
 
-        Route::get('/profile',[ProfileController::class,'index'])
+        Route::get('/profile',[UserProfileController::class,'index'])
             ->name('profile');
 
         Route::get('/ticket/create',[UserTicket::class,'create'])
@@ -112,8 +113,12 @@ Route::middleware(['auth','role:admin'])
         Route::put('/ticket/{ticket}/assign',
             [AdminTicket::class,'assign'])
             ->name('ticket.assign');
+       Route::get('/profile', [AdminProfileController::class, 'index'])
+            ->name('profile');
 
-    });
+        Route::put('/profile', [AdminProfileController::class, 'update'])
+            ->name('profile.update');
+});
 
 /*
 |--------------------------------------------------------------------------

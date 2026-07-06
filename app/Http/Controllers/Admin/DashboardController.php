@@ -21,3 +21,12 @@ class DashboardController extends Controller
         ]);
     }
 }
+    $todo = Ticket::where('status','To Do')->count();
+    $progress = Ticket::where('status','In Progress')->count();
+    $done = Ticket::where('status','Done')->count();
+
+    return view('admin.dashboard', compact(
+        'todo',
+        'progress',
+        'done'
+    ));

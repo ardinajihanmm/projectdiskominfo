@@ -128,5 +128,40 @@
     </div>
 </div>
 
+<div class="card shadow mt-4">
+    <div class="card-header bg-primary text-white">
+        Statistik Tiket
+    </div>
+
+    <div class="card-body">
+        <canvas id="ticketChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx=document.getElementById('ticketChart');
+
+new Chart(ctx,{
+    type:'bar',
+    data:{
+        labels:['To Do','In Progress','Done'],
+        datasets:[{
+            label:'Jumlah Tiket',
+            data:[
+                {{ $todo }},
+                {{ $progress }},
+                {{ $done }}
+            ],
+            backgroundColor:[
+                '#ffc107',
+                '#0dcaf0',
+                '#198754'
+            ]
+        }]
+    }
+});
+</script>
 
 @endsection

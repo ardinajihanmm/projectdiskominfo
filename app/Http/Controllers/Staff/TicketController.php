@@ -23,7 +23,8 @@ class TicketController extends Controller
             'user',
             'service',
             'comments.user',
-            'attachments'
+            'attachment',
+            'comments.user'
         ])->findOrFail($id);
 
         return view('staff.ticket.detail', compact('ticket'));

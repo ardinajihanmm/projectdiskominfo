@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Models;
+use App\Models\User;
+use App\Models\Service;
+use App\Models\Attachment;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
+        'staff_id',
         'service_id',
         'kode_ticket',
         'judul',
@@ -19,35 +20,28 @@ class Ticket extends Model
         'status',
     ];
 
-    /**
-     * Relasi ke user
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Relasi ke layanan
-     */
     public function service()
     {
         return $this->belongsTo(Service::class);
     }
 
-    /**
-     * Relasi ke komentar
-     */
-    public function comments()
+    public function staff()
     {
-        return $this->hasMany(Comment::class)->latest();
+        return $this->belongsTo(User::class, 'staff_id');
     }
 
-    /**
-     * Relasi ke lampiran
-     */
-    public function attachments()
+    public function attachment()
     {
-        return $this->hasMany(Attachment::class);
+        return $this->hasOne(Attachment::class);
+    }
+
+    public function comments()
+    {
+    return $this->hasMany(Comment::class)->latest();
     }
 }

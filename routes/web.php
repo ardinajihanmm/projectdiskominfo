@@ -26,7 +26,7 @@ use App\Http\Controllers\Staff\CommentController;
 
 /*
 |--------------------------------------------------------------------------
-| Landing Page
+| Landing
 |--------------------------------------------------------------------------
 */
 
@@ -40,68 +40,103 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::post('/login', [LoginController::class,'login']);
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/register', [RegisterController::class,'index'])->name('register');
+Route::post('/register', [RegisterController::class,'register']);
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class,'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| User
+| USER
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:user'])
+Route::middleware(['auth','role:user'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {
 
-        Route::get('/dashboard', [UserDashboard::class, 'index'])->name('dashboard');
+        Route::get('/dashboard',[UserDashboard::class,'index'])
+            ->name('dashboard');
 
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile',[ProfileController::class,'index'])
+            ->name('profile');
 
-        Route::get('/ticket/create', [UserTicket::class, 'create'])->name('ticket.create');
-        Route::post('/ticket/store', [UserTicket::class, 'store'])->name('ticket.store');
+        Route::get('/ticket/create',[UserTicket::class,'create'])
+            ->name('ticket.create');
 
-        Route::get('/ticket/history', [UserTicket::class, 'history'])->name('ticket.history');
+        Route::post('/ticket/store',[UserTicket::class,'store'])
+            ->name('ticket.store');
 
-        Route::get('/ticket/{id}', [UserTicket::class, 'detail'])->name('ticket.detail');
+        Route::get('/ticket/history',[UserTicket::class,'history'])
+            ->name('ticket.history');
+
+        Route::get('/ticket/{id}',[UserTicket::class,'detail'])
+            ->name('ticket.detail');
     });
 
 /*
 |--------------------------------------------------------------------------
-| Admin
+| ADMIN
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:admin'])
+Route::middleware(['auth','role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+        Route::get('/dashboard',[AdminDashboard::class,'index'])
+            ->name('dashboard');
 
-        Route::resource('ticket', AdminTicket::class)->names('ticket');
-        Route::resource('service', ServiceController::class)->names('service');
-        Route::resource('user', UserController::class)->names('user');
+        Route::resource('ticket',AdminTicket::class)
+            ->names('ticket');
+
+        Route::resource('service',ServiceController::class)
+            ->names('service');
+
+        Route::resource('user',UserController::class)
+            ->names('user');
+
+        Route::put('/ticket/{ticket}/assign',
+            [AdminTicket::class,'assign'])
+            ->name('ticket.assign');
     });
 
 /*
 |--------------------------------------------------------------------------
-| Staff
+| STAFF
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:staff'])
+Route::middleware(['auth','role:staff'])
     ->prefix('staff')
     ->name('staff.')
     ->group(function () {
 
-        Route::get('/dashboard', [StaffDashboard::class, 'index'])->name('dashboard');
+        // Dashboard
+        Route::get('/dashboard',[StaffDashboard::class,'index'])
+            ->name('dashboard');
 
-        Route::resource('ticket', StaffTicket::class)->names('ticket');
-        Route::resource('comment', CommentController::class)->names('comment');
+        // Kanban
+        Route::get('/kanban',[StaffDashboard::class,'kanban'])
+            ->name('kanban');
+
+        // Ticket
+        Route::resource('ticket',StaffTicket::class)
+            ->names('ticket');
+
+        // Update status
+        Route::put('/ticket/{id}/status',
+            [StaffTicket::class,'updateStatus'])
+            ->name('ticket.status');
+
+        // Komentar
+        Route::post('/comment',
+            [CommentController::class,'store'])
+            ->name('comment.store');
+
     });

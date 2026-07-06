@@ -11,9 +11,18 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('user.dashboard') }}">
-            Helpdesk Diskominfo
-        </a>
+<a class="navbar-brand"
+   href="
+   @if(auth()->user()->role == 'admin')
+        {{ route('admin.dashboard') }}
+   @elseif(auth()->user()->role == 'staff')
+        {{ route('staff.dashboard') }}
+   @else
+        {{ route('user.dashboard') }}
+   @endif
+   ">
+    Helpdesk Diskominfo
+</a>
 
         <div class="ms-auto">
             <form action="{{ route('logout') }}" method="POST">

@@ -37,8 +37,8 @@
     <div class="col-md-3 mb-3">
         <div class="card text-bg-success">
             <div class="card-body text-center">
-                <h5>Done</h5>
-                <h2>{{ $done }}</h2>
+                <h5>Completed</h5>
+                <h2>{{ $completed }}</h2>
             </div>
         </div>
     </div>

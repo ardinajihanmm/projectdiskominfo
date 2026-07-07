@@ -43,8 +43,8 @@
                             <span class="badge bg-secondary">To Do</span>
                         @elseif($ticket->status == 'In Progress')
                             <span class="badge bg-warning text-dark">In Progress</span>
-                        @elseif($ticket->status == 'Done')
-                            <span class="badge bg-success">Done</span>
+                        @elseif($ticket->status == 'Completed')
+                            <span class="badge bg-success">Completed</span>
                         @else
                             <span class="badge bg-danger">Rejected</span>
                         @endif

@@ -57,8 +57,8 @@
                             In Progress
                         </span>
 
-                    @elseif($ticket->status == 'Done')
-                        <span class="badge bg-success">Done</span>
+                    @elseif($ticket->status == 'Completed')
+                        <span class="badge bg-success">Completed</span>
 
                     @else
                         <span class="badge bg-danger">

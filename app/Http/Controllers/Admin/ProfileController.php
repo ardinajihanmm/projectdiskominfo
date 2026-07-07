@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -18,32 +19,56 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $user = Auth::user();
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->no_hp = $request->no_hp;
+        $user->instansi = $request->instansi;
+
+        dd($request->all(), $request->hasFile('photo'));
+
+        if ($request->hasFile('photo')) {
+
+            if ($user->photo && Storage::exists('public/profile/'.$user->photo)) {
+                Storage::delete('public/profile/'.$user->photo);
+            }
+
+            $photo = time().'.'.$request->photo->extension();
+
+            $request->photo->storeAs(
+                'public/profile',
+                $photo
+            );
+
+            $user->photo = $photo;
+        }
+
         $user->save();
 
-        return back()->with('success', 'Profil berhasil diperbarui.');
+        return back()->with('success','Profil berhasil diperbarui.');
     }
-
     public function password(Request $request)
     {
         $request->validate([
             'old_password' => 'required',
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        if (!Hash::check($request->old_password, Auth::user()->password)) {
+        $user = Auth::user();
+
+        // Cek password lama
+        if (!Hash::check($request->old_password, $user->password)) {
             return back()->with('error', 'Password lama salah.');
         }
 
-        Auth::user()->update([
-            'password' => Hash::make($request->password)
-        ]);
+        // Simpan password baru
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         return back()->with('success', 'Password berhasil diubah.');
     }

@@ -32,8 +32,7 @@ return new class extends Migration
             $table->enum('status', [
                 'To Do',
                 'In Progress',
-                'Completed',
-                'Rejected'
+                'Completed'
             ])->default('To Do');
 
             $table->timestamps();

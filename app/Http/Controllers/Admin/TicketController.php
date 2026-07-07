@@ -75,8 +75,8 @@ public function index(Request $request)
      */
     public function update(Request $request, Ticket $ticket)
     {
-        $request->validate([
-            'status' => 'required|in:To Do,In Progress,Done',
+       $request->validate([
+            'status' => 'required|in:To Do,In Progress,Complete',
         ]);
 
         $ticket->update([

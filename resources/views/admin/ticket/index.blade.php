@@ -101,10 +101,34 @@
                         Detail
                     </a>
 
-                    <a href="{{ route('admin.ticket.edit',$ticket->id) }}"
-                        class="btn btn-warning btn-sm">
-                        Ubah Status
-                    </a>
+                    <form action="{{ route('admin.ticket.update', $ticket->id) }}"
+                    method="POST"
+                    style="display:inline;">
+                    @csrf
+                    @method('PUT')
+
+                    <select name="status"
+                            class="form-select form-select-sm d-inline"
+                            style="width:170px;display:inline-block;"
+                            onchange="this.form.submit()">
+
+                        <option value="To Do"
+                            {{ $ticket->status=='To Do' ? 'selected' : '' }}>
+                            To Do
+                        </option>
+
+                        <option value="In Progress"
+                            {{ $ticket->status=='In Progress' ? 'selected' : '' }}>
+                            In Progress
+                        </option>
+
+                        <option value="Complete"
+                            {{ $ticket->status=='Complete' ? 'selected' : '' }}>
+                            Complete
+                        </option>
+
+                    </select>
+                </form>
 
                 </td>
 

@@ -22,8 +22,8 @@ class DashboardController extends Controller
             ->where('status', 'In Progress')
             ->count();
 
-        $done = Ticket::where('user_id', $user->id)
-            ->where('status', 'Done')
+        $completed = Ticket::where('user_id', $user->id)
+            ->where('status', 'Completed')
             ->count();
 
         return view('user.dashboard', compact(
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             'totalTicket',
             'todo',
             'progress',
-            'done'
+            'completed',
         ));
     }
 }

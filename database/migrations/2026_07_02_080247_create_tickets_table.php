@@ -32,7 +32,7 @@ return new class extends Migration
             $table->enum('status', [
                 'To Do',
                 'In Progress',
-                'Done',
+                'Completed',
                 'Rejected'
             ])->default('To Do');
 

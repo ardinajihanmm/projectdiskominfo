@@ -34,7 +34,7 @@
             <option value="">Semua Status</option>
             <option value="To Do" {{ request('status')=='To Do' ? 'selected' : '' }}>To Do</option>
             <option value="In Progress" {{ request('status')=='In Progress' ? 'selected' : '' }}>In Progress</option>
-            <option value="Done" {{ request('status')=='Done' ? 'selected' : '' }}>Done</option>
+            <option value="Completed" {{ request('status')=='Completed' ? 'selected' : '' }}>Completed</option>
         </select>
     </div>
 
@@ -88,7 +88,7 @@
                         <span class="badge bg-info">In Progress</span>
 
                     @else
-                        <span class="badge bg-success">Done</span>
+                        <span class="badge bg-success">Completed</span>
 
                     @endif
 
@@ -122,9 +122,9 @@
                             In Progress
                         </option>
 
-                        <option value="Complete"
-                            {{ $ticket->status=='Complete' ? 'selected' : '' }}>
-                            Complete
+                        <option value="Completed"
+                            {{ $ticket->status=='Completed' ? 'selected' : '' }}>
+                            Completed
                         </option>
 
                     </select>

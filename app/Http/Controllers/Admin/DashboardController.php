@@ -17,16 +17,17 @@ class DashboardController extends Controller
             'totalTicket'    => Ticket::count(),
             'todo'           => Ticket::where('status', 'To Do')->count(),
             'progress'       => Ticket::where('status', 'In Progress')->count(),
-            'done'           => Ticket::where('status', 'Done')->count(),
+            'completed'      => Ticket::where('status', 'Completed')->count(),
         ]);
     }
 }
     $todo = Ticket::where('status','To Do')->count();
     $progress = Ticket::where('status','In Progress')->count();
-    $done = Ticket::where('status','Done')->count();
+    $completed = Ticket::where('status','Completed')->count();
 
     return view('admin.dashboard', compact(
         'todo',
         'progress',
-        'done'
+        'completed'
     ));
+    

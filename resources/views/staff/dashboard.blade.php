@@ -58,9 +58,9 @@
     <div class="col-md-3">
         <div class="card shadow-sm border-start border-5 border-success">
             <div class="card-body">
-                <small class="text-muted">Done</small>
+                <small class="text-muted">Completed</small>
                 <h2 class="fw-bold text-success">
-                    {{ $done }}
+                    {{ $completed }}
                 </h2>
             </div>
         </div>
@@ -163,7 +163,7 @@
                             @else
 
                                 <span class="badge bg-success">
-                                    Done
+                                    Completed
                                 </span>
 
                             @endif

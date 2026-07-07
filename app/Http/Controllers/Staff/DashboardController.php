@@ -17,7 +17,7 @@ class DashboardController extends Controller
 
         $todo = Ticket::where('status', 'To Do')->count();
         $progress = Ticket::where('status', 'In Progress')->count();
-        $done = Ticket::where('status', 'Done')->count();
+        $completed = Ticket::where('status', 'Completed')->count();
 
         $recent = Ticket::with(['user', 'service'])
             ->latest()
@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'total',
             'todo',
             'progress',
-            'done',
+            'completed',
             'recent'
         ));
     }
@@ -56,12 +56,12 @@ class DashboardController extends Controller
 
         $todo = $tickets->where('status', 'To Do');
         $progress = $tickets->where('status', 'In Progress');
-        $done = $tickets->where('status', 'Done');
+        $completed = $tickets->where('status', 'Completed');
 
         return view('staff.kanban', compact(
             'todo',
             'progress',
-            'done',
+            'completed',
             'search'
         ));
     }

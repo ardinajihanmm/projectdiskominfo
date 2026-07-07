@@ -102,7 +102,7 @@
                                 @elseif($ticket->status=="In Progress")
                                     <span class="badge bg-info">In Progress</span>
                                 @else
-                                    <span class="badge bg-success">Done</span>
+                                    <span class="badge bg-success">Completed</span>
                                 @endif
 
                             </td>
@@ -175,7 +175,7 @@
                         @elseif($ticket->status=="In Progress")
                             <span class="badge bg-info">In Progress</span>
                         @else
-                            <span class="badge bg-success">Done</span>
+                            <span class="badge bg-success">Completed</span>
                         @endif
 
                     </p>
@@ -201,8 +201,8 @@
                                 In Progress
                             </option>
 
-                            <option value="Done" {{ $ticket->status=='Done'?'selected':'' }}>
-                                Done
+                            <option value="Completed" {{ $ticket->status=='Completed'?'selected':'' }}>
+                                Completed
                             </option>
 
                         </select>

@@ -63,8 +63,8 @@
         <div class="col-md-4 mb-3">
             <div class="card border-success">
                 <div class="card-body text-center">
-                    <h5>Done</h5>
-                    <h2>{{ $done }}</h2>
+                    <h5>Completed</h5>
+                    <h2>{{ $completed }}</h2>
                 </div>
             </div>
         </div>
@@ -142,7 +142,7 @@
                 <div id="chartData"
                     data-todo="{{ $todo }}"
                     data-progress="{{ $progress }}"
-                    data-done="{{ $done }}"
+                    data-completed="{{ $completed }}"
                     style="height:300px;">
                     <canvas id="ticketChart"></canvas>
                 </div>
@@ -173,8 +173,8 @@
                     <div class="col-md-4">
                         <div class="card border-success shadow-sm">
                             <div class="card-body">
-                                <h3 class="text-success">{{ $done }}</h3>
-                                <small>Done</small>
+                                <h3 class="text-success">{{ $completed }}</h3>
+                                <small>Completed</small>
                             </div>
                         </div>
                     </div>
@@ -203,17 +203,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const todo = parseInt(chart.dataset.todo);
     const progress = parseInt(chart.dataset.progress);
-    const done = parseInt(chart.dataset.done);
+    const completed = parseInt(chart.dataset.completed);
 
     const ctx = document.getElementById('ticketChart').getContext('2d');
 
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['To Do', 'In Progress', 'Done'],
+            labels: ['To Do', 'In Progress', 'Completed'],
             datasets: [{
                 label: 'Jumlah Tiket',
-                data: [todo, progress, done],
+                data: [todo, progress, completed],
                 backgroundColor: [
                     '#FFC107',
                     '#0DCAF0',

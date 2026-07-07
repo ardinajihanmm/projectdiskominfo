@@ -52,9 +52,9 @@
                             In Progress
                         </option>
 
-                        <option value="Done"
-                            {{ $ticket->status == 'Done' ? 'selected' : '' }}>
-                            Done
+                        <option value="Completed"
+                            {{ $ticket->status == 'Completed' ? 'selected' : '' }}>
+                            Completed
                         </option>
 
                     </select>

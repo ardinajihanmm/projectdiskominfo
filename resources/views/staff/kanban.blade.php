@@ -72,11 +72,11 @@ $columns = [
 ],
 
 [
-'title'=>'Done',
-'status'=>'Done',
+'title'=>'Completed',
+'status'=>'Completed',
 'color'=>'success',
 'icon'=>'bi-check-circle-fill',
-'data'=>$done
+'data'=>$completed
 ]
 
 ];

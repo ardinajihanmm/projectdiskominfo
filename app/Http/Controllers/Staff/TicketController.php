@@ -32,33 +32,40 @@ class TicketController extends Controller
     }
 
     public function updateStatus(Request $request, $id)
-    {
+{
+    try {
 
         $request->validate([
-            'status'=>'required'
+            'status' => 'required|in:To Do,In Progress,Completed'
         ]);
 
         $ticket = Ticket::findOrFail($id);
 
         $ticket->status = $request->status;
 
-        if($request->status == 'In Progress')
-        {
+        if($request->status == 'In Progress'){
             $ticket->started_at = now();
         }
 
-        if($request->status == 'Completed')
-        {
+        if($request->status == 'Completed'){
             $ticket->completed_at = now();
         }
 
         $ticket->save();
 
-        return back()->with(
-            'success',
-            'Status tiket berhasil diperbarui.'
-        );
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diubah'
+        ]);
+
+    } catch (\Exception $e) {
+
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ],500);
 
     }
+}
 
 }

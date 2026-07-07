@@ -216,77 +216,51 @@ Belum ada tiket.
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
 <script>
-
 document.querySelectorAll('.ticket-column').forEach(column => {
 
-new Sortable(column,{
+    new Sortable(column, {
+        group: 'tickets',
+        animation: 200,
+        ghostClass: 'bg-light',
 
-group:'tickets',
+        onEnd: function (evt) {
 
-animation:200,
+            let ticketId = evt.item.dataset.id;
+            let status = evt.to.dataset.status;
 
-ghostClass:'bg-light',
+            fetch('/staff/ticket/' + ticketId + '/status', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
 
-onEnd:function(evt){
+                if(data.success){
+                    location.reload();
+                }else{
+                    alert(data.message);
+                    location.reload();
+                }
 
-let ticketId=evt.item.dataset.id;
+            })
+            .catch(error => {
+                console.log(error);
+                alert('Terjadi kesalahan');
+                location.reload();
+            });
 
-let status=evt.to.dataset.status;
+        }
 
-fetch('/staff/ticket/'+ticketId+'/status',{
-
-method:'PUT',
-
-headers:{
-
-'Content-Type':'application/json',
-
-'Accept':'application/json',
-
-'X-CSRF-TOKEN':'{{ csrf_token() }}'
-
-},
-
-body:JSON.stringify({
-
-status:status
-
-})
-
-})
-
-.then(res=>res.json())
-
-.then(data=>{
-
-if(data.success){
-
-console.log('Status berhasil diubah');
-
-}else{
-
-alert('Gagal mengubah status');
-
-location.reload();
-
-}
-
-})
-
-.catch(()=>{
-
-alert('Terjadi kesalahan');
-
-location.reload();
+    });
 
 });
-
-}
-
-});
-
-});
-
 </script>
 
 @endsection

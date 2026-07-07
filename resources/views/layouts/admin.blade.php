@@ -6,8 +6,9 @@
     <title>@yield('title', 'Admin - Helpdesk Diskominfo')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         body{
@@ -25,6 +26,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
             text-decoration:none;
             display:block;
             padding:12px 20px;
+            transition:.3s;
         }
 
         .sidebar a:hover{
@@ -35,6 +37,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
             flex:1;
         }
     </style>
+
+    @stack('styles')
 </head>
 <body>
 
@@ -48,19 +52,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
         </h4>
 
         <a href="{{ route('admin.dashboard') }}">
+            <i class="bi bi-speedometer2 me-2"></i>
             Dashboard
         </a>
 
         <a href="{{ route('admin.ticket.index') }}">
+            <i class="bi bi-ticket-perforated me-2"></i>
             Kelola Tiket
         </a>
 
         <a href="{{ route('admin.service.index') }}">
+            <i class="bi bi-tools me-2"></i>
             Kelola Layanan
         </a>
 
         <a href="{{ route('admin.user.index') }}">
+            <i class="bi bi-people me-2"></i>
             Data User
+        </a>
+
+        <!-- Menu Baru -->
+        <a href="{{ route('admin.profile') }}">
+            <i class="bi bi-person-circle me-2"></i>
+            Edit Profil
         </a>
 
     </div>
@@ -79,6 +93,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="btn btn-danger btn-sm">
+                    <i class="bi bi-box-arrow-right"></i>
                     Logout
                 </button>
             </form>
@@ -94,6 +109,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+@stack('scripts')
 
 </body>
 </html>

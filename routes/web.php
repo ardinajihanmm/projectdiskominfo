@@ -90,36 +90,44 @@ Route::middleware(['auth','role:admin'])
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard',[AdminDashboard::class,'index'])
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])
             ->name('dashboard');
 
-        Route::resource('ticket',AdminTicket::class)
+        // Ticket
+        Route::resource('ticket', AdminTicket::class)
             ->names('ticket');
-            
+
         Route::get('/ticket/export/pdf',
-            [AdminTicket::class,'exportPdf'])
+            [AdminTicket::class, 'exportPdf'])
             ->name('ticket.export.pdf');
 
         Route::get('/ticket/export/excel',
-            [AdminTicket::class,'exportExcel'])
+            [AdminTicket::class, 'exportExcel'])
             ->name('ticket.export.excel');
 
-        Route::resource('service',ServiceController::class)
+        Route::put('/ticket/{ticket}/assign',
+            [AdminTicket::class, 'assign'])
+            ->name('ticket.assign');
+
+        // Service
+        Route::resource('service', ServiceController::class)
             ->names('service');
 
-        Route::resource('user',UserController::class)
+        // User
+        Route::resource('user', UserController::class)
             ->names('user');
 
-        Route::put('/ticket/{ticket}/assign',
-            [AdminTicket::class,'assign'])
-            ->name('ticket.assign');
-       Route::get('/profile', [AdminProfileController::class, 'index'])
+        // Profile
+        Route::get('/profile', [AdminProfileController::class, 'index'])
             ->name('profile');
 
         Route::put('/profile', [AdminProfileController::class, 'update'])
             ->name('profile.update');
-});
 
+        Route::put('/password', [AdminProfileController::class, 'password'])
+            ->name('password.update');
+
+    });
 /*
 |--------------------------------------------------------------------------
 | STAFF

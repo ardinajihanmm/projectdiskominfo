@@ -35,10 +35,10 @@ class Ticket extends Model
         return $this->belongsTo(User::class, 'staff_id');
     }
 
-    public function attachment()
-    {
-        return $this->hasOne(Attachment::class);
-    }
+    public function attachments()
+{
+    return $this->hasMany(Attachment::class);
+}
 
     public function comments()
     {

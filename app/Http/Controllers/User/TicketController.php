@@ -51,7 +51,7 @@ class TicketController extends Controller
             Attachment::create([
                 'ticket_id' => $ticket->id,
                 'nama_file' => $request->file('lampiran')->getClientOriginalName(),
-                'file_path' => $path,
+                'path_file' => $path,
             ]);
         }
 

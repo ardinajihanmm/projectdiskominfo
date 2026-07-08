@@ -68,7 +68,7 @@
 
                         @if($ticket->attachment)
 
-                            <a href="{{ asset('storage/'.$ticket->attachment->file_path) }}"
+                            <a href="{{ asset('storage/'.$ticket->attachment->path_file) }}"
                                target="_blank"
                                class="btn btn-info btn-sm">
 

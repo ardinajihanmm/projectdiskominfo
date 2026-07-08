@@ -23,7 +23,7 @@ class TicketController extends Controller
             'user',
             'service',
             'comments.user',
-            'attachment',
+            'attachments',
             'comments.user'
         ])->findOrFail($id);
 

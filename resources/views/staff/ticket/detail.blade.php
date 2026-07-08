@@ -114,31 +114,37 @@
                         </tr>
 
                         <tr>
-                            <th>Lampiran</th>
+    <th>Lampiran</th>
 
-                            <td>
+    <td>
 
-                                @if($ticket->attachment)
+        @if($ticket->attachments->count())
 
-                                    <a href="{{ asset('storage/'.$ticket->attachment->file_path) }}"
-                                       class="btn btn-info btn-sm"
-                                       target="_blank">
+            @foreach($ticket->attachments as $file)
 
-                                        <i class="bi bi-paperclip"></i>
-                                        Lihat Lampiran
+                <a href="{{ asset('storage/'.$file->path_file) }}"
+                   class="btn btn-info btn-sm mb-2"
+                   target="_blank">
 
-                                    </a>
+                    <i class="bi bi-paperclip"></i>
+                    {{ $file->nama_file }}
 
-                                @else
+                </a>
 
-                                    Tidak ada lampiran
+                <br>
 
-                                @endif
+            @endforeach
 
-                            </td>
+        @else
 
-                        </tr>
+            <span class="text-muted">
+                Tidak ada lampiran
+            </span>
 
+        @endif
+
+    </td>
+</tr>
                     </table>
 
                 </div>

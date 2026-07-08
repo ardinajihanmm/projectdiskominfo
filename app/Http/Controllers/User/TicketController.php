@@ -55,44 +55,23 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect('/user/ticket/history')
+        return redirect()->route('user.ticket.history')
             ->with('success', 'Pengajuan tiket berhasil dibuat.');
     }
 
     /**
      * Riwayat tiket user
      */
-    public function history(Request $request)
-{
-    $query = Ticket::with('service')
-        ->where('user_id', Auth::id());
+    public function history()
+    {
+        $tickets = Ticket::with('service')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
 
-    // Search
-    if ($request->filled('search')) {
-
-        $query->where(function ($q) use ($request) {
-
-            $q->where('judul', 'like', '%' . $request->search . '%')
-              ->orWhere('kode_ticket', 'like', '%' . $request->search . '%');
-
-        });
-
+        return view('user.ticket.history', compact('tickets'));
     }
 
-    // Filter Status
-    if ($request->filled('status')) {
-
-        $query->where('status', $request->status);
-
-    }
-
-    $tickets = $query
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
-
-    return view('user.ticket.history', compact('tickets'));
-}
     /**
      * Detail tiket
      */

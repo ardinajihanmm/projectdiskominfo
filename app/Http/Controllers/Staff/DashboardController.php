@@ -13,23 +13,33 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // Statistik
         $total = Ticket::count();
 
         $todo = Ticket::where('status', 'To Do')->count();
         $progress = Ticket::where('status', 'In Progress')->count();
         $completed = Ticket::where('status', 'Completed')->count();
 
-        $recent = Ticket::with(['user', 'service'])
+        // 5 tiket terbaru
+        $recent = Ticket::with(['user','service'])
             ->latest()
             ->take(5)
             ->get();
 
+        // Timeline aktivitas
+        $activities = Ticket::latest('updated_at')
+            ->take(5)
+            ->get();
+
+        $percent = $total > 0 ? round(($completed / $total) * 100) : 0;
+        
         return view('staff.dashboard', compact(
             'total',
             'todo',
             'progress',
             'completed',
-            'recent'
+            'recent',
+            'percent'
         ));
     }
 

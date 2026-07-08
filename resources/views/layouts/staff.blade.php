@@ -9,9 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body{
+
+        *{
             margin:0;
-            background:#f5f6fa;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            background:#f5f7fb;
+            font-family:'Segoe UI',sans-serif;
         }
 
         .wrapper{
@@ -19,36 +26,127 @@
             min-height:100vh;
         }
 
+        /* ================= SIDEBAR ================= */
+
         .sidebar{
-            width:260px;
-            background:#0d6efd;
+            width:280px;
+            background:#2563eb;
             color:#fff;
-            flex-shrink:0;
+            display:flex;
+            flex-direction:column;
+            padding:30px 20px;
         }
 
-        .sidebar h4{
-            padding:25px;
+        .logo{
             text-align:center;
+            margin-bottom:30px;
         }
 
-        .sidebar a{
+        .logo i{
+            font-size:42px;
+        }
+
+        .logo h3{
+            margin-top:12px;
+            font-weight:700;
+        }
+
+        .avatar{
+            width:95px;
+            height:95px;
+            border-radius:50%;
+            background:#eef4ff;
+            color:#2563eb;
+            border:4px solid rgba(255,255,255,.4);
+            margin:auto;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:38px;
+            font-weight:bold;
+        }
+
+        .profile{
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .profile small{
             display:block;
-            color:#fff;
-            text-decoration:none;
-            padding:14px 25px;
+            margin-top:10px;
+            font-weight:600;
         }
 
-        .sidebar a:hover{
-            background:rgba(255,255,255,.15);
+        .profile p{
+            margin:0;
+            font-size:18px;
         }
+
+        .menu{
+            flex:1;
+        }
+
+        .menu a{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            color:white;
+            text-decoration:none;
+            padding:16px 20px;
+            border-radius:16px;
+            margin-bottom:12px;
+            transition:.3s;
+            font-size:16px;
+        }
+
+        .menu a:hover{
+            background:#1d4ed8;
+        }
+
+        .menu a.active{
+            background:#2945b8;
+            font-weight:600;
+        }
+
+        .menu i{
+            font-size:20px;
+        }
+
+        .logout{
+            margin-top:auto;
+        }
+
+        .logout button{
+            width:100%;
+            border:none;
+            background:#ef4444;
+            color:white;
+            padding:14px;
+            border-radius:12px;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .logout button:hover{
+            background:#dc2626;
+        }
+
+        /* ================= CONTENT ================= */
 
         .main{
             flex:1;
         }
 
-        .content{
-            padding:25px;
+        .navbar{
+            background:white;
+            padding:18px 30px;
+            box-shadow:0 3px 12px rgba(0,0,0,.08);
         }
+
+        .content{
+            padding:30px;
+        }
+
     </style>
 
 </head>
@@ -58,52 +156,143 @@
 <div class="wrapper">
 
     <!-- Sidebar -->
+
     <div class="sidebar">
 
-        <h4>Helpdesk</h4>
+        <div class="logo">
 
-        <a href="{{ route('staff.dashboard') }}">
-            <i class="bi bi-speedometer2"></i>
-            Dashboard
-        </a>
+            <i class="bi bi-headset"></i>
 
-        <a href="{{ route('staff.kanban') }}">
-            <i class="bi bi-kanban-fill"></i>
-            Kanban Board
-        </a>
+            <h3>Portal Layanan TIK</h3>
 
-        <a href="{{ route('staff.activity') }}">
-            <i class="bi bi-clock-history"></i>
-            Timeline Aktivitas
-        </a>
+        </div>
 
-        <a href="{{ route('staff.profile') }}">
-            <i class="bi bi-person-circle"></i>
-            Edit Profil
-        </a>
+        <div class="profile">
 
-        <a href="{{ route('staff.profile') }}#password">
-            <i class="bi bi-shield-lock"></i>
-            Ganti Password
-        </a>
+            <div class="avatar">
 
-    </div>
-    <!-- Main -->
-    <div class="main">
+                {{ strtoupper(substr(Auth::user()->name,0,2)) }}
 
-        <nav class="navbar navbar-light bg-white shadow-sm px-4">
+            </div>
 
-            <span>
-                Selamat Datang,
-                <strong>{{ Auth::user()->name }}</strong>
-            </span>
+            <small>
+
+                {{ Auth::user()->username ?? 'staff' }}
+
+            </small>
+
+            <p>
+
+                {{ Auth::user()->name }}
+
+            </p>
+
+        </div>
+
+        <div class="menu">
+
+            <a href="{{ route('staff.dashboard') }}"
+               class="{{ request()->routeIs('staff.dashboard') ? 'active' : '' }}">
+
+                <i class="bi bi-speedometer2"></i>
+
+                Dashboard
+
+            </a>
+
+            <a href="{{ route('staff.kanban') }}"
+               class="{{ request()->routeIs('staff.kanban') ? 'active' : '' }}">
+
+                <i class="bi bi-kanban-fill"></i>
+
+                Kanban Board
+
+            </a>
+
+            <a href="{{ route('staff.ticket.index') }}"
+               class="{{ request()->routeIs('staff.ticket.*') ? 'active' : '' }}">
+
+                <i class="bi bi-ticket-detailed-fill"></i>
+
+                Daftar Tiket
+
+            </a>
+
+            <a href="{{ route('staff.profile') }}"
+               class="{{ request()->routeIs('staff.profile*') ? 'active' : '' }}">
+
+                <i class="bi bi-person-circle"></i>
+
+                Profil
+
+            </a>
+
+        </div>
+
+        <div class="logout">
 
             <form action="{{ route('logout') }}" method="POST">
+
                 @csrf
-                <button class="btn btn-danger btn-sm">
+
+                <button type="submit">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
                     Logout
+
                 </button>
+
             </form>
+
+        </div>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <nav class="navbar bg-white shadow-sm px-4">
+
+            <h5 class="mb-0 fw-bold">
+                @yield('title','Dashboard')
+            </h5>
+
+            <div class="d-flex align-items-center ms-auto">
+
+                {{-- NOTIF --}}
+                <button
+                    class="btn position-relative me-3"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#notifCanvas">
+
+                    <i class="bi bi-bell fs-4"></i>
+
+                    @if(isset($notificationCount) && $notificationCount>0)
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            {{ $notificationCount }}
+
+                        </span>
+                    @endif
+
+                </button>
+
+                {{-- USER --}}
+                <div class="text-end">
+
+                    <strong>{{ Auth::user()->name }}</strong>
+                    <br>
+
+                    <small class="text-muted">
+                        {{ ucfirst(Auth::user()->role) }}
+                    </small>
+
+                </div>
+
+            </div>
 
         </nav>
 
@@ -118,6 +307,78 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="notifCanvas">
 
+        <div class="offcanvas-header">
+
+            <h5>
+                <i class="bi bi-bell-fill"></i>
+                Notifikasi
+            </h5>
+
+            <button
+                class="btn-close"
+                data-bs-dismiss="offcanvas">
+            </button>
+
+        </div>
+
+        <div class="offcanvas-body">
+
+            @forelse($notifications ?? [] as $notif)
+
+            <div class="d-flex mb-4">
+
+                <div class="me-3">
+
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center"
+                        style="width:50px;height:50px">
+
+                        <i class="bi bi-arrow-repeat text-primary fs-4"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="flex-grow-1">
+
+                    <strong>{{ $notif->judul }}</strong>
+
+                    <div class="text-muted">
+
+                        {{ $notif->pesan }}
+
+                    </div>
+
+                    <small class="text-secondary">
+
+                        {{ $notif->created_at->diffForHumans() }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            @empty
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-bell-slash fs-1 text-muted"></i>
+
+                <p class="mt-3 text-muted">
+                    Belum ada notifikasi.
+                </p>
+
+            </div>
+
+            @endforelse
+        </div>
+
+    </div>
 </body>
 </html>

@@ -37,9 +37,7 @@
         <div class="card shadow-sm border-start border-5 border-warning">
             <div class="card-body">
                 <small class="text-muted">To Do</small>
-                <h2 class="fw-bold text-warning">
-                    {{ $todo }}
-                </h2>
+                <h2 class="fw-bold text-warning">{{ $todo }}</h2>
             </div>
         </div>
     </div>
@@ -48,9 +46,7 @@
         <div class="card shadow-sm border-start border-5 border-info">
             <div class="card-body">
                 <small class="text-muted">In Progress</small>
-                <h2 class="fw-bold text-info">
-                    {{ $progress }}
-                </h2>
+                <h2 class="fw-bold text-info">{{ $progress }}</h2>
             </div>
         </div>
     </div>
@@ -59,149 +55,227 @@
         <div class="card shadow-sm border-start border-5 border-success">
             <div class="card-body">
                 <small class="text-muted">Completed</small>
-                <h2 class="fw-bold text-success">
-                    {{ $completed }}
-                </h2>
+                <h2 class="fw-bold text-success">{{ $completed }}</h2>
             </div>
         </div>
     </div>
 
 </div>
 
-{{-- Tiket Terbaru --}}
-<div class="card shadow-sm">
+<div class="row">
 
-    <div class="card-header bg-white">
+    {{-- KIRI --}}
+    <div class="col-lg-8">
 
-        <h5 class="mb-0">
-            <i class="bi bi-clock-history"></i>
-            5 Tiket Terbaru
-        </h5>
+        {{-- Progress --}}
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-white">
+                <i class="bi bi-bar-chart-line-fill text-success"></i>
+                Progress Penyelesaian
+            </div>
+
+            <div class="card-body">
+
+                <div class="progress mb-2" style="height:22px">
+
+                    <div class="progress-bar bg-success"
+                        style="width:{{ $percent }}%">
+
+                        {{ $percent }}%
+
+                    </div>
+
+                </div>
+
+                <small class="text-muted">
+                    {{ $completed }} dari {{ $total }} tiket telah selesai.
+                </small>
+
+            </div>
+
+        </div>
+
+        {{-- Tiket Terbaru --}}
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <i class="bi bi-clock-history"></i>
+                5 Tiket Terbaru
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-light">
+
+                        <tr>
+                            <th>Kode</th>
+                            <th>Judul</th>
+                            <th>Pelapor</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        @forelse($recent as $ticket)
+
+                            <tr>
+
+                                <td>{{ $ticket->kode_ticket }}</td>
+
+                                <td>{{ $ticket->judul }}</td>
+
+                                <td>{{ $ticket->user->name }}</td>
+
+                                <td>
+
+                                    @if($ticket->status=='To Do')
+                                        <span class="badge bg-warning text-dark">To Do</span>
+                                    @elseif($ticket->status=='In Progress')
+                                        <span class="badge bg-info">In Progress</span>
+                                    @else
+                                        <span class="badge bg-success">Completed</span>
+                                    @endif
+
+                                </td>
+
+                                <td>
+
+                                    <a href="{{ route('staff.ticket.show',$ticket->id) }}"
+                                        class="btn btn-sm btn-primary">
+
+                                        <i class="bi bi-eye-fill"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="5" class="text-center text-muted">
+
+                                    Belum ada tiket.
+
+                                </td>
+
+                            </tr>
+
+                        @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="card-body">
+    {{-- KANAN --}}
+    <div class="col-lg-4">
 
-        <div class="table-responsive">
+        {{-- Quick Action --}}
+        <div class="card shadow-sm mb-4">
 
-            <table class="table table-hover align-middle">
+            <div class="card-header bg-white">
 
-                <thead class="table-light">
+                <i class="bi bi-lightning-charge-fill text-primary"></i>
 
-                <tr>
-                    <th>Kode</th>
-                    <th>Judul</th>
-                    <th>Pelapor</th>
-                    <th>Layanan</th>
-                    <th>Prioritas</th>
-                    <th>Status</th>
-                    <th width="120">Aksi</th>
-                </tr>
+                Aksi Cepat
 
-                </thead>
+            </div>
 
-                <tbody>
+            <div class="card-body d-grid gap-2">
 
-                @forelse($recent as $ticket)
+                <a href="{{ route('staff.kanban') }}" class="btn btn-primary">
 
-                    <tr>
+                    <i class="bi bi-kanban-fill"></i>
 
-                        <td>
-                            {{ $ticket->kode_ticket }}
-                        </td>
+                    Kanban Board
 
-                        <td>
-                            {{ $ticket->judul }}
-                        </td>
+                </a>
 
-                        <td>
-                            {{ $ticket->user->name }}
-                        </td>
+                <a href="{{ route('staff.ticket.index') }}" class="btn btn-success">
 
-                        <td>
-                            {{ $ticket->service->nama_layanan }}
-                        </td>
+                    <i class="bi bi-ticket-detailed-fill"></i>
 
-                        <td>
+                    Daftar Tiket
 
-                            @if($ticket->prioritas=='Tinggi')
+                </a>
 
-                                <span class="badge bg-danger">
-                                    Tinggi
-                                </span>
+            </div>
 
-                            @elseif($ticket->prioritas=='Sedang')
+        </div>
 
-                                <span class="badge bg-warning text-dark">
-                                    Sedang
-                                </span>
+        {{-- Timeline --}}
+        <div class="card shadow-sm">
 
+            <div class="card-header bg-white">
+
+                <i class="bi bi-clock-history text-primary"></i>
+
+                Timeline Aktivitas
+
+            </div>
+
+            <div class="card-body">
+
+                @foreach($recent as $ticket)
+
+                    <div class="d-flex mb-4">
+
+                        <div class="me-3">
+
+                            @if($ticket->status=="Completed")
+                                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                            @elseif($ticket->status=="In Progress")
+                                <i class="bi bi-arrow-repeat text-info fs-5"></i>
                             @else
-
-                                <span class="badge bg-success">
-                                    Rendah
-                                </span>
-
+                                <i class="bi bi-hourglass-split text-warning fs-5"></i>
                             @endif
 
-                        </td>
+                        </div>
 
-                        <td>
+                        <div>
 
-                            @if($ticket->status=='To Do')
+                            <strong>{{ $ticket->kode_ticket }}</strong>
 
-                                <span class="badge bg-warning">
-                                    To Do
-                                </span>
+                            <br>
 
-                            @elseif($ticket->status=='In Progress')
+                            <small>
+                                Status menjadi
+                                <b>{{ $ticket->status }}</b>
+                            </small>
 
-                                <span class="badge bg-info">
-                                    In Progress
-                                </span>
+                            <br>
 
-                            @else
+                            <small class="text-muted">
+                                {{ $ticket->updated_at->diffForHumans() }}
+                            </small>
 
-                                <span class="badge bg-success">
-                                    Completed
-                                </span>
+                        </div>
 
-                            @endif
+                    </div>
 
-                        </td>
+                @endforeach
 
-                        <td>
-
-                            <a
-                                href="{{ route('staff.ticket.show',$ticket->id) }}"
-                                class="btn btn-sm btn-primary">
-
-                                <i class="bi bi-eye-fill"></i>
-                                Detail
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                @empty
-
-                    <tr>
-
-                        <td colspan="7" class="text-center text-muted">
-
-                            Belum ada tiket.
-
-                        </td>
-
-                    </tr>
-
-                @endforelse
-
-                </tbody>
-
-            </table>
+            </div>
 
         </div>
 

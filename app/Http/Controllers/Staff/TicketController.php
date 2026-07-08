@@ -55,11 +55,8 @@ class TicketController extends Controller
         return view('staff.ticket.detail', compact('ticket'));
 
     }
-
-    public function updateStatus(Request $request, $id)
-{
-    try {
-
+  public function update(Request $request, $id)
+    {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed'
         ]);
@@ -68,36 +65,25 @@ class TicketController extends Controller
 
         $ticket->status = $request->status;
 
-        if($request->status == 'In Progress'){
+        if ($request->status == 'In Progress') {
             $ticket->started_at = now();
         }
 
-        if($request->status == 'Completed'){
+        if ($request->status == 'Completed') {
             $ticket->completed_at = now();
         }
 
         $ticket->save();
+
         Notification::create([
-    'user_id'   => $ticket->user_id,
-    'ticket_id' => $ticket->id,
-    'judul'     => 'Status Tiket',
-    'pesan'     => 'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
-    'is_read'   => false,
-]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Status berhasil diubah'
+            'user_id'   => $ticket->user_id,
+            'ticket_id' => $ticket->id,
+            'judul'     => 'Status Tiket',
+            'pesan'     => 'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
+            'is_read'   => false,
         ]);
-
-    } catch (\Exception $e) {
-
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage()
-        ],500);
-
+        return redirect()
+            ->route('staff.ticket.index')
+            ->with('success', 'Status tiket berhasil diperbarui.');
     }
-}
-
 }

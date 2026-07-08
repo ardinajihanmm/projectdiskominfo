@@ -159,29 +159,22 @@ Route::middleware(['auth','role:staff'])
         Route::resource('ticket',StaffTicket::class)
             ->names('ticket');
 
-        // Update status
-        Route::put('/ticket/{id}/status',
-            [StaffTicket::class,'updateStatus'])
-            ->name('ticket.status');
+        // Ticket
+        Route::resource('ticket', StaffTicket::class)
+            ->names('ticket');
 
         // Komentar
         Route::post('/comment',
             [CommentController::class,'store'])
             ->name('comment.store');
 
-        // Timeline Aktivitas
-        Route::get('/activity', [ProfileController::class, 'activity'])
-            ->name('activity');
-
         // Edit Profil
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile');
 
-        // Update Profil
-        Route::put('/profile', [ProfileController::class, 'update'])
+        Route::put('/profile/update', [ProfileController::class, 'update'])
             ->name('profile.update');
 
-        // Ganti Password
-        Route::put('/profile/password', [ProfileController::class, 'password'])
+        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
             ->name('profile.password');
     });

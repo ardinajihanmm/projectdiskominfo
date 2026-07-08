@@ -313,10 +313,67 @@
 
 .step-desc{
     color:#6B7280;
-    font-size:14px;
+    font-size:15px;
     line-height:1.6;
     max-width:180px;
     margin:auto;
+}
+.timeline-item{
+    position:relative;
+    padding-left:60px;
+    padding-bottom:25px;
+}
+
+.timeline-item:last-child{
+    padding-bottom:0;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    left:20px;
+    top:42px;
+    width:2px;
+    height:100%;
+    background:#E5E7EB;
+}
+
+.timeline-item:last-child::before{
+    display:none;
+}
+
+.timeline-icon{
+    position:absolute;
+    left:0;
+    top:0;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#EFF6FF;
+    font-size:18px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.timeline-content h6{
+    margin-bottom:4px;
+    font-weight:700;
+}
+
+.timeline-content p{
+    margin-bottom:6px;
+    color:#6B7280;
+    font-size:14px;
+}
+
+.timeline-content small{
+    color:#9CA3AF;
+}
+.timeline-card .card-body{
+    max-height:350px;
+    overflow-y:auto;
 }
 
     </style>

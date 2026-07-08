@@ -340,69 +340,99 @@ Anda dapat mengajukan layanan kapan saja.
 
         @if($latestTicket)
 
-            <h5 class="fw-bold">
+            <h4 class="fw-bold mb-4">
 
                 {{ $latestTicket->judul }}
 
-            </h5>
+            </h4>
 
-            <table class="table table-borderless">
+            <div class="row g-3 mb-4">
 
-                <tr>
+    <div class="col-md-6">
 
-                    <td width="110"><strong>Kode</strong></td>
+        <small class="text-muted d-block">
+            <i class="bi bi-upc-scan text-primary"></i>
+            Kode Tiket
+        </small>
 
-                    <td>{{ $latestTicket->kode_ticket }}</td>
+        <strong>{{ $latestTicket->kode_ticket }}</strong>
 
-                </tr>
+    </div>
 
-                <tr>
+    <div class="col-md-6">
 
-                    <td><strong>Status</strong></td>
+        <small class="text-muted d-block">
+            <i class="bi bi-calendar-event text-success"></i>
+            Tanggal
+        </small>
 
-                    <td>
+        <strong>
+            {{ $latestTicket->created_at->format('d M Y H:i') }}
+        </strong>
 
-                        @if($latestTicket->status=="Completed")
+    </div>
 
-                            <span class="badge bg-success">
-                                Completed
-                            </span>
+    <div class="col-md-6">
 
-                        @elseif($latestTicket->status=="In Progress")
+        <small class="text-muted d-block">
+            <i class="bi bi-list-task text-warning"></i>
+            Status
+        </small>
 
-                            <span class="badge bg-info">
-                                In Progress
-                            </span>
+        @if($latestTicket->status=="Completed")
 
-                        @else
+            <span class="badge bg-success px-3 py-2">
 
-                            <span class="badge bg-warning text-dark">
-                                To Do
-                            </span>
+                <i class="bi bi-check-circle"></i>
 
-                        @endif
+                Completed
 
-                    </td>
+            </span>
 
-                </tr>
+        @elseif($latestTicket->status=="In Progress")
 
-                <tr>
+            <span class="badge bg-info px-3 py-2">
 
-                    <td><strong>Tanggal</strong></td>
+                <i class="bi bi-gear"></i>
 
-                    <td>
+                In Progress
 
-                        {{ $latestTicket->created_at->format('d M Y H:i') }}
+            </span>
 
-                    </td>
+        @else
 
-                </tr>
+            <span class="badge bg-warning text-dark px-3 py-2">
 
-            </table>
+                <i class="bi bi-hourglass-split"></i>
+
+                To Do
+
+            </span>
+
+        @endif
+
+    </div>
+
+    <div class="col-md-6">
+
+        <small class="text-muted d-block">
+            <i class="bi bi-tag text-danger"></i>
+            Layanan
+        </small>
+
+        <strong>
+
+            {{ $latestTicket->service->nama ?? '-' }}
+
+        </strong>
+
+    </div>
+
+</div>
 
             <a
                 href="{{ route('user.ticket.detail',$latestTicket->id) }}"
-                class="btn btn-primary w-100">
+                class="btn btn-outline-primary w-100">
 
                 <i class="bi bi-eye"></i>
 
@@ -439,7 +469,7 @@ Anda dapat mengajukan layanan kapan saja.
 
         <strong>
 
-            <i class="bi bi-clock-history text-primary"></i>
+            <i class="bi bi-activity text-primary"></i>
 
             Timeline Aktivitas
 
@@ -451,67 +481,71 @@ Anda dapat mengajukan layanan kapan saja.
 
         @forelse($activities as $activity)
 
-            <div class="timeline-item">
+<div class="timeline-item">
 
-                <div class="timeline-icon">
+    <div class="timeline-icon">
 
-                    @if(Str::contains($activity->judul,'Komentar'))
+        @if(Str::contains($activity->judul,'Komentar'))
 
-                        <i class="bi bi-chat-dots-fill text-success"></i>
+            <i class="bi bi-chat-dots-fill text-success"></i>
 
-                    @elseif(Str::contains($activity->judul,'Status'))
+        @elseif(Str::contains($activity->judul,'Status'))
 
-                        <i class="bi bi-arrow-repeat text-primary"></i>
+            <i class="bi bi-arrow-repeat text-primary"></i>
 
-                    @else
+        @elseif(Str::contains($activity->judul,'Selesai'))
 
-                        <i class="bi bi-info-circle-fill text-warning"></i>
+            <i class="bi bi-check-circle-fill text-success"></i>
 
-                    @endif
+        @else
 
-                </div>
+            <i class="bi bi-info-circle-fill text-warning"></i>
 
-                <div class="timeline-content">
+        @endif
 
-                    <h6>
+    </div>
 
-                        {{ $activity->judul }}
+    <div class="timeline-content">
 
-                    </h6>
+        <h6>
 
-                    <p>
+            {{ $activity->judul }}
 
-                        {{ $activity->pesan }}
+        </h6>
 
-                    </p>
+        <p>
 
-                    <small class="text-muted">
+            {{ $activity->pesan }}
 
-                        <i class="bi bi-clock"></i>
+        </p>
 
-                        {{ $activity->created_at->diffForHumans() }}
+        <small>
 
-                    </small>
+            <i class="bi bi-clock-history"></i>
 
-                </div>
+            {{ $activity->created_at->diffForHumans() }}
 
-            </div>
+        </small>
 
-        @empty
+    </div>
 
-            <div class="text-center py-4">
+</div>
 
-                <i class="bi bi-clock-history fs-1 text-secondary"></i>
+@empty
 
-                <p class="mt-3 text-muted">
+<div class="text-center py-5">
 
-                    Belum ada aktivitas.
+    <i class="bi bi-clock-history fs-1 text-secondary"></i>
 
-                </p>
+    <p class="mt-3 text-muted">
 
-            </div>
+        Belum ada aktivitas.
 
-                @endforelse
+    </p>
+
+</div>
+
+@endforelse
 
     </div> {{-- card-body --}}
 

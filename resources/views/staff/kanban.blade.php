@@ -2,214 +2,228 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container-fluid">
 
-    <div>
-        <h2 class="fw-bold">
-            <i class="bi bi-kanban-fill"></i>
-            Kanban Board
-        </h2>
-        <small class="text-muted">
-            Kelola status tiket dengan drag & drop
-        </small>
-    </div>
-<form action="{{ route('staff.kanban') }}" method="GET" class="mb-4">
+    {{-- Header --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <div class="input-group">
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-kanban-fill text-primary"></i>
+                Kanban Board
+            </h2>
+            <small class="text-muted">
+                Kelola status tiket dengan drag & drop
+            </small>
+        </div>
 
-        <span class="input-group-text bg-primary text-white">
-            <i class="bi bi-search"></i>
-        </span>
-
-        <input
-            type="text"
-            name="search"
-            class="form-control"
-            placeholder="Cari kode tiket, judul, atau nama pelapor..."
-            value="{{ $search ?? '' }}">
-
-        <button class="btn btn-primary">
-            Cari
-        </button>
-
-        @if(!empty($search))
-            <a href="{{ route('staff.kanban') }}"
-               class="btn btn-outline-secondary">
-                Reset
-            </a>
-        @endif
+        <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Dashboard
+        </a>
 
     </div>
 
-</form>
-    <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
-        <i class="bi bi-arrow-left"></i>
-        Dashboard
-    </a>
+    {{-- Search --}}
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
 
-</div>
+            <form action="{{ route('staff.kanban') }}" method="GET">
 
-<div class="row">
+                <div class="row g-3">
 
-@php
+                    <div class="col-lg-6">
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Cari kode tiket, judul, atau pelapor..."
+                            value="{{ $search ?? '' }}">
+                    </div>
 
-$columns = [
+                    <div class="col-lg-3">
+                        <select class="form-select" name="status">
+                            <option value="">Semua Status</option>
 
-[
-'title'=>'To Do',
-'status'=>'To Do',
-'color'=>'warning',
-'icon'=>'bi-list-task',
-'data'=>$todo
-],
+                            <option value="To Do"
+                                {{ request('status')=='To Do' ? 'selected' : '' }}>
+                                To Do
+                            </option>
 
-[
-'title'=>'In Progress',
-'status'=>'In Progress',
-'color'=>'info',
-'icon'=>'bi-arrow-repeat',
-'data'=>$progress
-],
+                            <option value="In Progress"
+                                {{ request('status')=='In Progress' ? 'selected' : '' }}>
+                                In Progress
+                            </option>
 
-[
-'title'=>'Completed',
-'status'=>'Completed',
-'color'=>'success',
-'icon'=>'bi-check-circle-fill',
-'data'=>$completed
-]
+                            <option value="Completed"
+                                {{ request('status')=='Completed' ? 'selected' : '' }}>
+                                Completed
+                            </option>
 
-];
+                        </select>
+                    </div>
 
-@endphp
+                    <div class="col-lg-3 d-grid">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-search"></i>
+                            Cari
+                        </button>
+                    </div>
 
-@foreach($columns as $column)
+                </div>
 
-<div class="col-lg-4 mb-4">
+            </form>
 
-<div class="card shadow">
+        </div>
+    </div>
 
-<div class="card-header bg-{{ $column['color'] }} {{ $column['color']=='warning' ? '' : 'text-white' }}">
+    {{-- Kolom Kanban --}}
+    <div class="row">
 
-<strong>
+        @php
 
-<i class="bi {{ $column['icon'] }}"></i>
+        $columns = [
 
-{{ $column['title'] }}
+        [
+        'title'=>'To Do',
+        'status'=>'To Do',
+        'color'=>'warning',
+        'icon'=>'bi-list-task',
+        'data'=>$todo
+        ],
 
-({{ $column['data']->count() }})
+        [
+        'title'=>'In Progress',
+        'status'=>'In Progress',
+        'color'=>'info',
+        'icon'=>'bi-arrow-repeat',
+        'data'=>$progress
+        ],
 
-</strong>
+        [
+        'title'=>'Completed',
+        'status'=>'Completed',
+        'color'=>'success',
+        'icon'=>'bi-check-circle-fill',
+        'data'=>$completed
+        ]
 
-</div>
+        ];
 
-<div
-class="card-body ticket-column"
-data-status="{{ $column['status'] }}"
-style="min-height:600px">
+        @endphp
 
-@forelse($column['data'] as $ticket)
+        @foreach($columns as $column)
 
-<div
-class="card mb-3 shadow-sm ticket-card"
-data-id="{{ $ticket->id }}"
-style="cursor:move">
+        <div class="col-lg-4">
 
-<div class="card-body">
+            <div class="card shadow border-0">
 
-<h6 class="fw-bold">
+                <div class="card-header bg-{{ $column['color'] }} {{ $column['color']=='warning' ? '' : 'text-white' }}">
 
-{{ $ticket->judul }}
+                    <strong>
+                        <i class="bi {{ $column['icon'] }}"></i>
+                        {{ $column['title'] }}
+                        ({{ $column['data']->count() }})
+                    </strong>
 
-</h6>
+                </div>
 
-<small class="text-muted">
+                <div
+                    class="card-body ticket-column bg-light"
+                    data-status="{{ $column['status'] }}"
+                    style="min-height:650px">
 
-{{ $ticket->kode_ticket }}
+                    @forelse($column['data'] as $ticket)
 
-</small>
+                    <div
+                        class="card mb-3 shadow-sm ticket-card"
+                        data-id="{{ $ticket->id }}"
+                        style="cursor:grab;border-radius:12px;">
 
-<hr>
+                        <div class="card-body">
 
-<p class="mb-2">
+                            <h6 class="fw-bold mb-1">
+                                {{ $ticket->judul }}
+                            </h6>
 
-<strong>Pelapor</strong><br>
+                            <small class="text-muted">
+                                {{ $ticket->kode_ticket }}
+                            </small>
 
-{{ $ticket->user->name }}
+                            <hr>
 
-</p>
+                            <div class="mb-2">
+                                <small class="text-muted">Pelapor</small><br>
+                                <strong>{{ $ticket->user->name }}</strong>
+                            </div>
 
-<p class="mb-2">
+                            <div class="mb-2">
+                                <small class="text-muted">Layanan</small><br>
+                                {{ $ticket->service->nama_layanan }}
+                            </div>
 
-<strong>Layanan</strong><br>
+                            <div class="mb-2">
 
-{{ $ticket->service->nama_layanan }}
+                                @if($ticket->prioritas=='Tinggi')
 
-</p>
+                                <span class="badge bg-danger">
+                                    Tinggi
+                                </span>
 
-<p class="mb-2">
+                                @elseif($ticket->prioritas=='Sedang')
 
-<strong>Prioritas</strong><br>
+                                <span class="badge bg-warning text-dark">
+                                    Sedang
+                                </span>
 
-@if($ticket->prioritas=='Tinggi')
+                                @else
 
-<span class="badge bg-danger">Tinggi</span>
+                                <span class="badge bg-success">
+                                    Rendah
+                                </span>
 
-@elseif($ticket->prioritas=='Sedang')
+                                @endif
 
-<span class="badge bg-warning text-dark">Sedang</span>
+                            </div>
 
-@else
+                            <small class="text-muted d-block mb-3">
+                                {{ $ticket->created_at->diffForHumans() }}
+                            </small>
 
-<span class="badge bg-success">Rendah</span>
+                            <div class="d-grid">
 
-@endif
+                                <a
+                                    href="{{ route('staff.ticket.show',$ticket->id) }}"
+                                    class="btn btn-primary btn-sm">
 
-</p>
+                                    <i class="bi bi-eye"></i>
+                                    Detail Tiket
 
-<p class="mb-2">
+                                </a>
 
-<strong>Dibuat</strong><br>
+                            </div>
 
-{{ $ticket->created_at->diffForHumans() }}
+                        </div>
 
-</p>
+                    </div>
 
-<div class="d-grid">
+                    @empty
 
-<a
-href="{{ route('staff.ticket.show',$ticket->id) }}"
-class="btn btn-primary btn-sm">
+                    <div class="alert alert-light text-center">
+                        Belum ada tiket.
+                    </div>
 
-<i class="bi bi-eye-fill"></i>
+                    @endforelse
 
-Detail Tiket
+                </div>
 
-</a>
+            </div>
 
-</div>
+        </div>
 
-</div>
+        @endforeach
 
-</div>
-
-@empty
-
-<div class="alert alert-light text-center">
-
-Belum ada tiket.
-
-</div>
-
-@endforelse
-
-</div>
-
-</div>
-
-</div>
-
-@endforeach
+    </div>
 
 </div>
 
@@ -218,29 +232,33 @@ Belum ada tiket.
 <script>
 document.querySelectorAll('.ticket-column').forEach(column => {
 
-    new Sortable(column, {
-        group: 'tickets',
-        animation: 200,
-        ghostClass: 'bg-light',
+    new Sortable(column,{
+        group:'tickets',
+        animation:200,
 
-        onEnd: function (evt) {
+        onEnd:function(evt){
 
-            let ticketId = evt.item.dataset.id;
-            let status = evt.to.dataset.status;
+            let ticketId=evt.item.dataset.id;
+            let status=evt.to.dataset.status;
 
-            fetch('/staff/ticket/' + ticketId + '/status', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            fetch('/staff/ticket/'+ticketId+'/status',{
+
+                method:'PUT',
+
+                headers:{
+                    'Content-Type':'application/json',
+                    'Accept':'application/json',
+                    'X-CSRF-TOKEN':'{{ csrf_token() }}'
                 },
-                body: JSON.stringify({
-                    status: status
+
+                body:JSON.stringify({
+                    status:status
                 })
+
             })
-            .then(response => response.json())
-            .then(data => {
+
+            .then(res=>res.json())
+            .then(data=>{
 
                 if(data.success){
                     location.reload();
@@ -249,11 +267,6 @@ document.querySelectorAll('.ticket-column').forEach(column => {
                     location.reload();
                 }
 
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Terjadi kesalahan');
-                location.reload();
             });
 
         }

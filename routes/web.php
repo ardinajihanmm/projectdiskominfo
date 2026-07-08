@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 // Staff
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
 use App\Http\Controllers\Staff\CommentController;
+use App\Http\Controllers\Staff\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,4 +169,19 @@ Route::middleware(['auth','role:staff'])
             [CommentController::class,'store'])
             ->name('comment.store');
 
+        // Timeline Aktivitas
+        Route::get('/activity', [ProfileController::class, 'activity'])
+            ->name('activity');
+
+        // Edit Profil
+        Route::get('/profile', [ProfileController::class, 'edit'])
+            ->name('profile');
+
+        // Update Profil
+        Route::put('/profile', [ProfileController::class, 'update'])
+            ->name('profile.update');
+
+        // Ganti Password
+        Route::put('/profile/password', [ProfileController::class, 'password'])
+            ->name('profile.password');
     });

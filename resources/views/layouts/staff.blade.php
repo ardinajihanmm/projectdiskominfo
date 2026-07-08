@@ -63,17 +63,31 @@
         <h4>Helpdesk</h4>
 
         <a href="{{ route('staff.dashboard') }}">
-           <i class="bi bi-speedometer2"></i>
-           Dashboard
+            <i class="bi bi-speedometer2"></i>
+            Dashboard
         </a>
 
         <a href="{{ route('staff.kanban') }}">
-          <i class="bi bi-kanban-fill"></i>
+            <i class="bi bi-kanban-fill"></i>
             Kanban Board
         </a>
 
-    </div>
+        <a href="{{ route('staff.activity') }}">
+            <i class="bi bi-clock-history"></i>
+            Timeline Aktivitas
+        </a>
 
+        <a href="{{ route('staff.profile') }}">
+            <i class="bi bi-person-circle"></i>
+            Edit Profil
+        </a>
+
+        <a href="{{ route('staff.profile') }}#password">
+            <i class="bi bi-shield-lock"></i>
+            Ganti Password
+        </a>
+
+    </div>
     <!-- Main -->
     <div class="main">
 

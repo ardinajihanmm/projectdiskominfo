@@ -196,54 +196,79 @@
 }
 
 .notification-icon{
-
     width:48px;
-
     height:48px;
-
     border-radius:50%;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     background:#EFF6FF;
-
     font-size:22px;
-
     flex-shrink:0;
-
 }
 
 .notification-card h6{
-
     margin:0;
-
     font-weight:700;
-
 }
 
 .notification-card p{
-
     margin:5px 0;
-
     color:#64748B;
-
     font-size:14px;
-
 }
 
 .notification-card small{
-
     color:#94A3B8;
-
 }
   
 .logout-btn:hover{
     background:#EF4444;
     color:white;
+}
+
+.timeline-item{
+    display:flex;
+    gap:18px;
+    margin-bottom:25px;
+    position:relative;
+}
+
+.timeline-item:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:20px;
+    top:48px;
+    width:2px;
+    height:55px;
+    background:#D1D5DB;
+}
+
+.timeline-icon{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#EFF6FF;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:18px;
+}
+
+.timeline-content{
+    flex:1;
+}
+
+.timeline-content h6{
+    margin-bottom:5px;
+    font-weight:600;
+}
+
+.timeline-content p{
+    margin-bottom:6px;
+    color:#64748B;
+    font-size:14px;
 }
 
     </style>

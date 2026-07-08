@@ -54,11 +54,11 @@ class TicketController extends Controller
 
         $ticket->save();
         Notification::create([
-    'user_id'=>$ticket->user_id,
-    'ticket_id'=>$ticket->id,
-    'judul'=>'Status Tiket',
-    'pesan'=>'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
-    'is_read'=>false,
+    'user_id'   => $ticket->user_id,
+    'ticket_id' => $ticket->id,
+    'judul'     => 'Status Tiket',
+    'pesan'     => 'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
+    'is_read'   => false,
 ]);
 
         return response()->json([

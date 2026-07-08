@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,10 +39,14 @@ class DashboardController extends Controller
         ->take(5)
         ->get();
 
-
-    $activities = Ticket::where('user_id',Auth::id())
+    $latestTicket = Ticket::where('user_id', Auth::id())
     ->latest()
-    ->take(5)
+    ->first();
+
+
+    $activities = Notification::where('user_id', Auth::id())
+    ->latest()
+    ->take(8)
     ->get();
 
     return view('user.dashboard', compact(
@@ -52,6 +57,7 @@ class DashboardController extends Controller
         'completed',
         'progressPercent',
         'latestTickets',
+        'latestTicket',
         'activities'
     ));
 }

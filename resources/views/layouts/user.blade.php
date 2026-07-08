@@ -271,6 +271,54 @@
     font-size:14px;
 }
 
+.step-wrapper{
+    position:relative;
+}
+
+.step-wrapper::before{
+    content:"";
+    position:absolute;
+    top:24px;
+    left:12%;
+    right:12%;
+    height:3px;
+    background:#D1D5DB;
+    z-index:0;
+}
+
+.step-item{
+    position:relative;
+    z-index:2;
+}
+
+.step-number{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    color:#fff;
+    font-size:22px;
+    font-weight:700;
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+}
+
+.step-title{
+    margin-top:20px;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.step-desc{
+    color:#6B7280;
+    font-size:14px;
+    line-height:1.6;
+    max-width:180px;
+    margin:auto;
+}
+
     </style>
 
 </head>

@@ -185,9 +185,6 @@ Anda dapat mengajukan layanan kapan saja.
 <div class="row">
 
     <!-- Progress -->
-<div class="row">
-
-    <!-- Progress -->
     <div class="col-lg-7 mb-4">
 
         <div class="card border-0 shadow-sm h-100">
@@ -526,8 +523,6 @@ Anda dapat mengajukan layanan kapan saja.
 
 <!-- Panduan -->
 
-<!-- Panduan -->
-
 <div class="card border-0 shadow-sm">
 
     <div class="card-header bg-primary text-white">
@@ -536,57 +531,113 @@ Anda dapat mengajukan layanan kapan saja.
 
             <i class="bi bi-info-circle-fill"></i>
 
-            Panduan Penggunaan Portal
+            Alur Pengajuan Layanan
 
         </strong>
 
     </div>
 
-    <div class="card-body">
+        <div class="card-body py-4">
 
-        <div class="row">
+<div class="row text-center step-wrapper">
 
-            <div class="col-md-6 mb-3">
+    <div class="col-lg-3 col-6 step-item">
 
-                <i class="bi bi-1-circle-fill text-primary"></i>
+        <div class="step-number bg-primary">
 
-                Klik menu
+            1
 
-                <strong>Ajukan Layanan</strong>
+        </div>
 
-                untuk membuat pengajuan baru.
+        <div class="step-title">
 
-            </div>
+            <i class="bi bi-plus-circle text-primary"></i>
 
-            <div class="col-md-6 mb-3">
+            Ajukan Layanan
 
-                <i class="bi bi-2-circle-fill text-primary"></i>
+        </div>
 
-                Lengkapi formulir dan unggah lampiran bila diperlukan.
+        <div class="step-desc">
 
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <i class="bi bi-3-circle-fill text-primary"></i>
-
-                Pantau status melalui menu
-
-                <strong>Riwayat Pengajuan</strong>.
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <i class="bi bi-4-circle-fill text-primary"></i>
-
-                Balas komentar petugas apabila diperlukan.
-
-            </div>
+            Pilih menu Ajukan Layanan untuk membuat pengajuan baru.
 
         </div>
 
     </div>
+
+    <div class="col-lg-3 col-6 step-item">
+
+        <div class="step-number bg-success">
+
+            2
+
+        </div>
+
+        <div class="step-title">
+
+            <i class="bi bi-pencil-square text-success"></i>
+
+            Isi Form
+
+        </div>
+
+        <div class="step-desc">
+
+            Isi formulir pengajuan dan unggah lampiran jika diperlukan..
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-6 step-item">
+
+        <div class="step-number bg-warning text-dark">
+
+            3
+
+        </div>
+
+        <div class="step-title">
+
+            <i class="bi bi-clock-history text-warning"></i>
+
+            Pantau Status
+
+        </div>
+
+        <div class="step-desc">
+
+            Pantau status pengajuan melalui menu Riwayat Pengajuan.
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-6 step-item">
+
+        <div class="step-number bg-info">
+
+            4
+
+        </div>
+
+        <div class="step-title">
+
+            <i class="bi bi-check-circle text-info"></i>
+
+            Selesai
+
+        </div>
+
+        <div class="step-desc">
+
+            Lihat hasil layanan atau balas komentar dari petugas.
+
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 

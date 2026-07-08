@@ -10,37 +10,13 @@ use App\Models\Notification;
 class TicketController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-        $status = $request->status;
+        $tickets = Ticket::latest()->paginate(10);
 
-        $tickets = Ticket::with(['user','service'])
-
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('kode_ticket', 'like', "%{$search}%")
-                    ->orWhere('judul', 'like', "%{$search}%")
-                    ->orWhereHas('user', function ($user) use ($search) {
-                        $user->where('name', 'like', "%{$search}%");
-                    });
-                });
-            })
-
-            ->when($status, function ($query) use ($status) {
-                $query->where('status', $status);
-            })
-
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('staff.ticket.index', compact(
-            'tickets',
-            'search',
-            'status'
-        ));
+        return view('staff.ticket.index', compact('tickets'));
     }
+
     public function show($id)
     {
 

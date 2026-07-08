@@ -63,8 +63,15 @@ Route::middleware(['auth','role:user'])
         Route::get('/dashboard',[UserDashboard::class,'index'])
             ->name('dashboard');
 
-        Route::get('/profile',[UserProfileController::class,'index'])
-            ->name('profile');
+        
+        Route::get('/profile', [UserProfileController::class,'index'])
+    ->name('profile');
+
+Route::put('/profile', [UserProfileController::class,'update'])
+    ->name('profile.update');
+
+Route::put('/profile/password', [UserProfileController::class,'password'])
+    ->name('password.update');
 
         Route::get('/ticket/create',[UserTicket::class,'create'])
             ->name('ticket.create');

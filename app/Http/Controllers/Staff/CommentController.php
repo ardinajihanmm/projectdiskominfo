@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Models\Notification; 
 
 class CommentController extends Controller
 {
@@ -21,7 +22,15 @@ class CommentController extends Controller
         'user_id'   => auth()->id(),
         'komentar'  => $request->komentar
     ]);
+    $ticket = Ticket::find($request->ticket_id);
 
+Notification::create([
+    'user_id'   => $ticket->user_id,
+    'ticket_id' => $ticket->id,
+    'judul'     => 'Komentar Baru',
+    'pesan'     => 'Staff memberikan balasan pada tiket '.$ticket->kode_ticket,
+    'is_read'   => false,
+]);
     return back()->with(
         'success',
         'Komentar berhasil dikirim.'

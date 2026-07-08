@@ -9,29 +9,51 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $totalTicket = Ticket::where('user_id', $user->id)->count();
+    $totalTicket = Ticket::where('user_id', $user->id)->count();
 
-        $todo = Ticket::where('user_id', $user->id)
-            ->where('status', 'To Do')
-            ->count();
+    $todo = Ticket::where('user_id', $user->id)
+        ->where('status', 'To Do')
+        ->count();
 
-        $progress = Ticket::where('user_id', $user->id)
-            ->where('status', 'In Progress')
-            ->count();
+    $progress = Ticket::where('user_id', $user->id)
+        ->where('status', 'In Progress')
+        ->count();
 
-        $completed = Ticket::where('user_id', $user->id)
-            ->where('status', 'Completed')
-            ->count();
+    $completed = Ticket::where('user_id', $user->id)
+        ->where('status', 'Completed')
+        ->count();
 
-        return view('user.dashboard', compact(
-            'user',
-            'totalTicket',
-            'todo',
-            'progress',
-            'completed',
-        ));
-    }
+    // Persentase penyelesaian
+    $progressPercent = $totalTicket > 0
+        ? round(($completed / $totalTicket) * 100)
+        : 0;
+
+    // 5 tiket terbaru
+    $latestTickets = Ticket::with('service')
+        ->where('user_id', $user->id)
+        ->latest()
+        ->take(5)
+        ->get();
+
+
+    $activities = Ticket::where('user_id',Auth::id())
+    ->latest()
+    ->take(5)
+    ->get();
+
+    return view('user.dashboard', compact(
+        'user',
+        'totalTicket',
+        'todo',
+        'progress',
+        'completed',
+        'progressPercent',
+        'latestTickets',
+        'activities'
+    ));
+}
+
 }

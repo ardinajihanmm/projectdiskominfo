@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Models\Notification;
 
 class TicketController extends Controller
 {
@@ -52,6 +53,13 @@ class TicketController extends Controller
         }
 
         $ticket->save();
+        Notification::create([
+    'user_id'=>$ticket->user_id,
+    'ticket_id'=>$ticket->id,
+    'judul'=>'Status Tiket',
+    'pesan'=>'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
+    'is_read'=>false,
+]);
 
         return response()->json([
             'success' => true,

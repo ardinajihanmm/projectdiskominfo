@@ -1,6 +1,7 @@
 @php
 use Illuminate\Support\Str;
 @endphp
+
 @extends('layouts.user')
 
 @section('title','Dashboard')

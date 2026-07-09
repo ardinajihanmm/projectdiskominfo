@@ -925,69 +925,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
             }
-
         }
-
     });
-
-
-
-
-    // Counter Animation
-
     const counters=document.querySelectorAll('.stat-number,.status-number');
-
     counters.forEach(counter=>{
-
         const target=parseInt(counter.innerText);
-
         let count=0;
-
         const speed=Math.max(10,1000/Math.max(target,1));
-
         const update=()=>{
-
             if(count<target){
-
                 count++;
-
                 counter.innerText=count;
-
                 setTimeout(update,speed);
-
             }else{
-
                 counter.innerText=target;
-
             }
-
         }
-
         update();
-
     });
-
-
-
-
-
-
-    // Hover Effect Card
-
     document.querySelectorAll('.card').forEach(card=>{
-
         card.addEventListener('mouseenter',()=>{
-
             card.style.transition=".3s";
-
         });
-
     });
-
 });
-
 </script>
-
 @endpush
-
 @endsection

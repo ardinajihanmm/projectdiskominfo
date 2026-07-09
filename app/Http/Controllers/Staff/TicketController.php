@@ -55,7 +55,7 @@ class TicketController extends Controller
         return view('staff.ticket.detail', compact('ticket'));
 
     }
-  public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed'
@@ -65,11 +65,11 @@ class TicketController extends Controller
 
         $ticket->status = $request->status;
 
-        if ($request->status == 'In Progress') {
+        if ($request->status == 'In Progress' && !$ticket->started_at) {
             $ticket->started_at = now();
         }
 
-        if ($request->status == 'Completed') {
+        if ($request->status == 'Completed' && !$ticket->completed_at) {
             $ticket->completed_at = now();
         }
 
@@ -82,33 +82,40 @@ class TicketController extends Controller
             'pesan'     => 'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
             'is_read'   => false,
         ]);
-        return redirect()
-            ->route('staff.ticket.index')
-            ->with('success', 'Status tiket berhasil diperbarui.');
-    }
 
+        return response()->json([
+            'success' => true,
+            'status' => $ticket->status
+        ]);
+    }
     public function updateStatus(Request $request, Ticket $ticket)
-{
-    $request->validate([
-        'status' => 'required|in:To Do,In Progress,Completed',
-    ]);
+    {
+        $request->validate([
+            'status' => 'required|in:To Do,In Progress,Completed',
+        ]);
 
-    // hanya staff yang ditugaskan yang boleh mengubah status
-    if ($ticket->staff_id != auth()->id()) {
-        abort(403);
+        $ticket->status = $request->status;
+
+        if ($request->status == 'In Progress' && !$ticket->started_at) {
+            $ticket->started_at = now();
+        }
+
+        if ($request->status == 'Completed' && !$ticket->completed_at) {
+            $ticket->completed_at = now();
+        }
+
+        $ticket->save();
+
+        Notification::create([
+            'user_id' => $ticket->user_id,
+            'ticket_id' => $ticket->id,
+            'judul' => 'Status Tiket',
+            'pesan' => 'Tiket '.$ticket->kode_ticket.' kini berstatus '.$ticket->status,
+            'is_read' => false,
+        ]);
+
+        return response()->json([
+            'success' => true
+        ]);
     }
-
-    if ($request->status == 'In Progress' && !$ticket->started_at) {
-        $ticket->started_at = now();
-    }
-
-    if ($request->status == 'Completed') {
-        $ticket->completed_at = now();
-    }
-
-    $ticket->status = $request->status;
-    $ticket->save();
-
-    return back()->with('success','Status tiket berhasil diperbarui.');
-}
 }

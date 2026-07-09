@@ -228,45 +228,72 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 document.querySelectorAll('.ticket-column').forEach(column => {
 
-    new Sortable(column,{
-        group:'tickets',
-        animation:200,
+    new Sortable(column, {
+        group: 'tickets',
+        animation: 200,
 
-        onEnd:function(evt){
+        onEnd: function(evt) {
 
-            let ticketId=evt.item.dataset.id;
-            let status=evt.to.dataset.status;
+            let ticketId = evt.item.dataset.id;
+            let status = evt.to.dataset.status;
 
-            fetch('/staff/ticket/'+ticketId+'/status',{
-
-                method:'PUT',
-
-                headers:{
-                    'Content-Type':'application/json',
-                    'Accept':'application/json',
-                    'X-CSRF-TOKEN':'{{ csrf_token() }}'
+            fetch("{{ url('staff/ticket') }}/" + ticketId + "/status", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
                 },
-
-                body:JSON.stringify({
-                    status:status
+                body: JSON.stringify({
+                    status: status
                 })
-
             })
+            .then(res => res.json())
+            .then(data => {
 
-            .then(res=>res.json())
-            .then(data=>{
+                if (data.success) {
 
-                if(data.success){
-                    location.reload();
-                }else{
-                    alert(data.message);
-                    location.reload();
+                    let kode = evt.item.querySelector("small").innerText;
+                    let judul = evt.item.querySelector("h6").innerText;
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Status Berhasil Diubah",
+                        html: `
+                            <b>${kode}</b><br>
+                            ${judul}<br><br>
+                            Berhasil dipindahkan ke <b>${status}</b>
+                        `,
+                        timer: 1800,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.reload();
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal",
+                        text: "Status tiket gagal diperbarui."
+                    });
+
                 }
 
+            })
+            .catch(err => {
+                console.error(err);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Terjadi kesalahan saat memperbarui status."
+                });
             });
 
         }

@@ -137,11 +137,6 @@ Route::middleware(['auth','role:admin'])
             ->name('password.update');
 
     });
-/*
-|--------------------------------------------------------------------------
-| STAFF
-|--------------------------------------------------------------------------
-*/
 
 /*
 |--------------------------------------------------------------------------
@@ -155,35 +150,32 @@ Route::middleware(['auth','role:staff'])
     ->group(function () {
 
         // Dashboard
-        Route::get('/dashboard',[StaffDashboard::class,'index'])
+        Route::get('/dashboard', [StaffDashboard::class, 'index'])
             ->name('dashboard');
 
         // Kanban
-        Route::get('/kanban',[StaffDashboard::class,'kanban'])
+        Route::get('/kanban', [StaffDashboard::class, 'kanban'])
             ->name('kanban');
+
+        // Update Status Ticket (letakkan di atas resource)
+        Route::put('/ticket/{ticket}/status', [StaffTicket::class, 'updateStatus'])
+            ->name('ticket.status');
 
         // Ticket
         Route::resource('ticket', StaffTicket::class)
             ->names('ticket');
 
-        // Update Status Ticket
-        Route::put('/ticket/{ticket}/status',
-            [TicketController::class,'updateStatus'])
-            ->name('ticket.status');
-
         // Komentar
-        Route::post('/comment',
-            [CommentController::class,'store'])
+        Route::post('/comment', [CommentController::class, 'store'])
             ->name('comment.store');
 
         // Profile
-        Route::get('/profile', [ProfileController::class,'edit'])
+        Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile');
 
-        Route::put('/profile/update', [ProfileController::class,'update'])
+        Route::put('/profile/update', [ProfileController::class, 'update'])
             ->name('profile.update');
 
-        Route::put('/profile/password', [ProfileController::class,'updatePassword'])
+        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
             ->name('profile.password');
-
     });

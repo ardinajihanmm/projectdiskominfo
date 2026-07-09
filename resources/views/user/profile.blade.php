@@ -1,5 +1,5 @@
 @extends('layouts.user')
-
+@section('title','Edit Profil')
 @section('content')
 
 <div class="container py-4">

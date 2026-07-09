@@ -1,128 +1,344 @@
 @extends('layouts.user')
-
+@section('title','Detail Tiket'))
 @section('content')
 
 <div class="container mt-4">
 
-    <h2>Detail Pengajuan Tiket</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+
+            <i class="bi bi-ticket-detailed-fill text-primary"></i>
+
+            Detail Pengajuan Tiket
+
+        </h2>
+
+        <small class="text-muted">
+
+            Informasi lengkap mengenai tiket layanan Anda.
+
+        </small>
+
+    </div>
+
+    <a href="{{ route('user.ticket.history') }}"
+        class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Kembali
+
+    </a>
+
+</div>
+
+<div class="card shadow-sm border-0">
 
     <div class="card">
         <div class="card-body">
+           <div class="row">
 
-            <table class="table table-bordered">
+    <!-- KIRI -->
+    <div class="col-lg-7">
 
-                <tr>
-                    <th width="25%">Kode Ticket</th>
-                    <td>{{ $ticket->kode_ticket }}</td>
-                </tr>
+        <div class="mb-4">
+            <small class="text-muted">Kode Tiket</small>
+            <h2 class="fw-bold mb-0">
+                {{ $ticket->kode_ticket }}
+            </h2>
+        </div>
 
-                <tr>
-                    <th>Layanan</th>
-                    <td>{{ $ticket->service->nama_layanan ?? '-' }}</td>
-                </tr>
+        <div class="mb-4">
+            <small class="text-muted">Layanan</small>
+            <h4 class="fw-semibold">
+                {{ $ticket->service->nama_layanan }}
+            </h4>
+        </div>
 
-                <tr>
-                    <th>Judul</th>
-                    <td>{{ $ticket->judul }}</td>
-                </tr>
+        <div class="mb-4">
+            <small class="text-muted">Judul Pengajuan</small>
+            <h4 class="fw-semibold">
+                {{ $ticket->judul }}
+            </h4>
+        </div>
 
-                <tr>
-                    <th>Deskripsi</th>
-                    <td>{{ $ticket->deskripsi }}</td>
-                </tr>
+        <div class="mb-4">
+            <small class="text-muted">Pelapor</small>
+            <h5>
+                <i class="bi bi-person-circle text-primary"></i>
+                {{ $ticket->user->name }}
+            </h5>
+        </div>
 
-                <tr>
-                    <th>Prioritas</th>
-                    <td>{{ $ticket->prioritas }}</td>
-                </tr>
+        <div class="mb-4">
+            <small class="text-muted">Email</small>
+            <h6>
+                <i class="bi bi-envelope-fill text-primary"></i>
+                {{ $ticket->user->email }}
+            </h6>
+        </div>
 
-                <tr>
-                    <th>Status</th>
-                    <td>
-                        @if($ticket->status == 'To Do')
-                            <span class="badge bg-secondary">To Do</span>
-                        @elseif($ticket->status == 'In Progress')
-                            <span class="badge bg-warning text-dark">In Progress</span>
-                        @elseif($ticket->status == 'Completed')
-                            <span class="badge bg-success">Completed</span>
-                        @else
-                            <span class="badge bg-danger">Rejected</span>
-                        @endif
-                    </td>
-                </tr>
+        <div>
+            <small class="text-muted">Instansi</small>
+            <h6>
+                <i class="bi bi-building text-primary"></i>
+                {{ $ticket->user->instansi }}
+            </h6>
+        </div>
 
-                <tr>
-                    <th>Tanggal Dibuat</th>
-                    <td>{{ $ticket->created_at->format('d-m-Y H:i') }}</td>
-                </tr>
+    </div>
 
-            </table>
+    <!-- KANAN -->
+    <div class="col-lg-5">
 
-            <h5 class="mt-4">Lampiran</h5>
+        <div class="border rounded-4 p-4 bg-light h-100">
 
-            @if($ticket->attachments->count())
+            <h5 class="fw-bold mb-4">
+                Status Tiket
+            </h5>
 
-                <ul>
+            {{-- STATUS --}}
+            @if($ticket->status=="To Do")
 
-                    @foreach($ticket->attachments as $file)
+                <span class="badge bg-warning text-dark px-4 py-3 fs-6">
+                    <i class="bi bi-hourglass-split"></i>
+                    Menunggu Diproses
+                </span>
 
-                        <li>
-                            <a href="{{ asset('storage/'.$file->path_file) }}"
-                               target="_blank">
-                                {{ $file->nama_file }}
-                            </a>
-                        </li>
+            @elseif($ticket->status=="In Progress")
 
-                    @endforeach
-
-                </ul>
-
-            @else
-
-                <p class="text-muted">
-                    Tidak ada lampiran.
-                </p>
-
-            @endif
-
-            <h5 class="mt-4">Komentar</h5>
-
-            @if($ticket->comments->count())
-
-                @foreach($ticket->comments as $comment)
-
-                    <div class="border rounded p-3 mb-2">
-
-                        <strong>
-                            {{ $comment->user->name }}
-                        </strong>
-
-                        <small class="text-muted">
-                            ({{ $comment->created_at->format('d-m-Y H:i') }})
-                        </small>
-
-                        <hr>
-
-                        {{ $comment->isi }}
-
-                    </div>
-
-                @endforeach
+                <span class="badge bg-info px-4 py-3 fs-6">
+                    <i class="bi bi-tools"></i>
+                    Sedang Diproses
+                </span>
 
             @else
 
-                <div class="alert alert-secondary">
-                    Belum ada komentar.
-                </div>
+                <span class="badge bg-success px-4 py-3 fs-6">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Selesai
+                </span>
 
             @endif
 
-            <a href="{{ route('user.ticket.history') }}"
-                class="btn btn-secondary mt-3">
-                Kembali
+            <hr>
+
+            <h6 class="text-muted">
+                Prioritas
+            </h6>
+
+            @if($ticket->prioritas=="Tinggi")
+
+    <span class="badge bg-danger px-3 py-2">
+        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+        Tinggi
+    </span>
+
+@elseif($ticket->prioritas=="Sedang")
+
+    <span class="badge bg-warning text-dark px-3 py-2">
+        <i class="bi bi-dash-circle-fill me-1"></i>
+        Sedang
+    </span>
+
+@else
+
+    <span class="badge bg-success px-3 py-2">
+        <i class="bi bi-check-circle-fill me-1"></i>
+        Rendah
+    </span>
+
+@endif
+
+            <hr>
+
+            <h6 class="text-muted">
+                Dibuat
+            </h6>
+
+            <strong>
+                {{ $ticket->created_at->format('d F Y') }}
+            </strong>
+
+            <br>
+
+            <small class="text-muted">
+                {{ $ticket->created_at->format('H:i') }}
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr class="my-4">
+<div class="mb-4">
+
+    <h5 class="fw-bold">
+
+        <i class="bi bi-card-text text-primary"></i>
+
+        Deskripsi Permasalahan
+
+    </h5>
+
+    <div class="border rounded-3 p-4 bg-white shadow-sm">
+
+        {{ $ticket->deskripsi }}
+
+    </div>
+
+</div>
+            
+            <div class="mb-4">
+    
+    <hr class="my-4">
+
+    <h4 class="fw-bold mb-3">
+
+        <i class="bi bi-paperclip text-primary"></i>
+
+        Lampiran
+
+    </h4>
+
+    @if($ticket->attachments->count())
+
+        @foreach($ticket->attachments as $file)
+
+        <div class="border rounded-3 p-3 d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+
+                <i class="bi bi-file-earmark-fill text-primary fs-3"></i>
+
+                <span class="ms-2 fw-semibold">
+
+                    {{ $file->nama_file }}
+
+                </span>
+
+            </div>
+
+            <a href="{{ asset('storage/'.$file->path_file) }}"
+               target="_blank"
+               class="btn btn-primary">
+
+                <i class="bi bi-eye"></i>
+
+                Lihat
+
             </a>
 
         </div>
+
+        @endforeach
+
+    @else
+
+        <div class="alert alert-light border">
+
+            <i class="bi bi-folder2-open"></i>
+
+            Tidak ada lampiran.
+
+        </div>
+
+    @endif
+
+</div>
+
+            <div class="mt-4">
+
+    <h4 class="fw-bold mb-3">
+
+        <i class="bi bi-chat-dots-fill text-primary"></i>
+
+        Percakapan
+
+    </h4>
+
+    <div class="border rounded-4 bg-light p-4" style="min-height:350px;">
+
+@forelse($ticket->comments as $comment)
+
+@php
+    $mine = $comment->user_id == auth()->id();
+@endphp
+
+<div class="d-flex mb-4 {{ $mine ? 'justify-content-end' : 'justify-content-start' }}">
+
+    <div
+        class="shadow-sm rounded-4 px-4 py-3
+        {{ $mine ? 'bg-primary text-white' : 'bg-white border' }}"
+        style="max-width:70%;">
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+
+            <strong>
+
+                @if($mine)
+
+                    <i class="bi bi-person-circle me-1"></i>
+
+                    Anda
+
+                @else
+
+                    <i class="bi bi-headset me-1 text-primary"></i>
+
+                    {{ $comment->user->name }}
+
+                @endif
+
+            </strong>
+
+            <small class="{{ $mine ? 'text-white-50' : 'text-muted' }}">
+
+                {{ $comment->created_at->format('d M Y H:i') }}
+
+            </small>
+
+        </div>
+
+        <div>
+
+            {{ $comment->isi }}
+
+        </div>
+
+    </div>
+
+</div>
+
+@empty
+
+<div class="text-center py-5">
+
+    <i class="bi bi-chat-square-dots display-4 text-secondary"></i>
+
+    <h5 class="mt-3">
+
+        Belum ada percakapan
+
+    </h5>
+
+    <p class="text-muted">
+
+        Balasan dari petugas akan muncul di sini.
+
+    </p>
+
+</div>
+</div>
+@endforelse
+
+</div>
+</div>
     </div>
 
 </div>

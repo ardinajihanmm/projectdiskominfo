@@ -65,9 +65,9 @@ class TicketController extends Controller
     public function history()
     {
         $tickets = Ticket::with('service')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+    ->where('user_id', Auth::id())
+    ->latest()
+    ->paginate(10);
 
         return view('user.ticket.history', compact('tickets'));
     }

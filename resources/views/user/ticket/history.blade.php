@@ -40,43 +40,50 @@
 
                 <div class="col-md-6">
 
-                    <input
-                        type="text"
-                        name="search"
-                        class="form-control"
-                        placeholder="Cari judul atau kode tiket..."
-                        value="{{ request('search') }}">
+    <div class="input-group">
 
-                </div>
+        <span class="input-group-text bg-white border-end-0">
 
+            <i class="bi bi-search text-primary"></i>
+
+        </span>
+
+        <input
+            type="text"
+            name="search"
+            class="form-control border-start-0"
+            placeholder="Cari kode tiket atau judul..."
+            value="{{ request('search') }}">
+
+    </div>
+
+</div>
                 <div class="col-md-3">
 
-                    <select
-                        name="status"
-                        class="form-select">
+    <select
+        name="status"
+        class="form-select">
 
-                        <option value="">
-                            Semua Status
-                        </option>
+        <option value="">Semua Status</option>
 
-                        <option value="To Do"
-                            {{ request('status')=='To Do'?'selected':'' }}>
-                            To Do
-                        </option>
+        <option value="To Do"
+            {{ request('status')=='To Do'?'selected':'' }}>
+            Menunggu Diproses
+        </option>
 
-                        <option value="In Progress"
-                            {{ request('status')=='In Progress'?'selected':'' }}>
-                            In Progress
-                        </option>
+        <option value="In Progress"
+            {{ request('status')=='In Progress'?'selected':'' }}>
+            Sedang Diproses
+        </option>
 
-                        <option value="Completed"
-                            {{ request('status')=='Completed'?'selected':'' }}>
-                            Completed
-                        </option>
+        <option value="Completed"
+            {{ request('status')=='Completed'?'selected':'' }}>
+            Selesai
+        </option>
 
-                    </select>
+    </select>
 
-                </div>
+</div>
 
                 <div class="col-md-3 d-grid">
 
@@ -108,7 +115,7 @@
 
             <table class="table table-hover align-middle mb-0">
 
-                <thead class="table-light">
+                <thead class="bg-light">
 
                     <tr>
 
@@ -136,7 +143,11 @@
 
                         <td>
 
-                            {{ $ticket->kode_ticket }}
+                            <span class="fw-bold font-monospace">
+
+    {{ $ticket->kode_ticket }}
+
+</span>
 
                         </td>
 
@@ -154,44 +165,61 @@
 
                         <td>
 
-                            @if($ticket->status=='To Do')
+@if($ticket->status=='To Do')
 
-                                <span class="badge bg-warning text-dark">
+<span class="badge rounded-pill bg-warning text-dark px-3 py-2">
 
-                                    To Do
+<i class="bi bi-hourglass-split me-1"></i>
 
-                                </span>
+Menunggu
 
-                            @elseif($ticket->status=='In Progress')
+</span>
 
-                                <span class="badge bg-info">
+@elseif($ticket->status=='In Progress')
 
-                                    In Progress
+<span class="badge rounded-pill bg-info px-3 py-2">
 
-                                </span>
+<i class="bi bi-arrow-repeat me-1"></i>
 
-                            @else
+Diproses
 
-                                <span class="badge bg-success">
+</span>
 
-                                    Completed
+@else
 
-                                </span>
+<span class="badge rounded-pill bg-success px-3 py-2">
 
-                            @endif
+<i class="bi bi-check-circle-fill me-1"></i>
 
-                        </td>
+Selesai
 
-                        <td>
+</span>
 
-                            {{ $ticket->created_at->format('d M Y') }}
+@endif
 
-                        </td>
+</td>
+
+</td>
+<td>
+
+<div class="fw-semibold">
+
+{{ $ticket->created_at->format('d M Y') }}
+
+</div>
+
+<small class="text-muted">
+
+{{ $ticket->created_at->format('H:i') }} WIB
+
+</small>
+
+</td>
 
                         <td>
 
                             <a href="{{ route('user.ticket.detail',$ticket->id) }}"
-                               class="btn btn-sm btn-primary">
+                               class="btn btn-primary btn-sm rounded-pill px-3">
 
                                 <i class="bi bi-eye"></i>
 
@@ -211,7 +239,7 @@
 
                             <div class="text-center py-5">
 
-                                <i class="bi bi-ticket-perforated fs-1 text-secondary"></i>
+                                <i class="bi bi-inbox display-3 text-secondary"></i>
 
                                 <h5 class="mt-3">
 
@@ -254,7 +282,7 @@
 
 <div class="mt-3">
 
-    {{ $tickets->links() }}
+    {{ $tickets->onEachSide(1)->links('pagination::bootstrap-5') }}
 
 </div>
 

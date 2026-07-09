@@ -107,10 +107,10 @@
 
 .content{
     margin-left:260px;
-    min-height:100vh;
+    height:100vh;
     display:flex;
     flex-direction:column;
-    overflow:visible;
+    overflow:hidden;
 }
 
 .topbar{
@@ -127,8 +127,9 @@
     z-index: 1000;
 }
 .main{
-    padding:30px;
     flex:1;
+    overflow-y:auto;
+    padding:30px;
 }
 
 .footer{
@@ -375,6 +376,32 @@
     max-height:350px;
     overflow-y:auto;
 }
+.table thead th{
+
+font-size:.85rem;
+
+font-weight:700;
+
+text-transform:uppercase;
+
+letter-spacing:.5px;
+
+color:#6c757d;
+
+border-bottom:1px solid #dee2e6;
+
+}
+.table tbody tr{
+
+transition:.25s;
+
+}
+
+.table tbody tr:hover{
+
+background:#f8fbff;
+
+}
 
     </style>
 
@@ -509,17 +536,15 @@
 
 </div>
         
-<!-- Main -->
 <div class="main">
 
     @yield('content')
 
 </div>
 
-<!-- Footer -->
 <div class="footer">
 
-    © {{ date('Y') }} Portal Layanan TIK Diskominfo
+    © {{ date('Y') }} Service Desk Diskominfo
 
 </div>
 
@@ -610,11 +635,8 @@
 
         @endforelse
         <div class="p-3 border-top">
-
     <button class="btn btn-primary w-100">
-
         <i class="bi bi-check2-all"></i>
-
         Tandai Semua Sudah Dibaca
 
     </button>

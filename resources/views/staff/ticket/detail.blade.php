@@ -2,6 +2,22 @@
 
 @section('content')
 
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+        timer: 1800,
+        showConfirmButton: false
+    });
+});
+</script>
+@endif
+
 <div class="container-fluid">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -15,12 +31,6 @@
             Kembali
         </a>
     </div>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <div class="row">
 
@@ -188,7 +198,8 @@
 
                     <hr>
 
-                    <form action="{{ route('staff.ticket.status',$ticket->id) }}" method="POST">
+                    <form action="{{ route('staff.ticket.update',$ticket->id) }}" method="POST">
+            
 
                         @csrf
                         @method('PUT')

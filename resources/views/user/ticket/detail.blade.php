@@ -1,5 +1,5 @@
 @extends('layouts.user')
-@section('title','Detail Tiket'))
+@section('title','Detail Tiket')
 @section('content')
 
 <div class="container mt-4">
@@ -262,7 +262,7 @@
 
     </h4>
 
-    <div class="border rounded-4 bg-light p-4" style="min-height:350px;">
+<div class="border rounded-4 p-4" style="min-height:350px; background:#f8fafc;">
 
 @forelse($ticket->comments as $comment)
 
@@ -274,43 +274,36 @@
 
     <div
         class="shadow-sm rounded-4 px-4 py-3
-        {{ $mine ? 'bg-primary text-white' : 'bg-white border' }}"
+        {{ $mine ? 'bg-primary text-white' : 'bg-white border-start border-4 border-primary' }}"
         style="max-width:70%;">
 
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="mb-2">
 
-            <strong>
+    <div class="d-flex align-items-center mb-1">
 
-                @if($mine)
+        @if($mine)
 
-                    <i class="bi bi-person-circle me-1"></i>
+            <i class="bi bi-person-circle text-white me-2"></i>
+            <strong>Anda</strong>
 
-                    Anda
+        @else
 
-                @else
+            <i class="bi bi-headset text-primary me-2"></i>
+            <strong>{{ $comment->user->name }}</strong>
 
-                    <i class="bi bi-headset me-1 text-primary"></i>
+        @endif
 
-                    {{ $comment->user->name }}
+    </div>
 
-                @endif
+    <small class="{{ $mine ? 'text-white-50' : 'text-muted' }}">
+        {{ $comment->created_at->format('d M Y • H:i') }}
+    </small>
 
-            </strong>
+</div>
 
-            <small class="{{ $mine ? 'text-white-50' : 'text-muted' }}">
-
-                {{ $comment->created_at->format('d M Y H:i') }}
-
-            </small>
-
-        </div>
-
-        <div>
-
-            {{ $comment->isi }}
-
-        </div>
-
+<div class="mt-3">
+    {{ $comment->komentar }}
+</div>
     </div>
 
 </div>
@@ -322,25 +315,26 @@
     <i class="bi bi-chat-square-dots display-4 text-secondary"></i>
 
     <h5 class="mt-3">
-
         Belum ada percakapan
-
     </h5>
 
     <p class="text-muted">
-
         Balasan dari petugas akan muncul di sini.
-
     </p>
 
 </div>
-</div>
+
 @endforelse
+</div>
+            </div>
+
+</div>
+
 
 </div>
 </div>
     </div>
 
-</div>
+
 
 @endsection

@@ -31,22 +31,66 @@
 
                     @endif
 
-                    <form action="{{ route('user.profile.update') }}" method="POST">
+    <form action="{{ route('user.profile.update') }}"
+      method="POST"
+      enctype="multipart/form-data">
 
-                        @csrf
-                        @method('PUT')
+    @csrf
+    @method('PUT')
 
-                        <div class="text-center mb-4">
+<!-- Foto Profil -->
+<!-- FOTO PROFIL -->
+<div class="mb-3">
 
-                            <img
-                                src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=0d6efd&color=fff&size=128"
-                                class="rounded-circle shadow"
-                                width="120"
-                                height="120">
+    <div class="text-center mb-3">
 
-                        </div>
+        @if($user->foto)
 
-                        <div class="mb-3">
+            <img
+                src="{{ asset('storage/'.$user->foto) }}"
+                class="rounded-circle border border-3 border-white shadow-sm"
+                width="110"
+                height="110"
+                style="object-fit:cover;">
+
+        @else
+
+            <img
+                src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=2563EB&color=ffffff&size=220"
+                class="rounded-circle border border-3 border-white shadow-sm"
+                width="110"
+                height="110">
+
+        @endif
+
+    </div>
+
+    <label class="form-label fw-semibold mb-2">
+
+        <i class="bi bi-image text-primary me-2"></i>
+
+        Foto Profil
+
+    </label>
+
+    <input
+        type="file"
+        name="foto"
+        class="form-control shadow-sm"
+        accept=".jpg,.jpeg,.png">
+
+    <div class="form-text mb-0">
+
+        <i class="bi bi-info-circle me-1"></i>
+
+        Format: JPG, JPEG, PNG • Maksimal 2 MB
+
+    </div>
+
+</div>
+
+<!-- NAMA -->
+<div class="mb-3 mt-2">
 
                             <label class="form-label">
 
@@ -213,7 +257,9 @@ data-bs-dismiss="alert">
         <input
             type="password"
             name="current_password"
-            class="form-control">
+            class="form-control"
+            placeholder="Masukkan password lama"
+            autocomplete="current-password">
 
         @error('current_password')
 
@@ -234,7 +280,9 @@ data-bs-dismiss="alert">
         <input
             type="password"
             name="password"
-            class="form-control">
+            class="form-control"
+            placeholder="Minimal 8 karakter"
+    autocomplete="new-password">
 
     </div>
 
@@ -245,7 +293,9 @@ data-bs-dismiss="alert">
         <input
             type="password"
             name="password_confirmation"
-            class="form-control">
+            class="form-control"
+            placeholder="Ulangi password baru"
+    autocomplete="new-password">
 
     </div>
 

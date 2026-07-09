@@ -15,45 +15,55 @@ class TicketController extends Controller
     /**
      * Daftar semua tiket
      */
-public function index(Request $request)
-{
-    $query = Ticket::with(['user','service','staff']);
+    public function index(Request $request)
+    {
+        $query = Ticket::with([
+            'user',
+            'service',
+            'staff'
+        ]);
 
-    // Search
-    if ($request->search) {
-        $query->where(function ($q) use ($request) {
-            $q->where('judul', 'like', '%' . $request->search . '%')
-              ->orWhere('kode_ticket', 'like', '%' . $request->search . '%')
-              ->orWhereHas('user', function ($user) use ($request) {
-                  $user->where('name', 'like', '%' . $request->search . '%');
-              })
-              ->orWhereHas('service', function ($service) use ($request) {
-                  $service->where('nama_layanan', 'like', '%' . $request->search . '%');
-              });
-        });
+        // Search
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->search . '%')
+                    ->orWhere('kode_ticket', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('user', function ($user) use ($request) {
+                        $user->where('name', 'like', '%' . $request->search . '%');
+                    })
+                    ->orWhereHas('service', function ($service) use ($request) {
+                        $service->where('nama_layanan', 'like', '%' . $request->search . '%');
+                    });
+            });
+        }
+
+        // Filter Status
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter Prioritas
+        if ($request->prioritas) {
+            $query->where('prioritas', $request->prioritas);
+        }
+
+        $tickets = $query->latest()->paginate(10);
+
+        return view('admin.ticket.index', compact('tickets'));
     }
-
-    // Filter Status
-    if ($request->status) {
-        $query->where('status', $request->status);
-    }
-
-    // Filter Prioritas
-    if ($request->prioritas) {
-        $query->where('prioritas', $request->prioritas);
-    }
-
-    $tickets = $query->latest()->paginate(10);
-
-    return view('admin.ticket.index', compact('tickets'));
-}
 
     /**
      * Detail tiket
      */
     public function show(Ticket $ticket)
     {
-        $ticket->load(['user', 'service', 'attachment', 'staff']);
+        $ticket->load([
+            'user',
+            'service',
+            'staff',
+            'attachments',
+            'comments.user'
+        ]);
 
         $staffs = User::where('role', 'staff')->get();
 
@@ -61,35 +71,51 @@ public function index(Request $request)
     }
 
     /**
-     * Halaman edit status
+     * Halaman edit
      */
     public function edit(Ticket $ticket)
     {
-        $ticket->load(['user', 'service']);
+        $ticket->load([
+            'user',
+            'service',
+            'staff'
+        ]);
 
         return view('admin.ticket.edit', compact('ticket'));
     }
 
     /**
-     * Update status tiket
+     * Update Status & Prioritas
      */
     public function update(Request $request, Ticket $ticket)
     {
-       $request->validate([
-            'status' => 'required|in:To Do,In Progress,Complete',
+        $request->validate([
+            'status' => 'required|in:To Do,In Progress,Completed',
+            'prioritas' => 'required|in:Rendah,Sedang,Tinggi',
         ]);
 
-        $ticket->update([
-            'status' => $request->status,
-        ]);
+        // Simpan waktu mulai
+        if ($request->status == 'In Progress' && !$ticket->started_at) {
+            $ticket->started_at = now();
+        }
+
+        // Simpan waktu selesai
+        if ($request->status == 'Completed') {
+            $ticket->completed_at = now();
+        }
+
+        $ticket->status = $request->status;
+        $ticket->prioritas = $request->prioritas;
+
+        $ticket->save();
 
         return redirect()
-            ->route('admin.ticket.index')
-            ->with('success', 'Status tiket berhasil diubah.');
+            ->route('admin.ticket.show', $ticket->id)
+            ->with('success', 'Status dan prioritas berhasil diperbarui.');
     }
 
     /**
-     * Assign staff
+     * Assign Staff
      */
     public function assign(Request $request, Ticket $ticket)
     {
@@ -97,26 +123,35 @@ public function index(Request $request)
             'staff_id' => 'required|exists:users,id',
         ]);
 
-        $ticket->update([
-            'staff_id' => $request->staff_id,
-        ]);
+        $ticket->staff_id = $request->staff_id;
+        $ticket->save();
 
         return redirect()
             ->route('admin.ticket.show', $ticket->id)
             ->with('success', 'Staff berhasil ditugaskan.');
     }
 
+    /**
+     * Export PDF
+     */
     public function exportPdf()
     {
-    $tickets = Ticket::with(['user','service','staff'])->get();
+        $tickets = Ticket::with([
+            'user',
+            'service',
+            'staff'
+        ])->get();
 
-    $pdf = Pdf::loadView('admin.ticket.pdf', compact('tickets'));
+        $pdf = Pdf::loadView('admin.ticket.pdf', compact('tickets'));
 
-    return $pdf->download('data-ticket.pdf');
+        return $pdf->download('data-ticket.pdf');
     }
 
+    /**
+     * Export Excel
+     */
     public function exportExcel()
     {
-    return Excel::download(new TicketsExport, 'data-ticket.xlsx');
+        return Excel::download(new TicketsExport, 'data-ticket.xlsx');
     }
 }

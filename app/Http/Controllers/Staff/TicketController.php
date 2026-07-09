@@ -83,10 +83,9 @@ class TicketController extends Controller
             'is_read'   => false,
         ]);
 
-        return response()->json([
-            'success' => true,
-            'status' => $ticket->status
-        ]);
+        return redirect()
+            ->route('staff.ticket.show', $ticket->id)
+            ->with('success', 'Status tiket berhasil diperbarui.');
     }
     public function updateStatus(Request $request, Ticket $ticket)
     {

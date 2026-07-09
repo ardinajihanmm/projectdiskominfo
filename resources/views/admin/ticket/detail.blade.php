@@ -1,213 +1,546 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="container-fluid py-4">
 
-<div class="container mt-4">
+<style>
 
-    <h3 class="mb-4">
-        <i class="bi bi-ticket-detailed-fill"></i>
-        Detail Tiket
-    </h3>
+body{
+    background:#f5f7fb;
+}
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+.main-card{
+    border:none;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.08);
+}
 
-    <div class="card shadow-sm">
+.section-title{
+    font-size:15px;
+    color:#6c757d;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
 
-        <div class="card-body">
+.info-title{
+    font-size:14px;
+    color:#6c757d;
+}
 
-            <table class="table table-bordered">
+.info-value{
+    font-size:17px;
+    font-weight:600;
+    color:#2d3436;
+}
 
-                <tr>
-                    <th width="220">Kode Tiket</th>
-                    <td>{{ $ticket->kode_ticket }}</td>
-                </tr>
+.avatar{
 
-                <tr>
-                    <th>Pelapor</th>
-                    <td>{{ $ticket->user->name }}</td>
-                </tr>
+    width:75px;
+    height:75px;
+    border-radius:50%;
 
-                <tr>
-                    <th>Email</th>
-                    <td>{{ $ticket->user->email }}</td>
-                </tr>
+    background:linear-gradient(135deg,#0d6efd,#4dabf7);
 
-                <tr>
-                    <th>Layanan</th>
-                    <td>{{ $ticket->service->nama_layanan }}</td>
-                </tr>
+    display:flex;
 
-                <tr>
-                    <th>Judul</th>
-                    <td>{{ $ticket->judul }}</td>
-                </tr>
+    align-items:center;
 
-                <tr>
-                    <th>Deskripsi</th>
-                    <td>{{ $ticket->deskripsi }}</td>
-                </tr>
+    justify-content:center;
 
-                <tr>
-                    <th>Lampiran</th>
-                    <td>
+    color:white;
 
-                        @if($ticket->attachments->count())
+    font-size:28px;
 
-                            @foreach($ticket->attachments as $file)
+    font-weight:bold;
 
-                                <a href="{{ asset('storage/'.$file->path_file) }}"
-                                   target="_blank"
-                                   class="btn btn-info btn-sm mb-2">
+}
 
-                                    <i class="bi bi-paperclip"></i>
-                                    Lihat Lampiran
+.badge-custom{
 
-                                </a>
+    padding:10px 18px;
 
-                                <br>
+    border-radius:30px;
 
-                            @endforeach
+    font-size:14px;
 
-                        @else
+}
 
-                            <span class="text-muted">
-                                Tidak ada lampiran
-                            </span>
+.card-box{
 
-                        @endif
+    background:#fff;
 
-                    </td>
-                </tr>
+    border-radius:20px;
 
-            </table>
+    box-shadow:0 .3rem .8rem rgba(0,0,0,.07);
 
-            <hr>
+    padding:25px;
 
-            {{-- Update Status & Prioritas --}}
-            <form action="{{ route('admin.ticket.update',$ticket->id) }}" method="POST">
+    margin-bottom:25px;
 
-                @csrf
-                @method('PUT')
+}
 
-                <div class="row">
+.btn{
 
-                    <div class="col-md-6 mb-3">
+    border-radius:12px;
 
-                        <label class="form-label fw-bold">
-                            Status
-                        </label>
+}
 
-                        <select name="status" class="form-select">
+</style>
 
-                            <option value="To Do"
-                                {{ $ticket->status=='To Do' ? 'selected' : '' }}>
-                                To Do
-                            </option>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-                            <option value="In Progress"
-                                {{ $ticket->status=='In Progress' ? 'selected' : '' }}>
-                                In Progress
-                            </option>
+<div>
 
-                            <option value="Completed"
-                                {{ $ticket->status=='Completed' ? 'selected' : '' }}>
-                                Completed
-                            </option>
+<h2 class="fw-bold">
 
-                        </select>
+<i class="bi bi-ticket-detailed-fill text-primary"></i>
 
-                    </div>
+Detail Tiket
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">
-                            Prioritas
-                         </label>
+</h2>
 
-                         <select name="prioritas" class="form-select">
+<div class="text-muted">
 
-                            <option value="Rendah"
-                                {{ $ticket->prioritas == 'Rendah' ? 'selected' : '' }}>
-                                Rendah
-                            </option>
+Kelola informasi tiket dan proses penanganannya.
 
-                            <option value="Sedang"
-                                {{ $ticket->prioritas == 'Sedang' ? 'selected' : '' }}>
-                                Sedang
-                            </option>
+</div>
 
-                            <option value="Tinggi"
-                                {{ $ticket->prioritas == 'Tinggi' ? 'selected' : '' }}>
-                                Tinggi
-                            </option>
+</div>
 
-                        </select>
-                    </div>
+<a href="{{ route('admin.ticket.index') }}"
+class="btn btn-outline-secondary">
 
-                </div>
+<i class="bi bi-arrow-left"></i>
 
-                <button class="btn btn-success">
-                    <i class="bi bi-check-circle"></i>
-                    Simpan Status & Prioritas
-                </button>
+Kembali
 
-            </form>
+</a>
 
-            <hr>
+</div>
 
-            {{-- Assign Staff --}}
-            <form action="{{ route('admin.ticket.assign',$ticket->id) }}" method="POST">
+@if(session('success'))
 
-                @csrf
-                @method('PUT')
+<div class="alert alert-success shadow-sm">
 
-                <div class="mb-3">
+<i class="bi bi-check-circle-fill"></i>
 
-                    <label class="form-label fw-bold">
-                        Assign Staff
-                    </label>
+{{ session('success') }}
 
-                    <select name="staff_id" class="form-select">
+</div>
 
-                        <option value="">
-                            -- Pilih Staff --
-                        </option>
+@endif
 
-                        @foreach($staffs as $staff)
+<div class="card main-card">
 
-                            <option value="{{ $staff->id }}"
-                                {{ $ticket->staff_id == $staff->id ? 'selected' : '' }}>
+<div class="card-body p-4">
 
-                                {{ $staff->name }}
+<div class="row">
 
-                            </option>
+<div class="col-lg-8">
 
-                        @endforeach
+<div class="card-box">
 
-                    </select>
+<div class="section-title mb-4">
 
-                </div>
+<i class="bi bi-info-circle-fill text-primary"></i>
 
-                <button class="btn btn-primary">
-                    <i class="bi bi-person-check-fill"></i>
-                    Assign Staff
-                </button>
+Informasi Tiket
 
-                <a href="{{ route('admin.ticket.index') }}"
-                   class="btn btn-secondary">
+</div>
 
-                    Kembali
+<div class="row">
 
-                </a>
+<div class="col-md-6 mb-4">
 
-            </form>
+<div class="info-title">
 
-        </div>
+Kode Ticket
+
+</div>
+
+<div class="info-value">
+
+{{ $ticket->kode_ticket }}
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<div class="info-title">
+
+Layanan
+
+</div>
+
+<div class="info-value">
+
+{{ $ticket->service->nama_layanan }}
+
+</div>
+
+</div>
+
+<div class="col-md-12 mb-4">
+
+<div class="info-title">
+
+Judul
+
+</div>
+
+<div class="info-value">
+
+{{ $ticket->judul }}
+
+</div>
+
+</div>
+
+<div class="col-md-12">
+
+<div class="info-title mb-2">
+
+Deskripsi
+
+</div>
+
+<div class="border rounded-4 p-3 bg-light">
+
+{{ $ticket->deskripsi }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card-box">
+
+<div class="section-title mb-4">
+
+<i class="bi bi-paperclip text-primary"></i>
+
+Lampiran
+
+</div>
+
+@if($ticket->attachments->count())
+
+<div class="row">
+
+@foreach($ticket->attachments as $file)
+
+<div class="col-md-6 mb-3">
+
+<a href="{{ asset('storage/'.$file->path_file) }}"
+target="_blank"
+class="btn btn-outline-primary w-100 py-3">
+
+<i class="bi bi-image-fill me-2"></i>
+
+Lihat Lampiran
+
+</a>
+
+</div>
+
+@endforeach
+
+</div>
+
+@else
+
+<div class="text-center text-muted py-3">
+
+<i class="bi bi-folder2-open display-6"></i>
+
+<p class="mt-2 mb-0">
+
+Tidak ada lampiran.
+
+</p>
+
+</div>
+
+@endif
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card-box text-center">
+
+<div class="avatar mx-auto mb-3">
+
+{{ strtoupper(substr($ticket->user->name,0,1)) }}
+
+</div>
+
+<h4>
+
+{{ $ticket->user->name }}
+
+</h4>
+
+<p class="text-muted">
+
+{{ $ticket->user->email }}
+
+</p>
+
+<hr>
+
+@if($ticket->status=='To Do')
+
+<span class="badge bg-warning text-dark badge-custom">
+
+⏳ To Do
+
+</span>
+
+@elseif($ticket->status=='In Progress')
+
+<span class="badge bg-info badge-custom">
+
+🔄 In Progress
+
+</span>
+
+@else
+
+<span class="badge bg-success badge-custom">
+
+✅ Completed
+
+</span>
+
+@endif
+
+<br><br>
+
+@if($ticket->prioritas=='Tinggi')
+
+<span class="badge bg-danger badge-custom">
+
+🔥 Tinggi
+
+</span>
+
+@elseif($ticket->prioritas=='Sedang')
+
+<span class="badge bg-warning text-dark badge-custom">
+
+⚡ Sedang
+
+</span>
+
+@else
+
+<span class="badge bg-success badge-custom">
+
+🌿 Rendah
+
+</span>
+
+@endif
+
+</div>
+<div class="card-box">
+
+    <div class="section-title mb-4">
+
+        <i class="bi bi-sliders text-primary me-2"></i>
+
+        Manajemen Tiket
 
     </div>
+
+    <form action="{{ route('admin.ticket.update',$ticket->id) }}" method="POST">
+
+        @csrf
+        @method('PUT')
+
+        <div class="row">
+
+            <div class="col-md-6 mb-4">
+
+                <label class="form-label fw-bold">
+
+                    Status Tiket
+
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select form-select-lg">
+
+                    <option value="To Do"
+                        {{ $ticket->status=='To Do' ? 'selected' : '' }}>
+
+                        ⏳ To Do
+
+                    </option>
+
+                    <option value="In Progress"
+                        {{ $ticket->status=='In Progress' ? 'selected' : '' }}>
+
+                        🔄 In Progress
+
+                    </option>
+
+                    <option value="Completed"
+                        {{ $ticket->status=='Completed' ? 'selected' : '' }}>
+
+                        ✅ Completed
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-6 mb-4">
+
+                <label class="form-label fw-bold">
+
+                    Prioritas
+
+                </label>
+
+                <select
+                    name="prioritas"
+                    class="form-select form-select-lg">
+
+                    <option value="Rendah"
+                        {{ $ticket->prioritas=='Rendah' ? 'selected' : '' }}>
+
+                        🟢 Rendah
+
+                    </option>
+
+                    <option value="Sedang"
+                        {{ $ticket->prioritas=='Sedang' ? 'selected' : '' }}>
+
+                        🟡 Sedang
+
+                    </option>
+
+                    <option value="Tinggi"
+                        {{ $ticket->prioritas=='Tinggi' ? 'selected' : '' }}>
+
+                        🔴 Tinggi
+
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="d-grid">
+
+            <button
+                class="btn btn-success btn-lg shadow">
+
+                <i class="bi bi-check-circle-fill me-2"></i>
+
+                Simpan Perubahan
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+<div class="card-box">
+
+    <div class="section-title mb-4">
+
+        <i class="bi bi-person-workspace text-primary me-2"></i>
+
+        Assign Staff
+
+    </div>
+
+    <form action="{{ route('admin.ticket.assign',$ticket->id) }}" method="POST">
+
+        @csrf
+        @method('PUT')
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+
+                Pilih Staff
+
+            </label>
+
+            <select
+                name="staff_id"
+                class="form-select form-select-lg">
+
+                <option value="">
+
+                    -- Pilih Staff --
+
+                </option>
+
+                @foreach($staffs as $staff)
+
+                    <option
+                        value="{{ $staff->id }}"
+                        {{ $ticket->staff_id == $staff->id ? 'selected' : '' }}>
+
+                        👤 {{ $staff->name }}
+
+                    </option>
+
+                @endforeach
+
+            </select>
+
+        </div>
+
+        <div class="d-grid gap-2">
+
+            <button
+                class="btn btn-primary btn-lg shadow">
+
+                <i class="bi bi-person-check-fill me-2"></i>
+
+                Assign Staff
+
+            </button>
+
+            <a href="{{ route('admin.ticket.index') }}"
+               class="btn btn-outline-secondary btn-lg">
+
+                <i class="bi bi-arrow-left-circle me-2"></i>
+
+                Kembali ke Daftar Tiket
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 

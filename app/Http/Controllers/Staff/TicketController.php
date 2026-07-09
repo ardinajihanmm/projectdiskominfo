@@ -86,4 +86,29 @@ class TicketController extends Controller
             ->route('staff.ticket.index')
             ->with('success', 'Status tiket berhasil diperbarui.');
     }
+
+    public function updateStatus(Request $request, Ticket $ticket)
+{
+    $request->validate([
+        'status' => 'required|in:To Do,In Progress,Completed',
+    ]);
+
+    // hanya staff yang ditugaskan yang boleh mengubah status
+    if ($ticket->staff_id != auth()->id()) {
+        abort(403);
+    }
+
+    if ($request->status == 'In Progress' && !$ticket->started_at) {
+        $ticket->started_at = now();
+    }
+
+    if ($request->status == 'Completed') {
+        $ticket->completed_at = now();
+    }
+
+    $ticket->status = $request->status;
+    $ticket->save();
+
+    return back()->with('success','Status tiket berhasil diperbarui.');
+}
 }

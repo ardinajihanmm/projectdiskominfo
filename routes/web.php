@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
 use App\Http\Controllers\Staff\CommentController;
 use App\Http\Controllers\Staff\ProfileController;
+use App\Http\Controllers\Staff\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,6 +143,12 @@ Route::middleware(['auth','role:admin'])
 |--------------------------------------------------------------------------
 */
 
+/*
+|--------------------------------------------------------------------------
+| STAFF
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware(['auth','role:staff'])
     ->prefix('staff')
     ->name('staff.')
@@ -156,25 +163,27 @@ Route::middleware(['auth','role:staff'])
             ->name('kanban');
 
         // Ticket
-        Route::resource('ticket',StaffTicket::class)
-            ->names('ticket');
-
-        // Ticket
         Route::resource('ticket', StaffTicket::class)
             ->names('ticket');
+
+        // Update Status Ticket
+        Route::put('/ticket/{ticket}/status',
+            [TicketController::class,'updateStatus'])
+            ->name('ticket.status');
 
         // Komentar
         Route::post('/comment',
             [CommentController::class,'store'])
             ->name('comment.store');
 
-        // Edit Profil
-        Route::get('/profile', [ProfileController::class, 'edit'])
+        // Profile
+        Route::get('/profile', [ProfileController::class,'edit'])
             ->name('profile');
 
-        Route::put('/profile/update', [ProfileController::class, 'update'])
+        Route::put('/profile/update', [ProfileController::class,'update'])
             ->name('profile.update');
 
-        Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
+        Route::put('/profile/password', [ProfileController::class,'updatePassword'])
             ->name('profile.password');
+
     });

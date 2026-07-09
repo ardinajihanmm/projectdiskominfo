@@ -25,17 +25,17 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'no_hp' => 'nullable|string|max:20',
-            'instansi' => 'nullable|string|max:255',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email,' . $user->id,
+            'no_hp'     => 'nullable|string|max:20',
+            'instansi'  => 'nullable|string|max:255',
         ]);
 
         $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'instansi' => $request->instansi,
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'no_hp'     => $request->no_hp,
+            'instansi'  => $request->instansi,
         ]);
 
         return back()->with('success', 'Profil berhasil diperbarui.');
@@ -48,18 +48,20 @@ class ProfileController extends Controller
     {
         $request->validate([
             'password_lama' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $user = Auth::user();
 
+        // Cek password lama
         if (!Hash::check($request->password_lama, $user->password)) {
             return back()->with('error', 'Password lama tidak sesuai.');
         }
 
+        // Simpan password baru
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('success', 'Password berhasil diperbarui.');
+        return back()->with('success', 'Password berhasil diubah.');
     }
 }

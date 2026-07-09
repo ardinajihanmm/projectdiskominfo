@@ -149,39 +149,34 @@
 
                         @csrf
                         @method('PUT')
+<div class="mb-3">
+    <label>Password Lama</label>
+    <input
+        type="password"
+        name="password_lama"
+        class="form-control"
+        required>
+</div>
 
-                        <div class="mb-3">
+<div class="mb-3">
+    <label>Password Baru</label>
+    <input
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="Minimal 8 karakter"
+    autocomplete="new-password">
+        required>
+</div>
 
-                            <label>Password Lama</label>
-
-                            <input
-                                type="password"
-                                name="current_password"
-                                class="form-control">
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label>Password Baru</label>
-
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control">
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label>Konfirmasi Password</label>
-
-                            <input
-                                type="password"
-                                name="password_confirmation"
-                                class="form-control">
-
-                        </div>
+<div class="mb-3">
+    <label>Konfirmasi Password</label>
+    <input
+        type="password"
+        name="password_confirmation"
+        class="form-control"
+        required>
+</div>
 
                         <button class="btn btn-success">
 
@@ -202,5 +197,29 @@
     </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil',
+    text: '{{ session('success') }}',
+    timer: 1800,
+    showConfirmButton: false
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal',
+    text: '{{ session('error') }}'
+});
+</script>
+@endif
 
 @endsection

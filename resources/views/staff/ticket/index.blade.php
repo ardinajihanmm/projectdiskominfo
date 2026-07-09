@@ -14,8 +14,10 @@
         </div>
     @endif
 
-    {{-- Header --}}
-    <div class="mb-4">
+   {{-- Header --}}
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
         <h2 class="fw-bold mb-1">
             <i class="bi bi-ticket-detailed-fill text-primary"></i>
             Daftar Tiket
@@ -24,6 +26,13 @@
             Kelola seluruh tiket yang masuk.
         </p>
     </div>
+
+    <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Kembali
+    </a>
+
+</div>
 
     {{-- Search & Filter --}}
     <div class="card shadow-sm border-0 mb-4">

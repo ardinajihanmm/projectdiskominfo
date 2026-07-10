@@ -37,12 +37,12 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete('profile/'.$user->photo);
             }
 
-            // Simpan foto baru
+          // Simpan foto baru
             $path = $request->file('photo')->store('profile', 'public');
 
             // Simpan nama file ke database
             $user->photo = basename($path);
-        }
+            }
 
         $user->save();
 

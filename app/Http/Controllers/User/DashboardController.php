@@ -61,5 +61,17 @@ class DashboardController extends Controller
         'activities'
     ));
 }
+public function markAsRead(Notification $notification)
+{
+    // Pastikan notifikasi milik user yang sedang login
+    if ($notification->user_id != Auth::id()) {
+        abort(403);
+    }
 
+    $notification->update([
+        'is_read' => true
+    ]);
+
+    return back()->with('success', 'Notifikasi telah ditandai sebagai sudah dibaca.');
+}
 }

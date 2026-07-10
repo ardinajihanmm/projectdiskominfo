@@ -86,6 +86,9 @@ Route::put('/profile/password', [UserProfileController::class,'password'])
 
         Route::get('/ticket/{id}',[UserTicket::class,'detail'])
             ->name('ticket.detail');
+        Route::put('/notification/{notification}/read',
+    [UserDashboard::class,'markAsRead'])
+    ->name('notification.read');
     });
 
 /*

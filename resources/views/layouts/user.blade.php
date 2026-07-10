@@ -403,6 +403,56 @@ background:#f8fbff;
 
 }
 
+.notification-card{
+    transition: all .25s ease;
+}
+
+.notification-read{
+    background:#f8fafc;
+}
+
+.notification-read h6,
+.notification-read p,
+.notification-read small{
+    color: #6c757d !important;
+}
+.notification-card .btn{
+    height:38px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    white-space: nowrap;
+    font-weight:600;      /* Tambahkan ini */
+}
+
+.notification-card .badge{
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 18px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:600;      /* Tambahkan ini */
+}
+
+.notification-card{
+    transition:.2s;
+}
+
+.notification-card:hover{
+    background:#f8fafc;
+}
+
+.notification-card .btn{
+    transition:.2s;
+}
+
+.notification-card .btn:hover{
+    transform:translateY(-1px);
+}
     </style>
 
 </head>
@@ -554,13 +604,13 @@ background:#f8fbff;
 
     <div class="offcanvas-header">
 
-        <h5>
+        <h5 class="fw-bolder mb-0">
 
-            <i class="bi bi-bell-fill text-primary"></i>
+    <i class="bi bi-bell-fill text-primary me-2"></i>
 
-            Notifikasi
+    Notifikasi
 
-        </h5>
+</h5>
 
         <button
             class="btn-close"
@@ -571,75 +621,113 @@ background:#f8fbff;
 
     <div class="offcanvas-body p-0">
 
-        @forelse($notifications as $notif)
+        
+    @forelse($notifications as $notif)
 
-        <a
-            href="{{ route('user.ticket.detail',$notif->ticket_id) }}"
-            class="notification-card">
+<div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
 
-            <div class="notification-icon">
+    <div class="d-flex">
 
-                @if(Str::contains($notif->judul,'Komentar'))
+        <div class="notification-icon me-3">
 
-                    <i class="bi bi-chat-dots-fill text-success"></i>
+            @if(Str::contains($notif->judul,'Komentar'))
 
-                @elseif(Str::contains($notif->judul,'Status'))
+                <i class="bi bi-chat-dots-fill text-success"></i>
 
-                    <i class="bi bi-arrow-repeat text-primary"></i>
+            @elseif(Str::contains($notif->judul,'Status'))
 
-                @else
+                <i class="bi bi-arrow-repeat text-primary"></i>
 
-                    <i class="bi bi-info-circle-fill text-warning"></i>
+            @else
 
-                @endif
+                <i class="bi bi-info-circle-fill text-warning"></i>
 
-            </div>
-
-            <div class="flex-grow-1">
-
-                <h6>
-
-                    {{ $notif->judul }}
-
-                </h6>
-
-                <p>
-
-                    {{ $notif->pesan }}
-
-                </p>
-
-                <small class="text-muted">
-
-                    {{ $notif->created_at->diffForHumans() }}
-
-                </small>
-
-            </div>
-
-        </a>
-
-        @empty
-
-        <div class="text-center py-5">
-
-            <i class="bi bi-bell-slash fs-1 text-secondary"></i>
-
-            <p class="mt-3">
-
-                Belum ada notifikasi.
-
-            </p>
+            @endif
 
         </div>
 
-        @endforelse
-        <div class="p-3 border-top">
-    <button class="btn btn-primary w-100">
-        <i class="bi bi-check2-all"></i>
-        Tandai Semua Sudah Dibaca
+        <div class="flex-grow-1">
 
-    </button>
+            <h6 class="mb-1 fw-bold">
+
+                {{ $notif->judul }}
+
+            </h6>
+
+            <p class="mb-2">
+
+                {{ $notif->pesan }}
+
+            </p>
+
+            <small class="text-muted">
+
+                {{ $notif->created_at->diffForHumans() }}
+
+            </small>
+
+            <div class="mt-3 d-flex align-items-center gap-3">
+                <a href="{{ route('user.ticket.detail',$notif->ticket_id) }}"
+  class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+
+                    <i class="bi bi-eye"></i>
+
+                    Lihat Tiket
+
+                </a>
+
+                @if(!$notif->is_read)
+
+                    <form action="{{ route('user.notification.read',$notif->id) }}"
+                          method="POST">
+
+                        @csrf
+                        @method('PUT')
+
+                        <button
+    type="submit"
+    class="btn btn-sm btn-success rounded-pill px-4 py-2">
+
+    <i class="bi bi-check2-circle me-1"></i>
+
+    Tandai Dibaca
+
+</button>
+
+                    </form>
+
+                @else
+
+<span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+    <i class="bi bi-check-circle-fill me-1"></i>
+    Sudah Dibaca
+</span>
+
+@endif
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@empty
+
+<div class="text-center py-5">
+
+    <i class="bi bi-bell-slash fs-1 text-secondary"></i>
+
+    <p class="mt-3 mb-0">
+
+        Belum ada notifikasi.
+
+    </p>
+
+</div>
+
+@endforelse
 
 </div>
 

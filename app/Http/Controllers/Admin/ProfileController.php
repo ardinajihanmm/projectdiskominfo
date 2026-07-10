@@ -15,7 +15,7 @@ class ProfileController extends Controller
         return view('admin.profile');
     }
 
-    public function update(Request $request)
+   public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -30,27 +30,25 @@ class ProfileController extends Controller
         $user->no_hp = $request->no_hp;
         $user->instansi = $request->instansi;
 
-        dd($request->all(), $request->hasFile('photo'));
-
         if ($request->hasFile('photo')) {
 
-            if ($user->photo && Storage::exists('public/profile/'.$user->photo)) {
-                Storage::delete('public/profile/'.$user->photo);
+            // Hapus foto lama
+            if ($user->photo) {
+                Storage::disk('public')->delete('profile/'.$user->photo);
             }
 
-            $photo = time().'.'.$request->photo->extension();
+            // Simpan foto baru
+            $path = $request->file('photo')->store('profile', 'public');
 
-            $request->photo->storeAs(
-                'public/profile',
-                $photo
-            );
-
-            $user->photo = $photo;
+            // Simpan nama file ke database
+            $user->photo = basename($path);
         }
 
         $user->save();
 
-        return back()->with('success','Profil berhasil diperbarui.');
+        return redirect()
+                ->back()
+                ->with('success', 'Profil berhasil diperbarui.');
     }
     public function password(Request $request)
     {

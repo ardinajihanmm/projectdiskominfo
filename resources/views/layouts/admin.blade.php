@@ -22,7 +22,7 @@ body{
 .sidebar{
 
     width:260px;
-    min-height:100vh;
+    height:100vh;
 
     background:linear-gradient(
         180deg,
@@ -38,8 +38,27 @@ body{
     left:0;
     top:0;
 
+    overflow-y:auto;
+    overflow-x:hidden;
+
     box-shadow:8px 0 25px rgba(0,0,0,.08);
 
+}
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.35);
+    border-radius:20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background:rgba(255,255,255,.7);
 }
 
 .logo{
@@ -78,21 +97,16 @@ body{
 
 .avatar{
 
-    width:82px;
-
-    height:82px;
+    width:90px;
+    height:90px;
 
     margin:auto;
 
     border-radius:50%;
 
+    overflow:hidden;
+
     background:white;
-
-    color:#0d6efd;
-
-    font-size:34px;
-
-    font-weight:bold;
 
     display:flex;
 
@@ -101,6 +115,16 @@ body{
     align-items:center;
 
     box-shadow:0 8px 20px rgba(0,0,0,.18);
+
+    border:4px solid rgba(255,255,255,.3);
+
+}
+
+.avatar img{
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
 
 }
 
@@ -294,7 +318,18 @@ Diskominfo
 
 <div class="avatar">
 
-{{ strtoupper(substr(Auth::user()->name,0,1)) }}
+@if(Auth::user()->photo)
+
+    <img src="{{ asset('storage/profile/' . Auth::user()->photo) }}"
+         alt="Profile"
+         class="w-100 h-100 rounded-circle"
+         style="object-fit:cover;">
+
+@else
+
+    {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+
+@endif
 
 </div>
 

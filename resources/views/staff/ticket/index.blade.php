@@ -1,5 +1,7 @@
 @extends('layouts.staff')
 
+@section('title', 'Daftar Tiket')
+
 @section('content')
 
 <div class="container-fluid">

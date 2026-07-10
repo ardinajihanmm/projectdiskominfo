@@ -1,5 +1,7 @@
 @extends('layouts.staff')
 
+@section('title', 'Dashboard')
+
 @section('content')
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -13,11 +15,6 @@
             Ringkasan aktivitas helpdesk
         </small>
     </div>
-
-    <a href="{{ route('staff.kanban') }}" class="btn btn-primary">
-        <i class="bi bi-kanban-fill"></i>
-        Buka Kanban Board
-    </a>
 
 </div>
 
@@ -70,10 +67,17 @@
         {{-- Progress --}}
         <div class="card shadow-sm mb-4">
 
-            <div class="card-header bg-white">
-                <i class="bi bi-bar-chart-line-fill text-success"></i>
-                Progress Penyelesaian
-            </div>
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+    <div>
+        <i class="bi bi-ticket-detailed-fill text-primary"></i>
+        <strong>Daftar Tiket Terbaru</strong>
+    </div>
+
+    <a href="{{ route('staff.ticket.index') }}"
+       class="btn btn-sm btn-outline-primary">
+        Lihat Semua
+    </a>
+</div>
 
             <div class="card-body">
 
@@ -112,16 +116,14 @@
 
                     <table class="table table-hover align-middle">
 
-                        <thead class="table-light">
-
-                        <tr>
-                            <th>Kode</th>
-                            <th>Judul</th>
+                       <thead class="table-light">
+                       <tr>
+                            <th width="170">Kode Tiket</th>
+                            <th>Judul Tiket</th>
                             <th>Pelapor</th>
                             <th>Status</th>
-                            <th></th>
+                            <th width="150" class="text-center">Aksi</th>
                         </tr>
-
                         </thead>
 
                         <tbody>
@@ -148,15 +150,12 @@
 
                                 </td>
 
-                                <td>
-
+                                <td class="text-center">
                                     <a href="{{ route('staff.ticket.show',$ticket->id) }}"
-                                        class="btn btn-sm btn-primary">
-
-                                        <i class="bi bi-eye-fill"></i>
-
+                                        class="btn btn-primary btn-sm">
+                                            <i class="bi bi-eye-fill"></i>
+                                            Detail
                                     </a>
-
                                 </td>
 
                             </tr>

@@ -1,5 +1,7 @@
 @extends('layouts.staff')
 
+@section('title', 'Profil Staff')
+
 @section('content')
 
 <div class="container-fluid">
@@ -23,15 +25,20 @@
 
                 <div class="card-body text-center">
 
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=0d6efd&color=fff&size=200"
-                        class="rounded-circle mb-3"
-                        width="140">
+                    <img
+                        src="{{ auth()->user()->foto
+                            ? asset('storage/'.auth()->user()->foto)
+                            : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&background=0d6efd&color=fff&size=200' }}"
+                        class="rounded-circle border border-3 border-primary shadow mb-3"
+                        width="160"
+                        height="160"
+                        style="object-fit:cover;">
 
                     <h4 class="fw-bold mb-1">
                         {{ auth()->user()->name }}
                     </h4>
 
-                    <span class="badge bg-primary">
+                    <span class="badge bg-primary mb-3">
                         STAFF
                     </span>
 
@@ -77,10 +84,28 @@
 
                 <div class="card-body">
 
-                    <form action="{{ route('staff.profile.update') }}" method="POST">
+                    <form action="{{ route('staff.profile.update') }}"
+                          method="POST"
+                          enctype="multipart/form-data">
 
                         @csrf
                         @method('PUT')
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                Foto Profil
+                            </label>
+
+                            <input
+                                type="file"
+                                name="foto"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png">
+
+                            <small class="text-muted">
+                                Format JPG, JPEG, PNG (Maksimal 2 MB)
+                            </small>
+                        </div>
 
                         <div class="row">
 
@@ -145,45 +170,44 @@
 
                 <div class="card-body">
 
-                    <form action="{{ route('staff.profile.password') }}" method="POST">
+                    <form action="{{ route('staff.profile.password') }}"
+                          method="POST">
 
                         @csrf
                         @method('PUT')
-<div class="mb-3">
-    <label>Password Lama</label>
-    <input
-        type="password"
-        name="password_lama"
-        class="form-control"
-        required>
-</div>
 
-<div class="mb-3">
-    <label>Password Baru</label>
-    <input
-        type="password"
-        name="password"
-        class="form-control"
-        placeholder="Minimal 8 karakter"
-    autocomplete="new-password">
-        required>
-</div>
+                        <div class="mb-3">
+                            <label>Password Lama</label>
+                            <input
+                                type="password"
+                                name="password_lama"
+                                class="form-control"
+                                required>
+                        </div>
 
-<div class="mb-3">
-    <label>Konfirmasi Password</label>
-    <input
-        type="password"
-        name="password_confirmation"
-        class="form-control"
-        required>
-</div>
+                        <div class="mb-3">
+                            <label>Password Baru</label>
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Minimal 8 karakter"
+                                autocomplete="new-password"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Konfirmasi Password Baru</label>
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                class="form-control"
+                                required>
+                        </div>
 
                         <button class="btn btn-success">
-
                             <i class="bi bi-key-fill"></i>
-
                             Ubah Password
-
                         </button>
 
                     </form>
@@ -221,5 +245,43 @@ Swal.fire({
 });
 </script>
 @endif
+
+@if ($errors->any())
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Upload Gagal',
+    text: '{{ $errors->first() }}'
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal',
+    text: '{{ session('error') }}'
+});
+</script>
+@endif
+
+<script>
+document.getElementById('foto').addEventListener('change', function () {
+
+    const file = this.files[0];
+
+    if (file && file.size > 2 * 1024 * 1024) {
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Ukuran Foto Terlalu Besar',
+            text: 'Ukuran foto maksimal 2 MB.'
+        });
+
+        this.value = '';
+    }
+});
+</script>
 
 @endsection

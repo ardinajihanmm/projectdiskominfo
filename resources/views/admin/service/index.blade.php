@@ -1,122 +1,525 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Data Layanan</h2>
-        <form action="{{ route('admin.service.index') }}" method="GET" class="mb-3">
-    <div class="input-group">
+<div class="container-fluid py-4">
 
-        <span class="input-group-text bg-primary text-white">
-            <i class="bi bi-search"></i>
-        </span>
+    {{-- Header --}}
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
 
-        <input
-            type="text"
-            name="search"
-            class="form-control"
-            placeholder="Cari nama layanan..."
-            value="{{ $search ?? '' }}">
+        <div class="card-body">
 
-        <button class="btn btn-primary">
-            Cari
-        </button>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-        @if(!empty($search))
-            <a href="{{ route('admin.service.index') }}" class="btn btn-outline-secondary">
-                Reset
-            </a>
-        @endif
+                <div>
 
-    </div>
-</form>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-grid-fill text-primary me-2"></i>
+                        Kelola Layanan
+                    </h2>
 
-        <a href="{{ route('admin.service.create') }}" class="btn btn-primary">
-            + Tambah Layanan
-        </a>
-    </div>
+                    <p class="text-muted mb-0">
+                        Kelola seluruh data layanan Helpdesk Diskominfo.
+                    </p>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+                </div>
 
-    <table class="table table-bordered table-striped">
+                <div class="d-flex gap-2 mt-3 mt-md-0">
 
-        <thead class="table-dark">
-            <tr>
-                <th>No</th>
-                <th>Bidang</th>
-                <th>Nama Layanan</th>
-                <th>SLA</th>
-                <th>Status</th>
-                <th width="170">Aksi</th>
-            </tr>
-        </thead>
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="btn btn-light border rounded-pill px-4">
 
-        <tbody>
+                        <i class="bi bi-arrow-left"></i>
 
-        @forelse($services as $service)
+                        Dashboard
 
-            <tr>
-
-                <td>{{ $loop->iteration }}</td>
-
-                <td>{{ $service->department->nama_bidang ?? '-' }}</td>
-
-                <td>{{ $service->nama_layanan }}</td>
-
-                <td>{{ $service->sla }} Hari</td>
-
-                <td>
-                    @if($service->status)
-                        <span class="badge bg-success">Aktif</span>
-                    @else
-                        <span class="badge bg-danger">Nonaktif</span>
-                    @endif
-                </td>
-
-                <td>
-
-                    <a href="{{ route('admin.service.edit',$service->id) }}"
-                        class="btn btn-warning btn-sm">
-                        Edit
                     </a>
 
-                    <form action="{{ route('admin.service.destroy',$service->id) }}"
-                          method="POST"
-                          style="display:inline">
+                    <a href="{{ route('admin.service.create') }}"
+                       class="btn btn-primary rounded-pill px-4 shadow-sm">
 
-                        @csrf
-                        @method('DELETE')
+                        <i class="bi bi-plus-circle-fill me-1"></i>
 
-                        <button
-                            class="btn btn-danger btn-sm"
-                            onclick="return confirm('Hapus layanan ini?')">
-                            Hapus
+                        Tambah Layanan
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- Alert --}}
+    @if(session('success'))
+
+        <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-4">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            {{ session('success') }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+    {{-- Search --}}
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <form action="{{ route('admin.service.index') }}" method="GET">
+
+                <div class="row g-3">
+
+                    <div class="col-lg-10">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white border-end-0">
+
+                                <i class="bi bi-search text-primary"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control border-start-0 ps-0"
+                                placeholder="Cari nama layanan..."
+                                value="{{ $search ?? '' }}">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-2 d-grid">
+                        <button class="btn btn-primary rounded-pill">
+                            <i class="bi bi-search me-1"></i>
+                            Cari
                         </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{-- Data --}}
+    <div class="card border-0 shadow rounded-4">
+        <div class="card-header bg-white border-0 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0">
+                    <i class="bi bi-list-ul text-primary me-2"></i>
+                    Data Layanan
+                </h5>
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+                    {{ $services->total() }} Layanan
+                </span>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th width="70">No</th>
+                            <th>Bidang</th>
+                            <th>Nama Layanan</th>
+                            <th width="120">SLA</th>
+                            <th width="120">Status</th>
+                            <th width="170" class="text-center">
+                                Aksi
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+@forelse($services as $service)
+<tr class="service-row">
 
-                    </form>
+    <td class="fw-bold text-primary">
 
-                </td>
+        {{ $loop->iteration }}
 
-            </tr>
+    </td>
 
-        @empty
+    <td>
 
-            <tr>
-                <td colspan="6" class="text-center">
-                    Belum ada data layanan.
-                </td>
-            </tr>
+        <div class="d-flex align-items-center">
 
-        @endforelse
+            <div class="service-icon me-3">
 
-        </tbody>
+                <i class="bi bi-diagram-3-fill"></i>
 
-    </table>
+            </div>
+
+            <div>
+
+                <div class="fw-semibold">
+
+                    {{ $service->department->nama_bidang ?? '-' }}
+
+                </div>
+
+                <small class="text-muted">
+
+                    Bidang Layanan
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </td>
+
+    <td>
+
+        <div class="fw-bold fs-6">
+
+            {{ $service->nama_layanan }}
+
+        </div>
+
+        <small class="text-muted">
+
+            Helpdesk Diskominfo
+
+        </small>
+
+    </td>
+
+    <td>
+
+        <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-2">
+
+            <i class="bi bi-clock-history me-1"></i>
+
+            {{ $service->sla }} Hari
+
+        </span>
+
+    </td>
+
+    <td>
+
+        @if($service->status)
+
+            <span class="badge bg-success rounded-pill px-3 py-2">
+
+                <i class="bi bi-check-circle-fill me-1"></i>
+
+                Aktif
+
+            </span>
+
+        @else
+
+            <span class="badge bg-danger rounded-pill px-3 py-2">
+
+                <i class="bi bi-x-circle-fill me-1"></i>
+
+                Nonaktif
+
+            </span>
+
+        @endif
+
+    </td>
+
+    <td>
+
+        <div class="d-flex justify-content-center gap-2">
+
+            <a href="{{ route('admin.service.edit',$service->id) }}"
+               class="btn btn-warning btn-sm rounded-circle action-btn"
+               data-bs-toggle="tooltip"
+               title="Edit">
+
+                <i class="bi bi-pencil-fill"></i>
+
+            </a>
+
+            <form action="{{ route('admin.service.destroy',$service->id) }}"
+                  method="POST"
+                  onsubmit="return confirm('Hapus layanan ini?')">
+
+                @csrf
+
+                @method('DELETE')
+
+                <button
+                    class="btn btn-danger btn-sm rounded-circle action-btn"
+                    data-bs-toggle="tooltip"
+                    title="Hapus">
+
+                    <i class="bi bi-trash-fill"></i>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </td>
+
+</tr>
+
+@empty
+
+<tr>
+
+    <td colspan="6">
+
+        <div class="text-center py-5">
+
+            <i class="bi bi-inbox display-3 text-secondary"></i>
+
+            <h5 class="mt-3 fw-bold">
+
+                Belum Ada Data Layanan
+
+            </h5>
+
+            <p class="text-muted">
+
+                Klik tombol <b>Tambah Layanan</b> untuk menambahkan layanan baru.
+
+            </p>
+
+        </div>
+
+    </td>
+
+</tr>
+
+@endforelse
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="card-footer bg-white border-0 py-3">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                <small class="text-muted">
+
+                    Menampilkan
+
+                    <strong>{{ $services->count() }}</strong>
+
+                    dari
+
+                    <strong>{{ $services->total() }}</strong>
+
+                    layanan.
+
+                </small>
+
+                {{ $services->links() }}
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
+<style>
+
+.card{
+
+    border-radius:22px;
+
+}
+
+.table thead{
+
+    background:#0d6efd;
+
+}
+
+.table thead th{
+
+    color:white;
+
+    border:none;
+
+    padding:18px;
+
+    font-size:14px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    font-weight:600;
+
+}
+
+.table tbody td{
+
+    padding:18px;
+
+    vertical-align:middle;
+
+}
+
+.service-row{
+
+    transition:.25s ease;
+
+}
+
+.service-row:hover{
+
+    background:#f8fbff;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 24px rgba(0,0,0,.05);
+
+}
+
+.service-icon{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#0d6efd,#4f8cff);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    box-shadow:0 10px 18px rgba(13,110,253,.25);
+
+}
+
+.action-btn{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.25s;
+
+}
+
+.action-btn:hover{
+
+    transform:translateY(-3px) scale(1.05);
+
+}
+
+.input-group-text{
+
+    border-radius:14px 0 0 14px;
+
+}
+
+.form-control{
+
+    height:48px;
+
+    border-radius:0 14px 14px 0;
+
+}
+
+.btn-primary{
+
+    border-radius:14px;
+
+}
+
+.btn-light{
+
+    border-radius:14px;
+
+}
+
+.badge{
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
+.pagination{
+
+    margin-bottom:0;
+
+}
+
+.page-link{
+
+    border:none;
+
+    margin:0 4px;
+
+    border-radius:10px !important;
+
+    color:#0d6efd;
+
+}
+
+.page-item.active .page-link{
+
+    background:#0d6efd;
+
+    color:white;
+
+}
+
+.page-link:hover{
+
+    background:#e9f2ff;
+
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    const tooltipTriggerList=[].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+
+    tooltipTriggerList.map(function(el){
+
+        return new bootstrap.Tooltip(el);
+
+    });
+
+});
+
+</script>
+
 @endsection

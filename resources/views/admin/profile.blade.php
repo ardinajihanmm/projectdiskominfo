@@ -20,268 +20,350 @@
 
 <div class="row">
 
-    <!-- PROFILE CARD -->
-    <div class="col-lg-4">
+<!-- ================= PROFILE CARD ================= -->
+<div class="col-lg-4">
 
-        <div class="card shadow border-0 rounded-4">
+    <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
 
-            <div class="card-body text-center">
+        <!-- Header -->
+        <div class="text-center py-5 text-white"
+            style="background:linear-gradient(135deg,#2563eb,#4f8dfd);">
 
-                @if(Auth::user()->photo)
+            @if(Auth::user()->photo)
 
-                    <img src="{{ asset('storage/profile/'.Auth::user()->photo) }}"
-                         class="rounded-circle shadow mb-3"
-                         width="140"
-                         height="140"
-                         style="object-fit:cover;">
+                <img src="{{ asset('storage/profile/'.Auth::user()->photo) }}"
+                    class="rounded-circle border border-4 border-white shadow"
+                    width="140"
+                    height="140"
+                    style="object-fit:cover;">
 
-                @else
+            @else
 
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D6EFD&color=fff&size=256"
-                         class="rounded-circle shadow mb-3"
-                         width="140"
-                         height="140">
+                <div
+                    class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow"
+                    style="width:140px;height:140px;">
 
-                @endif
-
-                <h3 class="fw-bold mb-1">
-                    {{ Auth::user()->name }}
-                </h3>
-
-                <span class="badge bg-primary px-3 py-2 mb-3">
-                    {{ ucfirst(Auth::user()->role) }}
-                </span>
-
-                <hr>
-
-                <div class="text-start">
-
-                    <p>
-                        <i class="bi bi-envelope-fill text-primary"></i>
-                        <strong>Email</strong><br>
-                        {{ Auth::user()->email }}
-                    </p>
-
-                    <p>
-                        <i class="bi bi-telephone-fill text-success"></i>
-                        <strong>No HP</strong><br>
-                        {{ Auth::user()->no_hp ?? '-' }}
-                    </p>
-
-                    <p>
-                        <i class="bi bi-building text-warning"></i>
-                        <strong>Instansi</strong><br>
-                        {{ Auth::user()->instansi ?? '-' }}
-                    </p>
+                    <i class="bi bi-person-fill text-primary"
+                        style="font-size:70px;"></i>
 
                 </div>
 
-                <button
-                    class="btn btn-warning w-100 mt-3"
-                    data-bs-toggle="modal"
-                    data-bs-target="#passwordModal">
+            @endif
 
-                    <i class="bi bi-key-fill"></i>
-                    Ganti Password
+            <h3 class="fw-bold mt-4 mb-1">
 
-                </button>
+                {{ Auth::user()->name }}
 
-            </div>
+            </h3>
+
+            <span class="badge bg-light text-primary rounded-pill px-4 py-2">
+
+                <i class="bi bi-patch-check-fill me-1"></i>
+
+                {{ ucfirst(Auth::user()->role) }}
+
+            </span>
 
         </div>
 
-    </div>
+        <!-- Body -->
+        <div class="card-body">
 
-    <!-- FORM -->
-    <div class="col-lg-8">
+            <div class="list-group list-group-flush">
 
-        <div class="card shadow border-0 rounded-4">
+                <div class="list-group-item border-0 py-3">
 
-            <div class="card-header bg-primary text-white">
+                    <div class="d-flex align-items-center">
 
-                <h4 class="mb-0">
-                    <i class="bi bi-person-fill"></i>
-                    Edit Profil
-                </h4>
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
 
-            </div>
+                            <i class="bi bi-envelope-fill text-primary fs-5"></i>
 
-            <div class="card-body">
+                        </div>
 
-                <form
-                    action="{{ route('admin.profile.update') }}"
-                    method="POST"
-                    enctype="multipart/form-data">
+                        <div>
 
-                    @csrf
-                    @method('PUT')
-                        <div class="row">
+                            <small class="text-muted">
 
-                            <div class="col-md-6 mb-3">
+                                Email
 
-                                <label class="form-label">
-                                    Nama Lengkap
-                                </label>
+                            </small>
 
-                                <input type="text"
-                                    name="name"
-                                    class="form-control"
-                                    value="{{ Auth::user()->name }}">
+                            <div class="fw-semibold">
 
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-
-                                <label class="form-label">
-                                    Email
-                                </label>
-
-                                <input type="email"
-                                    name="email"
-                                    class="form-control"
-                                    value="{{ Auth::user()->email }}">
-
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-
-                                <label class="form-label">
-                                    Nomor HP
-                                </label>
-
-                                <input type="text"
-                                    name="no_hp"
-                                    class="form-control"
-                                    value="{{ Auth::user()->no_hp }}">
-
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-
-                                <label class="form-label">
-                                    Instansi
-                                </label>
-
-                                <input type="text"
-                                    name="instansi"
-                                    class="form-control"
-                                    value="{{ Auth::user()->instansi }}">
-
-                            </div>
-
-                            <div class="col-12 mb-4">
-
-                                <label class="form-label">
-                                    Foto Profil
-                                </label>
-
-                                <input type="file"
-                                    name="photo"
-                                    class="form-control">
+                                {{ Auth::user()->email }}
 
                             </div>
 
                         </div>
 
-                        <button class="btn btn-primary px-4">
+                    </div>
 
-                            <i class="bi bi-save"></i>
-                            Simpan Perubahan
+                </div>
 
-                        </button>
+                <div class="list-group-item border-0 py-3">
 
-                    </form>
+                    <div class="d-flex align-items-center">
+
+                        <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+
+                            <i class="bi bi-phone-fill text-success fs-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Nomor HP
+
+                            </small>
+
+                            <div class="fw-semibold">
+
+                                {{ Auth::user()->no_hp ?? '-' }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="list-group-item border-0 py-3">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+
+                            <i class="bi bi-building-fill text-warning fs-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Instansi
+
+                            </small>
+
+                            <div class="fw-semibold">
+
+                                {{ Auth::user()->instansi ?? '-' }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
+
+            <button
+                class="btn btn-warning w-100 rounded-pill py-3 mt-4 shadow-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#passwordModal">
+
+                <i class="bi bi-shield-lock-fill me-2"></i>
+
+                Ganti Password
+
+            </button>
 
         </div>
 
     </div>
-   <!-- Modal Ganti Password -->
-<div class="modal fade" id="passwordModal" tabindex="-1">
 
-    <div class="modal-dialog">
+</div>
 
-        <div class="modal-content">
+<!-- ================= FORM EDIT PROFILE ================= -->
+<div class="col-lg-8">
 
-            <div class="modal-header bg-warning">
+    <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
 
-                <h5 class="modal-title">
-                    <i class="bi bi-key-fill"></i>
-                    Ganti Password
-                </h5>
+        <div class="card-header border-0 text-white py-4"
+            style="background:linear-gradient(135deg,#2563eb,#4f8dfd);">
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal">
-                </button>
+            <h4 class="mb-0 fw-bold">
 
-            </div>
+                <i class="bi bi-pencil-square me-2"></i>
 
-            <form action="{{ route('admin.password.update') }}" method="POST">
+                Edit Profil Administrator
+
+            </h4>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <form
+                action="{{ route('admin.profile.update') }}"
+                method="POST"
+                enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
 
-                <div class="modal-body">
+                <div class="row g-4">
 
-                    <div class="mb-3">
+                    <!-- Nama -->
+                    <div class="col-md-6">
 
-                        <label>Password Lama</label>
+                        <label class="form-label fw-semibold">
 
-                        <input
-                            type="password"
-                            name="old_password"
-                            class="form-control"
-                            required>
+                            <i class="bi bi-person-fill text-primary me-2"></i>
+
+                            Nama Lengkap
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+
+                                <i class="bi bi-person"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control"
+                                value="{{ Auth::user()->name }}"
+                                required>
+
+                        </div>
 
                     </div>
 
-                    <div class="mb-3">
+                    <!-- Email -->
+                    <div class="col-md-6">
 
-                        <label>Password Baru</label>
+                        <label class="form-label fw-semibold">
 
-                        <input
-                            type="password"
-                            name="password"
-                            class="form-control"
-                            required>
+                            <i class="bi bi-envelope-fill text-danger me-2"></i>
+
+                            Email
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+
+                                <i class="bi bi-envelope"></i>
+
+                            </span>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control"
+                                value="{{ Auth::user()->email }}"
+                                required>
+
+                        </div>
 
                     </div>
 
-                    <div class="mb-3">
+                    <!-- No HP -->
+                    <div class="col-md-6">
 
-                        <label>Konfirmasi Password</label>
+                        <label class="form-label fw-semibold">
+
+                            <i class="bi bi-phone-fill text-success me-2"></i>
+
+                            Nomor HP
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+
+                                <i class="bi bi-phone"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="no_hp"
+                                class="form-control"
+                                value="{{ Auth::user()->no_hp }}">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Instansi -->
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="bi bi-building-fill text-warning me-2"></i>
+
+                            Instansi
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+
+                                <i class="bi bi-building"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="instansi"
+                                class="form-control"
+                                value="{{ Auth::user()->instansi }}">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Upload Foto -->
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="bi bi-camera-fill text-info me-2"></i>
+
+                            Foto Profil
+
+                        </label>
 
                         <input
-                            type="password"
-                            name="password_confirmation"
-                            class="form-control"
-                            required>
+                            type="file"
+                            name="photo"
+                            class="form-control">
+
+                        <small class="text-muted">
+
+                            Format JPG, PNG, JPEG.
+
+                        </small>
 
                     </div>
 
                 </div>
 
-                <div class="modal-footer">
+                <hr class="my-4">
+
+                <div class="d-flex justify-content-end">
 
                     <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
+                        class="btn btn-primary rounded-pill px-5 py-2">
 
-                        Batal
+                        <i class="bi bi-floppy-fill me-2"></i>
 
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="btn btn-warning">
-
-                        <i class="bi bi-key-fill"></i>
-                        Simpan Password
+                        Simpan Perubahan
 
                     </button>
 
@@ -295,4 +377,266 @@
 
 </div>
 
+</div>
+<!-- =================== MODAL GANTI PASSWORD =================== -->
+
+<div class="modal fade"
+     id="passwordModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <div class="modal-header text-white border-0"
+                style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">
+
+                <h5 class="modal-title fw-bold">
+
+                    <i class="bi bi-shield-lock-fill me-2"></i>
+
+                    Ganti Password
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <form action="{{ route('admin.password.update') }}"
+                  method="POST">
+
+                @csrf
+                @method('PUT')
+
+                <div class="modal-body p-4">
+
+                    <!-- Password Lama -->
+
+                    <label class="fw-semibold mb-2">
+
+                        <i class="bi bi-lock-fill text-warning me-2"></i>
+
+                        Password Lama
+
+                    </label>
+
+                    <div class="input-group mb-3">
+
+                        <span class="input-group-text">
+
+                            <i class="bi bi-key-fill"></i>
+
+                        </span>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="oldPassword"
+                            name="old_password"
+                            required>
+
+                        <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            onclick="togglePassword('oldPassword',this)">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                        </button>
+
+                    </div>
+
+                    <!-- Password Baru -->
+
+                    <label class="fw-semibold mb-2">
+
+                        <i class="bi bi-shield-fill-lock text-primary me-2"></i>
+
+                        Password Baru
+
+                    </label>
+
+                    <div class="input-group mb-3">
+
+                        <span class="input-group-text">
+
+                            <i class="bi bi-lock-fill"></i>
+
+                        </span>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="newPassword"
+                            name="password"
+                            required>
+
+                        <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            onclick="togglePassword('newPassword',this)">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                        </button>
+
+                    </div>
+
+                    <!-- Konfirmasi -->
+
+                    <label class="fw-semibold mb-2">
+
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+                        Konfirmasi Password
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+
+                            <i class="bi bi-check2-square"></i>
+
+                        </span>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="confirmPassword"
+                            name="password_confirmation"
+                            required>
+
+                        <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            onclick="togglePassword('confirmPassword',this)">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-0 px-4 pb-4">
+
+                    <button
+                        type="button"
+                        class="btn btn-light rounded-pill px-4"
+                        data-bs-dismiss="modal">
+
+                        <i class="bi bi-x-circle me-1"></i>
+
+                        Batal
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-warning rounded-pill px-4">
+
+                        <i class="bi bi-check-circle-fill me-2"></i>
+
+                        Simpan Password
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<style>
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.input-group-text{
+    border-right:none;
+    background:#fff;
+}
+
+.form-control{
+    border-left:none;
+}
+
+.form-control:focus{
+
+    box-shadow:none;
+
+    border-color:#86b7fe;
+
+}
+
+.list-group-item{
+
+    transition:.25s;
+
+}
+
+.list-group-item:hover{
+
+    background:#f8f9fa;
+
+}
+
+.btn{
+
+    transition:.25s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+</style>
+<script>
+
+function togglePassword(id, button){
+
+    let input=document.getElementById(id);
+
+    let icon=button.querySelector("i");
+
+    if(input.type==="password"){
+
+        input.type="text";
+
+        icon.classList.remove("bi-eye-fill");
+
+        icon.classList.add("bi-eye-slash-fill");
+
+    }else{
+
+        input.type="password";
+
+        icon.classList.remove("bi-eye-slash-fill");
+
+        icon.classList.add("bi-eye-fill");
+
+    }
+
+}
+
+</script>
 @endsection 

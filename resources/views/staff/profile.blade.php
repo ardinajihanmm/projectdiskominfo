@@ -18,56 +18,72 @@
 
     <div class="row">
 
-        {{-- FOTO PROFIL --}}
-        <div class="col-lg-4">
+{{-- FOTO PROFIL --}}
+<div class="col-lg-4">
 
-            <div class="card shadow-sm border-0">
+    <div class="card profile-card shadow-lg border-0">
 
-                <div class="card-body text-center">
+        <div class="profile-header text-center">
 
-                    <img
-                        src="{{ auth()->user()->foto
-                            ? asset('storage/'.auth()->user()->foto)
-                            : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&background=0d6efd&color=fff&size=200' }}"
-                        class="rounded-circle border border-3 border-primary shadow mb-3"
-                        width="160"
-                        height="160"
-                        style="object-fit:cover;">
+            <img
+                src="{{ auth()->user()->foto
+                    ? asset('storage/'.auth()->user()->foto)
+                    : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&background=2563eb&color=fff&size=200' }}"
+                class="profile-avatar">
 
-                    <h4 class="fw-bold mb-1">
-                        {{ auth()->user()->name }}
-                    </h4>
+            <h3 class="fw-bold mb-2">
+                {{ auth()->user()->name }}
+            </h3>
 
-                    <span class="badge bg-primary mb-3">
-                        STAFF
-                    </span>
+            <span class="profile-role">
+                STAFF
+            </span>
 
-                    <hr>
+        </div>
 
-                    <div class="text-start">
+        <div class="card-body">
 
-                        <p class="mb-2">
-                            <i class="bi bi-envelope-fill text-primary"></i>
-                            {{ auth()->user()->email }}
-                        </p>
+            <div class="profile-info">
 
-                        <p class="mb-2">
-                            <i class="bi bi-telephone-fill text-success"></i>
-                            {{ auth()->user()->no_hp ?? '-' }}
-                        </p>
+                <div class="info-item">
+                    <i class="bi bi-envelope-fill text-primary"></i>
 
-                        <p class="mb-0">
-                            <i class="bi bi-building text-warning"></i>
-                            {{ auth()->user()->instansi ?? '-' }}
-                        </p>
-
+                    <div>
+                        <small>Email</small>
+                        <strong>{{ auth()->user()->email }}</strong>
                     </div>
+                </div>
 
+                <div class="info-item">
+                    <i class="bi bi-telephone-fill text-success"></i>
+
+                    <div>
+                        <small>Nomor HP</small>
+                        <strong>{{ auth()->user()->no_hp ?? '-' }}</strong>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="bi bi-building text-warning"></i>
+
+                    <div>
+                        <small>Instansi</small>
+                        <strong>{{ auth()->user()->instansi ?? '-' }}</strong>
+                    </div>
                 </div>
 
             </div>
 
+            <a href="#" class="btn btn-warning w-100 rounded-pill mt-4">
+                <i class="bi bi-shield-lock-fill"></i>
+                Ganti Password
+            </a>
+
         </div>
+
+    </div>
+
+</div>
 
         {{-- FORM --}}
         <div class="col-lg-8">
@@ -75,7 +91,7 @@
             {{-- EDIT PROFIL --}}
             <div class="card shadow-sm border-0 mb-4">
 
-                <div class="card-header bg-white">
+                <div class="card-header profile-form-header">
                     <h5 class="mb-0">
                         <i class="bi bi-pencil-square"></i>
                         Edit Profil

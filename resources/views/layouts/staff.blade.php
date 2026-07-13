@@ -181,38 +181,164 @@
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
+/* ================= KANBAN ================= */
+
+.column-header{
+    padding:14px 18px;
+    border-radius:14px;
+    color:#fff;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.todo-header{
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+}
+
+.progress-header{
+    background:linear-gradient(135deg,#06b6d4,#3b82f6);
+}
+
+.complete-header{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.kanban-title{
+    font-size:32px;
+    font-weight:700;
+    color:#111827;
+}
+
+.kanban-title span{
+    color:#2563eb;
+}
+
+.kanban-desc{
+    color:#6b7280;
+    margin-top:8px;
+}
+
+.kanban-board{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+}
+
+.kanban-column{
+    background:#f8fafc;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    min-height:650px;
+}
+
+.kanban-column h5{
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.todo-column{
+    border-top:6px solid #f59e0b;
+}
+
+.progress-column{
+    border-top:6px solid #0ea5e9;
+}
+
+.completed-column{
+    border-top:6px solid #22c55e;
+}
+
+.ticket-card{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    transition:.3s;
+    cursor:pointer;
+}
+
+.ticket-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(37,99,235,.18);
+}
+
+.ticket-card h6{
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.ticket-card p{
+    color:#6b7280;
+    font-size:14px;
+}
+
+.ticket-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:15px;
+}
+
+.ticket-date{
+    color:#9ca3af;
+    font-size:13px;
+}
+
+.badge-todo{
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+.badge-progress{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.badge-completed{
+    background:#ecfdf5;
+    color:#16a34a;
+}
 /* ================= DASHBOARD ================= */
 
 .dashboard-header{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    background:#fff;
     border-radius:20px;
     padding:35px;
-    color:#fff;
-    box-shadow:0 15px 35px rgba(37,99,235,.25);
+    color:#111827;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .dashboard-badge{
     display:inline-flex;
     align-items:center;
     gap:8px;
-    background:rgba(255,255,255,.15);
+    background:#eaf2ff;
+    color:#2563eb;
     padding:8px 16px;
     border-radius:30px;
     font-size:14px;
+    font-weight:600;
 }
 
 .dashboard-title{
     font-weight:700;
     font-size:34px;
+    color:#111827;
 }
 
 .dashboard-title span{
-    color:#fde68a;
+    color:#2563eb;
 }
 
 .dashboard-desc{
-    opacity:.9;
+    color:#4b5563;
     margin-top:12px;
+    opacity:1;
 }
 
 .account-status{

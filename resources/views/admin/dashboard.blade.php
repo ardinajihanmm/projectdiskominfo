@@ -9,6 +9,131 @@
 body{
     background:#f4f6fb;
 }
+.dashboard-header{
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+}
+
+.dashboard-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 18px;
+
+    background:#eef4ff;
+
+    color:#2563eb;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    font-size:.9rem;
+
+}
+
+.dashboard-title{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    color:#1e293b;
+
+}
+
+.dashboard-title span{
+
+    color:#2563eb;
+
+}
+
+.dashboard-desc{
+
+    font-size:1rem;
+
+    color:#64748b;
+
+    line-height:1.8;
+
+}
+
+.account-status{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    height:100%;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.status-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+}
+
+.account-status small{
+
+    opacity:.8;
+
+}
+
+.account-status h6{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+.account-status span{
+
+    font-size:.9rem;
+
+    opacity:.9;
+
+}
 
 /* ===========================
         Dashboard Header
@@ -136,150 +261,306 @@ border-radius:20px;
 border-radius:20px;
 
 }
+.modern-card{
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    gap:22px;
+
+    min-height:180px;
+    padding:28px;
+
+    border-radius:24px;
+
+    color:#fff;
+
+    transition:.35s;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.12);
+
+}
+
+.modern-card:hover{
+
+    transform:translateY(-10px) scale(1.02);
+
+}
+
+.icon-box{
+
+    width:78px;
+    height:78px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:34px;
+
+    flex-shrink:0;
+
+}
+
+.card-content{
+    flex:1;
+}
+
+.card-content h2{
+
+    font-size:2.7rem;
+    font-weight:700;
+
+}
+
+.card-content small{
+
+    display:block;
+
+    font-size:.95rem;
+
+    opacity:.9;
+
+}
+
+.card-content span{
+
+    opacity:.92;
+
+}
+
+.total-card{
+
+background:linear-gradient(
+135deg,
+#3B82F6,
+#2563EB,
+#1D4ED8
+);
+
+}
+
+.service-card{
+
+background:linear-gradient(
+135deg,
+#FBBF24,
+#F59E0B,
+#D97706
+);
+
+}
+
+.ticket-card{
+
+background:linear-gradient(
+135deg,
+#38BDF8,
+#06B6D4,
+#0891B2
+);
+
+}
+
+.complete-card{
+
+background:linear-gradient(
+135deg,
+#4ADE80,
+#22C55E,
+#15803D
+);
+
+}
+
+.modern-panel{
+
+    background:#fff;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+}
+
+.panel-title{
+
+    font-size:1.1rem;
+    font-weight:700;
+    margin-bottom:25px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+}
+
+.quick-btn{
+
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:#1e293b;
+
+    margin-bottom:18px;
+
+    transition:.3s;
+
+}
+
+.quick-btn:hover{
+
+    transform:translateX(8px);
+
+}
+
+.quick-btn>i:first-child{
+
+    width:55px;
+    height:55px;
+
+    border-radius:16px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:24px;
+
+    color:#fff;
+
+}
+
+.quick-btn i:last-child{
+
+    margin-left:auto;
+
+    font-size:20px;
+
+}
+
+.btn-user>i:first-child{
+
+    background:#2563eb;
+
+}
+
+.btn-service>i:first-child{
+
+    background:#10b981;
+
+}
+
+.btn-ticket>i:first-child{
+
+    background:#111827;
+
+}
+
+.status-box{
+
+    border-radius:18px;
+
+    padding:18px;
+
+    color:#fff;
+
+}
+
+.status-box h3{
+
+    margin-top:8px;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.warning{
+
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+
+}
+
+.info{
+
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+
+}
+
+.success{
+
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+
+}
 
 </style>
 
 <div class="container-fluid py-4">
 
     {{-- Header --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="dashboard-header mb-4">
 
-        <div>
+    <div class="row align-items-center">
 
-            <h2 class="dashboard-title">
-                Dashboard Admin
-            </h2>
+        <div class="col-lg-8">
 
-            <div class="dashboard-subtitle">
+            <div class="dashboard-badge mb-3">
 
-                Selamat datang kembali,
-                <strong>{{ Auth::user()->name }}</strong>
+                <i class="bi bi-speedometer2"></i>
+
+                Dashboard Administrator
 
             </div>
 
+            <h1 class="dashboard-title">
+
+                Selamat Datang,
+
+                <span>{{ Auth::user()->name }}</span>
+
+            </h1>
+
+            <p class="dashboard-desc">
+
+                Kelola seluruh sistem Helpdesk Diskominfo mulai dari
+                data user, layanan, tiket hingga monitoring proses
+                penyelesaian tiket.
+
+            </p>
+
         </div>
 
-        <div class="text-end">
-
-            <small class="text-muted">
-                {{ now()->format('l, d F Y') }}
-            </small>
-
-        </div>
-
-    </div>
-
-    {{-- Statistik --}}
-    <div class="row g-4">
-
-        {{-- User --}}
         <div class="col-lg-4">
 
-            <div class="card stat-card bg-user text-white">
+            <div class="account-status">
 
-                <div class="card-body p-4">
+                <div class="status-icon">
 
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>
-
-                            <div class="stat-label">
-                                Total User
-                            </div>
-
-                            <h1 class="stat-number">
-
-                                {{ $totalUser }}
-
-                            </h1>
-
-                        </div>
-
-                        <div class="stat-icon">
-
-                            <i class="bi bi-people-fill"></i>
-
-                        </div>
-
-                    </div>
+                    <i class="bi bi-shield-check"></i>
 
                 </div>
 
-            </div>
+                <div>
 
-        </div>
+                    <small>Status Akun</small>
 
-        {{-- Layanan --}}
-        <div class="col-lg-4">
+                    <h6>Administrator</h6>
 
-            <div class="card stat-card bg-service text-white">
-
-                <div class="card-body p-4">
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>
-
-                            <div class="stat-label">
-
-                                Total Layanan
-
-                            </div>
-
-                            <h1 class="stat-number">
-
-                                {{ $totalService }}
-
-                            </h1>
-
-                        </div>
-
-                        <div class="stat-icon">
-
-                            <i class="bi bi-tools"></i>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {{-- Tiket --}}
-        <div class="col-lg-4">
-
-            <div class="card stat-card bg-ticket text-white">
-
-                <div class="card-body p-4">
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>
-
-                            <div class="stat-label">
-
-                                Total Tiket
-
-                            </div>
-
-                            <h1 class="stat-number">
-
-                                {{ $totalTicket }}
-
-                            </h1>
-
-                        </div>
-
-                        <div class="stat-icon">
-
-                            <i class="bi bi-ticket-perforated-fill"></i>
-
-                        </div>
-
-                    </div>
+                    <span>{{ now()->format('d F Y') }}</span>
 
                 </div>
 
@@ -289,72 +570,223 @@ border-radius:20px;
 
     </div>
 
-    {{-- Status Ticket --}}
-    <div class="row g-4 mt-1">
+</div>
 
-        <div class="col-md-4">
+  <div class="row g-4 mb-4">
 
-            <div class="card status-card border-start border-5 border-warning">
+    <div class="col-lg-3">
 
-                <div class="card-body">
+        <div class="modern-card total-card">
 
-                    <div class="text-muted">
+            <div class="icon-box">
 
-                        To Do
+                <i class="bi bi-people-fill"></i>
 
-                    </div>
+            </div>
 
-                    <div class="status-number text-warning">
+            <div class="card-content">
 
-                        {{ $todo }}
+                <small>Total User</small>
 
-                    </div>
+                <h2 class="counter"
+                    data-target="{{ $totalUser }}">
+                    {{ $totalUser }}
+                </h2>
 
-                </div>
+                <span>Seluruh pengguna sistem.</span>
 
             </div>
 
         </div>
 
-        <div class="col-md-4">
+    </div>
 
-            <div class="card status-card border-start border-5 border-info">
+    <div class="col-lg-3">
 
-                <div class="card-body">
+        <div class="modern-card service-card">
 
-                    <div class="text-muted">
+            <div class="icon-box">
 
-                        In Progress
+                <i class="bi bi-tools"></i>
 
-                    </div>
+            </div>
 
-                    <div class="status-number text-info">
+            <div class="card-content">
 
-                        {{ $progress }}
+                <small>Total Layanan</small>
 
-                    </div>
+                <h2 class="counter"
+                    data-target="{{ $totalService }}">
+                    {{ $totalService }}
+                </h2>
 
-                </div>
+                <span>Layanan tersedia.</span>
 
             </div>
 
         </div>
 
-        <div class="col-md-4">
+    </div>
 
-            <div class="card status-card border-start border-5 border-success">
+    <div class="col-lg-3">
 
-                <div class="card-body">
+        <div class="modern-card ticket-card">
 
-                    <div class="text-muted">
+            <div class="icon-box">
 
-                        Completed
+                <i class="bi bi-ticket-perforated-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <small>Total Tiket</small>
+
+                <h2 class="counter"
+                    data-target="{{ $totalTicket }}">
+                    {{ $totalTicket }}
+                </h2>
+
+                <span>Tiket yang masuk.</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="modern-card complete-card">
+
+            <div class="icon-box">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <small>Completed</small>
+
+                <h2 class="counter"
+                    data-target="{{ $completed }}">
+                    {{ $completed }}
+                </h2>
+
+                <span>Tiket berhasil selesai.</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{{-- =========================
+        QUICK ACTION + CHART
+========================= --}}
+
+<div class="row g-4 mb-4">
+
+    <div class="col-lg-4">
+
+        <div class="modern-panel h-100">
+
+            <div class="panel-title">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                Quick Action
+            </div>
+
+            <a href="{{ route('admin.user.index') }}" class="quick-btn btn-user">
+                <i class="bi bi-people-fill"></i>
+                <div>
+                    <strong>Kelola User</strong>
+                    <small>Tambah & edit pengguna</small>
+                </div>
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <a href="{{ route('admin.service.index') }}" class="quick-btn btn-service">
+                <i class="bi bi-tools"></i>
+                <div>
+                    <strong>Kelola Layanan</strong>
+                    <small>Data seluruh layanan</small>
+                </div>
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <a href="{{ route('admin.ticket.index') }}" class="quick-btn btn-ticket">
+                <i class="bi bi-ticket-perforated-fill"></i>
+                <div>
+                    <strong>Kelola Tiket</strong>
+                    <small>Lihat semua tiket</small>
+                </div>
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-8">
+
+        <div class="modern-panel h-100">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div class="panel-title mb-0">
+                    <i class="bi bi-pie-chart-fill text-primary"></i>
+                    Statistik Tiket
+                </div>
+
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+
+                    {{ $totalTicket }} Tiket
+
+                </span>
+
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-7">
+
+                    <div id="chartData"
+                         data-todo="{{ $todo }}"
+                         data-progress="{{ $progress }}"
+                         data-completed="{{ $completed }}"
+                         style="height:320px;">
+
+                        <canvas id="ticketChart"></canvas>
 
                     </div>
 
-                    <div class="status-number text-success">
+                </div>
 
-                        {{ $completed }}
+                <div class="col-md-5">
+
+                    <div class="status-box warning">
+
+                        <span>To Do</span>
+
+                        <h3>{{ $todo }}</h3>
+
+                    </div>
+
+                    <div class="status-box info mt-3">
+
+                        <span>In Progress</span>
+
+                        <h3>{{ $progress }}</h3>
+
+                    </div>
+
+                    <div class="status-box success mt-3">
+
+                        <span>Completed</span>
+
+                        <h3>{{ $completed }}</h3>
 
                     </div>
 
@@ -366,256 +798,203 @@ border-radius:20px;
 
     </div>
 
-    {{-- Progress --}}
-    <div class="card progress-card mt-4">
+</div>
 
-        <div class="card-body p-4">
 
-            <div class="d-flex justify-content-between">
 
-                <h5 class="mb-3">
 
-                    Progress Penyelesaian Tiket
 
-                </h5>
+{{-- =========================
+        ACTIVITY & OVERVIEW
+========================= --}}
 
-                <strong>
+<div class="row g-4">
 
-                    {{ $totalTicket == 0 ? 0 : round(($completed/$totalTicket)*100) }}%
+    {{-- Activity --}}
+    <div class="col-lg-8">
+
+        <div class="modern-panel h-100">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div class="panel-title mb-0">
+
+                    <i class="bi bi-clock-history text-primary"></i>
+
+                    Aktivitas Sistem
+
+                </div>
+
+                <span class="badge bg-light text-dark">
+
+                    Hari Ini
+
+                </span>
+
+            </div>
+
+            <div class="activity-item">
+
+                <div class="activity-icon bg-primary">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>Total User</strong>
+
+                    <div class="text-muted">
+
+                        {{ $totalUser }} pengguna terdaftar.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="activity-item">
+
+                <div class="activity-icon bg-success">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>Total Layanan</strong>
+
+                    <div class="text-muted">
+
+                        {{ $totalService }} layanan tersedia.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="activity-item">
+
+                <div class="activity-icon bg-dark">
+
+                    <i class="bi bi-ticket-perforated-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>Total Tiket</strong>
+
+                    <div class="text-muted">
+
+                        {{ $totalTicket }} tiket telah dibuat.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="activity-item border-0">
+
+                <div class="activity-icon bg-success">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>Tiket Selesai</strong>
+
+                    <div class="text-muted">
+
+                        {{ $completed }} tiket berhasil diselesaikan.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- Overview --}}
+    <div class="col-lg-4">
+
+        <div class="modern-panel h-100">
+
+            <div class="panel-title">
+
+                <i class="bi bi-bar-chart-fill text-success"></i>
+
+                System Overview
+
+            </div>
+
+            <div class="overview-box">
+
+                <small>Penyelesaian Tiket</small>
+
+                <h2>
+
+                    {{ $totalTicket==0 ? 0 : round(($completed/$totalTicket)*100) }}%
+
+                </h2>
+
+                <div class="progress mt-3">
+
+                    <div class="progress-bar bg-success"
+
+                         style="width: {{ $totalTicket==0 ? 0 : round(($completed/$totalTicket)*100) }}%">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between mb-3">
+
+                <span>To Do</span>
+
+                <strong class="text-warning">
+
+                    {{ $todo }}
 
                 </strong>
 
             </div>
 
-            <div class="progress">
+            <div class="d-flex justify-content-between mb-3">
 
-                <div class="progress-bar bg-success"
+                <span>In Progress</span>
 
-                     style="width: {{ $totalTicket == 0 ? 0 : round(($completed/$totalTicket)*100) }}%">
+                <strong class="text-info">
 
-                </div>
+                    {{ $progress }}
 
-            </div>
-
-            <div class="mt-2 text-muted">
-
-                {{ $completed }} tiket telah selesai dari total {{ $totalTicket }} tiket.
+                </strong>
 
             </div>
 
-        </div>
+            <div class="d-flex justify-content-between">
 
-    </div>
+                <span>Completed</span>
 
-{{-- =========================
-        QUICK ACTION
-========================= --}}
+                <strong class="text-success">
 
-<div class="row mt-4">
+                    {{ $completed }}
 
-    <div class="col-lg-4">
-
-        <div class="card border-0 shadow-sm rounded-4 h-100">
-
-            <div class="card-header bg-white border-0 pt-4">
-
-                <h5 class="fw-bold">
-                    <i class="bi bi-lightning-charge-fill text-warning me-2"></i>
-                    Quick Action
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <a href="{{ route('admin.user.index') }}"
-                   class="btn btn-primary w-100 mb-3 py-3 rounded-4">
-
-                    <i class="bi bi-people-fill me-2"></i>
-
-                    Kelola User
-
-                </a>
-
-                <a href="{{ route('admin.service.index') }}"
-                   class="btn btn-success w-100 mb-3 py-3 rounded-4">
-
-                    <i class="bi bi-tools me-2"></i>
-
-                    Kelola Layanan
-
-                </a>
-
-                <a href="{{ route('admin.ticket.index') }}"
-                   class="btn btn-dark w-100 mb-3 py-3 rounded-4">
-
-                    <i class="bi bi-ticket-perforated-fill me-2"></i>
-
-                    Kelola Tiket
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-
-
-    {{-- =========================
-            CHART
-    ========================= --}}
-
-    <div class="col-lg-8">
-
-        <div class="card border-0 shadow-sm rounded-4 h-100">
-
-            <div class="card-header bg-white border-0 pt-4">
-
-                <h5 class="fw-bold">
-
-                    <i class="bi bi-pie-chart-fill text-primary me-2"></i>
-
-                    Statistik Tiket
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row align-items-center">
-
-                    <div class="col-md-7">
-
-                        <div id="chartData"
-
-                            data-todo="{{ $todo }}"
-                            data-progress="{{ $progress }}"
-                            data-completed="{{ $completed }}"
-
-                            style="height:370px;">
-
-                            <canvas id="ticketChart"></canvas>
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="col-md-5">
-
-                        <div class="card border-warning border-2 rounded-4 mb-3">
-
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between">
-
-                                    <div>
-
-                                        <small class="text-muted">
-
-                                            To Do
-
-                                        </small>
-
-                                        <h3 class="fw-bold text-warning">
-
-                                            {{ $todo }}
-
-                                        </h3>
-
-                                    </div>
-
-                                    <i class="bi bi-hourglass-split fs-2 text-warning"></i>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div class="card border-info border-2 rounded-4 mb-3">
-
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between">
-
-                                    <div>
-
-                                        <small class="text-muted">
-
-                                            In Progress
-
-                                        </small>
-
-                                        <h3 class="fw-bold text-info">
-
-                                            {{ $progress }}
-
-                                        </h3>
-
-                                    </div>
-
-                                    <i class="bi bi-arrow-repeat fs-2 text-info"></i>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div class="card border-success border-2 rounded-4">
-
-                            <div class="card-body">
-
-                                <div class="d-flex justify-content-between">
-
-                                    <div>
-
-                                        <small class="text-muted">
-
-                                            Completed
-
-                                        </small>
-
-                                        <h3 class="fw-bold text-success">
-
-                                            {{ $completed }}
-
-                                        </h3>
-
-                                    </div>
-
-                                    <i class="bi bi-check-circle-fill fs-2 text-success"></i>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-
-
-                    </div>
-
-                </div>
+                </strong>
 
             </div>
 
@@ -626,180 +1005,6 @@ border-radius:20px;
 </div>
 
 
-
-
-
-{{-- =========================
-        RINGKASAN
-========================= --}}
-
-<div class="row mt-4">
-
-    <div class="col-lg-6">
-
-        <div class="card border-0 shadow-sm rounded-4">
-
-            <div class="card-header bg-white border-0 pt-4">
-
-                <h5 class="fw-bold">
-
-                    <i class="bi bi-info-circle-fill text-primary me-2"></i>
-
-                    Ringkasan Sistem
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between mb-3">
-
-                    <span>Total User</span>
-
-                    <strong>{{ $totalUser }}</strong>
-
-                </div>
-
-                <div class="d-flex justify-content-between mb-3">
-
-                    <span>Total Layanan</span>
-
-                    <strong>{{ $totalService }}</strong>
-
-                </div>
-
-                <div class="d-flex justify-content-between mb-3">
-
-                    <span>Total Tiket</span>
-
-                    <strong>{{ $totalTicket }}</strong>
-
-                </div>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-
-                    <span>Tiket Selesai</span>
-
-                    <span class="badge bg-success fs-6">
-
-                        {{ $completed }}
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-
-
-    <div class="col-lg-6">
-
-        <div class="card border-0 shadow-sm rounded-4">
-
-            <div class="card-header bg-white border-0 pt-4">
-
-                <h5 class="fw-bold">
-
-                    <i class="bi bi-clock-history text-danger me-2"></i>
-
-                    Status Tiket
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <span>To Do</span>
-
-                        <strong>{{ $todo }}</strong>
-
-                    </div>
-
-                    <div class="progress mt-2">
-
-                        <div class="progress-bar bg-warning"
-
-                            style="width: {{ $totalTicket ? ($todo/$totalTicket)*100 : 0 }}%">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <span>In Progress</span>
-
-                        <strong>{{ $progress }}</strong>
-
-                    </div>
-
-                    <div class="progress mt-2">
-
-                        <div class="progress-bar bg-info"
-
-                            style="width: {{ $totalTicket ? ($progress/$totalTicket)*100 : 0 }}%">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-
-
-                <div>
-
-                    <div class="d-flex justify-content-between">
-
-                        <span>Completed</span>
-
-                        <strong>{{ $completed }}</strong>
-
-                    </div>
-
-                    <div class="progress mt-2">
-
-                        <div class="progress-bar bg-success"
-
-                            style="width: {{ $totalTicket ? ($completed/$totalTicket)*100 : 0 }}%">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 @push('scripts')
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -319,11 +319,94 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="card-body">
 
-        <div class="alert alert-secondary mb-0">
-            Timeline aktivitas belum diaktifkan.
+        <div class="timeline">
+
+    {{-- Tiket dibuat --}}
+    <div class="d-flex mb-4">
+        <div class="me-3">
+            <span class="badge bg-primary rounded-circle p-3">
+                <i class="bi bi-plus-lg"></i>
+            </span>
+        </div>
+
+        <div>
+            <strong>Tiket dibuat</strong><br>
+            <small class="text-muted">
+                {{ $ticket->created_at->format('d M Y H:i') }}
+            </small>
+        </div>
+    </div>
+
+    {{-- Mulai dikerjakan --}}
+    @if($ticket->started_at)
+    <div class="d-flex mb-4">
+        <div class="me-3">
+            <span class="badge bg-info rounded-circle p-3">
+                <i class="bi bi-play-fill"></i>
+            </span>
+        </div>
+
+        <div>
+            <strong>Tiket mulai dikerjakan</strong><br>
+            <small>
+                Oleh {{ $ticket->staff->name ?? Auth::user()->name }}
+            </small><br>
+
+            <small class="text-muted">
+                {{ \Carbon\Carbon::parse($ticket->started_at)->format('d M Y H:i') }}
+            </small>
+        </div>
+    </div>
+    @endif
+
+    {{-- Semua komentar --}}
+    @foreach($ticket->comments as $comment)
+    <div class="d-flex mb-4">
+
+        <div class="me-3">
+            <span class="badge bg-warning rounded-circle p-3">
+                <i class="bi bi-chat-dots-fill"></i>
+            </span>
+        </div>
+
+        <div>
+            <strong>{{ $comment->user->name }}</strong>
+            menambahkan komentar
+
+            <div class="border rounded p-2 mt-2 bg-light">
+                {{ $comment->komentar }}
+            </div>
+
+            <small class="text-muted">
+                {{ $comment->created_at->format('d M Y H:i') }}
+            </small>
         </div>
 
     </div>
+    @endforeach
+
+    {{-- Tiket selesai --}}
+    @if($ticket->completed_at)
+    <div class="d-flex">
+
+        <div class="me-3">
+            <span class="badge bg-success rounded-circle p-3">
+                <i class="bi bi-check-lg"></i>
+            </span>
+        </div>
+
+        <div>
+            <strong>Tiket selesai</strong><br>
+
+            <small class="text-muted">
+                {{ \Carbon\Carbon::parse($ticket->completed_at)->format('d M Y H:i') }}
+            </small>
+        </div>
+
+    </div>
+    @endif
+
+</div>
 
 </div> {{-- container-fluid --}}
 

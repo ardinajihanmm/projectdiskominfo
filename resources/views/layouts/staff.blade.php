@@ -181,6 +181,339 @@
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
+/* ================= DASHBOARD ================= */
+
+.dashboard-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    border-radius:20px;
+    padding:35px;
+    color:#fff;
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+}
+
+.dashboard-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,.15);
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:14px;
+}
+
+.dashboard-title{
+    font-weight:700;
+    font-size:34px;
+}
+
+.dashboard-title span{
+    color:#fde68a;
+}
+
+.dashboard-desc{
+    opacity:.9;
+    margin-top:12px;
+}
+
+.account-status{
+    background:rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    backdrop-filter:blur(12px);
+}
+
+.status-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#fff;
+    color:#2563eb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+}
+
+.modern-card{
+    border-radius:18px;
+    padding:24px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.modern-card:hover{
+    transform:translateY(-5px);
+}
+
+.total-card{
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.waiting-card{
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+}
+
+.progress-card{
+    background:linear-gradient(135deg,#06b6d4,#0891b2);
+}
+
+.complete-card{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.icon-box{
+    width:65px;
+    height:65px;
+    border-radius:16px;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+}
+
+.card-content h2{
+    font-weight:700;
+    margin-bottom:0;
+}
+
+.card-content small{
+    display:block;
+    opacity:.85;
+}
+
+.card-content span{
+    font-size:13px;
+    opacity:.85;
+}
+
+.progress-modern{
+    border-radius:18px;
+}
+
+.progress-circle{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+.modern-progress{
+    height:12px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.status-box{
+    width:100%;
+    min-height:140px;
+    padding:28px 24px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    color:#fff;
+}
+
+.status-success{
+    background:#22c55e;
+}
+
+.status-warning{
+    background:#f59e0b;
+}
+
+.status-info{
+    background:#0ea5e9;
+}
+
+.status-box i{
+    font-size:28px;
+}
+
+.status-box strong{
+    display:block;
+    font-size:28px;
+    line-height:1;
+}
+
+.status-box small{
+    display:block;
+    font-size:15px;
+    margin-top:6px;
+}
+
+.quick-card,
+.latest-ticket-card{
+    border-radius:18px;
+}
+
+.quick-title-icon{
+    width:55px;
+    height:55px;
+    border-radius:15px;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-shrink:0;
+    margin-right:15px;
+}
+
+.quick-title-icon i{
+    font-size:24px;
+}
+
+.quick-menu{
+    display:block;
+    padding:25px;
+    border-radius:18px;
+    color:#fff;
+    text-decoration:none;
+    text-align:center;
+    transition:.3s;
+}
+
+.quick-menu:hover{
+    transform:translateY(-5px);
+    color:#fff;
+}
+
+.quick-menu i{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.quick-blue{
+    background:#2563eb;
+}
+
+.quick-green{
+    background:#16a34a;
+}
+
+.quick-gray{
+    background:#475569;
+}
+
+.ticket-item{
+    display:flex;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px solid #eee;
+}
+
+.ticket-item:last-child{
+    border-bottom:none;
+}
+
+.ticket-icon{
+    width:55px;
+    height:55px;
+    border-radius:15px;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+
+.ticket-content{
+    flex:1;
+}
+
+.ticket-meta{
+    display:flex;
+    gap:20px;
+    color:#6b7280;
+    font-size:14px;
+    margin:10px 0;
+}
+
+.timeline-item{
+    display:flex;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.timeline-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#eff6ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+}
+
+.timeline-content h6{
+    margin-bottom:4px;
+}
+
+.timeline-content p{
+    margin-bottom:4px;
+    color:#6b7280;
+}
+
+.step-wrapper{
+    margin-top:20px;
+}
+
+.step-item{
+    position:relative;
+}
+
+.step-number{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    color:#fff;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.step-title{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.step-desc{
+    font-size:14px;
+    color:#6b7280;
+}
+
+.empty-ticket{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.empty-ticket i{
+    font-size:60px;
+    color:#9ca3af;
+}
+
+.counter{
+    transition:all .5s;
+}
 
     </style>
 

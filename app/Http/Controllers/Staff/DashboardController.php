@@ -12,36 +12,46 @@ class DashboardController extends Controller
      * Dashboard Staff
      */
     public function index()
-    {
-        // Statistik
-        $total = Ticket::count();
+{
+    // User yang login
+    $user = auth()->user();
 
-        $todo = Ticket::where('status', 'To Do')->count();
-        $progress = Ticket::where('status', 'In Progress')->count();
-        $completed = Ticket::where('status', 'Completed')->count();
+    // Statistik
+    $totalTicket = Ticket::count();
 
-        // 5 tiket terbaru
-        $recent = Ticket::with(['user','service'])
-            ->latest()
-            ->take(5)
-            ->get();
+    $todo = Ticket::where('status', 'To Do')->count();
 
-        // Timeline aktivitas
-        $activities = Ticket::latest('updated_at')
-            ->take(5)
-            ->get();
+    $progress = Ticket::where('status', 'In Progress')->count();
 
-        $percent = $total > 0 ? round(($completed / $total) * 100) : 0;
-        
-        return view('staff.dashboard', compact(
-            'total',
-            'todo',
-            'progress',
-            'completed',
-            'recent',
-            'percent'
-        ));
-    }
+    $completed = Ticket::where('status', 'Completed')->count();
+
+    // Progress %
+    $progressPercent = $totalTicket > 0
+        ? round(($completed / $totalTicket) * 100)
+        : 0;
+
+    // Tiket terbaru
+    $latestTickets = Ticket::with(['user', 'service'])
+        ->latest()
+        ->take(5)
+        ->get();
+
+    // Timeline aktivitas
+    $activities = Ticket::latest('updated_at')
+        ->take(5)
+        ->get();
+
+    return view('staff.dashboard', compact(
+        'user',
+        'totalTicket',
+        'todo',
+        'progress',
+        'completed',
+        'progressPercent',
+        'latestTickets',
+        'activities'
+    ));
+}
 
     /**
      * Kanban Board

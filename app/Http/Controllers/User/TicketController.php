@@ -62,15 +62,38 @@ class TicketController extends Controller
     /**
      * Riwayat tiket user
      */
-    public function history()
-    {
-        $tickets = Ticket::with('service')
-    ->where('user_id', Auth::id())
-    ->latest()
-    ->paginate(10);
+public function history(Request $request)
+{
+    $query = Ticket::with('service')
+        ->where('user_id', Auth::id());
 
-        return view('user.ticket.history', compact('tickets'));
+    // Search berdasarkan kode tiket atau judul
+    if ($request->filled('search')) {
+
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+
+            $q->where('kode_ticket', 'like', "%{$search}%")
+              ->orWhere('judul', 'like', "%{$search}%");
+
+        });
     }
+
+    // Filter status
+    if ($request->filled('status')) {
+
+        $query->where('status', $request->status);
+
+    }
+
+    $tickets = $query
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('user.ticket.history', compact('tickets'));
+}
 
     /**
      * Detail tiket

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'Tambah User')
+
 @section('content')
 
 <div class="container mt-4">

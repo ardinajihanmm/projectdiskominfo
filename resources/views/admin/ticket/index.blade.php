@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('title', 'Kelola Tiket')
 
+@section('content')
 <style>
 
 body{

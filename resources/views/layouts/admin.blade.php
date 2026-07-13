@@ -235,29 +235,25 @@ body{
 }
 
 .content{
-
     margin-left:260px;
-
-    min-height:100vh;
-
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
 }
 
 .topbar{
-
-    height:75px;
-
-    background:white;
-
+    height:70px;
+    background:#fff;
     display:flex;
-
-    justify-content:space-between;
-
     align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
 
-    padding:0 35px;
-
-    box-shadow:0 3px 12px rgba(0,0,0,.05);
-
+    position:relative;
+    overflow:visible;
+    z-index:1000;
 }
 
 .welcome h5{
@@ -283,9 +279,15 @@ body{
 }
 
 .main{
-
+    flex:1;
+    overflow-y:auto;
     padding:30px;
-
+}
+.footer{
+    padding:20px 30px;
+    color:#64748B;
+    font-size:14px;
+    background:#F4F7FB;
 }
 
 </style>
@@ -420,35 +422,48 @@ Logout
 
 <div class="topbar">
 
-<div class="welcome">
+    <h5 class="mb-0 fw-bold">
 
-<h5>
+        @yield('title','Dashboard')
 
-Selamat Datang, {{ Auth::user()->name }}
+    </h5>
 
-</h5>
+    <div class="d-flex align-items-center ms-auto gap-3">
 
-<small>
+        <i class="bi bi-calendar3 text-secondary"></i>
 
-Portal Helpdesk Administrator
+        <span class="text-muted">
 
-</small>
+            {{ now()->format('d F Y') }}
 
-</div>
+        </span>
 
-<div class="clock">
+        <div class="text-end">
 
-<i class="bi bi-calendar3"></i>
+            <strong>{{ auth()->user()->name }}</strong>
 
-{{ now()->format('d F Y') }}
+            <br>
 
-</div>
+            <small class="text-muted">
+
+                Administrator
+
+            </small>
+
+        </div>
+
+    </div>
 
 </div>
 
 <div class="main">
 
 @yield('content')
+<div class="footer">
+
+    © {{ date('Y') }} Service Desk Diskominfo
+
+</div>
 
 </div>
 

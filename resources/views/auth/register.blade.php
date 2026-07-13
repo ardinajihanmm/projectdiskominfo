@@ -72,6 +72,7 @@ body{
                         type="text"
                         name="name"
                         class="form-control"
+                        placeholder="Masukkan nama lengkap"
                         required>
                 </div>
             </div>
@@ -88,6 +89,7 @@ body{
                         type="email"
                         name="email"
                         class="form-control"
+                        placeholder="contoh@email.com"
                         required>
                 </div>
             </div>
@@ -104,6 +106,7 @@ body{
                         type="text"
                         name="no_hp"
                         class="form-control"
+                        placeholder="08xxxxxxxxxx"
                         required>
                 </div>
             </div>
@@ -119,7 +122,8 @@ body{
                     <input
                         type="text"
                         name="instansi"
-                        class="form-control">
+                        class="form-control"
+                        "Nama instansi (Opsional)">
                 </div>
             </div>
 
@@ -137,6 +141,7 @@ body{
                         id="password"
                         name="password"
                         class="form-control"
+                        placeholder="Minimal 8 karakter"
                         required>
 
                     <button
@@ -166,6 +171,7 @@ body{
                         id="password_confirmation"
                         name="password_confirmation"
                         class="form-control"
+                        placeholder="Ulangi password"
                         required>
 
                     <button

@@ -115,7 +115,8 @@ body{
                         type="email"
                         name="email"
                         class="form-control"
-                        placeholder="Masukkan email"
+                        placeholder="Masukkan alamat email"
+                        autocomplete="email"
                         required>
 
                 </div>
@@ -139,7 +140,8 @@ body{
                         id="password"
                         name="password"
                         class="form-control"
-                        placeholder="Masukkan password"
+                        placeholder="Masukkan password Anda"
+                        autocomplete="current-password"
                         required>
 
                     <button

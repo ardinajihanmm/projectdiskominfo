@@ -303,28 +303,15 @@
 }
 
 .notification-card{
-
     display:flex;
-
     gap:15px;
-
     padding:18px 20px;
-
     text-decoration:none;
-
     color:#333;
-
     border-bottom:1px solid #ECECEC;
-
-    transition:.2s;
-
+    transition:all .25s ease;
 }
 
-.notification-card:hover{
-
-    background:#F8FAFC;
-
-}
 
 .notification-icon{
     width:48px;
@@ -428,10 +415,6 @@ background:#f8fbff;
 
 }
 
-.notification-card{
-    transition: all .25s ease;
-}
-
 .notification-read{
     background:#f8fafc;
 }
@@ -461,10 +444,6 @@ background:#f8fbff;
     border-radius:999px;
     font-size:.9rem;
     font-weight:600;      /* Tambahkan ini */
-}
-
-.notification-card{
-    transition:.2s;
 }
 
 .notification-card:hover{
@@ -1269,6 +1248,7 @@ box-shadow:0 20px 45px rgba(34,197,94,.35);
     margin-bottom:6px;
 
 }
+
 .timeline-card{
 
     border-radius:24px;
@@ -1703,31 +1683,35 @@ Diskominfo
 
 </div>
 
-<div class="profile">
+<<div class="profile">
 
-<div class="avatar">
+    <div class="avatar">
 
-@if(Auth::user()->photo)
+        @if(Auth::user()->foto)
 
-<img src="{{ asset('storage/'.Auth::user()->photo) }}">
+            <img
+                src="{{ asset('storage/'.Auth::user()->foto) }}"
+                alt="Foto Profil"
+                class="w-100 h-100 rounded-circle"
+                style="object-fit:cover;">
 
-@else
+        @else
 
-{{ strtoupper(substr(Auth::user()->name,0,1)) }}
+            {{ strtoupper(substr(Auth::user()->name,0,1)) }}
 
-@endif
+        @endif
 
-</div>
+    </div>
 
-<h5>
+    <h5 class="mt-3 mb-1 fw-bold">
 
-{{ Auth::user()->name }}
+        {{ Auth::user()->name }}
 
-</h5>
+    </h5>
 
-<small>
+    <small class="text-light opacity-75">
 
-User
+        Pengguna Helpdesk
 
 </small>
 

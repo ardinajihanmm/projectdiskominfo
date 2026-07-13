@@ -21,131 +21,166 @@
             font-family:'Segoe UI',sans-serif;
         }
 
-        .wrapper{
-            display:flex;
-            min-height:100vh;
-        }
-
         /* ================= SIDEBAR ================= */
 
-        .sidebar{
-            width:280px;
-            background:#2563eb;
-            color:#fff;
-            display:flex;
-            flex-direction:column;
-            padding:30px 20px;
-        }
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:linear-gradient(
+        180deg,
+        #0d6efd,
+        #2563eb,
+        #1e40af
+    );
+    display:flex;
+    flex-direction:column;
+    position:fixed;
+    left:0;
+    top:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    box-shadow:8px 0 25px rgba(0,0,0,.08);
+}
 
-        .logo{
-            text-align:center;
-            margin-bottom:30px;
-        }
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
 
-        .logo i{
-            font-size:42px;
-        }
+.sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.35);
+    border-radius:20px;
+}
 
-        .logo h3{
-            margin-top:12px;
-            font-weight:700;
-        }
+.logo{
+    padding:28px 20px 15px;
+    text-align:center;
+    color:#fff;
+}
 
-        .avatar{
-            width:95px;
-            height:95px;
-            border-radius:50%;
-            background:#eef4ff;
-            color:#2563eb;
-            border:4px solid rgba(255,255,255,.4);
-            margin:auto;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:38px;
-            font-weight:bold;
-        }
+.logo h3{
+    color:#fff;
+    font-weight:700;
+    margin-bottom:0;
+    letter-spacing:1px;
+}
 
-        .profile{
-            text-align:center;
-            margin-bottom:35px;
-        }
+.logo small{
+    color:#dbeafe;
+}
 
-        .profile small{
-            display:block;
-            margin-top:10px;
-            font-weight:600;
-        }
+.avatar{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    overflow:hidden;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    border:4px solid rgba(255,255,255,.3);
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile{
+    text-align:center;
+    padding:20px;
+}
+
+.profile h5{
+    color:#fff;
+    margin-top:15px;
+    margin-bottom:2px;
+}
+
+.profile small{
+    color:#dbeafe;
+}
 
         .profile p{
             margin:0;
             font-size:18px;
         }
 
-        .menu{
-            flex:1;
-        }
+.menu{
+    padding:15px;
+}
 
-        .menu a{
-            display:flex;
-            align-items:center;
-            gap:14px;
-            color:white;
-            text-decoration:none;
-            padding:16px 20px;
-            border-radius:16px;
-            margin-bottom:12px;
-            transition:.3s;
-            font-size:16px;
-        }
+.menu a{
+    color:#fff;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    margin-bottom:10px;
+    border-radius:14px;
+    transition:.3s;
+    font-weight:500;
+}
 
-        .menu a:hover{
-            background:#1d4ed8;
-        }
+.menu a:hover{
+    background:rgba(255,255,255,.15);
+    transform:translateX(6px);
+}
 
-        .menu a.active{
-            background:#2945b8;
-            font-weight:600;
-        }
+.menu a.active{
+    background:#fff;
+    color:#0d6efd;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
 
         .menu i{
             font-size:20px;
         }
 
-        .logout{
-            margin-top:auto;
-        }
+.logout{
+    margin-top:auto;
+    padding:20px;
+}
 
-        .logout button{
-            width:100%;
-            border:none;
-            background:#ef4444;
-            color:white;
-            padding:14px;
-            border-radius:12px;
-            font-weight:600;
-            transition:.3s;
-        }
+.logout button{
+    width:100%;
+    border:none;
+    border-radius:14px;
+    padding:12px;
+    background:#ef4444;
+    color:white;
+    font-weight:600;
+    transition:.3s;
+}
 
-        .logout button:hover{
-            background:#dc2626;
-        }
-
+.logout button:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
         /* ================= CONTENT ================= */
 
-        .main{
-            flex:1;
-        }
+.main{
+    padding:30px;
+}
 
-        .navbar{
-            background:white;
-            padding:18px 30px;
-            box-shadow:0 3px 12px rgba(0,0,0,.08);
-        }
+.content{
+    margin-left:260px;
+    min-height:100vh;
+}
 
-        .content{
-            padding:30px;
-        }
+.topbar{
+    height:75px;
+    background:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
 
     </style>
 
@@ -153,42 +188,30 @@
 
 <body>
 
-<div class="wrapper">
-
-    <!-- Sidebar -->
-
+    {{-- Sidebar --}}
     <div class="sidebar">
 
         <div class="logo">
-
-            <i class="bi bi-headset"></i>
-
-            <h3>Portal Layanan TIK</h3>
-
+            <h3>Helpdesk</h3>
+            <small>Diskominfo</small>
         </div>
 
         <div class="profile">
 
-            <img
-    src="{{ auth()->user()->foto
-        ? asset('storage/' . auth()->user()->foto)
-        : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0d6efd&color=fff&size=200' }}"
-    class="rounded-circle"
-    width="80"
-    height="80"
-    style="object-fit:cover;">
+            <div class="avatar">
+                @if(Auth::user()->foto)
+                    <img src="{{ asset('storage/' . Auth::user()->foto) }}?v={{ time() }}"
+                        alt="Profile">
+                @else
+                    {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+                @endif
+            </div>
 
-            <small>
-
-                {{ Auth::user()->username ?? 'staff' }}
-
-            </small>
-
-            <p>
-
+            <h5 class="mt-3 mb-1">
                 {{ Auth::user()->name }}
+            </h5>
 
-            </p>
+            <small>Staff</small>
 
         </div>
 
@@ -196,38 +219,26 @@
 
             <a href="{{ route('staff.dashboard') }}"
                class="{{ request()->routeIs('staff.dashboard') ? 'active' : '' }}">
-
                 <i class="bi bi-speedometer2"></i>
-
                 Dashboard
-
             </a>
 
             <a href="{{ route('staff.kanban') }}"
                class="{{ request()->routeIs('staff.kanban') ? 'active' : '' }}">
-
                 <i class="bi bi-kanban-fill"></i>
-
                 Kanban Board
-
             </a>
 
             <a href="{{ route('staff.ticket.index') }}"
                class="{{ request()->routeIs('staff.ticket.*') ? 'active' : '' }}">
-
                 <i class="bi bi-ticket-detailed-fill"></i>
-
                 Daftar Tiket
-
             </a>
 
             <a href="{{ route('staff.profile') }}"
                class="{{ request()->routeIs('staff.profile*') ? 'active' : '' }}">
-
                 <i class="bi bi-person-circle"></i>
-
                 Profil
-
             </a>
 
         </div>
@@ -235,36 +246,29 @@
         <div class="logout">
 
             <form action="{{ route('logout') }}" method="POST">
-
                 @csrf
-
                 <button type="submit">
-
-                    <i class="bi bi-box-arrow-right"></i>
-
+                    <i class="bi bi-box-arrow-right me-2"></i>
                     Logout
-
                 </button>
-
             </form>
 
         </div>
 
     </div>
 
-    <!-- Main -->
+    {{-- Content --}}
+    <div class="content">
 
-    <div class="main">
+        <div class="topbar">
 
-        <nav class="navbar bg-white shadow-sm px-4">
+            <div class="welcome">
+                <h5>Selamat Datang, {{ Auth::user()->name }}</h5>
+                <small>Portal Helpdesk Staff</small>
+            </div>
 
-            <h5 class="mb-0 fw-bold">
-                @yield('title','Dashboard')
-            </h5>
+            <div class="d-flex align-items-center">
 
-            <div class="d-flex align-items-center ms-auto">
-
-                {{-- NOTIF --}}
                 <button
                     class="btn position-relative me-3"
                     data-bs-toggle="offcanvas"
@@ -272,37 +276,25 @@
 
                     <i class="bi bi-bell fs-4"></i>
 
-                    @if(isset($notificationCount) && $notificationCount>0)
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-
+                    @if(isset($notificationCount) && $notificationCount > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {{ $notificationCount }}
-
                         </span>
                     @endif
 
                 </button>
 
-                {{-- USER --}}
-                <div class="text-end">
-
-                    <strong>{{ Auth::user()->name }}</strong>
-                    <br>
-
-                    <small class="text-muted">
-                        {{ ucfirst(Auth::user()->role) }}
-                    </small>
-
+                <div class="clock">
+                    <i class="bi bi-calendar3"></i>
+                    {{ now()->format('d F Y') }}
                 </div>
 
             </div>
 
-        </nav>
+        </div>
 
-        <div class="content">
-
+        <div class="main">
             @yield('content')
-
         </div>
 
     </div>

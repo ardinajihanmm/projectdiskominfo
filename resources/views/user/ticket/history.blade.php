@@ -8,21 +8,20 @@
 
     <div>
 
-        <h3 class="fw-bold mb-1">
-            <i class="bi bi-clock-history text-primary"></i>
+        <h2 class="fw-bold mb-2">
             Riwayat Pengajuan
-        </h3>
+        </h2>
 
-        <small class="text-muted">
-            Daftar seluruh pengajuan layanan yang pernah Anda buat.
-        </small>
+        <p class="text-muted mb-0">
+            Lihat status dan perkembangan seluruh pengajuan layanan Anda.
+        </p>
 
     </div>
 
     <a href="{{ route('user.dashboard') }}"
-       class="btn btn-outline-secondary">
+       class="btn btn-light border rounded-3 px-4">
 
-        <i class="bi bi-arrow-left"></i>
+        <i class="bi bi-arrow-left me-2"></i>
 
         Kembali
 
@@ -30,66 +29,59 @@
 
 </div>
 
-<div class="card shadow-sm border-0 mb-4">
+<div class="card border-0 shadow-sm rounded-4 mb-4">
 
-    <div class="card-body">
+    <div class="card-body p-4">
 
         <form method="GET">
 
-            <div class="row">
+            <div class="row g-3">
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
 
-    <div class="input-group">
+                    <div class="input-group">
 
-        <span class="input-group-text bg-white border-end-0">
+                        <span class="input-group-text bg-white border-end-0">
 
-            <i class="bi bi-search text-primary"></i>
+                            <i class="bi bi-search"></i>
 
-        </span>
+                        </span>
 
-        <input
-            type="text"
-            name="search"
-            class="form-control border-start-0"
-            placeholder="Cari kode tiket atau judul..."
-            value="{{ request('search') }}">
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control border-start-0"
+                            placeholder="Cari kode tiket atau judul..."
+                            value="{{ request('search') }}">
 
-    </div>
+                    </div>
 
-</div>
-                <div class="col-md-3">
+                </div>
 
-    <select
-        name="status"
-        class="form-select">
+                <div class="col-lg-3">
 
-        <option value="">Semua Status</option>
+                    <select name="status" class="form-select">
 
-        <option value="To Do"
-            {{ request('status')=='To Do'?'selected':'' }}>
-            Menunggu Diproses
-        </option>
+                        <option value="">Semua Status</option>
+                        <option value="To Do" {{ request('status')=='To Do'?'selected':'' }}>
+                            Menunggu Diproses
+                        </option>
+                        <option value="In Progress" {{ request('status')=='In Progress'?'selected':'' }}>
+                            Sedang Diproses
+                        </option>
+                        <option value="Completed" {{ request('status')=='Completed'?'selected':'' }}>
+                            Selesai
+                        </option>
 
-        <option value="In Progress"
-            {{ request('status')=='In Progress'?'selected':'' }}>
-            Sedang Diproses
-        </option>
+                    </select>
 
-        <option value="Completed"
-            {{ request('status')=='Completed'?'selected':'' }}>
-            Selesai
-        </option>
+                </div>
 
-    </select>
-
-</div>
-
-                <div class="col-md-3 d-grid">
+                <div class="col-lg-3 d-grid">
 
                     <button class="btn btn-primary">
 
-                        <i class="bi bi-search"></i>
+                        <i class="bi bi-search me-2"></i>
 
                         Cari
 
@@ -104,7 +96,6 @@
     </div>
 
 </div>
-<!-- Search & Filter nanti di sini -->
 
 <!-- Tabel Riwayat -->
 <div class="card border-0 shadow-sm">
@@ -115,23 +106,23 @@
 
             <table class="table table-hover align-middle mb-0">
 
-                <thead class="bg-light">
+                <thead class="table-light">
 
                     <tr>
 
-                        <th>Kode</th>
+    <th class="ps-4">Kode Tiket</th>
 
-                        <th>Judul</th>
+    <th>Judul</th>
 
-                        <th>Layanan</th>
+    <th>Layanan</th>
 
-                        <th>Status</th>
+    <th>Status</th>
 
-                        <th>Tanggal</th>
+    <th>Tanggal</th>
 
-                        <th width="120">Aksi</th>
+    <th class="text-center">Aksi</th>
 
-                    </tr>
+</tr>
 
                 </thead>
 
@@ -141,21 +132,23 @@
 
                     <tr>
 
-                        <td>
+                        <td class="ps-4">
 
-                            <span class="fw-bold font-monospace">
+    <div class="fw-bold">
+        {{ $ticket->kode_ticket }}
+    </div>
 
-    {{ $ticket->kode_ticket }}
-
-</span>
-
-                        </td>
+</td>
 
                         <td>
 
-                            {{ $ticket->judul }}
+    <div class="fw-semibold">
 
-                        </td>
+        {{ $ticket->judul }}
+
+    </div>
+
+</td>
 
                         <td>
 
@@ -202,33 +195,31 @@ Selesai
 </td>
 <td>
 
-<div class="fw-semibold">
+    <div class="fw-semibold">
 
-{{ $ticket->created_at->format('d M Y') }}
+        {{ $ticket->created_at->format('d M Y') }}
 
-</div>
+    </div>
 
-<small class="text-muted">
+    <small class="text-muted">
 
-{{ $ticket->created_at->format('H:i') }} WIB
+        {{ $ticket->created_at->format('H:i') }} WIB
 
-</small>
+    </small>
 
 </td>
+                        <td class="text-center">
 
-                        <td>
+    <a href="{{ route('user.ticket.detail',$ticket->id) }}"
+       class="btn btn-primary btn-sm rounded-pill px-3">
 
-                            <a href="{{ route('user.ticket.detail',$ticket->id) }}"
-                               class="btn btn-primary btn-sm rounded-pill px-3">
+        <i class="bi bi-eye me-1"></i>
 
-                                <i class="bi bi-eye"></i>
+        Detail
 
-                                Detail
+    </a>
 
-                            </a>
-
-                        </td>
-
+</td>
                     </tr>
 
                     @empty

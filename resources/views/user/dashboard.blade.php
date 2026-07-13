@@ -10,67 +10,92 @@ use Illuminate\Support\Str;
 
 
 <!-- Header -->
-<div class="card border-0 shadow-sm mb-4">
+<div class="dashboard-header mb-4">
 
-    <div class="card-body">
+    <div class="row align-items-center">
 
-        <h3 class="fw-bold mb-2">
-            <i class="bi bi-house-door-fill text-primary"></i>
-            Dashboard
-        </h3>
+        <div class="col-lg-8">
 
-        <p class="text-muted mb-0">
+            <span class="dashboard-badge">
 
-            Selamat datang,
-            <strong>{{ $user->name }}</strong>.
-            Gunakan portal ini untuk mengajukan layanan TIK,
-            memantau status pengajuan, serta melihat informasi terbaru.
+                <i class="bi bi-house-door-fill"></i>
 
-        </p>
+                Dashboard
+
+            </span>
+
+            <h2 class="dashboard-title mt-3">
+
+                Selamat Datang,
+                <span>{{ $user->name }}</span>
+
+            </h2>
+
+            <p class="dashboard-desc">
+
+                Kelola seluruh pengajuan layanan, pantau perkembangan tiket,
+                dan lihat aktivitas terbaru melalui
+                <strong>Helpdesk Diskominfo.</strong>
+
+            </p>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="account-status">
+
+                <div class="status-icon">
+
+                    <i class="bi bi-shield-check"></i>
+
+                </div>
+
+                <div>
+
+                    <small>Status Akun</small>
+
+                    <h6 class="mb-1">
+
+                        Aktif
+
+                    </h6>
+
+                    <span>
+
+                        Anda dapat mengajukan layanan kapan saja.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-
-</div>
-
-<div class="alert alert-success shadow-sm">
-
-<i class="bi bi-shield-check"></i>
-
-Status akun Anda aktif.
-Anda dapat mengajukan layanan kapan saja.
 
 </div>
 <!-- Statistik -->
+<div class="row g-4 mb-4">
 
-<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
 
-    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="modern-card total-card">
 
-        <div class="card border-0 shadow-sm">
+            <div class="icon-box">
+                <i class="bi bi-ticket-perforated-fill"></i>
+            </div>
 
-            <div class="card-body">
+            <div class="card-content">
 
-                <div class="d-flex justify-content-between">
+                <small>Total Pengajuan</small>
 
-                    <div>
+                <h2 class="counter" data-target="{{ $totalTicket }}">0</h2>
 
-                        <small class="text-muted">
-
-                            Total Pengajuan
-
-                        </small>
-
-                        <h2 class="fw-bold">
-
-                            {{ $totalTicket }}
-
-                        </h2>
-
-                    </div>
-
-                    <i class="bi bi-ticket-perforated-fill fs-1 text-primary"></i>
-
-                </div>
+                <span>
+                    Seluruh tiket yang pernah diajukan
+                </span>
 
             </div>
 
@@ -78,33 +103,23 @@ Anda dapat mengajukan layanan kapan saja.
 
     </div>
 
-    <div class="col-lg-3 col-md-6 mb-3">
+    <div class="col-xl-3 col-md-6">
 
-        <div class="card border-0 shadow-sm">
+        <div class="modern-card waiting-card">
 
-            <div class="card-body">
+            <div class="icon-box">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
 
-                <div class="d-flex justify-content-between">
+            <div class="card-content">
 
-                    <div>
+                <small>Menunggu Diproses</small>
 
-                        <small class="text-muted">
+                <h2 class="counter" data-target="{{ $todo }}">0</h2>
 
-                            To Do
-
-                        </small>
-
-                        <h2 class="fw-bold text-warning">
-
-                            {{ $todo }}
-
-                        </h2>
-
-                    </div>
-
-                    <i class="bi bi-hourglass-split fs-1 text-warning"></i>
-
-                </div>
+                <span>
+                    Menunggu petugas menangani
+                </span>
 
             </div>
 
@@ -112,33 +127,23 @@ Anda dapat mengajukan layanan kapan saja.
 
     </div>
 
-    <div class="col-lg-3 col-md-6 mb-3">
+    <div class="col-xl-3 col-md-6">
 
-        <div class="card border-0 shadow-sm">
+        <div class="modern-card progress-card">
 
-            <div class="card-body">
+            <div class="icon-box">
+                <i class="bi bi-arrow-repeat"></i>
+            </div>
 
-                <div class="d-flex justify-content-between">
+            <div class="card-content">
 
-                    <div>
+                <small>Sedang Diproses</small>
 
-                        <small class="text-muted">
+                <h2 class="counter" data-target="{{ $progress }}">0</h2>
 
-                            Diproses
-
-                        </small>
-
-                        <h2 class="fw-bold text-info">
-
-                            {{ $progress }}
-
-                        </h2>
-
-                    </div>
-
-                    <i class="bi bi-gear-fill fs-1 text-info"></i>
-
-                </div>
+                <span>
+                    Sedang dikerjakan petugas
+                </span>
 
             </div>
 
@@ -146,33 +151,23 @@ Anda dapat mengajukan layanan kapan saja.
 
     </div>
 
-    <div class="col-lg-3 col-md-6 mb-3">
+    <div class="col-xl-3 col-md-6">
 
-        <div class="card border-0 shadow-sm">
+        <div class="modern-card complete-card">
 
-            <div class="card-body">
+            <div class="icon-box">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
 
-                <div class="d-flex justify-content-between">
+            <div class="card-content">
 
-                    <div>
+                <small>Selesai</small>
 
-                        <small class="text-muted">
+                <h2 class="counter" data-target="{{ $completed }}">0</h2>
 
-                            Selesai
-
-                        </small>
-
-                        <h2 class="fw-bold text-success">
-
-                            {{ $completed }}
-
-                        </h2>
-
-                    </div>
-
-                    <i class="bi bi-check-circle-fill fs-1 text-success"></i>
-
-                </div>
+                <span>
+                    Pengajuan telah selesai
+                </span>
 
             </div>
 
@@ -181,79 +176,114 @@ Anda dapat mengajukan layanan kapan saja.
     </div>
 
 </div>
+
 
 <div class="row">
 
     <!-- Progress -->
-    <div class="col-lg-7 mb-4">
+<div class="card progress-modern shadow-sm border-0 mb-4">
 
-        <div class="card border-0 shadow-sm h-100">
+    <div class="card-body p-4">
 
-            <div class="card-header bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-                <strong>
-                    <i class="bi bi-graph-up-arrow text-success"></i>
+            <div>
+
+                <h4 class="fw-bold mb-1">
+
                     Progress Penyelesaian
-                </strong>
+
+                </h4>
+
+                <small class="text-muted">
+
+                    Ringkasan perkembangan seluruh pengajuan Anda.
+
+                </small>
 
             </div>
 
-            <div class="card-body">
+            <div class="progress-circle">
 
-                <div class="progress mb-3" style="height:22px;">
+                {{ $progressPercent }}%
 
-                    <div
-                        class="progress-bar bg-success"
-                        role="progressbar"
-                        style="width: {{ $progressPercent }}%;"
-                        aria-valuenow="{{ $progressPercent }}"
-                        aria-valuemin="0"
-                        aria-valuemax="100">
+            </div>
 
-                        {{ $progressPercent }}%
+        </div>
+
+        <div class="progress modern-progress mb-3">
+
+            <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                style="width: {{ $progressPercent }}%">
+
+            </div>
+
+        </div>
+
+        <div class="mb-4 text-muted">
+
+            <strong>{{ $completed }}</strong>
+
+            dari
+
+            <strong>{{ $totalTicket }}</strong>
+
+            pengajuan telah berhasil diselesaikan.
+
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+
+                <div class="status-box status-success">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    <div>
+
+                        <strong>{{ $completed }}</strong>
+
+                        <small>Selesai</small>
 
                     </div>
 
                 </div>
 
-                <h5 class="fw-bold text-success">
+            </div>
 
-                    {{ $progressPercent }}%
+            <div class="col-md-4">
 
-                </h5>
+                <div class="status-box status-warning">
 
-                <p class="mb-2 text-muted">
+                    <i class="bi bi-hourglass-split"></i>
 
-                    {{ $completed }} dari {{ $totalTicket }}
-                    pengajuan telah berhasil diselesaikan.
+                    <div>
 
-                </p>
+                        <strong>{{ $todo }}</strong>
 
-                <div class="d-flex flex-wrap gap-2">
+                        <small>Menunggu Diproses</small>
 
-                    <span class="badge bg-success">
+                    </div>
 
-                        <i class="bi bi-check-circle-fill"></i>
+                </div>
 
-                        Selesai : {{ $completed }}
+            </div>
 
-                    </span>
+            <div class="col-md-4">
 
-                    <span class="badge bg-warning text-dark">
+                <div class="status-box status-info">
 
-                        <i class="bi bi-hourglass-split"></i>
+                    <i class="bi bi-arrow-repeat"></i>
 
-                        To Do : {{ $todo }}
+                    <div>
 
-                    </span>
+                        <strong>{{ $progress }}</strong>
 
-                    <span class="badge bg-info text-dark">
+                        <small>Sedang Diproses</small>
 
-                        <i class="bi bi-gear-fill"></i>
-
-                        Diproses : {{ $progress }}
-
-                    </span>
+                    </div>
 
                 </div>
 
@@ -263,50 +293,91 @@ Anda dapat mengajukan layanan kapan saja.
 
     </div>
 
+</div>
+
     <!-- Aksi Cepat -->
+<div class="card quick-card border-0 shadow-sm">
 
-    <div class="col-lg-5 mb-4">
+    <div class="card-body">
 
-        <div class="card border-0 shadow-sm h-100">
+        <div class="d-flex align-items-center mb-4">
 
-            <div class="card-header bg-white">
+            <div class="quick-title-icon">
 
-                <strong>
-
-                    <i class="bi bi-lightning-charge-fill text-primary"></i>
-
-                    Aksi Cepat
-
-                </strong>
+                <i class="bi bi-lightning-charge-fill"></i>
 
             </div>
 
-            <div class="card-body d-grid gap-2">
+            <div>
+
+                <h4 class="mb-1 fw-bold">
+
+                    Aksi Cepat
+
+                </h4>
+
+                <small class="text-muted">
+
+                    Akses menu yang paling sering digunakan.
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-6">
 
                 <a href="{{ route('user.ticket.create') }}"
-                    class="btn btn-primary">
+                   class="quick-menu quick-blue">
 
-                    <i class="bi bi-plus-circle"></i>
+                    <i class="bi bi-plus-circle-fill"></i>
 
-                    Ajukan Layanan
+                    <h6>
+
+                        Ajukan
+                        <br>
+                        Layanan
+
+                    </h6>
 
                 </a>
 
+            </div>
+
+            <div class="col-6">
+
                 <a href="{{ route('user.ticket.history') }}"
-                    class="btn btn-success">
+                   class="quick-menu quick-green">
 
                     <i class="bi bi-clock-history"></i>
 
-                    Riwayat Pengajuan
+                    <h6>
+
+                        Riwayat
+                        <br>
+                        Pengajuan
+
+                    </h6>
 
                 </a>
 
+            </div>
+
+            <div class="col-12">
+
                 <a href="{{ route('user.profile') }}"
-                    class="btn btn-secondary">
+                   class="quick-menu quick-gray">
 
                     <i class="bi bi-person-circle"></i>
 
-                    Profil Saya
+                    <h6>
+
+                        Profil Saya
+
+                    </h6>
 
                 </a>
 
@@ -320,146 +391,170 @@ Anda dapat mengajukan layanan kapan saja.
 
 <div class="row">
     <!-- Pengajuan Terbaru -->
- <div class="col-lg-7 mb-4">
-
-  <div class="card shadow-sm border-0 h-100">
-
-    <div class="card-header bg-white">
-
-        <strong>
-
-            <i class="bi bi-ticket-detailed-fill text-primary"></i>
-
-            Pengajuan Terbaru
-
-        </strong>
-
-    </div>
+<div class="card latest-ticket-card border-0 shadow-sm">
 
     <div class="card-body">
 
-        @if($latestTicket)
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <h4 class="fw-bold mb-4">
+            <div>
 
-                {{ $latestTicket->judul }}
+                <h4 class="fw-bold mb-1">
 
-            </h4>
+                    Pengajuan Terbaru
 
-            <div class="row g-3 mb-4">
+                </h4>
 
-    <div class="col-md-6">
+                <small class="text-muted">
 
-        <small class="text-muted d-block">
-            <i class="bi bi-upc-scan text-primary"></i>
-            Kode Tiket
-        </small>
+                    Tiket terbaru yang Anda ajukan.
 
-        <strong>{{ $latestTicket->kode_ticket }}</strong>
+                </small>
 
-    </div>
+            </div>
 
-    <div class="col-md-6">
+            <a href="{{ route('user.ticket.history') }}"
+               class="btn btn-outline-primary rounded-pill">
 
-        <small class="text-muted d-block">
-            <i class="bi bi-calendar-event text-success"></i>
-            Tanggal
-        </small>
+                Lihat Semua
 
-        <strong>
-            {{ $latestTicket->created_at->format('d M Y H:i') }}
-        </strong>
+            </a>
 
-    </div>
+        </div>
 
-    <div class="col-md-6">
+        @forelse($latestTickets as $ticket)
 
-        <small class="text-muted d-block">
-            <i class="bi bi-list-task text-warning"></i>
-            Status
-        </small>
+        <div class="ticket-item">
 
-        @if($latestTicket->status=="Completed")
+            <div class="ticket-icon">
 
-            <span class="badge bg-success px-3 py-2">
+                <i class="bi bi-ticket-perforated-fill"></i>
 
-                <i class="bi bi-check-circle"></i>
+            </div>
 
-                Completed
+            <div class="ticket-content">
 
-            </span>
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
 
-        @elseif($latestTicket->status=="In Progress")
+                    <div>
 
-            <span class="badge bg-info px-3 py-2">
+                        <h5>
 
-                <i class="bi bi-gear"></i>
+                            {{ $ticket->judul }}
 
-                In Progress
+                        </h5>
 
-            </span>
+                        <small class="text-muted">
 
-        @else
+                            {{ $ticket->kode_ticket }}
 
-            <span class="badge bg-warning text-dark px-3 py-2">
+                        </small>
 
-                <i class="bi bi-hourglass-split"></i>
+                    </div>
 
-                To Do
+                    <div>
 
-            </span>
+                        @if($ticket->status=="Completed")
 
-        @endif
+                            <span class="badge bg-success rounded-pill">
 
-    </div>
+                                Selesai
 
-    <div class="col-md-6">
+                            </span>
 
-        <small class="text-muted d-block">
-            <i class="bi bi-tag text-danger"></i>
-            Layanan
-        </small>
+                        @elseif($ticket->status=="In Progress")
 
-        <strong>
+                            <span class="badge bg-info rounded-pill">
 
-            {{ $latestTicket->service->nama ?? '-' }}
+                                Sedang Diproses
 
-        </strong>
+                            </span>
+
+                        @else
+
+                            <span class="badge bg-warning text-dark rounded-pill">
+
+                                Menunggu Diproses
+
+                            </span>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+                <div class="ticket-meta">
+
+                    <span>
+
+                        <i class="bi bi-grid"></i>
+
+                        {{ $ticket->service->nama_layanan ?? '-' }}
+
+                    </span>
+
+                    <span>
+
+                        <i class="bi bi-calendar3"></i>
+
+                        {{ $ticket->created_at->format('d M Y') }}
+
+                    </span>
+
+                </div>
+
+                <p>
+
+                    {{ \Illuminate\Support\Str::limit($ticket->deskripsi,100) }}
+
+                </p>
+
+                <a href="{{ route('user.ticket.detail',$ticket->id) }}"
+                   class="btn btn-primary rounded-pill">
+
+                    <i class="bi bi-eye"></i>
+
+                    Lihat Detail
+
+                </a>
+
+            </div>
+
+        </div>
+
+        @empty
+
+        <div class="empty-ticket">
+
+            <i class="bi bi-inbox"></i>
+
+            <h5>
+
+                Belum Ada Pengajuan
+
+            </h5>
+
+            <p>
+
+                Anda belum pernah mengajukan layanan.
+
+            </p>
+
+            <a href="{{ route('user.ticket.create') }}"
+               class="btn btn-primary rounded-pill">
+
+                Ajukan Sekarang
+
+            </a>
+
+        </div>
+
+        @endforelse
 
     </div>
 
 </div>
-
-            <a
-                href="{{ route('user.ticket.detail',$latestTicket->id) }}"
-                class="btn btn-outline-primary w-100">
-
-                <i class="bi bi-eye"></i>
-
-                Lihat Detail
-
-            </a>
-
-        @else
-
-            <div class="text-center py-4">
-
-                <i class="bi bi-ticket fs-1 text-secondary"></i>
-
-                <p class="mt-3">
-
-                    Belum ada pengajuan.
-
-                </p>
-
-            </div>
-
-        @endif
-    </div> {{-- card-body --}}
-
-</div> {{-- card --}}
-
-</div> {{-- col-lg-7 --}}
 
 <div class="col-lg-5 mb-4">
 

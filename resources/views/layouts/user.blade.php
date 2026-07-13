@@ -22,89 +22,230 @@
 }
 
 .sidebar{
+
     width:260px;
-    min-height:100vh;
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #0d6efd,
+        #2563eb,
+        #1e40af
+    );
+
+    display:flex;
+    flex-direction:column;
+
     position:fixed;
     left:0;
     top:0;
-    background:#2563EB;
-    color:#fff;
-    box-shadow:4px 0 15px rgba(37,99,235,.25);
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    box-shadow:8px 0 25px rgba(0,0,0,.08);
+
 }
 
-.brand{
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar::-webkit-scrollbar-track{
     background:transparent;
-    padding:25px;
-    text-align:center;
-    border-bottom:none;
 }
 
-.brand h4{
-    margin:10px 0 0;
+.sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.35);
+    border-radius:20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background:rgba(255,255,255,.7);
+}
+
+.logo{
+
+    padding:28px 20px 15px;
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.logo h3{
+
     font-weight:700;
+
+    margin-bottom:0;
+
+    letter-spacing:1px;
+
 }
 
-.profile-box{
+.logo small{
+
+    opacity:.8;
+
+}
+
+.profile{
+
     text-align:center;
-    padding:22px 20px;
-    border-bottom:none;
-    background:transparent;
+
+    padding:20px;
+
 }
 
-.profile-box img{
-    width:75px;
-    height:75px;
+.avatar{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
     border-radius:50%;
+
+    overflow:hidden;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+
+    border:4px solid rgba(255,255,255,.3);
+
+}
+
+.avatar img{
+
+    width:100%;
+    height:100%;
     object-fit:cover;
-    border:4px solid #FFFFFF;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
 }
 
-.profile-box h6{
-    margin-top:12px;
-    margin-bottom:4px;
-    color:#FFFFFF;
-    font-weight:700;
+.profile h5{
+
+    color:white;
+
+    margin-top:15px;
+
+    margin-bottom:2px;
+
 }
 
-.profile-box small{
-    color:#DBEAFE;
-    font-size:14px;
-    letter-spacing:.5px;
+.profile small{
+
+    color:#dbeafe;
+
 }
+
 .menu{
-    padding:15px 10px;
+
+    padding:15px;
+
 }
 
 .menu a{
-    display:flex;
-    align-items:center;
-    gap:12px;
+
     color:white;
+
     text-decoration:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
     padding:14px 18px;
-    border-radius:12px;
-    margin-bottom:8px;
-    transition:.25s;
+
+    margin-bottom:10px;
+
+    border-radius:14px;
+
+    transition:.3s;
+
+    font-weight:500;
+
 }
 
 .menu a:hover{
-    background:#1D4ED8;
-    color:white;
+
+    background:rgba(255,255,255,.15);
+
+    transform:translateX(6px);
+
 }
 
 .menu a.active{
-    background:#1E40AF;
-    color:white;
-    font-weight:600;
+
+    background:white;
+
+    color:#0d6efd;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
 }
 
 .menu i{
-    width:22px;
-    text-align:center;
+
     font-size:18px;
+
 }
 
+.logout{
+
+    margin-top:auto;
+
+    padding:20px;
+
+}
+
+.logout button{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:12px;
+
+    background:#ef4444;
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.logout button:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-2px);
+
+}
+
+.menu{
+    flex:1;
+    padding:15px;
+}
+
+.sidebar-footer{
+    padding:20px;
+    margin-top:auto;
+}
 .content{
     margin-left:260px;
     height:100vh;
@@ -136,17 +277,6 @@
     padding:20px 30px;
     color:#64748B;
     font-size:14px;
-}
-
-.logout-btn{
-    width:100%;
-    border:none;
-    background:none;
-    color:#E2E8F0;
-    padding:13px 18px;
-    border-radius:10px;
-    text-align:left;
-    transition:.25s;
 }
 
 .dropdown-menu{
@@ -223,10 +353,6 @@
     color:#94A3B8;
 }
   
-.logout-btn:hover{
-    background:#EF4444;
-    color:white;
-}
 
 .timeline-item{
     display:flex;
@@ -453,6 +579,680 @@ background:#f8fbff;
 .notification-card .btn:hover{
     transform:translateY(-1px);
 }
+.stat-card{
+
+    border:none;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:0 .4rem 1rem rgba(0,0,0,.08);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 .8rem 1.6rem rgba(0,0,0,.15);
+
+}
+
+.stat-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+}
+
+.stat-number{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    margin:0;
+
+}
+
+.stat-label{
+
+    opacity:.9;
+
+    margin-bottom:6px;
+
+}
+
+.bg-total{
+
+background:linear-gradient(135deg,#2563EB,#1D4ED8);
+
+}
+
+.bg-todo{
+
+background:linear-gradient(135deg,#F59E0B,#D97706);
+
+}
+
+.bg-progress{
+
+background:linear-gradient(135deg,#06B6D4,#0891B2);
+
+}
+
+.bg-completed{
+
+background:linear-gradient(135deg,#22C55E,#15803D);
+
+}
+.dashboard-header{
+
+    background:#fff;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+}
+
+.dashboard-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 18px;
+
+    background:#eef4ff;
+
+    color:#2563eb;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    font-size:.9rem;
+
+}
+
+.dashboard-title{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    color:#1e293b;
+
+}
+
+.dashboard-title span{
+
+    color:#2563eb;
+
+}
+
+.dashboard-desc{
+
+    font-size:1rem;
+
+    color:#64748b;
+
+    line-height:1.8;
+
+    margin-bottom:0;
+
+}
+
+.account-status{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    height:100%;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.status-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+}
+
+.account-status small{
+
+    opacity:.8;
+
+    display:block;
+
+    margin-bottom:5px;
+
+}
+
+.account-status h6{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+.account-status span{
+
+    font-size:.9rem;
+
+    opacity:.9;
+
+}
+.modern-card{
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    gap:22px;
+
+    min-height:180px;
+    height:180px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    color:#fff;
+
+    transition:.35s cubic-bezier(.4,0,.2,1);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.12);
+
+}
+.card-content{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    height:100%;
+
+}
+.modern-card span{
+
+    display:block;
+
+    min-height:52px;
+
+    line-height:1.5;
+
+    font-size:.95rem;
+
+    opacity:.95;
+
+}
+.modern-card h2{
+
+    margin:8px 0 12px;
+
+    font-size:3rem;
+
+    font-weight:700;
+
+    line-height:1;
+
+}
+.modern-card:hover{
+
+    transform:translateY(-10px) scale(1.02);
+
+    box-shadow:0 30px 60px rgba(0,0,0,.18);
+
+}
+.modern-card::before{
+
+content:"";
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+right:-80px;
+
+top:-80px;
+
+}
+
+.modern-card::after{
+
+content:"";
+
+position:absolute;
+
+width:120px;
+
+height:120px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.06);
+
+left:-30px;
+
+bottom:-30px;
+
+}
+
+.icon-box{
+
+    width:78px;
+
+    height:78px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:34px;
+
+    flex-shrink:0;
+    transition:.4s;
+
+}
+.modern-card:hover .icon-box{
+
+transform:rotate(-8deg) scale(1.12);
+
+background:rgba(255,255,255,.28);
+
+}
+.modern-card small{
+
+    display:block;
+
+    font-size:.95rem;
+
+    opacity:.9;
+
+    margin-bottom:8px;
+
+    letter-spacing:.3px;
+
+}
+
+.modern-card h2{
+
+    font-size:2.4rem;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+}
+
+.modern-card span{
+
+    font-size:.9rem;
+
+    opacity:.92;
+
+}
+
+.total-card{
+
+background:linear-gradient(
+135deg,
+#3B82F6,
+#2563EB,
+#1D4ED8
+);
+box-shadow:0 20px 45px rgba(37,99,235,.35);
+
+
+}
+
+.waiting-card{
+
+background:linear-gradient(
+135deg,
+#FBBF24,
+#F59E0B,
+#D97706
+);
+box-shadow:0 20px 45px rgba(245,158,11,.35);
+
+}
+
+.progress-card{
+background:linear-gradient(
+135deg,
+#38BDF8,
+#06B6D4,
+#0891B2
+);
+box-shadow:0 20px 45px rgba(6,182,212,.35);
+
+}
+
+.complete-card{
+
+background:linear-gradient(
+135deg,
+#4ADE80,
+#22C55E,
+#15803D
+);
+box-shadow:0 20px 45px rgba(34,197,94,.35);
+}
+.progress-modern{
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+}
+
+.progress-circle{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.3rem;
+
+    font-weight:700;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.3);
+
+}
+
+.modern-progress{
+
+    height:16px;
+
+    border-radius:30px;
+
+    background:#e5e7eb;
+
+}
+
+.modern-progress .progress-bar{
+
+    border-radius:30px;
+
+    background:linear-gradient(90deg,#22c55e,#16a34a);
+
+}
+
+.status-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    transition:.3s;
+
+}
+
+.status-box:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.status-box i{
+
+    font-size:28px;
+
+}
+
+.status-box strong{
+
+    display:block;
+
+    font-size:1.3rem;
+
+}
+
+.status-box small{
+
+    color:#6b7280;
+
+}
+
+.status-success{
+
+    background:#ecfdf5;
+
+    color:#16a34a;
+
+}
+
+.status-warning{
+
+    background:#fffbeb;
+
+    color:#d97706;
+
+}
+
+.status-info{
+
+    background:#ecfeff;
+
+    color:#0891b2;
+
+}
+.quick-card{
+
+    border-radius:24px;
+
+}
+
+.quick-title-icon{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:15px;
+
+    background:#eef4ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    margin-right:15px;
+
+}
+
+.quick-menu{
+
+    text-decoration:none;
+
+    border-radius:20px;
+
+    color:white;
+
+    min-height:150px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.quick-menu::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+
+    height:140px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    right:-45px;
+
+    top:-45px;
+
+}
+
+.quick-menu:hover{
+
+    transform:translateY(-6px);
+
+    color:white;
+
+    box-shadow:0 20px 35px rgba(0,0,0,.18);
+
+}
+
+.quick-menu i{
+
+    font-size:38px;
+
+    margin-bottom:18px;
+
+}
+
+.quick-menu h6{
+
+    margin:0;
+
+    text-align:center;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    line-height:1.5;
+
+}
+
+.quick-blue{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+}
+
+.quick-green{
+
+    background:linear-gradient(135deg,#16a34a,#15803d);
+
+}
+
+.quick-gray{
+
+    background:linear-gradient(135deg,#475569,#334155);
+
+    min-height:120px;
+
+}
     </style>
 
 </head>
@@ -462,77 +1262,109 @@ background:#f8fbff;
 
 <div class="sidebar">
 
-    <div class="brand">
+<div class="logo">
 
-        <i class="bi bi-headset fs-1"></i>
+<h3>
 
-        <h4>Portal Layanan TIK</h4>
+Helpdesk
 
-    </div>
+</h3>
 
-    <div class="profile-box">
+<small>
 
-        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=EFF6FF&color=1D4ED8&bold=true&size=128">
+Diskominfo
 
-        <h6>{{ auth()->user()->name }}</h6>
+</small>
 
-        <small>User</small>
+</div>
 
-    </div>
+<div class="profile">
 
-    <div class="menu">
+<div class="avatar">
 
-        <a href="{{ route('user.dashboard') }}"
-           class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
+@if(Auth::user()->photo)
 
-            <i class="bi bi-speedometer2"></i>
+<img src="{{ asset('storage/'.Auth::user()->photo) }}">
 
-            Dashboard
+@else
 
-        </a>
+{{ strtoupper(substr(Auth::user()->name,0,1)) }}
 
-        <a href="{{ route('user.ticket.create') }}"
-           class="{{ request()->routeIs('user.ticket.create') ? 'active' : '' }}">
+@endif
 
-            <i class="bi bi-plus-circle-fill"></i>
+</div>
 
-            Ajukan Layanan
+<h5>
 
-        </a>
+{{ Auth::user()->name }}
 
-        <a href="{{ route('user.ticket.history') }}"
-           class="{{ request()->routeIs('user.ticket.history') ? 'active' : '' }}">
+</h5>
 
-            <i class="bi bi-ticket-detailed-fill"></i>
+<small>
 
-            Riwayat Tiket
+User
 
-        </a>
+</small>
 
-        <a href="{{ route('user.profile') }}"
-           class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">
+</div>
 
-            <i class="bi bi-person-circle"></i>
+<div class="menu">
 
-            Profil
+    <a href="{{ route('user.dashboard') }}"
+       class="{{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
 
-        </a>
+        <i class="bi bi-speedometer2"></i>
 
-        <form action="{{ route('logout') }}" method="POST">
+        Dashboard
 
-            @csrf
+    </a>
 
-            <button class="logout-btn">
+    <a href="{{ route('user.ticket.create') }}"
+       class="{{ request()->routeIs('user.ticket.create') ? 'active' : '' }}">
 
-                <i class="bi bi-box-arrow-right"></i>
+        <i class="bi bi-plus-circle-fill"></i>
 
-                Logout
+        Ajukan Layanan
 
-            </button>
+    </a>
 
-        </form>
+    <a href="{{ route('user.ticket.history') }}"
+       class="{{ request()->routeIs('user.ticket.history') ? 'active' : '' }}">
 
-    </div>
+        <i class="bi bi-ticket-perforated-fill"></i>
+
+        Riwayat Tiket
+
+    </a>
+
+    <a href="{{ route('user.profile') }}"
+       class="{{ request()->routeIs('user.profile') ? 'active' : '' }}">
+
+        <i class="bi bi-person-circle"></i>
+
+        Profil
+
+    </a>
+
+</div>
+
+<div class="logout">
+
+    <form action="{{ route('logout') }}" method="POST">
+
+        @csrf
+
+        <button type="submit">
+
+            <i class="bi bi-box-arrow-right me-2"></i>
+
+            Logout
+
+        </button>
+
+    </form>
+
+</div>
 
 </div>
 
@@ -594,7 +1426,7 @@ background:#f8fbff;
 
 <div class="footer">
 
-    © {{ date('Y') }} Service Desk Diskominfo
+    © {{ date('Y') }} HelpDesk Diskominfo Kota Pemalang
 
 </div>
 
@@ -735,5 +1567,38 @@ background:#f8fbff;
 </div> 
 </div> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+document.querySelectorAll('.counter').forEach(counter=>{
+
+    const target=parseInt(counter.dataset.target);
+
+    let current=0;
+
+    const increment=Math.max(1,Math.ceil(target/50));
+
+    const update=()=>{
+
+        current+=increment;
+
+        if(current>=target){
+
+            counter.innerText=target;
+
+        }else{
+
+            counter.innerText=current;
+
+            requestAnimationFrame(update);
+
+        }
+
+    };
+
+    update();
+
+});
+
+</script>
 </body>
 </html>

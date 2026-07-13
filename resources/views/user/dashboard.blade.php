@@ -605,13 +605,13 @@ use Illuminate\Support\Str;
 
         <div>
 
-            <h5 class="mb-1 fw-bold">
+            <h4 class="mb-1 fw-bold">
 
                 <i class="bi bi-activity text-primary me-2"></i>
 
                 Timeline Aktivitas
 
-            </h5>
+            </h4>
 
             <small class="text-muted">
 

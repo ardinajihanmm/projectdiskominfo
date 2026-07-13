@@ -63,33 +63,41 @@
 .sidebar::-webkit-scrollbar-thumb:hover{
     background:rgba(255,255,255,.7);
 }
-
 .logo{
-
-    padding:28px 20px 15px;
-
-    text-align:center;
-
-    color:white;
-
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:22px 18px 26px;
 }
 
-.logo h3{
-
-    font-weight:700;
-
-    margin-bottom:0;
-
-    letter-spacing:1px;
-
+.logo-pemalang{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    flex-shrink:0;
 }
 
-.logo small{
-
-    opacity:.8;
-
+.logo-text{
+    text-align:left;
 }
 
+.logo-text h3{
+    margin:0;
+    color:#fff;
+    font-size:1.65rem;
+    font-weight:800;
+    line-height:1.1;
+}
+
+.logo-text small{
+    display:block;
+    color:rgba(255,255,255,.85);
+    font-size:.82rem;
+    line-height:1.35;
+    font-weight:500;
+    margin-top:4px;
+}
 .profile{
 
     text-align:center;
@@ -1667,23 +1675,23 @@ border-radius:16px;
 
 <div class="sidebar">
 
-<div class="logo">
+    <div class="logo">
 
-<h3>
+    <img
+        src="{{ asset('images/logo-pemalang.png') }}"
+        class="logo-pemalang"
+        alt="Logo Kabupaten Pemalang">
 
-Helpdesk
-
-</h3>
-
-<small>
-
-Diskominfo
-
-</small>
+    <div class="logo-text">
+        <h3>Helpdesk</h3>
+        <small>
+            Diskominfo<br>
+            Kabupaten Pemalang
+        </small>
+    </div>
 
 </div>
-
-<<div class="profile">
+<div class="profile">
 
     <div class="avatar">
 

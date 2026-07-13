@@ -33,12 +33,12 @@ class DashboardController extends Controller
     // Tiket terbaru
     $latestTickets = Ticket::with(['user', 'service'])
         ->latest()
-        ->take(5)
+        ->take(3)
         ->get();
 
     // Timeline aktivitas
     $activities = Ticket::latest('updated_at')
-        ->take(5)
+        ->take(7)
         ->get();
 
     return view('staff.dashboard', compact(

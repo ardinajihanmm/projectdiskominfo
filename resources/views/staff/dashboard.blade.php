@@ -387,52 +387,56 @@
 
         <div class="card shadow-sm border-0 h-100">
 
-            <div class="card-header bg-white">
+<div class="card-header border-0 bg-white py-3">
 
-                <strong>
-                    <i class="bi bi-activity text-primary"></i>
-                    Timeline Aktivitas
-                </strong>
+    <h4 class="fw-bold mb-1">
+        <i class="bi bi-activity text-primary"></i>
+        Timeline Aktivitas
+    </h4>
 
-            </div>
+    <small class="text-muted">
+        Aktivitas terbaru staff
+    </small>
+
+</div>
 
             <div class="card-body">
 
                 @forelse($activities as $activity)
 
-                <div class="timeline-item">
+<div class="timeline-item-modern">
 
-                    <div class="timeline-icon">
+    <div class="timeline-icon-modern">
 
-                        @if(Str::contains($activity->judul,'Komentar'))
-                            <i class="bi bi-chat-dots-fill text-success"></i>
+        @if(Str::contains($activity->judul,'Komentar'))
+            <i class="bi bi-chat-dots-fill"></i>
 
-                        @elseif(Str::contains($activity->judul,'Status'))
-                            <i class="bi bi-arrow-repeat text-primary"></i>
+        @elseif(Str::contains($activity->judul,'Status'))
+            <i class="bi bi-arrow-repeat"></i>
 
-                        @elseif(Str::contains($activity->judul,'Selesai'))
-                            <i class="bi bi-check-circle-fill text-success"></i>
+        @elseif(Str::contains($activity->judul,'Selesai'))
+            <i class="bi bi-check-circle-fill"></i>
 
-                        @else
-                            <i class="bi bi-info-circle-fill text-warning"></i>
-                        @endif
+        @else
+            <i class="bi bi-info-circle-fill"></i>
+        @endif
 
-                    </div>
+    </div>
 
-                    <div class="timeline-content">
+    <div class="timeline-content-modern">
 
-                        <h6>{{ $activity->judul }}</h6>
+        <h6>{{ $activity->judul }}</h6>
 
-                        <p>{{ $activity->pesan }}</p>
+        <p>{{ $activity->pesan }}</p>
 
-                        <small>
-                            <i class="bi bi-clock-history"></i>
-                            {{ $activity->created_at->diffForHumans() }}
-                        </small>
+        <small>
+            <i class="bi bi-clock"></i>
+            {{ $activity->created_at->diffForHumans() }}
+        </small>
 
-                    </div>
+    </div>
 
-                </div>
+</div>
 
                 @empty
 
@@ -454,99 +458,5 @@
 
     </div> {{-- akhir Timeline --}}
 </div> {{-- akhir row Tiket + Timeline --}}
-
-<!-- Panduan Staff -->
-<div class="card border-0 shadow-sm mt-4">
-
-    <div class="card-header bg-primary text-white">
-
-        <strong>
-            <i class="bi bi-info-circle-fill"></i>
-            Alur Kerja Staff
-        </strong>
-
-    </div>
-
-    <div class="card-body py-4">
-
-        <div class="row text-center step-wrapper">
-
-            <!-- Step 1 -->
-            <div class="col-lg-3 col-6 step-item">
-
-                <div class="step-number bg-primary">
-                    1
-                </div>
-
-                <div class="step-title">
-                    <i class="bi bi-inbox-fill text-primary"></i>
-                    Terima Tiket
-                </div>
-
-                <div class="step-desc">
-                    Staff menerima tiket baru yang masuk dari pengguna.
-                </div>
-
-            </div>
-
-            <!-- Step 2 -->
-            <div class="col-lg-3 col-6 step-item">
-
-                <div class="step-number bg-warning text-dark">
-                    2
-                </div>
-
-                <div class="step-title">
-                    <i class="bi bi-search text-warning"></i>
-                    Analisis Tiket
-                </div>
-
-                <div class="step-desc">
-                    Periksa detail pengajuan dan tentukan tindakan yang diperlukan.
-                </div>
-
-            </div>
-
-            <!-- Step 3 -->
-            <div class="col-lg-3 col-6 step-item">
-
-                <div class="step-number bg-info">
-                    3
-                </div>
-
-                <div class="step-title">
-                    <i class="bi bi-arrow-repeat text-info"></i>
-                    Proses Tiket
-                </div>
-
-                <div class="step-desc">
-                    Kerjakan tiket dan ubah status menjadi <strong>In Progress</strong>.
-                </div>
-
-            </div>
-
-            <!-- Step 4 -->
-            <div class="col-lg-3 col-6 step-item">
-
-                <div class="step-number bg-success">
-                    4
-                </div>
-
-                <div class="step-title">
-                    <i class="bi bi-check-circle-fill text-success"></i>
-                    Selesaikan
-                </div>
-
-                <div class="step-desc">
-                    Setelah pekerjaan selesai, ubah status tiket menjadi <strong>Completed</strong>.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
 @endsection

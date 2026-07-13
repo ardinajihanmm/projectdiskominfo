@@ -25,7 +25,6 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
 use App\Http\Controllers\Staff\CommentController;
 use App\Http\Controllers\Staff\ProfileController;
-use App\Http\Controllers\Staff\TicketController;
 
 /*
 |--------------------------------------------------------------------------

@@ -4,275 +4,542 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<!-- Header -->
+<div class="dashboard-header mb-4">
+    <div class="row align-items-center">
 
-    <div>
-        <h2 class="fw-bold">
-            <i class="bi bi-speedometer2"></i>
-            Dashboard Staff
-        </h2>
-        <small class="text-muted">
-            Ringkasan aktivitas helpdesk
-        </small>
+        <div class="col-lg-8">
+            <span class="dashboard-badge">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard Staff
+            </span>
+
+            <h2 class="dashboard-title mt-3">
+                Selamat Datang,
+                <span>{{ $user->name }}</span>
+            </h2>
+
+            <p class="dashboard-desc">
+                Kelola seluruh tiket layanan, pantau progres pekerjaan,
+                dan tangani pengajuan pengguna melalui
+                <strong>Helpdesk Diskominfo.</strong>
+            </p>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Statistik -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Tiket -->
+    <div class="col-xl-3 col-md-6">
+        <div class="modern-card total-card">
+
+            <div class="icon-box">
+                <i class="bi bi-ticket-perforated-fill"></i>
+            </div>
+
+            <div class="card-content">
+                <small>Total Tiket</small>
+
+                <h2 class="counter"
+                    data-target="{{ $totalTicket }}">
+                    0
+                </h2>
+
+                <span>
+                    Seluruh tiket yang masuk.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- To Do -->
+    <div class="col-xl-3 col-md-6">
+        <div class="modern-card waiting-card">
+
+            <div class="icon-box">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+
+            <div class="card-content">
+                <small>To Do</small>
+
+                <h2 class="counter"
+                    data-target="{{ $todo }}">
+                    0
+                </h2>
+
+                <span>
+                    Tiket yang belum diproses.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- In Progress -->
+    <div class="col-xl-3 col-md-6">
+        <div class="modern-card progress-card">
+
+            <div class="icon-box">
+                <i class="bi bi-arrow-repeat"></i>
+            </div>
+
+            <div class="card-content">
+                <small>In Progress</small>
+
+                <h2 class="counter"
+                    data-target="{{ $progress }}">
+                    0
+                </h2>
+
+                <span>
+                    Tiket yang sedang dikerjakan.
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Completed -->
+    <div class="col-xl-3 col-md-6">
+        <div class="modern-card complete-card">
+
+            <div class="icon-box">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <div class="card-content">
+                <small>Completed</small>
+
+                <h2 class="counter"
+                    data-target="{{ $completed }}">
+                    0
+                </h2>
+
+                <span>
+                    Tiket yang telah selesai.
+                </span>
+            </div>
+
+        </div>
     </div>
 
 </div>
 
-{{-- Statistik --}}
-<div class="row g-3 mb-4">
+<div class="row g-4">
 
-    <div class="col-md-3">
-        <div class="card shadow-sm border-start border-5 border-primary">
-            <div class="card-body">
-                <small class="text-muted">Total Tiket</small>
-                <h2 class="fw-bold">{{ $total }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card shadow-sm border-start border-5 border-warning">
-            <div class="card-body">
-                <small class="text-muted">To Do</small>
-                <h2 class="fw-bold text-warning">{{ $todo }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card shadow-sm border-start border-5 border-info">
-            <div class="card-body">
-                <small class="text-muted">In Progress</small>
-                <h2 class="fw-bold text-info">{{ $progress }}</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card shadow-sm border-start border-5 border-success">
-            <div class="card-body">
-                <small class="text-muted">Completed</small>
-                <h2 class="fw-bold text-success">{{ $completed }}</h2>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-
-    {{-- KIRI --}}
+    <!-- Progress -->
     <div class="col-lg-8">
+        <div class="card progress-modern shadow-sm border-0 h-100">
+            <div class="card-body p-4">
 
-        {{-- Progress --}}
-        <div class="card shadow-sm mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1">
+                            Progress Penyelesaian Tiket
+                        </h4>
 
-            <div class="card-header bg-white d-flex justify-content-between align-items-center">
-    <div>
-        <i class="bi bi-ticket-detailed-fill text-primary"></i>
-        <strong>Daftar Tiket Terbaru</strong>
-    </div>
-
-    <a href="{{ route('staff.ticket.index') }}"
-       class="btn btn-sm btn-outline-primary">
-        Lihat Semua
-    </a>
-</div>
-
-            <div class="card-body">
-
-                <div class="progress mb-2" style="height:22px">
-
-                    <div class="progress-bar bg-success"
-                        style="width:{{ $percent }}%">
-
-                        {{ $percent }}%
-
+                        <small class="text-muted">
+                            Ringkasan penyelesaian seluruh tiket yang sedang Anda tangani.
+                        </small>
                     </div>
 
+                    <div class="progress-circle">
+                        {{ $progressPercent }}%
+                    </div>
                 </div>
 
-                <small class="text-muted">
-                    {{ $completed }} dari {{ $total }} tiket telah selesai.
-                </small>
+                <div class="progress modern-progress mb-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                        style="width: {{ $progressPercent }}%">
+                    </div>
+                </div>
 
-            </div>
+                <div class="mb-4 text-muted">
+                    <strong>{{ $completed }}</strong>
+                    dari
+                    <strong>{{ $totalTicket }}</strong>
+                    tiket telah berhasil diselesaikan.
+                </div>
 
-        </div>
+                <div class="row g-2">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="status-box status-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>
+                                <strong>{{ $completed }}</strong>
+                                <small>Completed</small>
+                            </div>
+                        </div>
+                    </div>
 
-        {{-- Tiket Terbaru --}}
-        <div class="card shadow-sm">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="status-box status-warning">
+                            <i class="bi bi-hourglass-split"></i>
+                            <div>
+                                <strong>{{ $todo }}</strong>
+                                <small>To Do</small>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="card-header bg-white">
-
-                <i class="bi bi-clock-history"></i>
-                5 Tiket Terbaru
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="table-responsive">
-
-                    <table class="table table-hover align-middle">
-
-                       <thead class="table-light">
-                       <tr>
-                            <th width="170">Kode Tiket</th>
-                            <th>Judul Tiket</th>
-                            <th>Pelapor</th>
-                            <th>Status</th>
-                            <th width="150" class="text-center">Aksi</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        @forelse($recent as $ticket)
-
-                            <tr>
-
-                                <td>{{ $ticket->kode_ticket }}</td>
-
-                                <td>{{ $ticket->judul }}</td>
-
-                                <td>{{ $ticket->user->name }}</td>
-
-                                <td>
-
-                                    @if($ticket->status=='To Do')
-                                        <span class="badge bg-warning text-dark">To Do</span>
-                                    @elseif($ticket->status=='In Progress')
-                                        <span class="badge bg-info">In Progress</span>
-                                    @else
-                                        <span class="badge bg-success">Completed</span>
-                                    @endif
-
-                                </td>
-
-                                <td class="text-center">
-                                    <a href="{{ route('staff.ticket.show',$ticket->id) }}"
-                                        class="btn btn-primary btn-sm">
-                                            <i class="bi bi-eye-fill"></i>
-                                            Detail
-                                    </a>
-                                </td>
-
-                            </tr>
-
-                        @empty
-
-                            <tr>
-
-                                <td colspan="5" class="text-center text-muted">
-
-                                    Belum ada tiket.
-
-                                </td>
-
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-
-                    </table>
-
+                    <div class="col-lg-4 col-md-4">
+                        <div class="status-box status-info">
+                            <i class="bi bi-arrow-repeat"></i>
+                            <div>
+                                <strong>{{ $progress }}</strong>
+                                <small>In Progress</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
-    {{-- KANAN --}}
+    <!-- Quick Action -->
     <div class="col-lg-4">
 
-        {{-- Quick Action --}}
-        <div class="card shadow-sm mb-4">
+        <div class="card quick-card border-0 shadow-sm">
 
-            <div class="card-header bg-white">
+            <div class="card-body">
 
-                <i class="bi bi-lightning-charge-fill text-primary"></i>
+                <div class="d-flex align-items-center mb-4">
 
-                Aksi Cepat
+                    <div class="quick-title-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
 
-            </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">Aksi Cepat</h4>
+                        <small class="text-muted">
+                            Menu yang sering digunakan Staff.
+                        </small>
+                    </div>
 
-            <div class="card-body d-grid gap-2">
+                </div>
 
-                <a href="{{ route('staff.kanban') }}" class="btn btn-primary">
+                <div class="row g-3">
 
-                    <i class="bi bi-kanban-fill"></i>
+                    <div class="col-6">
+                        <a href="{{ route('staff.ticket.index') }}" class="quick-menu quick-blue">
+                            <i class="bi bi-ticket-perforated-fill"></i>
+                            <h6>Daftar<br>Tiket</h6>
+                        </a>
+                    </div>
 
-                    Kanban Board
+                    <div class="col-6">
+                        <a href="{{ route('staff.kanban') }}" class="quick-menu quick-green">
+                            <i class="bi bi-kanban-fill"></i>
+                            <h6>Kanban<br>Board</h6>
+                        </a>
+                    </div>
 
-                </a>
+                    <div class="col-12">
+                        <a href="{{ route('staff.profile') }}" class="quick-menu quick-gray">
+                            <i class="bi bi-person-circle"></i>
+                            <h6>Profil Saya</h6>
+                        </a>
+                    </div>
 
-                <a href="{{ route('staff.ticket.index') }}" class="btn btn-success">
-
-                    <i class="bi bi-ticket-detailed-fill"></i>
-
-                    Daftar Tiket
-
-                </a>
+                </div>
 
             </div>
 
         </div>
 
-        {{-- Timeline --}}
-        <div class="card shadow-sm">
+    </div>
+
+</div>
+
+
+<div class="row g-4 mt-4">
+
+    <!-- Tiket Terbaru -->
+    <div class="col-lg-8">
+
+        <div class="card latest-ticket-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <h4 class="fw-bold mb-1">
+                            Tiket Terbaru
+                        </h4>
+
+                        <small class="text-muted">
+                            Daftar tiket terbaru yang masuk.
+                        </small>
+                    </div>
+
+                    <a href="{{ route('staff.ticket.index') }}"
+                       class="btn btn-outline-primary rounded-pill">
+                        Lihat Semua
+                    </a>
+
+                </div>
+
+                @forelse($latestTickets as $ticket)
+
+                <div class="ticket-item">
+
+                    <div class="ticket-icon">
+                        <i class="bi bi-ticket-perforated-fill"></i>
+                    </div>
+
+                    <div class="ticket-content">
+
+                        <div class="d-flex justify-content-between align-items-start flex-wrap">
+
+                            <div>
+                                <h5>{{ $ticket->judul }}</h5>
+
+                                <small class="text-muted">
+                                    {{ $ticket->kode_ticket }}
+                                </small>
+                            </div>
+
+                            <div>
+                                @if($ticket->status=="Completed")
+                                    <span class="badge bg-success rounded-pill">
+                                        Completed
+                                    </span>
+                                @elseif($ticket->status=="In Progress")
+                                    <span class="badge bg-info rounded-pill">
+                                        In Progress
+                                    </span>
+                                @else
+                                    <span class="badge bg-warning text-dark rounded-pill">
+                                        To Do
+                                    </span>
+                                @endif
+                            </div>
+
+                        </div>
+
+                        <div class="ticket-meta">
+
+                            <span>
+                                <i class="bi bi-person-fill"></i>
+                                {{ $ticket->user->name ?? '-' }}
+                            </span>
+
+                            <span>
+                                <i class="bi bi-grid"></i>
+                                {{ $ticket->service->nama_layanan ?? '-' }}
+                            </span>
+
+                            <span>
+                                <i class="bi bi-calendar3"></i>
+                                {{ $ticket->created_at->format('d M Y') }}
+                            </span>
+
+                        </div>
+
+                        <p>
+                            {{ \Illuminate\Support\Str::limit($ticket->deskripsi,100) }}
+                        </p>
+
+                        <a href="{{ route('staff.ticket.show',$ticket->id) }}"
+                           class="btn btn-primary rounded-pill">
+                            <i class="bi bi-eye"></i>
+                            Detail Tiket
+                        </a>
+
+                    </div>
+
+                </div>
+
+                @empty
+
+                <div class="empty-ticket text-center py-5">
+
+                    <i class="bi bi-inbox fs-1 text-secondary"></i>
+
+                    <h5 class="mt-3">
+                        Belum Ada Tiket
+                    </h5>
+
+                    <p class="text-muted">
+                        Saat ini belum ada tiket yang masuk.
+                    </p>
+
+                </div>
+
+                @endforelse
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Timeline Aktivitas -->
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm border-0 h-100">
 
             <div class="card-header bg-white">
 
-                <i class="bi bi-clock-history text-primary"></i>
-
-                Timeline Aktivitas
+                <strong>
+                    <i class="bi bi-activity text-primary"></i>
+                    Timeline Aktivitas
+                </strong>
 
             </div>
 
             <div class="card-body">
 
-                @foreach($recent as $ticket)
+                @forelse($activities as $activity)
 
-                    <div class="d-flex mb-4">
+                <div class="timeline-item">
 
-                        <div class="me-3">
+                    <div class="timeline-icon">
 
-                            @if($ticket->status=="Completed")
-                                <i class="bi bi-check-circle-fill text-success fs-5"></i>
-                            @elseif($ticket->status=="In Progress")
-                                <i class="bi bi-arrow-repeat text-info fs-5"></i>
-                            @else
-                                <i class="bi bi-hourglass-split text-warning fs-5"></i>
-                            @endif
+                        @if(Str::contains($activity->judul,'Komentar'))
+                            <i class="bi bi-chat-dots-fill text-success"></i>
 
-                        </div>
+                        @elseif(Str::contains($activity->judul,'Status'))
+                            <i class="bi bi-arrow-repeat text-primary"></i>
 
-                        <div>
+                        @elseif(Str::contains($activity->judul,'Selesai'))
+                            <i class="bi bi-check-circle-fill text-success"></i>
 
-                            <strong>{{ $ticket->kode_ticket }}</strong>
-
-                            <br>
-
-                            <small>
-                                Status menjadi
-                                <b>{{ $ticket->status }}</b>
-                            </small>
-
-                            <br>
-
-                            <small class="text-muted">
-                                {{ $ticket->updated_at->diffForHumans() }}
-                            </small>
-
-                        </div>
+                        @else
+                            <i class="bi bi-info-circle-fill text-warning"></i>
+                        @endif
 
                     </div>
 
-                @endforeach
+                    <div class="timeline-content">
+
+                        <h6>{{ $activity->judul }}</h6>
+
+                        <p>{{ $activity->pesan }}</p>
+
+                        <small>
+                            <i class="bi bi-clock-history"></i>
+                            {{ $activity->created_at->diffForHumans() }}
+                        </small>
+
+                    </div>
+
+                </div>
+
+                @empty
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-clock-history fs-1 text-secondary"></i>
+
+                    <p class="mt-3 text-muted">
+                        Belum ada aktivitas terbaru.
+                    </p>
+
+                </div>
+
+                @endforelse
+
+            </div>
+
+        </div>
+
+    </div> {{-- akhir Timeline --}}
+</div> {{-- akhir row Tiket + Timeline --}}
+
+<!-- Panduan Staff -->
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-primary text-white">
+
+        <strong>
+            <i class="bi bi-info-circle-fill"></i>
+            Alur Kerja Staff
+        </strong>
+
+    </div>
+
+    <div class="card-body py-4">
+
+        <div class="row text-center step-wrapper">
+
+            <!-- Step 1 -->
+            <div class="col-lg-3 col-6 step-item">
+
+                <div class="step-number bg-primary">
+                    1
+                </div>
+
+                <div class="step-title">
+                    <i class="bi bi-inbox-fill text-primary"></i>
+                    Terima Tiket
+                </div>
+
+                <div class="step-desc">
+                    Staff menerima tiket baru yang masuk dari pengguna.
+                </div>
+
+            </div>
+
+            <!-- Step 2 -->
+            <div class="col-lg-3 col-6 step-item">
+
+                <div class="step-number bg-warning text-dark">
+                    2
+                </div>
+
+                <div class="step-title">
+                    <i class="bi bi-search text-warning"></i>
+                    Analisis Tiket
+                </div>
+
+                <div class="step-desc">
+                    Periksa detail pengajuan dan tentukan tindakan yang diperlukan.
+                </div>
+
+            </div>
+
+            <!-- Step 3 -->
+            <div class="col-lg-3 col-6 step-item">
+
+                <div class="step-number bg-info">
+                    3
+                </div>
+
+                <div class="step-title">
+                    <i class="bi bi-arrow-repeat text-info"></i>
+                    Proses Tiket
+                </div>
+
+                <div class="step-desc">
+                    Kerjakan tiket dan ubah status menjadi <strong>In Progress</strong>.
+                </div>
+
+            </div>
+
+            <!-- Step 4 -->
+            <div class="col-lg-3 col-6 step-item">
+
+                <div class="step-number bg-success">
+                    4
+                </div>
+
+                <div class="step-title">
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    Selesaikan
+                </div>
+
+                <div class="step-desc">
+                    Setelah pekerjaan selesai, ubah status tiket menjadi <strong>Completed</strong>.
+                </div>
 
             </div>
 

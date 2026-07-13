@@ -85,9 +85,9 @@ Route::put('/profile/password', [UserProfileController::class,'password'])
 
         Route::get('/ticket/{id}',[UserTicket::class,'detail'])
             ->name('ticket.detail');
-        Route::put('/notification/{notification}/read',
-    [UserDashboard::class,'markAsRead'])
-    ->name('notification.read');
+            
+        Route::put('/notification/{notification}/read',[UserDashboard::class,'markAsRead'])
+            ->name('notification.read');
     });
 
 /*
@@ -138,6 +138,9 @@ Route::middleware(['auth','role:admin'])
         Route::put('/password', [AdminProfileController::class, 'password'])
             ->name('password.update');
 
+        Route::get('/notification/{notification}', [AdminTicket::class, 'notification'])
+            ->name('notification');
+
     });
 
 /*
@@ -180,4 +183,7 @@ Route::middleware(['auth','role:staff'])
 
         Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
             ->name('profile.password');
+
+         Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
+            ->name('notification');
     });

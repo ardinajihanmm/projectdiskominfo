@@ -181,8 +181,8 @@
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
-/* ================= KANBAN ================= */
 
+<<<<<<< HEAD
 .ticket-column{
     background:#f8fafc;
     border-radius:18px;
@@ -607,6 +607,9 @@
 }
 
     </style>
+=======
+</style>
+>>>>>>> 26e2c8fecd8b29302193d00fcc9b6a718f2961c7
 
 </head>
 
@@ -745,57 +748,86 @@
         </div>
 
         <div class="offcanvas-body">
+                @forelse($notifications ?? [] as $notif)
 
-            @forelse($notifications ?? [] as $notif)
+                <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
 
-            <div class="d-flex mb-4">
+                    <div class="d-flex">
 
-                <div class="me-3">
+                        <div class="notification-icon me-3">
 
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center"
-                        style="width:50px;height:50px">
+                            @if(Str::contains($notif->judul,'Komentar'))
+                                <i class="bi bi-chat-dots-fill text-success"></i>
 
-                        <i class="bi bi-arrow-repeat text-primary fs-4"></i>
+                            @elseif(Str::contains($notif->judul,'Status'))
+                                <i class="bi bi-arrow-repeat text-primary"></i>
+
+                            @else
+                                <i class="bi bi-info-circle-fill text-warning"></i>
+
+                            @endif
+
+                        </div>
+
+                        <div class="flex-grow-1">
+
+                            <h6 class="mb-1 fw-bold">
+                                {{ $notif->judul }}
+                            </h6>
+
+                            <p class="mb-2">
+                                {{ $notif->pesan }}
+                            </p>
+
+                            <small class="text-muted">
+                                {{ $notif->created_at->diffForHumans() }}
+                            </small>
+
+                            <div class="mt-3 d-flex align-items-center gap-3">
+
+                                <a href="{{ route('staff.notification',$notif->id) }}"
+                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Lihat Tiket
+
+                                </a>
+
+                                @if($notif->is_read)
+
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Sudah Dibaca
+
+                                    </span>
+
+                                @endif
+
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-grow-1">
+                @empty
 
-                    <strong>{{ $notif->judul }}</strong>
+                <div class="text-center py-5">
 
-                    <div class="text-muted">
+                    <i class="bi bi-bell-slash fs-1 text-secondary"></i>
 
-                        {{ $notif->pesan }}
-
-                    </div>
-
-                    <small class="text-secondary">
-
-                        {{ $notif->created_at->diffForHumans() }}
-
-                    </small>
+                    <p class="mt-3">
+                        Belum ada notifikasi.
+                    </p>
 
                 </div>
 
-            </div>
+                @endforelse
 
-            <hr>
-
-            @empty
-
-            <div class="text-center py-5">
-
-                <i class="bi bi-bell-slash fs-1 text-muted"></i>
-
-                <p class="mt-3 text-muted">
-                    Belum ada notifikasi.
-                </p>
-
-            </div>
-
-            @endforelse
         </div>
 
     </div>

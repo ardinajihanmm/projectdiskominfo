@@ -1843,7 +1843,7 @@ border-radius:16px;
 
 <div class="footer">
 
-    © {{ date('Y') }} HelpDesk Diskominfo Kota Pemalang
+    © {{ date('Y') }} HelpDesk Diskominfo Kabupaten Pemalang
 
 </div>
 

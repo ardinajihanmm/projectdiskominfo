@@ -181,38 +181,129 @@
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
+
+<<<<<<< HEAD
+.ticket-column{
+    background:#f8fafc;
+    border-radius:18px;
+    padding:18px;
+    min-height:650px;
+    transition:.3s;
+}
+
+.ticket-column.sortable-ghost{
+    background:#eef4ff;
+}
+
+.card.shadow.border-0{
+    border-radius:20px !important;
+    overflow:hidden;
+    box-shadow:0 12px 35px rgba(0,0,0,.08)!important;
+}
+
+.card-header{
+    border:none;
+    padding:16px 20px;
+    font-size:17px;
+    font-weight:700;
+}
+
+.ticket-card{
+    border:none !important;
+    border-radius:16px !important;
+    transition:.25s;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.ticket-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(37,99,235,.18);
+}
+
+.ticket-card .card-body{
+    padding:20px;
+}
+
+.ticket-card h6{
+    font-size:17px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.ticket-card small{
+    color:#64748b;
+}
+
+.ticket-card hr{
+    margin:15px 0;
+    opacity:.15;
+}
+
+.ticket-card .badge{
+    padding:7px 12px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+.ticket-card .btn{
+    border-radius:10px;
+    font-weight:600;
+}
+
+.ticket-card .btn-primary{
+    background:#2563eb;
+    border:none;
+}
+
+.ticket-card .btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.ticket-column::-webkit-scrollbar{
+    width:6px;
+}
+
+.ticket-column::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
 /* ================= DASHBOARD ================= */
 
 .dashboard-header{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    background:#fff;
     border-radius:20px;
     padding:35px;
-    color:#fff;
-    box-shadow:0 15px 35px rgba(37,99,235,.25);
+    color:#111827;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .dashboard-badge{
     display:inline-flex;
     align-items:center;
     gap:8px;
-    background:rgba(255,255,255,.15);
+    background:#eaf2ff;
+    color:#2563eb;
     padding:8px 16px;
     border-radius:30px;
     font-size:14px;
+    font-weight:600;
 }
 
 .dashboard-title{
     font-weight:700;
     font-size:34px;
+    color:#111827;
 }
 
 .dashboard-title span{
-    color:#fde68a;
+    color:#2563eb;
 }
 
 .dashboard-desc{
-    opacity:.9;
+    color:#4b5563;
     margin-top:12px;
+    opacity:1;
 }
 
 .account-status{
@@ -516,6 +607,9 @@
 }
 
     </style>
+=======
+</style>
+>>>>>>> 26e2c8fecd8b29302193d00fcc9b6a718f2961c7
 
 </head>
 
@@ -654,57 +748,86 @@
         </div>
 
         <div class="offcanvas-body">
+                @forelse($notifications ?? [] as $notif)
 
-            @forelse($notifications ?? [] as $notif)
+                <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
 
-            <div class="d-flex mb-4">
+                    <div class="d-flex">
 
-                <div class="me-3">
+                        <div class="notification-icon me-3">
 
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center"
-                        style="width:50px;height:50px">
+                            @if(Str::contains($notif->judul,'Komentar'))
+                                <i class="bi bi-chat-dots-fill text-success"></i>
 
-                        <i class="bi bi-arrow-repeat text-primary fs-4"></i>
+                            @elseif(Str::contains($notif->judul,'Status'))
+                                <i class="bi bi-arrow-repeat text-primary"></i>
+
+                            @else
+                                <i class="bi bi-info-circle-fill text-warning"></i>
+
+                            @endif
+
+                        </div>
+
+                        <div class="flex-grow-1">
+
+                            <h6 class="mb-1 fw-bold">
+                                {{ $notif->judul }}
+                            </h6>
+
+                            <p class="mb-2">
+                                {{ $notif->pesan }}
+                            </p>
+
+                            <small class="text-muted">
+                                {{ $notif->created_at->diffForHumans() }}
+                            </small>
+
+                            <div class="mt-3 d-flex align-items-center gap-3">
+
+                                <a href="{{ route('staff.notification',$notif->id) }}"
+                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Lihat Tiket
+
+                                </a>
+
+                                @if($notif->is_read)
+
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Sudah Dibaca
+
+                                    </span>
+
+                                @endif
+
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-grow-1">
+                @empty
 
-                    <strong>{{ $notif->judul }}</strong>
+                <div class="text-center py-5">
 
-                    <div class="text-muted">
+                    <i class="bi bi-bell-slash fs-1 text-secondary"></i>
 
-                        {{ $notif->pesan }}
-
-                    </div>
-
-                    <small class="text-secondary">
-
-                        {{ $notif->created_at->diffForHumans() }}
-
-                    </small>
+                    <p class="mt-3">
+                        Belum ada notifikasi.
+                    </p>
 
                 </div>
 
-            </div>
+                @endforelse
 
-            <hr>
-
-            @empty
-
-            <div class="text-center py-5">
-
-                <i class="bi bi-bell-slash fs-1 text-muted"></i>
-
-                <p class="mt-3 text-muted">
-                    Belum ada notifikasi.
-                </p>
-
-            </div>
-
-            @endforelse
         </div>
 
     </div>

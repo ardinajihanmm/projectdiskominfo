@@ -318,9 +318,9 @@ Diskominfo
 
 <div class="avatar">
 
-@if(Auth::user()->photo)
+@if(Auth::user()->foto)
 
-    <img src="{{ asset('storage/profile/' . Auth::user()->photo) }}?v={{ time() }}"
+    <img src="{{ asset('storage/profile/' . Auth::user()->foto) }}?v={{ time() }}"
          alt="Profile"
          class="w-100 h-100 rounded-circle"
          style="object-fit:cover;">

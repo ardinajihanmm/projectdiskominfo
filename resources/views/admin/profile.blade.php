@@ -32,10 +32,10 @@
         <div class="text-center py-5 text-white"
             style="background:linear-gradient(135deg,#2563eb,#4f8dfd);">
 
-            @if(Auth::user()->photo)
+            @if(Auth::user()->foto)
 
-              <img src="{{ asset('storage/profile/'.Auth::user()->photo) }}?v={{ time() }}"
-                 class="profile-photo rounded-circle border border-4 border-white shadow">
+              <img src="{{ asset('storage/profile/'.Auth::user()->foto) }}?v={{ time() }}"
+                 class="profile-foto rounded-circle border border-4 border-white shadow">
 
             @else
 
@@ -341,7 +341,7 @@
 
                         <input
                             type="file"
-                            name="photo"
+                            name="foto"
                             class="form-control">
 
                         <small class="text-muted">
@@ -608,7 +608,7 @@
     transform:translateY(-2px);
 
 }
-.profile-photo{
+.profile-foto{
     width:240px;
     height:240px;
     border-radius:50%;

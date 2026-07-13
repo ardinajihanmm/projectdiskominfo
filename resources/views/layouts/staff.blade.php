@@ -606,10 +606,263 @@
     transition:all .5s;
 }
 
+/* ================= KANBAN ================= */
+
+.ticket-column{
+    background:#f8fafc;
+    border-radius:18px;
+    padding:18px;
+    min-height:650px;
+    transition:.3s;
+}
+
+.ticket-column.sortable-ghost{
+    background:#eef4ff;
+}
+
+.card.shadow.border-0{
+    border-radius:20px !important;
+    overflow:hidden;
+    box-shadow:0 12px 35px rgba(0,0,0,.08)!important;
+}
+
+.card-header{
+    border:none;
+    padding:16px 20px;
+    font-size:17px;
+    font-weight:700;
+}
+
+.ticket-card{
+    border:none !important;
+    border-radius:16px !important;
+    transition:.25s;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.ticket-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(37,99,235,.18);
+}
+
+.ticket-card .card-body{
+    padding:20px;
+}
+
+.ticket-card h6{
+    font-size:17px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.ticket-card small{
+    color:#64748b;
+}
+
+.ticket-card hr{
+    margin:15px 0;
+    opacity:.15;
+}
+
+.ticket-card .badge{
+    padding:7px 12px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+.ticket-card .btn{
+    border-radius:10px;
+    font-weight:600;
+}
+
+.ticket-card .btn-primary{
+    background:#2563eb;
+    border:none;
+}
+
+.ticket-card .btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.ticket-column::-webkit-scrollbar{
+    width:6px;
+}
+
+.ticket-column::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+.todo-header{
+    background:linear-gradient(135deg,#facc15,#f59e0b);
+    color:#fff;
+}
+
+.progress-header{
+    background:linear-gradient(135deg,#38bdf8,#2563eb);
+    color:#fff;
+}
+
+.done-header{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    color:#fff;
+}
+
+
+/* ================= DAFTAR TIKET ================= */
+
+.ticket-header{
+    background:#fff;
+    border-radius:20px;
+    padding:28px 30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.ticket-header h2{
+    font-weight:700;
+    color:#1e293b;
+}
+
+.ticket-header p{
+    color:#64748b;
+    margin-bottom:0;
+}
+
+/* Filter */
+
+.filter-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
+}
+
+.filter-card .card-body{
+    padding:22px;
+}
+
+.filter-card .form-control,
+.filter-card .form-select{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #dbe3ef;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 .15rem rgba(37,99,235,.15);
+}
+
+.filter-card .btn{
+    height:48px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* Table Card */
+
+.ticket-table-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+}
+
+.ticket-table-card .card-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:18px 25px;
+    border:none;
+}
+
+.ticket-table-card .card-header h5{
+    margin:0;
+    font-weight:700;
+}
+
+/* Table */
+
+.ticket-table{
+    margin-bottom:0;
+}
+
+.ticket-table thead{
+    background:#f8fafc;
+}
+
+.ticket-table thead th{
+    border:none;
+    color:#475569;
+    font-weight:700;
+    padding:18px;
+}
+
+.ticket-table tbody td{
+    vertical-align:middle;
+    padding:18px;
+    border-color:#eef2f7;
+}
+
+.ticket-table tbody tr{
+    transition:.25s;
+}
+
+.ticket-table tbody tr:hover{
+    background:#f8fbff;
+    transform:scale(1.002);
+}
+
+/* Badge */
+
+.badge-status{
+    padding:7px 14px;
+    border-radius:30px;
+    font-weight:600;
+    font-size:12px;
+}
+
+.badge-todo{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.badge-progress{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.badge-completed{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+/* Select Status */
+
+.status-select{
+    border-radius:10px;
+    min-width:140px;
+}
+
+/* Tombol */
+
+.btn-detail{
+    border-radius:10px;
+    padding:7px 16px;
+    font-weight:600;
+}
+
+/* Hover Card */
+
+.ticket-table-card:hover{
+    transform:translateY(-2px);
+    transition:.3s;
+}
+
     </style>
-=======
+
 </style>
->>>>>>> 26e2c8fecd8b29302193d00fcc9b6a718f2961c7
+
 
 </head>
 

@@ -120,7 +120,9 @@
 
             <div class="card shadow border-0">
 
-                <div class="card-header bg-{{ $column['color'] }} {{ $column['color']=='warning' ? '' : 'text-white' }}">
+                <div class="card-header
+{{ $column['status']=='To Do' ? 'todo-header' :
+($column['status']=='In Progress' ? 'progress-header' : 'done-header') }}">
 
                     <strong>
                         <i class="bi {{ $column['icon'] }}"></i>

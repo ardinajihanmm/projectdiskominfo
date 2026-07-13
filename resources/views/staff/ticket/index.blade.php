@@ -17,27 +17,17 @@
     @endif
 
    {{-- Header --}}
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="ticket-header">
+    <h2>
+        <i class="bi bi-list-ul text-primary"></i>
+        Daftar Tiket
+    </h2>
 
-    <div>
-        <h2 class="fw-bold mb-1">
-            <i class="bi bi-ticket-detailed-fill text-primary"></i>
-            Daftar Tiket
-        </h2>
-        <p class="text-muted mb-0">
-            Kelola seluruh tiket yang masuk.
-        </p>
-    </div>
-
-    <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
-        <i class="bi bi-arrow-left"></i>
-        Kembali
-    </a>
-
+    <p>Kelola seluruh tiket layanan yang masuk.</p>
 </div>
 
     {{-- Search & Filter --}}
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card filter-card mb-4">
         <div class="card-body">
 
             <form action="{{ route('staff.ticket.index') }}" method="GET">
@@ -98,17 +88,24 @@
     </div>
 
     {{-- Tabel --}}
-    <div class="card shadow-sm border-0">
+    <div class="card ticket-table-card">
 
-        <div class="card-header bg-primary text-white">
-            <i class="bi bi-list-ul"></i>
+<div class="card-header ticket-table-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold">
+            <i class="bi bi-table"></i>
             Data Tiket
-        </div>
+        </h5>
 
+        <span class="badge bg-light text-primary rounded-pill">
+            {{ $tickets->total() }} Tiket
+        </span>
+    </div>
+</div>
         <div class="card-body p-0">
 
-            <div class="table-responsive">
-
+            <div class="table-responsive modern-table">
+                
                 <table class="table table-hover align-middle mb-0">
 
                     <thead class="table-light">

@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $user = Auth::user();
@@ -30,18 +30,18 @@ class ProfileController extends Controller
         $user->no_hp = $request->no_hp;
         $user->instansi = $request->instansi;
 
-        if ($request->hasFile('photo')) {
+        if ($request->hasFile('foto')) {
 
             // Hapus foto lama
-            if ($user->photo) {
-                Storage::disk('public')->delete('profile/'.$user->photo);
+            if ($user->foto) {
+                Storage::disk('public')->delete('profile/'.$user->foto);
             }
 
           // Simpan foto baru
-            $path = $request->file('photo')->store('profile', 'public');
+            $path = $request->file('foto')->store('profile', 'public');
 
             // Simpan nama file ke database
-            $user->photo = basename($path);
+            $user->foto = basename($path);
             }
 
         $user->save();

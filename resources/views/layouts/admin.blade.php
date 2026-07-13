@@ -320,7 +320,7 @@ Diskominfo
 
 @if(Auth::user()->photo)
 
-    <img src="{{ asset('storage/profile/' . Auth::user()->photo) }}"
+    <img src="{{ asset('storage/profile/' . Auth::user()->photo) }}?v={{ time() }}"
          alt="Profile"
          class="w-100 h-100 rounded-circle"
          style="object-fit:cover;">

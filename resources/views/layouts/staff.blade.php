@@ -169,11 +169,14 @@
 
         <div class="profile">
 
-            <div class="avatar">
-
-                {{ strtoupper(substr(Auth::user()->name,0,2)) }}
-
-            </div>
+            <img
+    src="{{ auth()->user()->foto
+        ? asset('storage/' . auth()->user()->foto)
+        : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0d6efd&color=fff&size=200' }}"
+    class="rounded-circle"
+    width="80"
+    height="80"
+    style="object-fit:cover;">
 
             <small>
 

@@ -1,5 +1,7 @@
 @extends('layouts.staff')
 
+@section('title', 'Kanban Board')
+
 @section('content')
 
 <div class="container-fluid">

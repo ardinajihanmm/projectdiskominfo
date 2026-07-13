@@ -25,6 +25,10 @@ class UserController extends Controller
 
     return view('admin.user.index', compact('users', 'search'));
 }
+    public function create()
+    {
+        return view('admin.user.create');
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -37,6 +41,8 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'instansi' => $request->instansi,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
@@ -61,6 +67,8 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'instansi' => $request->instansi,
             'role' => $request->role,
         ]);
 

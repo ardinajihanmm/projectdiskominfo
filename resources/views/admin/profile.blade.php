@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('title', 'Edit Profil')
 
+@section('content')
 <div class="container-fluid py-4">
 
 @if(session('success'))
@@ -33,11 +34,8 @@
 
             @if(Auth::user()->photo)
 
-                <img src="{{ asset('storage/profile/'.Auth::user()->photo) }}"
-                    class="rounded-circle border border-4 border-white shadow"
-                    width="140"
-                    height="140"
-                    style="object-fit:cover;">
+              <img src="{{ asset('storage/profile/'.Auth::user()->photo) }}?v={{ time() }}"
+                 class="profile-photo rounded-circle border border-4 border-white shadow">
 
             @else
 
@@ -609,6 +607,17 @@
 
     transform:translateY(-2px);
 
+}
+.profile-photo{
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+    border:6px solid #fff;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+    display:block;
+    margin:0 auto;
 }
 
 </style>

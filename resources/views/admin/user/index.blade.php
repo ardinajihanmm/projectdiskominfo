@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('title', 'Data User')
 
+@section('content')
 <div class="container-fluid py-4">
 
     {{-- Header --}}

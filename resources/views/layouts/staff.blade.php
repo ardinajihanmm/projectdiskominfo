@@ -180,9 +180,104 @@
     padding:0 35px;
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
+.offcanvas{
+    width:470px;
+}
 
+.notif-card{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.05);
+    transition:.25s;
+}
 
-    </style>
+.notif-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.notif-icon{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#eef4ff;
+    color:#0d6efd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    margin-right:16px;
+    flex-shrink:0;
+}
+
+.notif-card .btn{
+    font-size:14px;
+}
+
+.offcanvas-header{
+    border-bottom:1px solid #eee;
+}
+
+.offcanvas-title{
+    font-weight:700;
+}
+.notification-card{
+    display:flex;
+    gap:15px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:#333;
+    border-bottom:1px solid #ECECEC;
+    transition:.2s;
+}
+
+.notification-card:hover{
+    background:#F8FAFC;
+}
+
+.notification-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#EFF6FF;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.notification-read{
+    background:#f8fafc;
+}
+
+.notification-read h6,
+.notification-read p,
+.notification-read small{
+    color:#6c757d !important;
+}
+
+.notification-card .btn{
+    height:38px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+
+.notification-card .badge{
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 18px;
+    border-radius:999px;
+}
+
+</style>
 
 </head>
 
@@ -321,57 +416,86 @@
         </div>
 
         <div class="offcanvas-body">
+                @forelse($notifications ?? [] as $notif)
 
-            @forelse($notifications ?? [] as $notif)
+                <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
 
-            <div class="d-flex mb-4">
+                    <div class="d-flex">
 
-                <div class="me-3">
+                        <div class="notification-icon me-3">
 
-                    <div class="bg-primary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center"
-                        style="width:50px;height:50px">
+                            @if(Str::contains($notif->judul,'Komentar'))
+                                <i class="bi bi-chat-dots-fill text-success"></i>
 
-                        <i class="bi bi-arrow-repeat text-primary fs-4"></i>
+                            @elseif(Str::contains($notif->judul,'Status'))
+                                <i class="bi bi-arrow-repeat text-primary"></i>
+
+                            @else
+                                <i class="bi bi-info-circle-fill text-warning"></i>
+
+                            @endif
+
+                        </div>
+
+                        <div class="flex-grow-1">
+
+                            <h6 class="mb-1 fw-bold">
+                                {{ $notif->judul }}
+                            </h6>
+
+                            <p class="mb-2">
+                                {{ $notif->pesan }}
+                            </p>
+
+                            <small class="text-muted">
+                                {{ $notif->created_at->diffForHumans() }}
+                            </small>
+
+                            <div class="mt-3 d-flex align-items-center gap-3">
+
+                                <a href="{{ route('staff.notification',$notif->id) }}"
+                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Lihat Tiket
+
+                                </a>
+
+                                @if($notif->is_read)
+
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Sudah Dibaca
+
+                                    </span>
+
+                                @endif
+
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-grow-1">
+                @empty
 
-                    <strong>{{ $notif->judul }}</strong>
+                <div class="text-center py-5">
 
-                    <div class="text-muted">
+                    <i class="bi bi-bell-slash fs-1 text-secondary"></i>
 
-                        {{ $notif->pesan }}
-
-                    </div>
-
-                    <small class="text-secondary">
-
-                        {{ $notif->created_at->diffForHumans() }}
-
-                    </small>
+                    <p class="mt-3">
+                        Belum ada notifikasi.
+                    </p>
 
                 </div>
 
-            </div>
+                @endforelse
 
-            <hr>
-
-            @empty
-
-            <div class="text-center py-5">
-
-                <i class="bi bi-bell-slash fs-1 text-muted"></i>
-
-                <p class="mt-3 text-muted">
-                    Belum ada notifikasi.
-                </p>
-
-            </div>
-
-            @endforelse
         </div>
 
     </div>

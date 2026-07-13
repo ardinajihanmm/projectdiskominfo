@@ -117,4 +117,19 @@ class TicketController extends Controller
             'success' => true
         ]);
     }
+    public function notification(Notification $notification)
+    {
+        if ($notification->user_id != auth()->id()) {
+            abort(403);
+        }
+
+        $notification->update([
+            'is_read' => true,
+        ]);
+
+        return redirect()->route(
+            'staff.ticket.show',
+            $notification->ticket_id
+        );
+    }
 }

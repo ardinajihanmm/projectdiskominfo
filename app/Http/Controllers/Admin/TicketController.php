@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -104,10 +105,24 @@ class TicketController extends Controller
             $ticket->completed_at = now();
         }
 
+        $statusLama = $ticket->status;
+
         $ticket->status = $request->status;
         $ticket->prioritas = $request->prioritas;
 
         $ticket->save();
+
+        if ($statusLama != $ticket->status) {
+
+            Notification::create([
+                'user_id'   => $ticket->user_id,
+                'ticket_id' => $ticket->id,
+                'judul'     => 'Status Tiket',
+                'pesan'     => 'Tiket ' . $ticket->kode_ticket . ' kini berstatus ' . $ticket->status,
+                'is_read'   => false,
+            ]);
+
+        }
 
         return redirect()
             ->route('admin.ticket.show', $ticket->id)
@@ -119,12 +134,21 @@ class TicketController extends Controller
      */
     public function assign(Request $request, Ticket $ticket)
     {
-        $request->validate([
-            'staff_id' => 'required|exists:users,id',
-        ]);
+        $staffLama = $ticket->staff_id;
 
         $ticket->staff_id = $request->staff_id;
         $ticket->save();
+
+        if ($staffLama != $ticket->staff_id) {
+
+            Notification::create([
+                'user_id'   => $request->staff_id,
+                'ticket_id' => $ticket->id,
+                'judul'     => 'Tiket Baru Ditugaskan',
+                'pesan'     => 'Anda ditugaskan mengerjakan tiket "' . $ticket->judul . '"',
+                'is_read'   => false,
+            ]);
+        }
 
         return redirect()
             ->route('admin.ticket.show', $ticket->id)
@@ -153,5 +177,20 @@ class TicketController extends Controller
     public function exportExcel()
     {
         return Excel::download(new TicketsExport, 'data-ticket.xlsx');
+    }
+    public function notification(Notification $notification)
+    {
+        if ($notification->user_id != auth()->id()) {
+            abort(403);
+        }
+
+        $notification->update([
+            'is_read' => true,
+        ]);
+
+        return redirect()->route(
+            'admin.ticket.show',
+            $notification->ticket_id
+        );
     }
 }

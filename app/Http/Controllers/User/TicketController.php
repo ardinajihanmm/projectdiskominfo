@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Attachment;
 use App\Models\Service;
 use App\Models\Ticket;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 
 class TicketController extends Controller
 {
@@ -43,6 +46,20 @@ class TicketController extends Controller
             'prioritas'    => 'Sedang',
             'status'       => 'To Do',
         ]);
+        // Kirim notifikasi ke semua admin
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+
+            Notification::create([
+                'user_id'   => $admin->id,
+                'ticket_id' => $ticket->id,
+                'judul'     => 'Pengajuan Tiket Baru',
+                'pesan'     => Auth::user()->name . ' membuat tiket "' . $ticket->judul . '"',
+                'is_read'   => false,
+            ]);
+
+        }
 
         if ($request->hasFile('lampiran')) {
 

@@ -1,3 +1,15 @@
+@php
+use App\Models\Notification;
+use Illuminate\Support\Str;
+
+$notifications = Notification::where('user_id', auth()->id())
+    ->latest()
+    ->take(10)
+    ->get();
+
+$unread = $notifications->where('is_read', false)->count();
+@endphp
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -287,6 +299,59 @@ body{
     padding:30px;
 
 }
+.offcanvas{
+    width:430px !important;
+}
+
+.notification-card{
+    display:flex;
+    gap:15px;
+    padding:18px 20px;
+    border-bottom:1px solid #ECECEC;
+    transition:.2s;
+}
+
+.notification-card:hover{
+    background:#F8FAFC;
+}
+
+.notification-read{
+    background:#f8fafc;
+}
+
+.notification-read h6,
+.notification-read p,
+.notification-read small{
+    color:#6c757d !important;
+}
+
+.notification-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#EFF6FF;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.notification-card .btn{
+    height:38px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+.notification-card .badge{
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    padding:0 18px;
+    border-radius:999px;
+}
 
 </style>
 
@@ -435,15 +500,29 @@ Portal Helpdesk Administrator
 </small>
 
 </div>
+<div class="d-flex align-items-center gap-4">
 
-<div class="clock">
+    <button
+        class="btn btn-light position-relative border"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#notificationCanvas">
 
-<i class="bi bi-calendar3"></i>
+        <i class="bi bi-bell fs-5"></i>
 
-{{ now()->format('d F Y') }}
+        @if($unread)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ $unread }}
+            </span>
+        @endif
+
+    </button>
+
+    <div class="clock">
+        <i class="bi bi-calendar3"></i>
+        {{ now()->format('d F Y') }}
+    </div>
 
 </div>
-
 </div>
 
 <div class="main">
@@ -455,7 +534,108 @@ Portal Helpdesk Administrator
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="offcanvas offcanvas-end"
+     tabindex="-1"
+     id="notificationCanvas">
 
+    <div class="offcanvas-header">
+
+        <h5 class="fw-bold">
+
+            <i class="bi bi-bell-fill text-primary"></i>
+
+            Notifikasi
+
+        </h5>
+
+        <button class="btn-close"
+                data-bs-dismiss="offcanvas">
+        </button>
+
+    </div>
+
+        <div class="offcanvas-body p-0">
+
+        @forelse($notifications as $notif)
+
+        <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
+
+            <div class="notification-icon">
+
+                @if(Str::contains($notif->judul,'Status'))
+
+                    <i class="bi bi-arrow-repeat text-primary"></i>
+
+                @elseif(Str::contains($notif->judul,'Komentar'))
+
+                    <i class="bi bi-chat-dots-fill text-success"></i>
+
+                @else
+
+                    <i class="bi bi-info-circle-fill text-warning"></i>
+
+                @endif
+
+            </div>
+
+            <div class="flex-grow-1">
+
+                <h6>{{ $notif->judul }}</h6>
+
+                <p>{{ $notif->pesan }}</p>
+
+                <small>{{ $notif->created_at->diffForHumans() }}</small>
+
+                <div class="mt-3 d-flex align-items-center gap-2">
+
+                    <a href="{{ route('admin.notification',$notif->id) }}"
+                    class="btn btn-outline-primary btn-sm rounded-pill px-4">
+
+                        <i class="bi bi-eye"></i>
+
+                        Lihat Tiket
+
+                    </a>
+
+                    @if($notif->is_read)
+
+                        <span class="badge rounded-pill bg-success-subtle text-success border border-success">
+
+                            <i class="bi bi-check-circle-fill me-1"></i>
+
+                            Sudah Dibaca
+
+                        </span>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @empty
+
+        <div class="text-center py-5">
+
+            <i class="bi bi-bell-slash fs-1 text-muted"></i>
+
+            <p class="mt-3 mb-0">
+
+                Belum ada notifikasi.
+
+            </p>
+
+        </div>
+
+        @endforelse
+
+</div>
+
+    </div>
+
+</div>
 @stack('scripts')
 
 </body>

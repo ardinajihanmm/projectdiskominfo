@@ -437,6 +437,7 @@
                         <input
                             type="password"
                             class="form-control"
+                            placeholder="Masukkan password lama"
                             id="oldPassword"
                             name="old_password"
                             required>
@@ -473,6 +474,7 @@
                         <input
                             type="password"
                             class="form-control"
+                            placeholder="Masukkan password baru"
                             id="newPassword"
                             name="password"
                             required>
@@ -509,6 +511,7 @@
                         <input
                             type="password"
                             class="form-control"
+                            placeholder="Ulangi password baru"
                             id="confirmPassword"
                             name="password_confirmation"
                             required>

@@ -39,7 +39,6 @@
     @method('PUT')
 
 <!-- Foto Profil -->
-<!-- FOTO PROFIL -->
 <div class="mb-3">
 
     <div class="text-center mb-3">

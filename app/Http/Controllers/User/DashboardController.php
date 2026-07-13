@@ -32,11 +32,11 @@ class DashboardController extends Controller
         ? round(($completed / $totalTicket) * 100)
         : 0;
 
-    // 5 tiket terbaru
+    // 3 tiket terbaru
     $latestTickets = Ticket::with('service')
         ->where('user_id', $user->id)
         ->latest()
-        ->take(5)
+        ->take(3)
         ->get();
 
     $latestTicket = Ticket::where('user_id', Auth::id())
@@ -46,7 +46,7 @@ class DashboardController extends Controller
 
     $activities = Notification::where('user_id', Auth::id())
     ->latest()
-    ->take(8)
+    ->take(2)
     ->get();
 
     return view('user.dashboard', compact(

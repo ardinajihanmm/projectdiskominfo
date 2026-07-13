@@ -37,16 +37,16 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Informasi -->
         <div class="col-lg-8">
 
-            <div class="card shadow-sm mb-4">
+            <div class="card detail-card mb-4">
 
-                <div class="card-header bg-primary text-white">
+                <div class="card-header detail-header">
                     <i class="bi bi-info-circle"></i>
                     Informasi Tiket
                 </div>
 
                 <div class="card-body">
 
-                    <table class="table table-bordered">
+                    <table class="table detail-table">
 
                         <tr>
                             <th width="220">Kode Tiket</th>
@@ -166,9 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Sidebar -->
         <div class="col-lg-4">
 
-            <div class="card shadow-sm">
+            <div class="card status-card">
 
-                <div class="card-header bg-success text-white">
+                <div class="card-header status-header">
                     <i class="bi bi-person-workspace"></i>
                     Penanganan
                 </div>
@@ -241,9 +241,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <!-- Komentar -->
 
-    <div class="card shadow-sm mt-4">
+    <div class="card comment-card mt-4">
 
-        <div class="card-header bg-dark text-white">
+        <div class="card-header comment-header">
 
             <i class="bi bi-chat-dots"></i>
             Diskusi Tiket
@@ -310,9 +310,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   <!-- Timeline -->
 
-<div class="card shadow-sm mt-4">
+<div class="card timeline-card mt-4">
 
-    <div class="card-header bg-secondary text-white">
+    <div class="card-header timeline-header">
         <i class="bi bi-clock-history"></i>
         Timeline Aktivitas
     </div>

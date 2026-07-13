@@ -408,26 +408,12 @@
 }
 
 .status-box{
-    width:100%;
-    min-height:140px;
-    padding:28px 24px;
-    border-radius:18px;
     display:flex;
     align-items:center;
     gap:18px;
-    color:#fff;
-}
-
-.status-success{
-    background:#22c55e;
-}
-
-.status-warning{
-    background:#f59e0b;
-}
-
-.status-info{
-    background:#0ea5e9;
+    padding:22px;
+    border-radius:18px;
+    transition:.3s;
 }
 
 .status-box i{
@@ -435,16 +421,73 @@
 }
 
 .status-box strong{
+    font-size:32px;
+    font-weight:700;
     display:block;
-    font-size:28px;
-    line-height:1;
 }
 
 .status-box small{
-    display:block;
     font-size:15px;
-    margin-top:6px;
 }
+
+.status-success{
+    background:#EAF8EF;
+    color:#16A34A;
+}
+
+.status-success i{
+    color:#16A34A;
+}
+
+.status-warning{
+    background:#FFF8E6;
+    color:#D97706;
+}
+
+.status-warning i{
+    color:#D97706;
+}
+
+.status-info{
+    background:#EAF7FD;
+    color:#0284C7;
+}
+
+.status-info i{
+    color:#0284C7;
+}
+
+.modern-progress{
+    height:14px;
+    border-radius:20px;
+    background:#E5E7EB;
+}
+
+.modern-progress .progress-bar{
+    background:repeating-linear-gradient(
+        45deg,
+        #3B82F6,
+        #3B82F6 8px,
+        #2563EB 8px,
+        #2563EB 16px
+    );
+    border-radius:20px;
+}
+
+.progress-circle{
+    width:78px;
+    height:78px;
+    border-radius:50%;
+    background:#2563EB;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:26px;
+    font-weight:700;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
 
 .quick-card,
 .latest-ticket-card{
@@ -857,6 +900,271 @@
 .ticket-table-card:hover{
     transform:translateY(-2px);
     transition:.3s;
+}
+
+/* =========================
+   DETAIL TIKET
+========================= */
+
+.detail-card{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+.detail-card .card-header{
+    background:#fff;
+    border-bottom:1px solid #edf2f7;
+    padding:18px 25px;
+    font-size:18px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.detail-card .card-body{
+    padding:25px;
+}
+
+.detail-table{
+    width:100%;
+}
+
+.detail-table tr{
+    border-bottom:1px solid #eef2f7;
+}
+
+.detail-table td{
+    padding:13px 10px;
+}
+
+.detail-table td:first-child{
+    width:180px;
+    font-weight:600;
+    color:#64748b;
+}
+
+.detail-table td:last-child{
+    color:#1e293b;
+    font-weight:500;
+}
+
+.status-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.status-card .card-header{
+    background:#fff;
+    border-bottom:1px solid #edf2f7;
+    color:#1e293b;
+    font-weight:700;
+}
+
+.status-card .card-body{
+    padding:22px;
+}
+
+.status-card select{
+    height:48px;
+    border-radius:12px;
+}
+
+.status-card .btn-success{
+    border-radius:12px;
+    height:45px;
+    font-weight:600;
+}
+
+.badge{
+    padding:8px 12px;
+    border-radius:50px;
+    font-weight:600;
+}
+
+/* Diskusi */
+
+.comment-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.comment-card .card-header{
+    background:#fff;
+    color:#1e293b;
+    font-weight:700;
+    border-bottom:1px solid #edf2f7;
+}
+
+.comment-box{
+    background:#f8fafc;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.comment-box strong{
+    color:#2563eb;
+}
+
+.comment-box small{
+    color:#94a3b8;
+}
+
+/* Timeline */
+
+.timeline-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.timeline-card .card-header{
+    background:#fff;
+    color:#1e293b;
+    border-bottom:1px solid #edf2f7;
+}
+
+.timeline{
+    position:relative;
+    margin-left:18px;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:#dbeafe;
+}
+
+.timeline-item{
+    position:relative;
+    padding-left:35px;
+    margin-bottom:25px;
+}
+
+.timeline-dot{
+    position:absolute;
+    left:-2px;
+    top:4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#2563eb;
+}
+
+.timeline-title{
+    font-weight:600;
+    color:#1e293b;
+}
+
+.timeline-time{
+    font-size:13px;
+    color:#94a3b8;
+}
+
+.timeline{
+    position: relative;
+    padding-left: 25px;
+}
+
+.timeline::before{
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    bottom: 15px;
+    width: 2px;
+    background: #d6e4ff;
+}
+
+.timeline .d-flex{
+    position: relative;
+    margin-bottom: 30px !important;
+}
+
+.timeline .badge{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== Timeline Dashboard ===== */
+
+.timeline-item-modern{
+    position:relative;
+    display:flex;
+    gap:18px;
+    margin-bottom:22px;
+    align-items:flex-start;
+}
+
+.timeline-item-modern:not(:last-child)::before{
+    content:"";
+    position:absolute;
+    left:21px;
+    top:48px;
+    width:2px;
+    height:calc(100% + 8px);
+    background:#dbeafe;
+}
+
+.timeline-icon-modern{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    flex-shrink:0;
+    box-shadow:0 10px 20px rgba(37,99,235,.25);
+}
+
+.timeline-content-modern{
+    flex:1;
+    background:#f8fbff;
+    border-radius:14px;
+    padding:16px 18px;
+    transition:.3s;
+    border:1px solid #edf2f7;
+}
+
+.timeline-content-modern:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(0,0,0,.08);
+}
+
+.timeline-content-modern h6{
+    font-weight:700;
+    margin-bottom:6px;
+    color:#1f2937;
+}
+
+.timeline-content-modern p{
+    margin-bottom:8px;
+    color:#64748b;
+    font-size:14px;
+}
+
+.timeline-content-modern small{
+    color:#94a3b8;
 }
 
     </style>

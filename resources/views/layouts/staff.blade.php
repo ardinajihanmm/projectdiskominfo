@@ -1449,12 +1449,14 @@
     {{-- Content --}}
     <div class="content">
 
-        <div class="topbar">
+  <!-- Topbar -->
+<div class="topbar">
 
-            <div class="welcome">
-                <h5>Selamat Datang, {{ Auth::user()->name }}</h5>
-                <small>Portal Helpdesk Staff</small>
-            </div>
+    <h5 class="mb-0 fw-bold">
+
+        @yield('title','Dashboard')
+
+    </h5>
 
             <div class="d-flex align-items-center">
 

@@ -26,15 +26,17 @@ use App\Http\Controllers\Staff\TicketController as StaffTicket;
 use App\Http\Controllers\Staff\CommentController;
 use App\Http\Controllers\Staff\ProfileController;
 
+//Landing
+use App\Http\Controllers\LandingController;
+
 /*
 |--------------------------------------------------------------------------
 | Landing
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('landing.index');
-});
+Route::get('/', [LandingController::class, 'index'])
+    ->name('landing');
 
 /*
 |--------------------------------------------------------------------------
@@ -187,3 +189,4 @@ Route::middleware(['auth','role:staff'])
          Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
             ->name('notification');
     });
+

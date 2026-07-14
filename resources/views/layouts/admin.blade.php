@@ -352,6 +352,46 @@ body{
     padding:0 18px;
     border-radius:999px;
 }
+.footer{
+    padding:20px 30px;
+    color:#64748B;
+    font-size:14px;
+}
+.logo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:22px 18px 26px;
+}
+
+.logo-pemalang{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.logo-text{
+    text-align:left;
+}
+
+.logo-text h3{
+    margin:0;
+    color:#fff;
+    font-size:1.65rem;
+    font-weight:800;
+    line-height:1.1;
+}
+
+.logo-text small{
+    display:block;
+    color:rgba(255,255,255,.85);
+    font-size:.82rem;
+    line-height:1.35;
+    font-weight:500;
+    margin-top:4px;
+}
 
 </style>
 
@@ -363,19 +403,20 @@ body{
 
 <div class="sidebar">
 
-<div class="logo">
+    <div class="logo">
 
-<h3>
+    <img
+        src="{{ asset('images/logo-pemalang.png') }}"
+        class="logo-pemalang"
+        alt="Logo Kabupaten Pemalang">
 
-Helpdesk
-
-</h3>
-
-<small>
-
-Diskominfo
-
-</small>
+    <div class="logo-text">
+        <h3>Helpdesk</h3>
+        <small>
+            Diskominfo<br>
+            Kabupaten Pemalang
+        </small>
+    </div>
 
 </div>
 
@@ -531,7 +572,12 @@ Portal Helpdesk Administrator
 
 </div>
 
+<div class="footer">
+
+    © {{ date('Y') }} HelpDesk Diskominfo Kota Pemalang
+
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <div class="offcanvas offcanvas-end"
@@ -628,6 +674,7 @@ Portal Helpdesk Administrator
             </p>
 
         </div>
+        
 
         @endforelse
 

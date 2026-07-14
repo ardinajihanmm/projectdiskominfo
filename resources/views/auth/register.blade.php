@@ -715,7 +715,7 @@ body{
                     id="password"
                     name="password"
                     class="form-control"
-                    placeholder="Minimal 8 karakter"
+                    placeholder="Minimal 6 karakter"
                     required>
 
                 <button

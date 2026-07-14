@@ -24,7 +24,7 @@ public function update(Request $request)
         'name'      => 'required|max:255',
         'email'     => 'required|email|unique:users,email,' . Auth::id(),
         'no_hp'     => 'required|max:20',
-        'instansi'  => 'required|max:255',
+        'instansi'  => 'nullable|max:255',
         'foto'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
@@ -66,7 +66,7 @@ public function password(Request $request)
 {
     $request->validate([
         'current_password' => 'required',
-        'password' => 'required|min:8|confirmed',
+        'password' => 'required|min:6|confirmed',
     ]);
 
     $user = Auth::user();

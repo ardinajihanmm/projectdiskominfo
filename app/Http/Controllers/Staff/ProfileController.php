@@ -28,7 +28,7 @@ class ProfileController extends Controller
    $request->validate([
     'name'      => 'required|string|max:255',
     'email'     => 'required|email|unique:users,email,' . $user->id,
-    'no_hp'     => 'nullable|string|max:20',
+    'no_hp'     => 'required|string|max:20',
     'instansi'  => 'nullable|string|max:255',
     'foto'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 ],[
@@ -65,7 +65,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'password_lama' => 'required',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $user = Auth::user();

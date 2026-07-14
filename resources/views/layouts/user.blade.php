@@ -1666,6 +1666,62 @@ border-radius:16px;
 .btn-outline-secondary{
     border-radius:12px;
 }
+.sidebar{
+    transition:all .35s ease;
+}
+
+.content{
+    transition:all .35s ease;
+}
+.sidebar.collapsed{
+    width:85px;
+}
+.sidebar.collapsed .logo{
+    justify-content:center;
+}
+
+.sidebar.collapsed .logo-text{
+    display:none;
+}
+
+.sidebar.collapsed .logo-pemalang{
+    width:50px;
+    height:50px;
+}
+.sidebar.collapsed .profile h5,
+.sidebar.collapsed .profile small{
+    display:none;
+}
+
+.sidebar.collapsed .avatar{
+    width:60px;
+    height:60px;
+}
+.sidebar.collapsed .menu a{
+    justify-content:center;
+    padding:16px;
+}
+
+.sidebar.collapsed .menu a span{
+    display:none;
+}
+
+.sidebar.collapsed .menu a i{
+    margin:0;
+    font-size:22px;
+}
+.sidebar.collapsed .logout button{
+    font-size:0;
+    padding:15px;
+}
+
+.sidebar.collapsed .logout button i{
+    font-size:22px;
+    margin:0 !important;
+}
+.sidebar.collapsed + .content{
+    margin-left:85px;
+}
     </style>
 
 </head>
@@ -1732,7 +1788,7 @@ border-radius:16px;
 
         <i class="bi bi-speedometer2"></i>
 
-        Dashboard
+        <span>Dashboard</span>
 
     </a>
 
@@ -1741,7 +1797,7 @@ border-radius:16px;
 
         <i class="bi bi-plus-circle-fill"></i>
 
-        Ajukan Layanan
+        <span>Ajukan Layanan</span>
 
     </a>
 
@@ -1750,7 +1806,7 @@ border-radius:16px;
 
         <i class="bi bi-ticket-perforated-fill"></i>
 
-        Riwayat Tiket
+        <span>Riwayat Tiket</span>
 
     </a>
 
@@ -1759,7 +1815,7 @@ border-radius:16px;
 
         <i class="bi bi-person-circle"></i>
 
-        Profil
+        <span>Ajukan Layanan</span>
 
     </a>
 
@@ -1775,7 +1831,7 @@ border-radius:16px;
 
             <i class="bi bi-box-arrow-right me-2"></i>
 
-            Logout
+            <span>Logout</span>
 
         </button>
 
@@ -1789,7 +1845,10 @@ border-radius:16px;
 
     <!-- Topbar -->
 <div class="topbar">
-
+ <!-- Tombol Toggle Sidebar -->
+    <button class="btn btn-light border-0 me-3" id="toggleSidebar">
+        <i class="bi bi-list fs-3"></i>
+    </button>
     <h5 class="mb-0 fw-bold">
 
         @yield('title','Dashboard')
@@ -2016,6 +2075,27 @@ document.querySelectorAll('.counter').forEach(counter=>{
 
 });
 
+
+
+const sidebar = document.querySelector('.sidebar');
+const toggle = document.getElementById('toggleSidebar');
+
+if(localStorage.getItem('sidebar') === 'collapsed'){
+    sidebar.classList.add('collapsed');
+}
+
+toggle.addEventListener('click',()=>{
+
+    sidebar.classList.toggle('collapsed');
+
+    localStorage.setItem(
+        'sidebar',
+        sidebar.classList.contains('collapsed')
+            ? 'collapsed'
+            : 'open'
+    );
+
+});
 </script>
 </body>
 </html>

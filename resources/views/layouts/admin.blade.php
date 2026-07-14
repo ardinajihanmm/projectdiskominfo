@@ -392,6 +392,62 @@ body{
     font-weight:500;
     margin-top:4px;
 }
+.sidebar{
+    transition:all .35s ease;
+}
+
+.content{
+    transition:all .35s ease;
+}
+.sidebar.collapsed{
+    width:85px;
+}
+.sidebar.collapsed .logo{
+    justify-content:center;
+}
+
+.sidebar.collapsed .logo-text{
+    display:none;
+}
+
+.sidebar.collapsed .logo-pemalang{
+    width:50px;
+    height:50px;
+}
+.sidebar.collapsed .profile h5,
+.sidebar.collapsed .profile small{
+    display:none;
+}
+
+.sidebar.collapsed .avatar{
+    width:60px;
+    height:60px;
+}
+.sidebar.collapsed .menu a{
+    justify-content:center;
+    padding:16px;
+}
+
+.sidebar.collapsed .menu a span{
+    display:none;
+}
+
+.sidebar.collapsed .menu a i{
+    margin:0;
+    font-size:22px;
+}
+.sidebar.collapsed .logout button{
+    font-size:0;
+    padding:15px;
+}
+
+.sidebar.collapsed .logout button i{
+    font-size:22px;
+    margin:0 !important;
+}
+.sidebar.collapsed + .content{
+    margin-left:85px;
+}
 
 </style>
 
@@ -460,7 +516,7 @@ class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
 <i class="bi bi-speedometer2"></i>
 
-Dashboard
+<span>Dashboard</span>
 
 </a>
 
@@ -469,7 +525,7 @@ class="{{ request()->routeIs('admin.ticket.*') ? 'active' : '' }}">
 
 <i class="bi bi-ticket-perforated-fill"></i>
 
-Kelola Tiket
+<span>Kelola Tiket</span>
 
 </a>
 
@@ -478,7 +534,7 @@ class="{{ request()->routeIs('admin.service.*') ? 'active' : '' }}">
 
 <i class="bi bi-tools"></i>
 
-Kelola Layanan
+<span>Kelola Layanan</span>
 
 </a>
 
@@ -487,7 +543,7 @@ class="{{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
 
 <i class="bi bi-people-fill"></i>
 
-Data User
+<span>Data User</span>
 
 </a>
 
@@ -496,7 +552,7 @@ class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
 
 <i class="bi bi-person-circle"></i>
 
-Edit Profil
+<span>Edit Profil</span>
 
 </a>
 
@@ -512,7 +568,7 @@ Edit Profil
 
 <i class="bi bi-box-arrow-right me-2"></i>
 
-Logout
+<span>Logout</span>
 
 </button>
 
@@ -525,7 +581,9 @@ Logout
 <div class="content">
 
 <div class="topbar">
-
+<button class="btn btn-light border-0 me-3" id="toggleSidebar">
+    <i class="bi bi-list fs-3"></i>
+</button>
 <div class="welcome">
 
 <h5>
@@ -684,6 +742,26 @@ Portal Helpdesk Administrator
 
 </div>
 @stack('scripts')
+<script>
+const sidebar = document.querySelector('.sidebar');
+const toggle = document.getElementById('toggleSidebar');
 
+if(localStorage.getItem('sidebar') === 'collapsed'){
+    sidebar.classList.add('collapsed');
+}
+
+toggle.addEventListener('click',()=>{
+
+    sidebar.classList.toggle('collapsed');
+
+    localStorage.setItem(
+        'sidebar',
+        sidebar.classList.contains('collapsed')
+            ? 'collapsed'
+            : 'open'
+    );
+
+});
+</script>
 </body>
 </html>

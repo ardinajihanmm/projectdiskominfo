@@ -226,7 +226,7 @@ body::after{
 
 .input-group{
 
-    margin-bottom:10px;
+    margin-bottom:2px;
     margin-top:2px;
 
     border-radius:14px;

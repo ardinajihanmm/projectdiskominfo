@@ -41,39 +41,62 @@
 
         </div>
 
-        <div class="card-body">
+<div class="card-body">
 
-            <div class="profile-info">
+    <div class="list-group list-group-flush">
 
-                <div class="info-item">
-                    <i class="bi bi-envelope-fill text-primary"></i>
+        <div class="list-group-item border-0 py-3">
+            <div class="d-flex align-items-center">
 
-                    <div>
-                        <small>Email</small>
-                        <strong>{{ auth()->user()->email }}</strong>
-                    </div>
+                <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                    <i class="bi bi-envelope-fill text-primary fs-5"></i>
                 </div>
 
-                <div class="info-item">
-                    <i class="bi bi-telephone-fill text-success"></i>
-
-                    <div>
-                        <small>Nomor HP</small>
-                        <strong>{{ auth()->user()->no_hp ?? '-' }}</strong>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <i class="bi bi-building text-warning"></i>
-
-                    <div>
-                        <small>Instansi</small>
-                        <strong>{{ auth()->user()->instansi ?? '-' }}</strong>
+                <div>
+                    <small class="text-muted">Email</small>
+                    <div class="fw-semibold">
+                        {{ auth()->user()->email }}
                     </div>
                 </div>
 
             </div>
+        </div>
 
+        <div class="list-group-item border-0 py-3">
+            <div class="d-flex align-items-center">
+
+                <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+                    <i class="bi bi-telephone-fill text-success fs-5"></i>
+                </div>
+
+                <div>
+                    <small class="text-muted">Nomor HP</small>
+                    <div class="fw-semibold">
+                        {{ auth()->user()->no_hp ?? '-' }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="list-group-item border-0 py-3">
+            <div class="d-flex align-items-center">
+
+                <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+                    <i class="bi bi-building-fill text-warning fs-5"></i>
+                </div>
+
+                <div>
+                    <small class="text-muted">Instansi</small>
+                    <div class="fw-semibold">
+                        {{ auth()->user()->instansi ?? '-' }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 <button
     type="button"
     class="btn btn-warning w-100 rounded-pill mt-4"
@@ -503,6 +526,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-textfield-decoration-container {
     display: none !important;
 }
+
 
 </style>
 

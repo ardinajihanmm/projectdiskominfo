@@ -61,7 +61,7 @@
     color:#fff;
     font-weight:700;
     margin-bottom:0;
-    letter-spacing:1px;
+    letter-spacing: 0;
 }
 
 .logo small{
@@ -163,12 +163,13 @@
         /* ================= CONTENT ================= */
 
 .main{
-    padding:30px;
+    padding:40px 45px;
 }
 
 .content{
     margin-left:260px;
     min-height:100vh;
+    padding-right:20px;
 }
 
 .topbar{
@@ -490,8 +491,13 @@
 
 
 .quick-card,
+
 .latest-ticket-card{
-    border-radius:18px;
+    border-radius:22px;
+}
+
+.latest-ticket-card .card-body{
+    padding:40px;
 }
 
 .quick-title-icon{
@@ -545,9 +551,29 @@
 
 .ticket-item{
     display:flex;
-    gap:18px;
-    padding:20px 0;
+    gap:24px;
+    padding:28px 16px;
     border-bottom:1px solid #eee;
+}
+
+.ticket-content h5{
+    font-size:1.3rem;
+    font-weight:700;
+}
+
+.ticket-content p{
+    font-size:15px;
+    margin-top:10px;
+}
+
+.ticket-meta{
+    font-size:15px;
+    gap:24px;
+}
+
+.badge{
+    font-size:0.9rem;
+    padding:10px 18px;
 }
 
 .ticket-item:last-child{
@@ -1288,6 +1314,48 @@
     margin:0 auto;
 }
 
+.logo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:22px 18px 26px;
+}
+
+.logo-pemalang{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.logo-text{
+    text-align:left;
+}
+
+.logo-text h3{
+    margin:0;
+    color:#fff;
+    font-size:1.65rem;
+    font-weight:800;
+    line-height:1.1;
+}
+
+.logo-text small{
+    display:block;
+    color:rgba(255,255,255,.85);
+    font-size:.82rem;
+    line-height:1.35;
+    font-weight:500;
+    margin-top:4px;
+}
+
+.footer{
+    padding:20px 30px;
+    color:#64748B;
+    font-size:14px;
+}
+
     </style>
 
 </style>
@@ -1298,12 +1366,24 @@
 <body>
 
     {{-- Sidebar --}}
-    <div class="sidebar">
+<div class="sidebar">
 
-        <div class="logo">
-            <h3>Helpdesk</h3>
-            <small>Diskominfo</small>
-        </div>
+    <div class="logo">
+
+    <img
+        src="{{ asset('images/logo-pemalang.png') }}"
+        class="logo-pemalang"
+        alt="Logo Kabupaten Pemalang">
+
+    <div class="logo-text">
+        <h3>Helpdesk</h3>
+        <small>
+            Diskominfo<br>
+            Kabupaten Pemalang
+        </small>
+    </div>
+
+</div>
 
         <div class="profile">
 
@@ -1404,6 +1484,12 @@
 
         <div class="main">
             @yield('content')
+        </div>
+
+        <div class="footer">
+
+            © {{ date('Y') }} HelpDesk Diskominfo Kabupaten Pemalang
+
         </div>
 
     </div>

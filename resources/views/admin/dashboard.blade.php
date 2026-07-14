@@ -71,70 +71,6 @@ body{
 
 }
 
-.account-status{
-
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-
-    color:#fff;
-
-    border-radius:22px;
-
-    padding:25px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    height:100%;
-
-    box-shadow:0 10px 25px rgba(37,99,235,.25);
-
-}
-
-.status-icon{
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.18);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:30px;
-
-}
-
-.account-status small{
-
-    opacity:.8;
-
-}
-
-.account-status h6{
-
-    font-size:1.2rem;
-
-    font-weight:700;
-
-}
-
-.account-status span{
-
-    font-size:.9rem;
-
-    opacity:.9;
-
-}
-
 /* ===========================
         Dashboard Header
 =========================== */
@@ -516,7 +452,7 @@ background:linear-gradient(
 
     <div class="row align-items-center">
 
-        <div class="col-lg-8">
+        <div class="col-lg-12">
 
             <div class="dashboard-badge mb-3">
 
@@ -543,34 +479,6 @@ background:linear-gradient(
             </p>
 
         </div>
-
-        <div class="col-lg-4">
-
-            <div class="account-status">
-
-                <div class="status-icon">
-
-                    <i class="bi bi-shield-check"></i>
-
-                </div>
-
-                <div>
-
-                    <small>Status Akun</small>
-
-                    <h6>Administrator</h6>
-
-                    <span>{{ now()->format('d F Y') }}</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
   <div class="row g-4 mb-4">
 
@@ -801,122 +709,73 @@ background:linear-gradient(
 </div>
 
 
-
-
-
 {{-- =========================
-        ACTIVITY & OVERVIEW
+        SYSTEM OVERVIEW
 ========================= --}}
 
-<div class="row g-4">
+<div class="row g-4 mt-2">
 
-    {{-- Activity --}}
     <div class="col-lg-8">
 
-        <div class="modern-panel h-100">
+        <div class="modern-panel">
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-
-                <div class="panel-title mb-0">
-
-                    <i class="bi bi-clock-history text-primary"></i>
-
-                    Aktivitas Sistem
-
-                </div>
-
-                <span class="badge bg-light text-dark">
-
-                    Hari Ini
-
-                </span>
-
+            <div class="panel-title">
+                <i class="bi bi-activity text-primary"></i>
+                Aktivitas Sistem
             </div>
 
-            <div class="activity-item">
+            <div class="row g-3">
 
-                <div class="activity-icon bg-primary">
-
-                    <i class="bi bi-people-fill"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>Total User</strong>
-
-                    <div class="text-muted">
-
-                        {{ $totalUser }} pengguna terdaftar.
-
+                <div class="col-md-6">
+                    <div class="modern-card total-card py-3">
+                        <div class="icon-box">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="card-content">
+                            <small>Total User</small>
+                            <h3>{{ $totalUser }}</h3>
+                            <span>Pengguna aktif dalam sistem</span>
+                        </div>
                     </div>
-
                 </div>
 
-            </div>
-
-            <div class="activity-item">
-
-                <div class="activity-icon bg-success">
-
-                    <i class="bi bi-tools"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>Total Layanan</strong>
-
-                    <div class="text-muted">
-
-                        {{ $totalService }} layanan tersedia.
-
+                <div class="col-md-6">
+                    <div class="modern-card service-card py-3">
+                        <div class="icon-box">
+                            <i class="bi bi-tools"></i>
+                        </div>
+                        <div class="card-content">
+                            <small>Total Layanan</small>
+                            <h3>{{ $totalService }}</h3>
+                            <span>Layanan tersedia</span>
+                        </div>
                     </div>
-
                 </div>
 
-            </div>
-
-            <div class="activity-item">
-
-                <div class="activity-icon bg-dark">
-
-                    <i class="bi bi-ticket-perforated-fill"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>Total Tiket</strong>
-
-                    <div class="text-muted">
-
-                        {{ $totalTicket }} tiket telah dibuat.
-
+                <div class="col-md-6">
+                    <div class="modern-card ticket-card py-3">
+                        <div class="icon-box">
+                            <i class="bi bi-ticket-perforated-fill"></i>
+                        </div>
+                        <div class="card-content">
+                            <small>Total Tiket</small>
+                            <h3>{{ $totalTicket }}</h3>
+                            <span>Tiket yang masuk</span>
+                        </div>
                     </div>
-
                 </div>
 
-            </div>
-
-            <div class="activity-item border-0">
-
-                <div class="activity-icon bg-success">
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>Tiket Selesai</strong>
-
-                    <div class="text-muted">
-
-                        {{ $completed }} tiket berhasil diselesaikan.
-
+                <div class="col-md-6">
+                    <div class="modern-card complete-card py-3">
+                        <div class="icon-box">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="card-content">
+                            <small>Completed</small>
+                            <h3>{{ $completed }}</h3>
+                            <span>Tiket berhasil diselesaikan</span>
+                        </div>
                     </div>
-
                 </div>
 
             </div>
@@ -925,17 +784,13 @@ background:linear-gradient(
 
     </div>
 
-    {{-- Overview --}}
     <div class="col-lg-4">
 
         <div class="modern-panel h-100">
 
             <div class="panel-title">
-
                 <i class="bi bi-bar-chart-fill text-success"></i>
-
                 System Overview
-
             </div>
 
             <div class="overview-box">
@@ -943,17 +798,13 @@ background:linear-gradient(
                 <small>Penyelesaian Tiket</small>
 
                 <h2>
-
                     {{ $totalTicket==0 ? 0 : round(($completed/$totalTicket)*100) }}%
-
                 </h2>
 
                 <div class="progress mt-3">
 
                     <div class="progress-bar bg-success"
-
-                         style="width: {{ $totalTicket==0 ? 0 : round(($completed/$totalTicket)*100) }}%">
-
+                        style="width: {{ $totalTicket==0 ? 0 : round(($completed/$totalTicket)*100) }}%">
                     </div>
 
                 </div>
@@ -963,39 +814,18 @@ background:linear-gradient(
             <hr>
 
             <div class="d-flex justify-content-between mb-3">
-
                 <span>To Do</span>
-
-                <strong class="text-warning">
-
-                    {{ $todo }}
-
-                </strong>
-
+                <strong class="text-warning">{{ $todo }}</strong>
             </div>
 
             <div class="d-flex justify-content-between mb-3">
-
                 <span>In Progress</span>
-
-                <strong class="text-info">
-
-                    {{ $progress }}
-
-                </strong>
-
+                <strong class="text-info">{{ $progress }}</strong>
             </div>
 
             <div class="d-flex justify-content-between">
-
                 <span>Completed</span>
-
-                <strong class="text-success">
-
-                    {{ $completed }}
-
-                </strong>
-
+                <strong class="text-success">{{ $completed }}</strong>
             </div>
 
         </div>

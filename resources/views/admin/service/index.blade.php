@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container-fluid py-4">s
+<div class="container-fluid py-4">
 
     {{-- Header --}}
     <div class="card border-0 shadow-sm rounded-4 mb-4">

@@ -1,25 +1,19 @@
 @extends('layouts.user')
 @section('title','Edit Profil')
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid">
 
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show shadow-sm">
-    <i class="bi bi-check-circle-fill me-2"></i>
-    {{ session('success') }}
-    <button class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
+    <div class="mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-person-circle"></i>
+            Profil Pengguna
+        </h2>
+        <small class="text-muted">
+            Kelola informasi akun dan ubah password.
+        </small>
+    </div>
 
-@if(session('error'))
-<div class="alert alert-danger alert-dismissible fade show shadow-sm">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-    {{ session('error') }}
-    <button class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
-
-<div class="row">
+<div class="row g-4">
 
 <!-- ================= PROFILE CARD ================= -->
 <div class="col-lg-4">
@@ -41,7 +35,7 @@ alt="Foto Profil">
 
                 <div
                     class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow"
-                    style="width:140px;height:140px;">
+                    style="width:180px;height:180px;">
 
                     <i class="bi bi-person-fill text-primary"
                         style="font-size:70px;"></i>
@@ -611,8 +605,8 @@ Pengguna Helpdesk
 
 }
 .profile-foto{
-    width:240px;
-    height:240px;
+    width:180px;
+    height:180px;
     border-radius:50%;
     object-fit:cover;
     object-position:center;

@@ -10,7 +10,7 @@
 
         <div class="col-lg-8">
             <span class="dashboard-badge">
-                <i class="bi bi-speedometer2"></i>
+                <i class="bi bi-house-door-fill"></i>
                 Dashboard Staff
             </span>
 

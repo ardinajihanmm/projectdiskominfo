@@ -456,9 +456,9 @@ background:linear-gradient(
 
             <div class="dashboard-badge mb-3">
 
-                <i class="bi bi-speedometer2"></i>
+                <i class="bi bi-house-door-fill"></i>
 
-                Dashboard Administrator
+                Dashboard
 
             </div>
 

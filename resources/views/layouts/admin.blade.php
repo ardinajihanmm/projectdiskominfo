@@ -1,4 +1,5 @@
 @php
+
 use App\Models\Notification;
 use Illuminate\Support\Str;
 
@@ -254,24 +255,6 @@ body{
 
 }
 
-.topbar{
-
-    height:75px;
-
-    background:white;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:0 35px;
-
-    box-shadow:0 3px 12px rgba(0,0,0,.05);
-
-}
-
 .welcome h5{
 
     margin:0;
@@ -449,6 +432,37 @@ body{
     margin-left:85px;
 }
 
+.topbar{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
+
+    position: relative;
+    overflow: visible;
+    z-index: 1000;
+}
+
+.welcome h5{
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+}
+
+.welcome small{
+    display:block;
+    color:#64748b;
+}
+.sidebar.collapsed .profile{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px 0 22px;
+}
+
 </style>
 
 @stack('styles')
@@ -579,51 +593,55 @@ class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
 </div>
 
 <div class="content">
-
 <div class="topbar">
-<button class="btn btn-light border-0 me-3" id="toggleSidebar">
-    <i class="bi bi-list fs-3"></i>
-</button>
-<div class="welcome">
-
-<h5>
-
-Selamat Datang, {{ Auth::user()->name }}
-
-</h5>
-
-<small>
-
-Portal Helpdesk Administrator
-
-</small>
-
-</div>
-<div class="d-flex align-items-center gap-4">
-
-    <button
-        class="btn btn-light position-relative border"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#notificationCanvas">
-
-        <i class="bi bi-bell fs-5"></i>
-
-        @if($unread)
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ $unread }}
-            </span>
-        @endif
-
+ <!-- Tombol Toggle Sidebar -->
+    <button class="btn btn-light border-0 me-3" id="toggleSidebar">
+        <i class="bi bi-list fs-3"></i>
     </button>
+    <h5 class="mb-0 fw-bold">
 
-    <div class="clock">
-        <i class="bi bi-calendar3"></i>
-        {{ now()->format('d F Y') }}
+        @yield('title','Dashboard')
+
+    </h5>
+
+    <div class="d-flex align-items-center ms-auto gap-3">
+
+        <button
+            class="btn btn-light position-relative border-0"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#notificationCanvas">
+
+            <i class="bi bi-bell fs-5"></i>
+
+            @if($notificationCount>0)
+
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                {{ $notificationCount }}
+
+            </span>
+
+            @endif
+
+        </button>
+
+        <div class="text-end">
+
+            <strong>{{ auth()->user()->name }}</strong>
+
+            <br>
+
+            <small class="text-muted">
+
+                {{ ucfirst(auth()->user()->role) }}
+
+            </small>
+
+        </div>
+
     </div>
 
 </div>
-</div>
-
 <div class="main">
 
 @yield('content')

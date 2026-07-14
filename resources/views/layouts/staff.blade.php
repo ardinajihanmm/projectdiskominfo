@@ -42,6 +42,20 @@
     box-shadow:8px 0 25px rgba(0,0,0,.08);
 }
 
+.topbar{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
+
+    position: relative;
+    overflow: visible;
+    z-index: 1000;
+}
+
 .sidebar::-webkit-scrollbar{
     width:6px;
 }
@@ -176,25 +190,19 @@
         /* ================= CONTENT ================= */
 
 .main{
-    padding:40px 45px;
+    flex:1;
+    overflow-y:auto;
+    padding:30px;
 }
 
 .content{
     margin-left:260px;
-    min-height:100vh;
-    padding-right:20px;
-}
-
-.topbar{
-    height:75px;
-    background:#fff;
+    height:100vh;
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 35px;
-    box-shadow:0 3px 12px rgba(0,0,0,.05);
+    flex-direction:column;
+    overflow:hidden;
+    transition:all .35s ease;
 }
-
 .ticket-column{
     background:#f8fafc;
     border-radius:18px;
@@ -1423,8 +1431,23 @@
     margin-left:85px;
 }
 
-    </style>
 
+.welcome h5{
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+}
+
+.welcome small{
+    display:block;
+    color:#64748b;
+}
+.sidebar.collapsed .profile{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px 0 22px;
+}
 </style>
 
 
@@ -1516,44 +1539,55 @@
     {{-- Content --}}
     <div class="content">
 
-  <!-- Topbar -->
 <div class="topbar">
+ <!-- Tombol Toggle Sidebar -->
     <button class="btn btn-light border-0 me-3" id="toggleSidebar">
-    <i class="bi bi-list fs-3"></i>
-</button>
-
+        <i class="bi bi-list fs-3"></i>
+    </button>
     <h5 class="mb-0 fw-bold">
 
         @yield('title','Dashboard')
 
     </h5>
 
-            <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center ms-auto gap-3">
 
-                <button
-                    class="btn position-relative me-3"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#notifCanvas">
+        <button
+            class="btn btn-light position-relative border-0"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#notificationCanvas">
 
-                    <i class="bi bi-bell fs-4"></i>
+            <i class="bi bi-bell fs-5"></i>
 
-                    @if(isset($notificationCount) && $notificationCount > 0)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ $notificationCount }}
-                        </span>
-                    @endif
+            @if($notificationCount>0)
 
-                </button>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 
-                <div class="clock">
-                    <i class="bi bi-calendar3"></i>
-                    {{ now()->format('d F Y') }}
-                </div>
+                {{ $notificationCount }}
 
-            </div>
+            </span>
+
+            @endif
+
+        </button>
+
+        <div class="text-end">
+
+            <strong>{{ auth()->user()->name }}</strong>
+
+            <br>
+
+            <small class="text-muted">
+
+                {{ ucfirst(auth()->user()->role) }}
+
+            </small>
 
         </div>
 
+    </div>
+
+</div>
         <div class="main">
             @yield('content')
         </div>

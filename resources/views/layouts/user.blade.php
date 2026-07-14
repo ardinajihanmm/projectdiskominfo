@@ -1722,6 +1722,37 @@ border-radius:16px;
 .sidebar.collapsed + .content{
     margin-left:85px;
 }
+.modern-progress{
+    height:14px;
+    border-radius:20px;
+    background:#E5E7EB;
+    overflow:hidden;
+}
+
+.modern-progress .progress-bar{
+    background:repeating-linear-gradient(
+        45deg,
+        #3B82F6,
+        #3B82F6 8px,
+        #2563EB 8px,
+        #2563EB 16px
+    );
+    border-radius:20px;
+}
+.sidebar.collapsed .profile{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px 0 22px;
+}
+.sidebar.collapsed .avatar{
+    width:60px;
+    height:60px;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
     </style>
 
 </head>

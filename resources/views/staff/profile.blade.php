@@ -21,22 +21,42 @@
 {{-- FOTO PROFIL --}}
 <div class="col-lg-4">
 
-    <div class="card profile-card shadow-lg border-0">
+    <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
 
-        <div class="profile-header text-center">
+        <!-- Header -->
+        <div class="text-center py-5 text-white"
+            style="background:linear-gradient(135deg,#2563eb,#4f8dfd);">
 
-            <img
-                src="{{ auth()->user()->foto
-                    ? asset('storage/'.auth()->user()->foto)
-                    : 'https://ui-avatars.com/api/?name='.urlencode(auth()->user()->name).'&background=2563eb&color=fff&size=200' }}"
-                class="profile-avatar">
+            @if(Auth::user()->foto)
 
-            <h3 class="fw-bold mb-2">
-                {{ auth()->user()->name }}
+              <img src="{{ asset('storage/profile/'.Auth::user()->foto) }}?v={{ time() }}"
+                 class="profile-foto rounded-circle border border-4 border-white shadow">
+
+            @else
+
+                <div
+                    class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow"
+                    style="width:180px;height:180px;">
+
+                    <i class="bi bi-person-fill text-primary"
+                        style="font-size:70px;"></i>
+
+                </div>
+
+            @endif
+
+            <h3 class="fw-bold mt-4 mb-1">
+
+                {{ Auth::user()->name }}
+
             </h3>
 
-            <span class="profile-role">
-                STAFF
+            <span class="badge bg-light text-primary rounded-pill px-4 py-2">
+
+                <i class="bi bi-patch-check-fill me-1"></i>
+
+                {{ ucfirst(Auth::user()->role) }}
+
             </span>
 
         </div>
@@ -504,8 +524,8 @@
 }
 
 .profile-foto{
-    width:240px;
-    height:240px;
+    width:180x;
+    height:180px;
     border-radius:50%;
     object-fit:cover;
     object-position:center;

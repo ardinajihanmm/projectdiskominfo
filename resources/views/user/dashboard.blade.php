@@ -93,7 +93,7 @@ use Illuminate\Support\Str;
                 <h2 class="counter" data-target="{{ $totalTicket }}">0</h2>
 
                 <span>
-                    Seluruh tiket yang pernah diajukan
+                    Seluruh tiket yang diajukan
                 </span>
 
             </div>
@@ -117,7 +117,7 @@ use Illuminate\Support\Str;
                 <h2 class="counter" data-target="{{ $todo }}">0</h2>
 
                 <span>
-                    Menunggu petugas menangani
+                    Menunggu ditangani
                 </span>
 
             </div>
@@ -141,7 +141,7 @@ use Illuminate\Support\Str;
                 <h2 class="counter" data-target="{{ $progress }}">0</h2>
 
                 <span>
-                    Sedang dikerjakan petugas
+                    Sedang dikerjakan
                 </span>
 
             </div>
@@ -209,13 +209,12 @@ use Illuminate\Support\Str;
                 <div class="progress modern-progress mb-3">
 
                     <div
-                        class="progress-bar progress-bar-striped progress-bar-animated"
-                        style="width: {{ $progressPercent }}%">
-                    </div>
-
-                </div>
-
-                <div class="mb-4 text-muted">
+                        <div class="progress modern-progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated"
+        style="width: {{ $progressPercent }}%">
+    </div>
+</div>
+<div class="mb-4 text-muted">
 
                     <strong>{{ $completed }}</strong>
                     dari

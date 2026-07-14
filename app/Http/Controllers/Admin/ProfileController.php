@@ -32,15 +32,12 @@ class ProfileController extends Controller
 
         if ($request->hasFile('foto')) {
 
-            // Hapus foto lama
             if ($user->foto) {
                 Storage::disk('public')->delete('profile/'.$user->foto);
             }
 
-          // Simpan foto baru
             $path = $request->file('foto')->store('profile', 'public');
 
-            // Simpan nama file ke database
             $user->foto = basename($path);
             }
 
@@ -59,12 +56,10 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        // Cek password lama
         if (!Hash::check($request->old_password, $user->password)) {
             return back()->with('error', 'Password lama salah.');
         }
 
-        // Simpan password baru
         $user->password = Hash::make($request->password);
         $user->save();
 

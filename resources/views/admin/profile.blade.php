@@ -458,7 +458,7 @@
                         <input
                             type="password"
                             class="form-control"
-                            placeholder="Masukkan password baru"
+                            placeholder="Minimal 6 karakter"
                             id="newPassword"
                             name="password"
                             required>

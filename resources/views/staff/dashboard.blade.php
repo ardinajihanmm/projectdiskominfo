@@ -307,21 +307,21 @@
                                 </small>
                             </div>
 
-                            <div>
-                                @if($ticket->status=="Completed")
-                                    <span class="badge bg-success rounded-pill">
-                                        Completed
-                                    </span>
-                                @elseif($ticket->status=="In Progress")
-                                    <span class="badge bg-info rounded-pill">
-                                        In Progress
-                                    </span>
-                                @else
-                                    <span class="badge bg-warning text-dark rounded-pill">
-                                        To Do
-                                    </span>
-                                @endif
-                            </div>
+<div class="me-3">
+    @if($ticket->status=="Completed")
+        <span class="badge bg-success rounded-pill">
+            Completed
+        </span>
+    @elseif($ticket->status=="In Progress")
+        <span class="badge bg-info rounded-pill">
+            In Progress
+        </span>
+    @else
+        <span class="badge bg-warning text-dark rounded-pill">
+            To Do
+        </span>
+    @endif
+</div>
 
                         </div>
 

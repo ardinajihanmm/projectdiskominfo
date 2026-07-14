@@ -622,6 +622,18 @@ Pengguna Helpdesk
     margin:0 auto;
 }
 
+/* Hilangkan ikon mata bawaan Microsoft Edge */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+/* Hilangkan ikon bawaan browser Chromium */
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container {
+    display: none !important;
+}
+
 </style>
 <script>
 
@@ -649,7 +661,22 @@ function togglePassword(id, button){
 
     }
 
-}
-
 </script>
+
+
+<script>
+function togglePassword(id, button){
+    let input = document.getElementById(id);
+    let icon = button.querySelector("i");
+
+    if(input.type === "password"){
+        input.type = "text";
+        icon.classList.replace("bi-eye-fill","bi-eye-slash-fill");
+    }else{
+        input.type = "password";
+        icon.classList.replace("bi-eye-slash-fill","bi-eye-fill");
+    }
+}
+</script>
+
 @endsection 

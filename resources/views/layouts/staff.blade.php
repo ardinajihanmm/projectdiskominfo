@@ -1237,6 +1237,57 @@
 .card{
     border-radius:24px;
 }
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.input-group-text{
+    border-right:none;
+    background:#fff;
+}
+
+.form-control{
+    border-left:none;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#86b7fe;
+}
+
+.list-group-item{
+    transition:.25s;
+}
+
+.list-group-item:hover{
+    background:#f8f9fa;
+}
+
+.btn{
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.profile-foto{
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+    border:6px solid #fff;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+    display:block;
+    margin:0 auto;
+}
+
     </style>
 
 </style>
@@ -1377,6 +1428,7 @@
             </button>
 
         </div>
+        
 
         <div class="offcanvas-body">
                 @forelse($notifications ?? [] as $notif)

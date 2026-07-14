@@ -679,4 +679,83 @@ function togglePassword(id, button){
 }
 </script>
 
-@endsection 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+@if(session('success'))
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil',
+    text: '{{ session('success') }}',
+    timer: 1800,
+    showConfirmButton: false
+});
+</script>
+@endif
+@if(session('success_password'))
+<script>
+Swal.fire({
+    icon:'success',
+    title:'Berhasil',
+    text:'{{ session("success_password") }}',
+    timer:1800,
+    showConfirmButton:false
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal',
+    text: '{{ session('error') }}'
+});
+</script>
+@endif
+
+@if ($errors->any())
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Upload Gagal',
+    text: '{{ $errors->first() }}'
+});
+</script>
+@endif
+
+<script>
+document.getElementById('foto').addEventListener('change', function () {
+
+    const file = this.files[0];
+
+    if (file && file.size > 2 * 1024 * 1024) {
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Ukuran Foto Terlalu Besar',
+            text: 'Ukuran foto maksimal 2 MB.'
+        });
+
+        this.value = '';
+    }
+});
+</script>
+
+<script>
+function togglePassword(id, button){
+    let input = document.getElementById(id);
+    let icon = button.querySelector("i");
+
+    if(input.type === "password"){
+        input.type = "text";
+        icon.classList.replace("bi-eye-fill","bi-eye-slash-fill");
+    }else{
+        input.type = "password";
+        icon.classList.replace("bi-eye-slash-fill","bi-eye-fill");
+    }
+}
+</script>
+
+@endsection

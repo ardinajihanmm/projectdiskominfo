@@ -69,28 +69,41 @@
 }
 
 .avatar{
+
     width:90px;
     height:90px;
+
     margin:auto;
+
     border-radius:50%;
+
     overflow:hidden;
+
     background:white;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     box-shadow:0 8px 20px rgba(0,0,0,.18);
+
     border:4px solid rgba(255,255,255,.3);
+
 }
 
 .avatar img{
+
     width:100%;
     height:100%;
     object-fit:cover;
+
 }
 
 .profile{
     text-align:center;
-    padding:20px;
+    padding:14px 20px 10px;
 }
 
 .profile h5{
@@ -109,7 +122,7 @@
         }
 
 .menu{
-    padding:15px;
+    padding:8px 15px 15px;
 }
 
 .menu a{
@@ -182,8 +195,6 @@
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
-
-<<<<<<< HEAD
 .ticket-column{
     background:#f8fafc;
     border-radius:18px;
@@ -1452,9 +1463,9 @@
                 @endif
             </div>
 
-            <h5 class="mt-3 mb-1">
-                {{ Auth::user()->name }}
-            </h5>
+<h5 class="mb-1">
+    {{ Auth::user()->name }}
+</h5>
 
             <small>Staff</small>
 

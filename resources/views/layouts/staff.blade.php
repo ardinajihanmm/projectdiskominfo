@@ -1517,7 +1517,7 @@
             <a href="{{ route('staff.profile') }}"
                class="{{ request()->routeIs('staff.profile*') ? 'active' : '' }}">
                 <i class="bi bi-person-circle"></i>
-                <span>Profil</span>
+                <span>Edit Profil</span>
             </a>
 
         </div>

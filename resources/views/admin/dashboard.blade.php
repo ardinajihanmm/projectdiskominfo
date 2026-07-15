@@ -493,7 +493,8 @@ background:linear-gradient(
             </p>
 
         </div>
-
+</div>
+</div>
   <div class="row g-4 mb-4">
 
     <div class="col-lg-3">

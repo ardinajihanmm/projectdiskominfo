@@ -1846,7 +1846,7 @@ border-radius:16px;
 
         <i class="bi bi-person-circle"></i>
 
-        <span>Ajukan Layanan</span>
+        <span>Edit Profil</span>
 
     </a>
 

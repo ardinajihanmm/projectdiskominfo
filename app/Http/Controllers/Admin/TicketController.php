@@ -134,27 +134,26 @@ class TicketController extends Controller
      */
     public function assign(Request $request, Ticket $ticket)
     {
-        $staffLama = $ticket->staff_id;
+        $request->validate([
+            'staff_id' => 'required|exists:users,id',
+        ]);
 
-        $ticket->staff_id = $request->staff_id;
-        $ticket->save();
+        $ticket->update([
+            'staff_id' => $request->staff_id,
+        ]);
 
-        if ($staffLama != $ticket->staff_id) {
-
-            Notification::create([
-                'user_id'   => $request->staff_id,
-                'ticket_id' => $ticket->id,
-                'judul'     => 'Tiket Baru Ditugaskan',
-                'pesan'     => 'Anda ditugaskan mengerjakan tiket "' . $ticket->judul . '"',
-                'is_read'   => false,
-            ]);
-        }
+        Notification::create([
+            'user_id'   => $request->staff_id,
+            'ticket_id' => $ticket->id,
+            'judul'     => 'Tiket Baru Ditugaskan',
+            'pesan'     => 'Anda ditugaskan untuk menangani tiket ' . $ticket->kode_ticket,
+            'is_read'   => false,
+        ]);
 
         return redirect()
-            ->route('admin.ticket.show', $ticket->id)
+            ->route('admin.ticket.show', $ticket)
             ->with('success', 'Staff berhasil ditugaskan.');
     }
-
     /**
      * Export PDF
      */

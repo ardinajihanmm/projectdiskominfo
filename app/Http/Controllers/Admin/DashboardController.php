@@ -9,15 +9,27 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    public function index()
+   public function index()
     {
-        return view('admin.dashboard', [
-            'totalUser'      => User::where('role', 'user')->count(),
-            'totalService'   => Service::count(),
-            'totalTicket'    => Ticket::count(),
-            'todo'           => Ticket::where('status', 'To Do')->count(),
-            'progress'       => Ticket::where('status', 'In Progress')->count(),
-            'completed'      => Ticket::where('status', 'Completed')->count(),
+        $totalUser = User::where('role', 'user')->count();
+        $totalService = Service::count();
+        $totalTicket = Ticket::count();
+        $todo = Ticket::where('status', 'To Do')->count();
+        $progress = Ticket::where('status', 'In Progress')->count();
+        $completed = Ticket::where('status', 'Completed')->count();
+
+        $progressPercent = $totalTicket > 0
+            ? round(($completed / $totalTicket) * 100)
+            : 0;
+
+       return view('admin.dashboard',[
+            'totalUser'=>$totalUser,
+            'totalService'=>$totalService,
+            'totalTicket'=>$totalTicket,
+            'todo'=>$todo,
+            'progress'=>$progress,
+            'completed'=>$completed,
+            'progressPercent'=>$progressPercent,
         ]);
     }
 }

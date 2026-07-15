@@ -349,14 +349,22 @@
 }
 
 .modern-card{
-    border-radius:18px;
-    padding:24px;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    height: 100%;
+    min-height: 180px;
+
+    padding: 28px;
+    border-radius: 24px;
+    color: #fff;
+
+    transition: .35s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 15px 30px rgba(0,0,0,.12);
 }
 
 .modern-card:hover{
@@ -390,9 +398,47 @@
     font-size:28px;
 }
 
+.stats-row > [class*="col"]{
+    display:flex;
+}
+
+.stats-row .modern-card{
+    flex:1;
+    min-height:190px;
+}
+
+.card-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.card-content span{
+    min-height:48px;
+    line-height:1.5;
+}
+
+.card-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:100%;
+}
+
 .card-content h2{
-    font-weight:700;
-    margin-bottom:0;
+    margin:6px 0;
+    font-size:2.5rem;
+    line-height:1;
+}
+
+.card-content span{
+    display:block;
+    line-height:1.5;
+    min-height:48px;   /* supaya tinggi deskripsi sama */
+    font-size:.9rem;
+    opacity:.9;
 }
 
 .card-content small{
@@ -1517,7 +1563,7 @@
             <a href="{{ route('staff.profile') }}"
                class="{{ request()->routeIs('staff.profile*') ? 'active' : '' }}">
                 <i class="bi bi-person-circle"></i>
-                <span>Profil</span>
+                <span>Edit Profil</span>
             </a>
 
         </div>
@@ -1555,7 +1601,7 @@
         <button
             class="btn btn-light position-relative border-0"
             data-bs-toggle="offcanvas"
-            data-bs-target="#notificationCanvas">
+            data-bs-target="#notifCanvas">
 
             <i class="bi bi-bell fs-5"></i>
 
@@ -1660,26 +1706,37 @@
 
                             <div class="mt-3 d-flex align-items-center gap-3">
 
+                                <div class="mt-3 d-flex gap-2">
+
                                 <a href="{{ route('staff.notification',$notif->id) }}"
-                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+                                    class="btn btn-light rounded-pill">
 
                                     <i class="bi bi-eye"></i>
-
                                     Lihat Tiket
 
                                 </a>
 
-                                @if($notif->is_read)
+                                @if(!$notif->is_read)
 
-                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+                                    <a href="{{ route('staff.notification',$notif->id) }}"
+                                        class="btn btn-success rounded-pill">
 
-                                        <i class="bi bi-check-circle-fill me-1"></i>
+                                        <i class="bi bi-check2-circle"></i>
+                                        Tandai Dibaca
 
+                                    </a>
+
+                                @else
+
+                                    <span class="badge rounded-pill bg-success-subtle text-success">
+
+                                        <i class="bi bi-check-circle-fill"></i>
                                         Sudah Dibaca
 
                                     </span>
 
                                 @endif
+
 
                             </div>
 

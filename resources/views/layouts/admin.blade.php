@@ -517,7 +517,7 @@ body{
 
 <small>
 
-Administrator
+Admin Helpdesk
 
 </small>
 
@@ -525,50 +525,45 @@ Administrator
 
 <div class="menu">
 
-<a href="{{ route('admin.dashboard') }}"
-class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+    <a href="{{ route('admin.dashboard') }}"
+       class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
-<i class="bi bi-speedometer2"></i>
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
 
-<span>Dashboard</span>
+    </a>
 
-</a>
+    <a href="{{ route('admin.ticket.index') }}"
+       class="{{ request()->routeIs('admin.ticket.*') ? 'active' : '' }}">
 
-<a href="{{ route('admin.ticket.index') }}"
-class="{{ request()->routeIs('admin.ticket.*') ? 'active' : '' }}">
+        <i class="bi bi-ticket-perforated-fill"></i>
+        <span>Kelola Tiket</span>
 
-<i class="bi bi-ticket-perforated-fill"></i>
+    </a>
 
-<span>Kelola Tiket</span>
+    <a href="{{ route('admin.service.index') }}"
+       class="{{ request()->routeIs('admin.service.*') ? 'active' : '' }}">
 
-</a>
+        <i class="bi bi-tools"></i>
+        <span>Kelola Layanan</span>
 
-<a href="{{ route('admin.service.index') }}"
-class="{{ request()->routeIs('admin.service.*') ? 'active' : '' }}">
+    </a>
 
-<i class="bi bi-tools"></i>
+    <a href="{{ route('admin.user.index') }}"
+       class="{{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
 
-<span>Kelola Layanan</span>
+        <i class="bi bi-people-fill"></i>
+        <span>Data User</span>
 
-</a>
+    </a>
 
-<a href="{{ route('admin.user.index') }}"
-class="{{ request()->routeIs('admin.user.*') ? 'active' : '' }}">
+    <a href="{{ route('admin.profile') }}"
+       class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
 
-<i class="bi bi-people-fill"></i>
+        <i class="bi bi-person-circle"></i>
+        <span>Edit Profil</span>
 
-<span>Data User</span>
-
-</a>
-
-<a href="{{ route('admin.profile') }}"
-class="{{ request()->routeIs('admin.profile') ? 'active' : '' }}">
-
-<i class="bi bi-person-circle"></i>
-
-<span>Edit Profil</span>
-
-</a>
+    </a>
 
 </div>
 

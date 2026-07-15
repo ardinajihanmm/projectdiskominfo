@@ -31,11 +31,11 @@
 </div>
 
 <!-- Statistik -->
-<div class="row g-4 mb-4">
+<div class="row g-4 mb-4 stats-row">
 
     <!-- Total Tiket -->
-    <div class="col-xl-3 col-md-6">
-        <div class="modern-card total-card">
+    <div class="col-xl-3 col-md-6 d-flex">
+        <div class="modern-card total-card w-100">
 
             <div class="icon-box">
                 <i class="bi bi-ticket-perforated-fill"></i>
@@ -58,8 +58,8 @@
     </div>
 
     <!-- To Do -->
-    <div class="col-xl-3 col-md-6">
-        <div class="modern-card waiting-card">
+    <div class="col-xl-3 col-md-6 d-flex">
+        <div class="modern-card waiting-card w-100">
 
             <div class="icon-box">
                 <i class="bi bi-hourglass-split"></i>
@@ -82,8 +82,8 @@
     </div>
 
     <!-- In Progress -->
-    <div class="col-xl-3 col-md-6">
-        <div class="modern-card progress-card">
+    <div class="col-xl-3 col-md-6 d-flex">
+        <div class="modern-card progress-card w-100">
 
             <div class="icon-box">
                 <i class="bi bi-arrow-repeat"></i>
@@ -106,8 +106,8 @@
     </div>
 
     <!-- Completed -->
-    <div class="col-xl-3 col-md-6">
-        <div class="modern-card complete-card">
+    <div class="col-xl-3 col-md-6 d-flex">
+        <div class="modern-card complete-card w-100">
 
             <div class="icon-box">
                 <i class="bi bi-check-circle-fill"></i>

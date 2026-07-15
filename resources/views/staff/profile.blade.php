@@ -27,24 +27,25 @@
         <div class="text-center py-5 text-white"
             style="background:linear-gradient(135deg,#2563eb,#4f8dfd);">
 
-            @if(Auth::user()->foto)
+ @if(Auth::user()->foto)
 
-              <img src="{{ asset('storage/profile/'.Auth::user()->foto) }}?v={{ time() }}"
-                 class="profile-foto rounded-circle border border-4 border-white shadow">
+<img
+    src="{{ asset('storage/'.Auth::user()->foto) }}?v={{ time() }}"
+    class="profile-foto"
+    alt="Foto Profil">
 
-            @else
+@else
 
-                <div
-                    class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow"
-                    style="width:180px;height:180px;">
+<div
+    class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow"
+    style="width:180px;height:180px;">
 
-                    <i class="bi bi-person-fill text-primary"
-                        style="font-size:70px;"></i>
+    <i class="bi bi-person-fill text-primary"
+        style="font-size:70px;"></i>
 
-                </div>
+</div>
 
-            @endif
-
+@endif
             <h3 class="fw-bold mt-4 mb-1">
 
                 {{ Auth::user()->name }}
@@ -524,7 +525,7 @@
 }
 
 .profile-foto{
-    width:180x;
+    width:180px;
     height:180px;
     border-radius:50%;
     object-fit:cover;

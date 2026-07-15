@@ -178,102 +178,98 @@ use Illuminate\Support\Str;
 
 <!-- Progress & Aksi Cepat -->
 <div class="row g-4 mb-4">
+<!-- Progress -->
+<div class="col-lg-8">
 
-    <!-- Progress -->
-    <div class="col-lg-8">
+    <div class="card progress-modern shadow-sm border-0 h-100">
 
-        <div class="card progress-modern shadow-sm border-0 h-100">
+        <div class="card-body p-4">
 
-            <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
 
-                    <div>
+                    <h4 class="fw-bold mb-1">
+                        Progress Penyelesaian
+                    </h4>
 
-                        <h4 class="fw-bold mb-1">
-                            Progress Penyelesaian
-                        </h4>
-
-                        <small class="text-muted">
-                            Ringkasan perkembangan seluruh pengajuan Anda.
-                        </small>
-
-                    </div>
-
-                    <div class="progress-circle">
-                        {{ $progressPercent }}%
-                    </div>
+                    <small class="text-muted">
+                        Ringkasan perkembangan seluruh pengajuan Anda.
+                    </small>
 
                 </div>
 
-                <div class="progress modern-progress mb-3">
-
-                    <div
-                        <div class="progress modern-progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated"
-        style="width: {{ $progressPercent }}%">
-    </div>
-</div>
-<div class="mb-4 text-muted">
-
-                    <strong>{{ $completed }}</strong>
-                    dari
-                    <strong>{{ $totalTicket }}</strong>
-                    pengajuan telah berhasil diselesaikan.
-
+                <div class="progress-circle">
+                    {{ $progressPercent }}%
                 </div>
 
-                <div class="row g-3">
+            </div>
 
-                    <div class="col-md-4">
+            <!-- Progress Bar -->
+            <div class="progress modern-progress mb-3">
+                <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    style="width: {{ $progressPercent }}%">
+                </div>
+            </div>
 
-                        <div class="status-box status-success">
+            <!-- Keterangan -->
+            <div class="mb-4 text-muted">
+                <strong>{{ $completed }}</strong>
+                dari
+                <strong>{{ $totalTicket }}</strong>
+                pengajuan telah berhasil diselesaikan.
+            </div>
 
-                            <i class="bi bi-check-circle-fill"></i>
+            <div class="row g-3">
 
-                            <div>
+                <div class="col-md-4">
 
-                                <strong>{{ $completed }}</strong>
+                    <div class="status-box status-success">
 
-                                <small>Selesai</small>
+                        <i class="bi bi-check-circle-fill"></i>
 
-                            </div>
+                        <div>
+
+                            <strong>{{ $completed }}</strong>
+
+                            <small>Selesai</small>
 
                         </div>
 
                     </div>
 
-                    <div class="col-md-4">
+                </div>
 
-                        <div class="status-box status-warning">
+                <div class="col-md-4">
 
-                            <i class="bi bi-hourglass-split"></i>
+                    <div class="status-box status-warning">
 
-                            <div>
+                        <i class="bi bi-hourglass-split"></i>
 
-                                <strong>{{ $todo }}</strong>
+                        <div>
 
-                                <small>Menunggu Diproses</small>
+                            <strong>{{ $todo }}</strong>
 
-                            </div>
+                            <small>Menunggu Diproses</small>
 
                         </div>
 
                     </div>
 
-                    <div class="col-md-4">
+                </div>
 
-                        <div class="status-box status-info">
+                <div class="col-md-4">
 
-                            <i class="bi bi-arrow-repeat"></i>
+                    <div class="status-box status-info">
 
-                            <div>
+                        <i class="bi bi-arrow-repeat"></i>
 
-                                <strong>{{ $progress }}</strong>
+                        <div>
 
-                                <small>Sedang Diproses</small>
+                            <strong>{{ $progress }}</strong>
 
-                            </div>
+                            <small>Sedang Diproses</small>
 
                         </div>
 
@@ -287,6 +283,8 @@ use Illuminate\Support\Str;
 
     </div>
 
+</div>
+    
     <!-- Aksi Cepat -->
     <div class="col-lg-4">
 

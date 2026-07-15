@@ -349,14 +349,22 @@
 }
 
 .modern-card{
-    border-radius:18px;
-    padding:24px;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    height: 100%;
+    min-height: 180px;
+
+    padding: 28px;
+    border-radius: 24px;
+    color: #fff;
+
+    transition: .35s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 15px 30px rgba(0,0,0,.12);
 }
 
 .modern-card:hover{
@@ -390,9 +398,47 @@
     font-size:28px;
 }
 
+.stats-row > [class*="col"]{
+    display:flex;
+}
+
+.stats-row .modern-card{
+    flex:1;
+    min-height:190px;
+}
+
+.card-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.card-content span{
+    min-height:48px;
+    line-height:1.5;
+}
+
+.card-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:100%;
+}
+
 .card-content h2{
-    font-weight:700;
-    margin-bottom:0;
+    margin:6px 0;
+    font-size:2.5rem;
+    line-height:1;
+}
+
+.card-content span{
+    display:block;
+    line-height:1.5;
+    min-height:48px;   /* supaya tinggi deskripsi sama */
+    font-size:.9rem;
+    opacity:.9;
 }
 
 .card-content small{

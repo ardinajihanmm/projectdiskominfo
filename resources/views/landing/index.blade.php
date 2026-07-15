@@ -893,22 +893,21 @@ img{
     transition:.4s ease;
 
 }
-
 .service-label{
 
     background:linear-gradient(135deg,var(--primary),var(--primary-light));
 
     color:#fff;
 
-    font-size:.85rem;
+    font-size:.82rem;
 
     font-weight:600;
 
-    line-height:1.35;
+    line-height:1.3;
 
-    padding:var(--sp-2) var(--sp-2);
+    padding:10px 12px;
 
-    min-height:66px;
+    min-height:48px;
 
     display:flex;
 
@@ -919,7 +918,6 @@ img{
     text-align:center;
 
 }
-
 /* =====================================
    SECTION TITLE
 ===================================== */

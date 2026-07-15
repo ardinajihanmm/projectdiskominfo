@@ -15,7 +15,7 @@ body{
 
     border-radius:24px;
 
-    padding:35px;
+    padding:28px;
 
     box-shadow:0 10px 30px rgba(0,0,0,.06);
 
@@ -206,8 +206,8 @@ border-radius:20px;
     align-items:center;
     gap:22px;
 
-    min-height:180px;
-    padding:28px;
+    height:100%;
+    padding:24px;
 
     border-radius:24px;
 
@@ -227,10 +227,10 @@ border-radius:20px;
 
 .icon-box{
 
-    width:78px;
-    height:78px;
+    width:72px;
+    height:72px;
 
-    border-radius:22px;
+    border-radius:18px;
 
     background:rgba(255,255,255,.18);
 
@@ -238,14 +238,23 @@ border-radius:20px;
     justify-content:center;
     align-items:center;
 
-    font-size:34px;
+    font-size:30px;
 
     flex-shrink:0;
 
 }
-
 .card-content{
-    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    height:100%;
+}
+
+.card-content span{
+
+    margin-top:auto;
+
 }
 
 .card-content h2{
@@ -343,7 +352,7 @@ background:linear-gradient(
     gap:18px;
 
     padding:18px;
-
+    height:90px;
     border-radius:18px;
 
     text-decoration:none;
@@ -412,6 +421,11 @@ background:linear-gradient(
     padding:18px;
 
     color:#fff;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
 
 }
 
@@ -717,7 +731,7 @@ background:linear-gradient(
 
     <div class="col-lg-8">
 
-        <div class="modern-panel">
+        <div class="modern-panel h-100">
 
             <div class="panel-title">
                 <i class="bi bi-activity text-primary"></i>

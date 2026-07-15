@@ -1555,7 +1555,7 @@
         <button
             class="btn btn-light position-relative border-0"
             data-bs-toggle="offcanvas"
-            data-bs-target="#notificationCanvas">
+            data-bs-target="#notifCanvas">
 
             <i class="bi bi-bell fs-5"></i>
 
@@ -1660,26 +1660,37 @@
 
                             <div class="mt-3 d-flex align-items-center gap-3">
 
+                                <div class="mt-3 d-flex gap-2">
+
                                 <a href="{{ route('staff.notification',$notif->id) }}"
-                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+                                    class="btn btn-light rounded-pill">
 
                                     <i class="bi bi-eye"></i>
-
                                     Lihat Tiket
 
                                 </a>
 
-                                @if($notif->is_read)
+                                @if(!$notif->is_read)
 
-                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+                                    <a href="{{ route('staff.notification',$notif->id) }}"
+                                        class="btn btn-success rounded-pill">
 
-                                        <i class="bi bi-check-circle-fill me-1"></i>
+                                        <i class="bi bi-check2-circle"></i>
+                                        Tandai Dibaca
 
+                                    </a>
+
+                                @else
+
+                                    <span class="badge rounded-pill bg-success-subtle text-success">
+
+                                        <i class="bi bi-check-circle-fill"></i>
                                         Sudah Dibaca
 
                                     </span>
 
                                 @endif
+
 
                             </div>
 

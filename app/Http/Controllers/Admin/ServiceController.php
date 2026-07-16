@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -36,11 +37,18 @@ class ServiceController extends Controller
             'department_id' => 'required|exists:departments,id',
             'nama_layanan' => 'required|max:255',
             'deskripsi' => 'required',
+            'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'sla' => 'required|integer|min:1',
             'status' => 'required'
         ]);
 
-        Service::create($request->all());
+        $data = $request->except('icon');
+
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon')->store('services', 'public');
+        }
+
+        Service::create($data);
 
         return redirect()
             ->route('admin.service.index')
@@ -66,12 +74,33 @@ class ServiceController extends Controller
             'department_id' => 'required|exists:departments,id',
             'nama_layanan' => 'required|max:255',
             'deskripsi' => 'required',
+            'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'sla' => 'required|integer|min:1',
             'status' => 'required'
         ]);
 
         $service = Service::findOrFail($id);
-        $service->update($request->all());
+        $data = $request->except('icon', 'hapus_icon');
+
+        if ($request->hasFile('icon')) {
+
+            if ($service->icon && Storage::disk('public')->exists($service->icon)) {
+                Storage::disk('public')->delete($service->icon);
+            }
+
+            $data['icon'] = $request->file('icon')->store('services', 'public');
+
+        } elseif ($request->boolean('hapus_icon')) {
+
+            if ($service->icon && Storage::disk('public')->exists($service->icon)) {
+                Storage::disk('public')->delete($service->icon);
+            }
+
+            $data['icon'] = null;
+
+        }
+
+        $service->update($data);
 
         return redirect()
             ->route('admin.service.index')
@@ -80,7 +109,13 @@ class ServiceController extends Controller
 
     public function destroy(string $id)
     {
-        Service::findOrFail($id)->delete();
+        $service = Service::findOrFail($id);
+
+        if ($service->icon && Storage::disk('public')->exists($service->icon)) {
+            Storage::disk('public')->delete($service->icon);
+        }
+
+        $service->delete();
 
         return redirect()
             ->route('admin.service.index')

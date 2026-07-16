@@ -4,6 +4,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
@@ -58,8 +59,21 @@ img{ max-width:100%; }
 
 /* ---- navbar (identical language to landing page) ---- */
 
-.nav-wrap{ position:sticky; top:16px; z-index:999; padding:0 24px; }
+.nav-wrap{
 
+    position:fixed;      /* keluar dari flow, tapi tetap "menempel" di atas saat scroll */
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:999;
+
+    background:transparent;   /* tidak ada blok putih di baliknya */
+
+    padding:24px 30px 0;
+
+}
 .navbar{
 
     max-width:1260px;
@@ -140,9 +154,16 @@ img{ max-width:100%; }
 
     overflow:hidden;
 
-    background:linear-gradient(180deg,var(--bg-hero) 0%,var(--white) 100%);
+    background:linear-gradient(
+        180deg,
+        #f7faff 0%,
+        #ffffff 100%
+    );
 
-    padding:var(--sp-6) 0 var(--sp-5);
+    /* dulu: padding:var(--sp-6) 0 var(--sp-5);
+       sekarang tambah ruang di atas seukuran tinggi navbar + jarak amannya */
+
+    padding:calc(var(--sp-6) + 96px) 0 var(--sp-5);
 
     text-align:center;
 
@@ -150,27 +171,16 @@ img{ max-width:100%; }
 
 .page-hero::before{
 
-    content:"";
-
-    position:absolute;
-
-    width:380px;
-
-    height:380px;
-
-    border-radius:50%;
-
-    background:radial-gradient(circle,rgba(37,99,235,.14),transparent 70%);
-
-    top:-160px;
-
-    right:-100px;
-
-    filter:blur(60px);
+    display:none;
 
 }
 
-.page-hero .container{ position:relative; z-index:1; }
+.page-hero .container{
+
+    position:relative;
+
+    z-index:1;
+}
 
 .page-eyebrow{
 
@@ -519,20 +529,32 @@ footer::before{
     background:linear-gradient(90deg,var(--primary-dark),var(--primary),var(--primary-light),var(--primary));
 
 }
+.footer-top{
 
-.footer-inner{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1.1fr;
+    gap:24px;
+    padding-bottom:24px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer-contact li{
 
     display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-size:.88rem;
+    margin-bottom:12px;
+    list-style:none;
+    color:rgba(255,255,255,.65);
 
-    flex-wrap:wrap;
+}
 
-    justify-content:space-between;
+.footer-contact i{
 
-    gap:var(--sp-4);
-
-    padding-bottom:var(--sp-4);
-
-    border-bottom:1px solid rgba(255,255,255,.08);
+    color:var(--primary-light);
+    margin-top:3px;
 
 }
 
@@ -591,12 +613,274 @@ footer::before{
 
     .page-hero h1{ font-size:2rem; }
 
+    .nav-wrap{
+
+        padding:14px 14px 0;
+
+    }
+
+    .page-hero{
+
+        padding-top:calc(var(--sp-6) + 84px);
+
+    }
+}
+.navbar{
+
+    max-width:1260px;
+    margin:0 auto;
+    background:rgba(255,255,255,.68);
+    backdrop-filter:blur(24px) saturate(180%);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:999px;
+    box-shadow:0 10px 36px rgba(15,23,42,.09);
+    padding:16px 16px 16px 20px;
+
+    /* baru: */
+    transition:padding .3s ease,box-shadow .3s ease,background .3s ease;
+
 }
 
+/* baru — belum ada di pelajari-lebih-lanjut sama sekali */
+.nav-wrap.is-scrolled .navbar{
+
+    padding:9px 14px 9px 18px;
+    background:rgba(255,255,255,.86);
+    box-shadow:0 6px 22px rgba(15,23,42,.1);
+
+}
+
+.nav-wrap.is-scrolled .logo-pemalang{
+
+    width:36px;
+    height:36px;
+
+}
+
+.nav-link{
+
+    position:relative;   /* baru */
+    color:#475569!important;
+    font-weight:500;
+    font-size:.94rem;
+    margin:0 2px;
+    padding:9px 16px!important;
+    border-radius:999px;
+    transition:.2s;
+
+}
+
+.btn-login{
+
+    border-radius:999px;
+    padding:10px 24px;
+    font-weight:600;
+    font-size:.92rem;
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    border:none;
+    box-shadow:0 8px 18px -6px rgba(37,99,235,.5);
+    transition:.2s;   /* baru */
+
+}
+
+/* baru — belum ada di pelajari-lebih-lanjut sama sekali */
+.btn-login:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 12px 22px -6px rgba(37,99,235,.55);
+
+}
+/* =====================================
+   CHAT FAB
+===================================== */
+
+.chat-fab{
+
+    position:fixed;
+    right:26px;
+    bottom:26px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    border:none;
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;
+    font-size:1.4rem;
+    box-shadow:0 14px 30px -8px rgba(37,99,235,.6);
+    z-index:1050;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s;
+
+}
+
+.chat-fab:hover{
+
+    transform:translateY(-3px) scale(1.05);
+
+}
+
+.chat-fab i{
+
+    transition:.25s;
+
+}
+
+.chat-fab:hover i{
+
+    transform:scale(1.1) rotate(-6deg);
+
+}
+
+/* ---- Back to top ---- */
+
+.back-to-top{
+
+    position:fixed;
+    right:26px;
+    bottom:92px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--primary);
+    font-size:1.05rem;
+    box-shadow:var(--shadow-sm);
+    z-index:1049;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:.3s;
+
+}
+
+.back-to-top.is-visible{
+
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+
+}
+
+.back-to-top:hover{
+
+    background:var(--primary);
+    color:#fff;
+    transform:translateY(-3px);
+
+}
+
+/* ---- Chat panel ---- */
+
+.chat-panel{
+
+    position:fixed;
+    right:26px;
+    bottom:96px;
+    width:300px;
+    background:#fff;
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-lg,0 26px 60px rgba(37,99,235,.18));
+    border:1px solid var(--border);
+    overflow:hidden;
+    z-index:1051;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(16px) scale(.97);
+    transition:.25s ease;
+
+}
+
+.chat-panel.is-open{
+
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+
+}
+
+.chat-panel-head{
+
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+}
+
+.chat-panel-head strong{
+
+    font-size:.94rem;
+
+}
+
+.chat-panel-head small{
+
+    display:block;
+    opacity:.85;
+    font-size:.76rem;
+
+}
+
+.chat-panel-close{
+
+    background:rgba(255,255,255,.18);
+    border:none;
+    color:#fff;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    font-size:.8rem;
+
+}
+
+.chat-panel-body{
+
+    padding:16px 18px;
+
+}
+
+.chat-panel-body a{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:var(--text);
+    font-size:.86rem;
+    margin-bottom:10px;
+    transition:.2s;
+
+}
+
+.chat-panel-body a:hover{
+
+    border-color:#c9dcff;
+    background:var(--bg-soft);
+    color:var(--primary);
+    transform:translateX(2px);
+
+}
+
+.chat-panel-body a i{
+
+    color:var(--primary);
+    font-size:1rem;
+
+}
 </style>
 
 {{-- ===================== NAVBAR ===================== --}}
-
 <div class="nav-wrap">
 
 <nav class="navbar navbar-expand-lg">
@@ -605,7 +889,10 @@ footer::before{
 
         <a class="navbar-brand" href="{{ url('/') }}">
 
-            <img src="{{ asset('images/logo-pemalang.png') }}" class="logo-pemalang" alt="Logo Pemalang">
+            <img
+                src="{{ asset('images/logo-pemalang.png') }}"
+                class="logo-pemalang"
+                alt="Logo Pemalang">
 
             <div class="brand-title">
                 <strong>Helpdesk Diskominfo</strong>
@@ -614,23 +901,35 @@ footer::before{
 
         </a>
 
-        <button class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navbarLanding">
+        <button
+            class="navbar-toggler border-0"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarLanding">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
         <div class="collapse navbar-collapse flex-grow-0" id="navbarLanding">
 
-            <ul class="navbar-nav align-items-lg-center mx-lg-2">
+            <ul class="navbar-nav align-items-lg-center mx-lg-2" id="navScrollSpy">
 
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/#layanan') }}">Layanan</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/#flow') }}">Alur</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/#services') }}" data-section="services">Layanan</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/#flow') }}" data-section="flow">Alur</a>
+                </li>
 
             </ul>
 
-            <a href="{{ route('login') }}" class="btn btn-primary btn-login ms-lg-2 mt-3 mt-lg-0 d-inline-block">
-                <i class="bi bi-box-arrow-in-right me-2"></i> Login
+            <a href="{{ route('login') }}" class="btn btn-primary btn-login ripple-el ms-lg-2 mt-3 mt-lg-0 d-inline-block">
+                Login
+            </a>
+
+            <a href="{{ route('register') }}" class="btn btn-primary btn-login ripple-el ms-lg-2 mt-3 mt-lg-0 d-inline-block">
+                Daftar
             </a>
 
         </div>
@@ -640,7 +939,6 @@ footer::before{
 </nav>
 
 </div>
-
 {{-- ===================== PAGE HERO ===================== --}}
 
 <section class="page-hero">
@@ -718,8 +1016,7 @@ footer::before{
 
         <p>
 
-            Berikut kategori layanan Teknologi Informasi yang dapat diajukan
-            melalui Portal Helpdesk. Daftar layanan lengkap beserta detailnya
+            Berikut kategori layanan yang dapat diajukan melalui Portal Helpdesk. Daftar layanan lengkap beserta detailnya
             dapat dilihat langsung pada halaman beranda.
 
         </p>
@@ -818,8 +1115,8 @@ footer::before{
 
             <div class="manfaat-card" data-aos="fade-up" data-aos-delay="160">
                 <div class="manfaat-icon"><i class="bi bi-laptop"></i></div>
-                <h5>Akses Online 24 Jam</h5>
-                <p>Pengajuan dapat dilakukan kapan saja tanpa harus datang langsung ke kantor.</p>
+                <h5>Akses Online</h5>
+                <p>Pengajuan dapat dilakukan sesuai jam kerja tanpa harus datang langsung ke kantor.</p>
             </div>
 
         </div>
@@ -873,9 +1170,9 @@ footer::before{
 
     <div class="container">
 
-        <div class="footer-inner">
+        <div class="footer-top">
 
-            <div class="footer-col" style="flex:1 1 340px;">
+            <div class="footer-col">
 
                 <div class="footer-brand">
 
@@ -889,23 +1186,44 @@ footer::before{
                 </div>
 
                 <p>
-
                     Portal layanan resmi Dinas Komunikasi dan Informatika
-                    Kabupaten Pemalang untuk pengajuan dan pemantauan
-                    layanan Teknologi Informasi secara online.
-
+                    Kabupaten Pemalang.
                 </p>
 
             </div>
 
-            <div class="footer-col footer-links" style="flex:0 0 200px;">
+            <div class="footer-col footer-links">
 
                 <h6>Navigasi</h6>
 
-                <a href="{{ url('/') }}">Beranda</a>
-                <a href="{{ url('/#layanan') }}">Layanan</a>
+                <a href="{{ url('/#services') }}">Layanan</a>
                 <a href="{{ url('/#flow') }}">Alur Layanan</a>
                 <a href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h6>Hubungi Kami</h6>
+
+                <ul class="footer-contact">
+
+                    <li>
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Jl. Surohadikusumo No. 1, Pemalang, Jawa Tengah</span>
+                    </li>
+
+                    <li>
+                        <i class="bi bi-telephone-fill"></i>
+                        <span>(0284) XXXXXXX</span>
+                    </li>
+
+                    <li>
+                        <i class="bi bi-envelope-fill"></i>
+                        <span>diskominfo@pemalangkab.go.id</span>
+                    </li>
+
+                </ul>
 
             </div>
 
@@ -913,20 +1231,141 @@ footer::before{
 
         <div class="footer-bottom">
 
-            <div>© {{ date('Y') }} Helpdesk Diskominfo Kabupaten Pemalang. Seluruh hak cipta dilindungi.</div>
-
-            <div>Dikembangkan oleh Diskominfo Kabupaten Pemalang</div>
+            <div>© {{ date('Y') }} Helpdesk Diskominfo Kabupaten Pemalang.</div>
 
         </div>
 
     </div>
 
 </footer>
+<div class="chat-panel" id="chatPanel">
+
+    <div class="chat-panel-head">
+
+        <div>
+            <strong>Butuh bantuan?</strong>
+            <small>Hubungi kami</small>
+        </div>
+
+        <button type="button" class="chat-panel-close" id="chatPanelClose" aria-label="Tutup">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+    </div>
+
+    <div class="chat-panel-body">
+
+        <a href="https://wa.me/62284000000">
+            <i class="bi bi-whatsapp"></i>
+            WhatsApp Pengaduan
+        </a>
+
+        <a href="mailto:diskominfo@pemalangkab.go.id">
+            <i class="bi bi-envelope-fill"></i>
+            diskominfo@pemalangkab.go.id
+        </a>
+
+        <a href="tel:0284000000">
+            <i class="bi bi-telephone-fill"></i>
+            (0284) XXXXXXX
+        </a>
+
+    </div>
+
+</div>
+
+<button type="button" class="chat-fab" id="chatFabBtn" aria-label="Hubungi Kami">
+
+    <i class="bi bi-chat-dots-fill"></i>
+
+</button>
+
+<button type="button" class="back-to-top" id="backToTopBtn" aria-label="Kembali ke atas">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+(function(){
+
+    let navWrap = document.querySelector(".nav-wrap");
+
+    if(!navWrap) return;
+
+    window.addEventListener("scroll",function(){
+
+        navWrap.classList.toggle("is-scrolled", window.scrollY > 30);
+
+    });
+
+})();
+</script>
+<script>
 
 AOS.init({ duration:700, once:true, offset:60 });
+
+</script>
+<script>
+
+/* Back to top button */
+(function(){
+
+    let btn = document.getElementById("backToTopBtn");
+
+    if(!btn) return;
+
+    window.addEventListener("scroll",function(){
+
+        btn.classList.toggle("is-visible", window.scrollY > 400);
+
+    });
+
+    btn.addEventListener("click",function(){
+
+        window.scrollTo({ top:0, behavior:"smooth" });
+
+    });
+
+})();
+
+/* Functional chat panel */
+(function(){
+
+    let fab = document.getElementById("chatFabBtn");
+    let panel = document.getElementById("chatPanel");
+    let closeBtn = document.getElementById("chatPanelClose");
+
+    if(!fab || !panel) return;
+
+    fab.addEventListener("click",function(){
+
+        panel.classList.toggle("is-open");
+
+    });
+
+    if(closeBtn){
+
+        closeBtn.addEventListener("click",function(){
+
+            panel.classList.remove("is-open");
+
+        });
+
+    }
+
+    document.addEventListener("click",function(e){
+
+        if(!panel.contains(e.target) && !fab.contains(e.target)){
+
+            panel.classList.remove("is-open");
+
+        }
+
+    });
+
+})();
 
 </script>
 

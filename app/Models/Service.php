@@ -9,15 +9,16 @@ use App\Models\Department;
 class Service extends Model
 {
     use HasFactory;
-
+ 
     protected $fillable = [
         'department_id',
         'nama_layanan',
         'deskripsi',
+        'icon',
         'sla',
         'status',
     ];
-
+ 
     public function department()
     {
         return $this->belongsTo(Department::class);

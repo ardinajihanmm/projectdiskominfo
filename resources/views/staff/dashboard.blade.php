@@ -31,102 +31,106 @@
 </div>
 
 <!-- Statistik -->
-<div class="row g-4 mb-4 stats-row">
+<div class="row g-4 mb-4">
 
-    <!-- Total Tiket -->
-    <div class="col-xl-3 col-md-6 d-flex">
-        <div class="modern-card total-card w-100">
+    <div class="col-xl-3 col-md-6">
+
+        <div class="modern-card total-card">
 
             <div class="icon-box">
                 <i class="bi bi-ticket-perforated-fill"></i>
             </div>
 
             <div class="card-content">
+
                 <small>Total Tiket</small>
 
                 <h2 class="counter"
-                    data-target="{{ $totalTicket }}">
-                    0
-                </h2>
+                    data-target="{{ $totalTicket }}">0</h2>
 
                 <span>
-                    Seluruh tiket yang masuk.
+                    Seluruh tiket yang masuk
                 </span>
+
             </div>
 
         </div>
+
     </div>
 
-    <!-- To Do -->
-    <div class="col-xl-3 col-md-6 d-flex">
-        <div class="modern-card waiting-card w-100">
+    <div class="col-xl-3 col-md-6">
+
+        <div class="modern-card waiting-card">
 
             <div class="icon-box">
                 <i class="bi bi-hourglass-split"></i>
             </div>
 
             <div class="card-content">
+
                 <small>To Do</small>
 
                 <h2 class="counter"
-                    data-target="{{ $todo }}">
-                    0
-                </h2>
+                    data-target="{{ $todo }}">0</h2>
 
                 <span>
-                    Tiket yang belum diproses.
+                    Tiket yang belum diproses
                 </span>
+
             </div>
 
         </div>
+
     </div>
 
-    <!-- In Progress -->
-    <div class="col-xl-3 col-md-6 d-flex">
-        <div class="modern-card progress-card w-100">
+    <div class="col-xl-3 col-md-6">
+
+        <div class="modern-card progress-card">
 
             <div class="icon-box">
                 <i class="bi bi-arrow-repeat"></i>
             </div>
 
             <div class="card-content">
+
                 <small>In Progress</small>
 
                 <h2 class="counter"
-                    data-target="{{ $progress }}">
-                    0
-                </h2>
+                    data-target="{{ $progress }}">0</h2>
 
                 <span>
-                    Tiket yang sedang dikerjakan.
+                    Tiket yang sedang dikerjakan
                 </span>
+
             </div>
 
         </div>
+
     </div>
 
-    <!-- Completed -->
-    <div class="col-xl-3 col-md-6 d-flex">
-        <div class="modern-card complete-card w-100">
+    <div class="col-xl-3 col-md-6">
+
+        <div class="modern-card complete-card">
 
             <div class="icon-box">
                 <i class="bi bi-check-circle-fill"></i>
             </div>
 
             <div class="card-content">
+
                 <small>Completed</small>
 
                 <h2 class="counter"
-                    data-target="{{ $completed }}">
-                    0
-                </h2>
+                    data-target="{{ $completed }}">0</h2>
 
                 <span>
-                    Tiket yang telah selesai.
+                    Tiket yang telah selesai
                 </span>
+
             </div>
 
         </div>
+
     </div>
 
 </div>
@@ -212,49 +216,66 @@
 
                 <div class="d-flex align-items-center mb-4">
 
-                    <div class="quick-title-icon">
+                     <div class="quick-title-icon">
                         <i class="bi bi-lightning-charge-fill"></i>
                     </div>
 
                     <div>
-                        <h4 class="mb-1 fw-bold">Aksi Cepat</h4>
-                        <small class="text-muted">
-                            Menu yang sering digunakan Staff.
-                        </small>
-                    </div>
+                        <h2 class="fw-bold mb-1">
+                          Aksi Cepat
+                        </h2>
 
+                        <small class="text-muted">
+                            Akses menu yang paling sering digunakan.
+                        </small> 
+                     </div> 
                 </div>
 
-                <div class="row g-3">
-
+                <div class="row g-4">
                     <div class="col-6">
-                        <a href="{{ route('staff.ticket.index') }}" class="quick-menu quick-blue">
+                        <a href="{{ route('staff.ticket.index') }}"
+                            class="quick-menu quick-blue">
+
                             <i class="bi bi-ticket-perforated-fill"></i>
-                            <h6>Daftar<br>Tiket</h6>
+
+                            <h5>
+                                 Daftar<br>Tiket
+                            </h5>
+
                         </a>
+
                     </div>
 
                     <div class="col-6">
-                        <a href="{{ route('staff.kanban') }}" class="quick-menu quick-green">
+                        <a href="{{ route('staff.kanban') }}"
+                            class="quick-menu quick-green">
+
                             <i class="bi bi-kanban-fill"></i>
-                            <h6>Kanban<br>Board</h6>
+
+                            <h5>
+                                Kanban<br>Board
+                            </h5>
                         </a>
-                    </div>
+                    
+                     </div>
 
                     <div class="col-12">
-                        <a href="{{ route('staff.profile') }}" class="quick-menu quick-gray">
+
+                        <a href="{{ route('staff.profile') }}"
+                            class="quick-menu quick-gray">
+
                             <i class="bi bi-person-circle"></i>
-                            <h6>Profil Saya</h6>
+
+                            <h5>
+                                Profil Saya
+                            </h5>
+
                         </a>
                     </div>
-
-                </div>
-
             </div>
-
         </div>
-
     </div>
+    
 
 </div>
 

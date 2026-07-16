@@ -37,7 +37,10 @@ use App\Http\Controllers\LandingController;
 
 Route::get('/', [LandingController::class, 'index'])
     ->name('landing');
-
+Route::get('/pelajari-lebih-lanjut', [
+    LandingController::class,
+    'pelajariLebihLanjut'
+])->name('landing.pelajari');
 /*
 |--------------------------------------------------------------------------
 | Authentication

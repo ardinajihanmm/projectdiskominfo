@@ -12,4 +12,9 @@ class LandingController extends Controller
 
         return view('landing.index', compact('services'));
     }
+
+    public function pelajariLebihLanjut()
+    {
+        return view('landing.pelajari-lebih-lanjut');
+    }
 }

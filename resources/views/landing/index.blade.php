@@ -106,15 +106,15 @@ img{
 ===================================== */
 
 .nav-wrap{
-
     position:sticky;
-
-    top:16px;
-
+    top:0;
     z-index:999;
 
-    padding:0 24px;
+    /* Background biru di belakang navbar */
+    background:var(--bg-hero);
 
+    /* Tetap memberi jarak di atas, kiri, dan kanan navbar */
+    padding:16px 24px 0;
 }
 
 .navbar{
@@ -413,18 +413,19 @@ img{
 }
 
 .hero-title{
-
+ display:flex;
+    flex-direction:column;
     font-size:2.85rem;
 
     font-weight:800;
 
-    line-height:1.14;
+    line-height:1;
 
     letter-spacing:-.02em;
 
     color:var(--text);
 
-    margin-bottom:18px;
+    margin-bottom:14px;
 
 }
 
@@ -450,7 +451,7 @@ img{
 
     line-height:1.8;
 
-    margin-bottom:28px;
+    margin-bottom:0px;
 
 }
 
@@ -526,85 +527,6 @@ img{
 
 }
 
-.hero-quick{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    background:var(--white);
-
-    border:1px solid var(--border);
-
-    border-radius:var(--radius-md);
-
-    padding:14px 18px;
-
-    max-width:420px;
-
-    box-shadow:var(--shadow-sm);
-
-    transition:.25s;
-
-}
-
-.hero-quick:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:var(--shadow-md);
-
-    border-color:#c9dcff;
-
-}
-
-.hero-quick-icon{
-
-    width:42px;
-    height:42px;
-    flex-shrink:0;
-
-    border-radius:12px;
-
-    background:linear-gradient(135deg,var(--primary),var(--primary-light));
-
-    color:#fff;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:1.05rem;
-
-}
-
-.hero-quick-text strong{
-
-    display:block;
-    font-size:.95rem;
-    color:var(--text);
-
-}
-
-.hero-quick-text small{
-
-    color:var(--muted);
-
-}
-
-.hero-quick-arrow{
-
-    margin-left:auto;
-
-    color:var(--primary);
-
-    font-size:1.05rem;
-
-}
 
 /* ---- hero right: search + service grid ---- */
 
@@ -2150,6 +2072,7 @@ footer::before{
     .nav-wrap{
 
         padding:0 14px;
+        background:var(--bg-hero);
 
     }
 
@@ -2178,6 +2101,7 @@ footer::before{
     }
 
 }
+
 .hero-title{
     display:flex;
     flex-direction:column;
@@ -2186,21 +2110,108 @@ footer::before{
 }
 
 .hero-title .title-small{
-    font-size:2.8rem;
+    font-size:2.4rem;      
     font-weight:790;
     color:var(--text);
+    text-decoration:none;
 }
 
 .hero-title .title-highlight{
-    font-size:4.2rem;
+    font-size:3.4rem;  
     font-weight:800;
     color:var(--primary);
 }
 
 .hero-title .title-big{
-    font-size:3.7rem;
+    font-size:3.2rem;    
     font-weight:800;
     color:var(--text);
+}
+.hero-content{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;   
+    text-align:left;
+    max-width:420px;          
+    margin:0 auto;            
+    padding-top:8px;
+    text-decoration:none; 
+}
+
+.hero-title{
+    align-items:flex-start;   
+}
+
+.hero-text{
+    font-size:1.02rem;
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:4px;
+}
+
+.hero-image{
+    margin:0;
+    max-width:190px;
+    overflow:hidden;
+    height:125px;           
+}
+
+.hero-image img{
+    width:100%;
+    height:auto;
+    display:block;
+    margin-top:-15px;
+    border-radius:var(--radius-md);
+}
+
+.hero-quick{
+    display:inline-flex;
+    align-items:center;
+    gap:16px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:14px 18px;
+    box-shadow:var(--shadow-sm);
+    transition:.25s;
+    text-align:left;
+    width:100%;
+}
+
+.hero-quick:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-md);
+    border-color:#c9dcff;
+}
+
+.hero-quick-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.05rem;
+}
+
+.hero-quick-text strong{
+    display:block;
+    font-size:.95rem;
+    color:var(--text);
+}
+
+.hero-quick-text small{
+    color:var(--muted);
+    text-decoration:none !important; 
+}
+
+.hero-quick-arrow{
+    margin-left:auto;
+    color:var(--primary);
+    font-size:1.05rem;
 }
 </style>
 
@@ -2301,41 +2312,39 @@ footer::before{
             {{-- LEFT --}}
 
             <div class="col-lg-5" data-aos="fade-right" data-aos-duration="700">
+<div class="hero-content">
 
-                <div class="hero-content">
+    <h1 class="hero-title">
 
-                    <div class="hero-eyebrow">
+        <span class="title-small">Helpdesk</span>
 
-                        <i class="bi bi-shield-check"></i>
+        <span class="title-highlight">Diskominfo</span>
 
-                        Portal Layanan Teknologi Informasi
+        <span class="title-big">Kabupaten</span>
 
-                    </div>
+        <span class="title-big">Pemalang</span>
 
-                    <h1 class="hero-title">
+    </h1>
 
-    <span class="title-small">Helpdesk</span>
+    <p class="hero-text">
+        Selamat datang di portal layanan teknologi informasi dan komunikasi Diskominfo Kabupaten Pemalang.
+    </p>
 
-    <span class="title-highlight">Diskominfo</span>
+    <div class="hero-image" data-aos="fade-up" data-aos-duration="700">
+        <img
+            src="{{ asset('images/landing-illustration.png') }}"
+            alt="Ilustrasi Layanan Helpdesk Diskominfo">
+    </div>
 
-    <span class="title-big">Kabupaten</span>
-
-    <span class="title-big">Pemalang</span>
-
-</h1>
-
-                    <p class="hero-text">
-                        Selamat datang di portal layanan teknologi informasi dan komunikasi Diskominfo Kabupaten Cilacap.
-                    </p>
-<a href="{{ route('login') }}" class="hero-quick ripple-el">
+   <a href="{{ route('login') }}" class="hero-quick ripple-el" style="text-decoration:none;">
 
     <span class="hero-quick-icon">
         <i class="bi bi-headset"></i>
     </span>
 
     <span class="hero-quick-text">
-        <strong>Pengaduan</strong>
-        <small>Sampaikan kendala layanan TIK Anda</small>
+        <strong style="text-decoration:none;">Pengaduan</strong>
+        <small style="text-decoration:none;">Sampaikan kendala layanan TIK Anda</small>
     </span>
 
     <span class="hero-quick-arrow">
@@ -2344,10 +2353,8 @@ footer::before{
 
 </a>
 
-                </div>
-
-            </div>
-
+</div>
+</div>
             {{-- RIGHT: SEARCH + SERVICE GRID --}}
 
             <div class="col-lg-7" data-aos="fade-left" data-aos-duration="700">
@@ -2395,7 +2402,7 @@ footer::before{
                                 <span class="service-thumb">
 
                                     <img
-                                        src="{{ asset('images/logo-pemalang.png') }}"
+                                        src="{{ $service->icon ? asset('storage/'.$service->icon) : asset('images/logo-pemalang.png') }}"
                                         alt="{{ $service->nama_layanan }}">
 
                                 </span>
@@ -2641,7 +2648,7 @@ footer::before{
 
         <div>
             <strong>Butuh bantuan?</strong>
-            <small>Tim Helpdesk Diskominfo Pemalang</small>
+            <small>Hubungi kami</small>
         </div>
 
         <button type="button" class="chat-panel-close" id="chatPanelClose" aria-label="Tutup">
@@ -2667,10 +2674,6 @@ footer::before{
             (0284) XXXXXXX
         </a>
 
-        <a href="#contact">
-            <i class="bi bi-geo-alt-fill"></i>
-            Lihat Kontak Lengkap
-        </a>
 
     </div>
 

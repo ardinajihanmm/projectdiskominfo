@@ -48,44 +48,6 @@ body{
     margin-bottom:0;
 }
 
-.account-status{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-    color:#fff;
-    border-radius:22px;
-    padding:25px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    height:100%;
-    box-shadow:0 10px 25px rgba(37,99,235,.25);
-}
-
-.status-icon{
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:rgba(255,255,255,.18);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:30px;
-}
-
-.account-status small{
-    display:block;
-    opacity:.85;
-}
-
-.account-status h6{
-    font-size:1.2rem;
-    font-weight:700;
-}
-
-.account-status span{
-    font-size:.9rem;
-    opacity:.9;
-}
-
 /* ===========================
         CARD STATISTIK
 =========================== */
@@ -342,83 +304,404 @@ body{
             CHART
 ===================================== */
 
-.chart-card{
+.stat-pro-card{
     border-radius:24px;
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
 }
-
-.chart-card canvas{
-    max-height:330px;
-}
-
-.chart-badge{
-    background:#EEF4FF;
+ 
+/* ---------- Header ---------- */
+.stat-pro-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:#EAF1FF;
     color:#2563EB;
-    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+ 
+.stat-pro-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#EAF1FF;
+    color:#2563EB;
+    font-weight:700;
     border-radius:30px;
-    padding:8px 18px;
+    padding:10px 22px;
+    font-size:.95rem;
+    white-space:nowrap;
+    height:fit-content;
+}
+ 
+/* ---------- Filter ---------- */
+.stat-pro-select{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border:1px solid #E2E8F0;
+    border-radius:14px;
+    padding:10px 36px 10px 16px;
+    min-width:190px;
+}
+ 
+.stat-pro-select > i:first-child{
+    color:#94A3B8;
+    font-size:16px;
+}
+ 
+.stat-pro-select select{
+    border:none;
+    outline:none;
+    background:transparent;
+    appearance:none;
+    -webkit-appearance:none;
+    font-weight:600;
+    color:#1E293B;
+    font-size:.92rem;
+    width:100%;
+    cursor:pointer;
+}
+ 
+.stat-pro-select .chevron{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#94A3B8;
+    font-size:13px;
+    pointer-events:none;
+}
+ 
+/* ---------- Donut ---------- */
+.stat-pro-donut-wrap{
+    position:relative;
+    max-width:360px;
+    margin:0 auto;
+}
+ 
+.stat-pro-donut-center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    pointer-events:none;
+}
+ 
+.stat-pro-donut-center h2{
+    font-size:2.2rem;
+    font-weight:800;
+    color:#1E293B;
+    margin-bottom:2px;
+}
+ 
+.stat-pro-donut-center span{
+    font-size:.85rem;
+    color:#94A3B8;
+    font-weight:600;
+}
+ 
+/* ---------- Legend ---------- */
+.stat-pro-legend{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+}
+ 
+.legend-dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    display:inline-block;
+}
+ 
+.legend-pct{
+    font-weight:800;
+    font-size:1.05rem;
+}
+ 
+.legend-bar{
+    height:8px;
+    border-radius:20px;
+    background:#EEF2F6;
+    overflow:hidden;
+}
+ 
+.legend-bar-fill{
+    height:100%;
+    border-radius:20px;
+    transition:width .6s ease;
+}
+ 
+/* ---------- Mini summary cards ---------- */
+.stat-pro-mini{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    border-radius:18px;
+    padding:18px;
+    height:100%;
+    transition:.3s;
+    min-height:110px;
+}
+ 
+.stat-pro-mini:hover{
+    transform:translateY(-3px);
+}
+ 
+.mini-icon{
+    width:46px;
+    height:46px;
+    min-width:46px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:#fff;
+}
+ 
+.mini-number{
+    font-weight:800;
+    font-size:1.6rem;
+    line-height:1.1;
+    margin-bottom:2px;
+    color:#1E293B;
+}
+ 
+.mini-label{
+    font-size:.85rem;
+    color:#64748B;
+    font-weight:600;
+    margin-bottom:6px;
+}
+ 
+.mini-pct{
+    display:inline-block;
+    font-size:.75rem;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:20px;
+}
+ 
+.stat-pro-mini-amber{ background:#FEF6E7; }
+.stat-pro-mini-amber .mini-icon{ background:linear-gradient(135deg,#FBBF24,#F59E0B); }
+.stat-pro-mini-amber .mini-pct{ background:#FDECC8; color:#B45309; }
+ 
+.stat-pro-mini-blue{ background:#EAF1FF; }
+.stat-pro-mini-blue .mini-icon{ background:linear-gradient(135deg,#3B82F6,#2563EB); }
+.stat-pro-mini-blue .mini-pct{ background:#D6E4FF; color:#1D4ED8; }
+ 
+.stat-pro-mini-green{ background:#EAF9EF; }
+.stat-pro-mini-green .mini-icon{ background:linear-gradient(135deg,#4ADE80,#16A34A); }
+.stat-pro-mini-green .mini-pct{ background:#D3F3DE; color:#15803D; }
+ 
+.stat-pro-mini-purple{ background:#F1EDFC; }
+.stat-pro-mini-purple .mini-icon{ background:linear-gradient(135deg,#A78BFA,#7C3AED); }
+.stat-pro-mini-purple .mini-pct{ background:#E4DBFA; color:#6D28D9; }
+
+.stat-pro-donut-wrap{
+    position:relative;
+    width:100%;
+    max-width:340px;
+    height:340px;
+    margin:auto;
 }
 
+#statusDonutChart{
+    width:100% !important;
+    height:300px !important;
+}
 /* =====================================
         TIMELINE AKTIVITAS
 ===================================== */
+.stat-pro-card,
+.timeline-card{
+    height:100%;
+}
 
-.activity-card{
+.timeline-card{
     border-radius:24px;
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
+    height:100%;
 }
 
-.activity-item{
+.timeline-card .card-body{
+    max-height:720px;
+    overflow-y:auto;
+}
+
+.timeline-header{
+
+    padding:22px 24px;
+
+    border-bottom:1px solid #edf2f7;
+
+    background:white;
+
+}
+
+.timeline-body{
+
+    padding:24px;
+
+    max-height:500px;
+
+    overflow-y:auto;
+
+}
+
+.timeline-item-modern{
+
     display:flex;
+
     gap:18px;
-    margin-bottom:25px;
+
+    position:relative;
+
+    padding-bottom:25px;
+
 }
 
-.activity-item:last-child{
-    margin-bottom:0;
+.timeline-item-modern:last-child{
+
+    padding-bottom:0;
+
 }
 
-.activity-icon{
-    width:55px;
-    height:55px;
-    border-radius:16px;
+.timeline-item-modern:not(:last-child)::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:19px;
+
+    top:42px;
+
+    width:2px;
+
+    height:calc(100% - 18px);
+
+    background:#dbeafe;
+
+}
+
+.timeline-dot{
+
+    width:40px;
+
+    height:40px;
+
+    min-width:40px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.timeline-card-item{
+
+    flex:1;
+
+    background:#f8fafc;
+
+    border-radius:18px;
+
+    padding:16px;
+
+    transition:.3s;
+
+}
+
+.timeline-card-item:hover{
+
+    transform:translateY(-3px);
+
+    background:white;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+}
+
+.timeline-card-item h6{
+
+    margin-bottom:6px;
+
+    font-weight:700;
+
+}
+
+.timeline-card-item p{
+
+    margin-bottom:8px;
+
+    color:#64748b;
+
+    font-size:.92rem;
+
+    line-height:1.5;
+
+}
+
+.timeline-card-item small{
+
+    color:#94a3b8;
+
+}
+.timeline-item-modern{
+    display:flex;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+.timeline-dot{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    color:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:22px;
-    color:#fff;
     flex-shrink:0;
 }
 
-.activity-primary{
-    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+.timeline-card-item{
+    flex:1;
 }
 
-.activity-success{
-    background:linear-gradient(135deg,#22C55E,#15803D);
+.timeline-card-item strong{
+    color:#2563eb;
 }
 
-.activity-warning{
-    background:linear-gradient(135deg,#F59E0B,#D97706);
+.timeline-card-item p{
+    margin-bottom:5px;
 }
 
-.activity-info{
-    background:linear-gradient(135deg,#06B6D4,#0891B2);
+.chart-card{
+    border-radius:24px;
 }
 
-.activity-content h6{
-    margin-bottom:4px;
-    font-weight:700;
-}
-
-.activity-content p{
-    margin-bottom:4px;
-    color:#64748B;
-    font-size:.92rem;
-}
-
-.activity-content small{
-    color:#94A3B8;
+.timeline-card{
+    border-radius:24px;
 }
 </style>
 
@@ -450,38 +733,6 @@ Pantau statistik tiket, kelola layanan, pengguna, serta aktivitas
 helpdesk dalam satu dashboard.
 
 </p>
-
-</div>
-
-<div class="col-lg-4">
-
-<div class="account-status">
-
-<div class="status-icon">
-
-<i class="bi bi-shield-check"></i>
-
-</div>
-
-<div>
-
-<small>Status Sistem</small>
-
-<h6 class="mb-1">
-
-Administrator
-
-</h6>
-
-<span>
-
-Seluruh fitur administrasi aktif.
-
-</span>
-
-</div>
-
-</div>
 
 </div>
 
@@ -789,12 +1040,201 @@ Tiket berhasil diselesaikan.
     </div>
 
 </div>
-<div class="row g-4">
+<div class="row g-4 mb-4">
 
-    {{-- Statistik Tiket --}}
-    <div class="col-lg-8">
+  
+{{-- ==================== STATISTIK ==================== --}}
+<div class="col-lg-8">
+ 
+    <div class="card stat-pro-card border-0 shadow-sm h-100">
+        <div class="card-body p-4">
+ 
+            {{-- ============ HEADER ============ --}}
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="stat-pro-icon">
+                        <i class="bi bi-bar-chart-fill"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-1">Statistik Tiket</h3>
+                        <p class="text-muted mb-0 small">
+                            Distribusi &amp; perkembangan status tiket Helpdesk.
+                        </p>
+                    </div>
+                </div>
+ 
+                <span class="stat-pro-badge">
+                    <span id="badgeTotal">{{ $totalTicket }}</span> Tiket
+                </span>
+            </div>
+ 
+           {{-- ============ FILTER ============ --}}
+            <div class="d-flex flex-wrap gap-3 mb-4">
 
-        <div class="card chart-card border-0 h-100">
+                <div class="stat-pro-select">
+                    <i class="bi bi-calendar3"></i>
+                    <select id="filterMonth">
+                        <option value="" selected>Semua Bulan</option>
+                        @foreach($monthlyLabels as $m)
+                            <option value="{{ $m }}">{{ $m }}</option>
+                        @endforeach
+                    </select>
+                    <i class="bi bi-chevron-down chevron"></i>
+                </div>
+
+                <div class="stat-pro-select">
+                    <i class="bi bi-grid-fill"></i>
+                    <select id="filterService">
+                        <option value="" selected>Semua Layanan</option>
+                        @foreach($serviceLabels as $s)
+                            <option value="{{ $s }}">{{ $s }}</option>
+                        @endforeach
+                    </select>
+                    <i class="bi bi-chevron-down chevron"></i>
+                </div>
+
+            </div>
+ 
+            {{-- ============ DONUT + LEGEND ============ --}}
+            <div class="row align-items-center g-4">
+ 
+                <div class="col-md-6">
+                    <div class="stat-pro-donut-wrap">
+                        <canvas id="statusDonutChart"></canvas>
+                        <div class="stat-pro-donut-center">
+                            <h2 id="donutTotal">0</h2>
+                            <span>Total Tiket</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-md-6">
+                    <div class="stat-pro-legend">
+ 
+                        <div class="stat-pro-legend-item">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background:#F59E0B"></span>
+                                    <strong>To Do</strong>
+                                </div>
+                                <span class="legend-pct" style="color:#F59E0B" id="pctTodo">0%</span>
+                            </div>
+                            <small class="text-muted d-block mb-2"><span id="legendTodo">0</span> Tiket</small>
+                            <div class="legend-bar">
+                                <div class="legend-bar-fill" id="barTodo" style="width:0%;background:#F59E0B"></div>
+                            </div>
+                        </div>
+ 
+                        <div class="stat-pro-legend-item">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background:#2563EB"></span>
+                                    <strong>In Progress</strong>
+                                </div>
+                                <span class="legend-pct" style="color:#2563EB" id="pctProgress">0%</span>
+                            </div>
+                            <small class="text-muted d-block mb-2"><span id="legendProgress">0</span> Tiket</small>
+                            <div class="legend-bar">
+                                <div class="legend-bar-fill" id="barProgress" style="width:0%;background:#2563EB"></div>
+                            </div>
+                        </div>
+ 
+                        <div class="stat-pro-legend-item">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background:#16A34A"></span>
+                                    <strong>Completed</strong>
+                                </div>
+                                <span class="legend-pct" style="color:#16A34A" id="pctCompleted">0%</span>
+                            </div>
+                            <small class="text-muted d-block mb-2"><span id="legendCompleted">0</span> Tiket</small>
+                            <div class="legend-bar">
+                                <div class="legend-bar-fill" id="barCompleted" style="width:0%;background:#16A34A"></div>
+                            </div>
+                        </div>
+ 
+                    </div>
+                </div>
+ 
+            </div>
+ 
+            <hr class="my-4">
+ 
+            {{-- ============ MINI SUMMARY CARDS ============ --}}
+            <div class="row g-3">
+ 
+                <div class="col-6 col-lg-3">
+                    <div class="stat-pro-mini stat-pro-mini-amber">
+                        <div class="mini-icon"><i class="bi bi-clipboard-fill"></i></div>
+                        <div class="mini-body">
+                            <h3 class="mini-number">{{ $todo }}</h3>
+                            <div class="mini-label">To Do</div>
+                            <span class="mini-pct" id="miniPctTodo">0%</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-6 col-lg-3">
+                    <div class="stat-pro-mini stat-pro-mini-blue">
+                        <div class="mini-icon"><i class="bi bi-arrow-repeat"></i></div>
+                        <div class="mini-body">
+                            <h3 class="mini-number">{{ $progress }}</h3>
+                            <div class="mini-label">In Progress</div>
+                            <span class="mini-pct" id="miniPctProgress">0%</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-6 col-lg-3">
+                    <div class="stat-pro-mini stat-pro-mini-green">
+                        <div class="mini-icon"><i class="bi bi-check-circle-fill"></i></div>
+                        <div class="mini-body">
+                            <h3 class="mini-number">{{ $completed }}</h3>
+                            <div class="mini-label">Completed</div>
+                            <span class="mini-pct" id="miniPctCompleted">0%</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="col-6 col-lg-3">
+                    <div class="stat-pro-mini stat-pro-mini-purple">
+                        <div class="mini-icon"><i class="bi bi-ticket-perforated-fill"></i></div>
+                        <div class="mini-body">
+                            <h3 class="mini-number">{{ $totalTicket }}</h3>
+                            <div class="mini-label">Total Tiket</div>
+                            <span class="mini-pct" id="miniPctTotal">100%</span>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+ 
+            {{-- Data source untuk JS (tetap dipakai, JANGAN dihapus) --}}
+            <div
+                id="chartData"
+                data-todo="{{ $todo }}"
+                data-progress="{{ $progress }}"
+                data-completed="{{ $completed }}"
+                data-monthlabels='@json($monthlyLabels)'
+                data-monthtotals='@json($monthlyTotals)'
+                data-monthtodo='@json($monthlyTodo)'
+                data-monthprogress='@json($monthlyProgress)'
+                data-monthcompleted='@json($monthlyCompleted)'
+                data-servicelabels='@json($serviceLabels)'
+                data-servicetotals='@json($serviceTotals)'
+                data-servicetodo='@json($serviceTodo)'
+                data-serviceprogress='@json($serviceProgress)'
+                data-servicecompleted='@json($serviceCompleted)'>
+            </div>
+ 
+        </div>
+    </div>
+ 
+</div>  
+    {{-- ==================== TIMELINE ==================== --}}
+    <div class="col-lg-4">
+
+        <div class="card timeline-card border-0 shadow-sm h-100">
 
             <div class="card-body p-4">
 
@@ -804,162 +1244,89 @@ Tiket berhasil diselesaikan.
 
                         <h4 class="fw-bold mb-1">
 
-                            Statistik Tiket
+                            <i class="bi bi-activity text-primary"></i>
+
+                            Timeline Aktivitas
 
                         </h4>
 
                         <small class="text-muted">
 
-                            Distribusi status tiket Helpdesk.
+                            {{ $activities->count() }} aktivitas terbaru
 
                         </small>
 
                     </div>
 
-                    <span class="chart-badge">
-
-                        {{ $totalTicket }} Tiket
-
-                    </span>
-
                 </div>
 
-                <div id="chartData"
+                @forelse($activities as $activity)
 
-                     data-todo="{{ $todo }}"
-                     data-progress="{{ $progress }}"
-                     data-completed="{{ $completed }}">
+                <div class="timeline-item-modern">
 
-                    <canvas id="ticketChart"></canvas>
+                    <div class="timeline-dot
 
-                </div>
+                    @if($activity->status=='Completed')
+                        bg-success
+                    @elseif($activity->status=='In Progress')
+                        bg-info
+                    @else
+                        bg-warning
+                    @endif">
 
-            </div>
+                        @if($activity->status=='Completed')
 
-        </div>
+                            <i class="bi bi-check"></i>
 
-    </div>
+                        @elseif($activity->status=='In Progress')
 
-    {{-- Timeline Aktivitas --}}
-    <div class="col-lg-4">
+                            <i class="bi bi-arrow-repeat"></i>
 
-        <div class="card activity-card border-0 h-100">
+                        @else
 
-            <div class="card-body p-4">
+                            <i class="bi bi-hourglass"></i>
 
-                <h4 class="fw-bold mb-4">
-
-                    Aktivitas Sistem
-
-                </h4>
-
-                <div class="activity-item">
-
-                    <div class="activity-icon activity-primary">
-
-                        <i class="bi bi-people-fill"></i>
+                        @endif
 
                     </div>
 
-                    <div class="activity-content">
+                    <div class="timeline-card-item">
 
-                        <h6>Total User</h6>
+                        <strong>{{ $activity->kode_ticket }}</strong>
 
-                        <p>
+                        <p class="mb-1">
 
-                            Saat ini terdapat
+                            Status menjadi
 
-                            <strong>{{ $totalUser }}</strong>
-
-                            pengguna terdaftar.
+                            <b>{{ $activity->status }}</b>
 
                         </p>
 
-                        <small>Data realtime</small>
+                        <small class="text-muted">
+
+                            {{ $activity->updated_at->diffForHumans() }}
+
+                        </small>
 
                     </div>
 
                 </div>
 
-                <div class="activity-item">
+                @empty
 
-                    <div class="activity-icon activity-success">
+                <div class="text-center py-5">
 
-                        <i class="bi bi-tools"></i>
+                    <i class="bi bi-clock-history display-5 text-secondary"></i>
 
-                    </div>
+                    <p class="mt-3">
 
-                    <div class="activity-content">
+                        Belum ada aktivitas.
 
-                        <h6>Total Layanan</h6>
-
-                        <p>
-
-                            Sistem memiliki
-
-                            <strong>{{ $totalService }}</strong>
-
-                            layanan aktif.
-
-                        </p>
-
-                        <small>Data realtime</small>
-
-                    </div>
+                    </p>
 
                 </div>
 
-                <div class="activity-item">
-
-                    <div class="activity-icon activity-warning">
-
-                        <i class="bi bi-hourglass-split"></i>
-
-                    </div>
-
-                    <div class="activity-content">
-
-                        <h6>Tiket Diproses</h6>
-
-                        <p>
-
-                            <strong>{{ $progress }}</strong>
-
-                            tiket sedang dikerjakan.
-
-                        </p>
-
-                        <small>Update terbaru</small>
-
-                    </div>
-
-                </div>
-
-                <div class="activity-item">
-
-                    <div class="activity-icon activity-info">
-
-                        <i class="bi bi-check-circle-fill"></i>
-
-                    </div>
-
-                    <div class="activity-content">
-
-                        <h6>Tiket Selesai</h6>
-
-                        <p>
-
-                            <strong>{{ $completed }}</strong>
-
-                            tiket telah selesai.
-
-                        </p>
-
-                        <small>Monitoring Helpdesk</small>
-
-                    </div>
-
-                </div>
+                @endforelse
 
             </div>
 
@@ -968,197 +1335,9 @@ Tiket berhasil diselesaikan.
     </div>
 
 </div>
+
 @push('scripts')
-
+@vite(['resources/js/chart.js'])
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    // ===========================
-    // CHART DATA
-    // ===========================
-
-    const chartElement = document.getElementById('chartData');
-
-    if(chartElement){
-
-        const todo = parseInt(chartElement.dataset.todo);
-        const progress = parseInt(chartElement.dataset.progress);
-        const completed = parseInt(chartElement.dataset.completed);
-
-        const total = todo + progress + completed;
-
-        const ctx = document.getElementById('ticketChart').getContext('2d');
-
-        // Gradient
-        const gradientTodo = ctx.createLinearGradient(0,0,0,400);
-        gradientTodo.addColorStop(0,"#FACC15");
-        gradientTodo.addColorStop(1,"#D97706");
-
-        const gradientProgress = ctx.createLinearGradient(0,0,0,400);
-        gradientProgress.addColorStop(0,"#38BDF8");
-        gradientProgress.addColorStop(1,"#0284C7");
-
-        const gradientCompleted = ctx.createLinearGradient(0,0,0,400);
-        gradientCompleted.addColorStop(0,"#4ADE80");
-        gradientCompleted.addColorStop(1,"#15803D");
-
-        new Chart(ctx,{
-
-            type:'doughnut',
-
-            data:{
-
-                labels:[
-                    'To Do',
-                    'In Progress',
-                    'Completed'
-                ],
-
-                datasets:[{
-
-                    data:[
-                        todo,
-                        progress,
-                        completed
-                    ],
-
-                    backgroundColor:[
-                        gradientTodo,
-                        gradientProgress,
-                        gradientCompleted
-                    ],
-
-                    borderColor:'#fff',
-
-                    borderWidth:5,
-
-                    hoverOffset:18
-
-                }]
-
-            },
-
-            options:{
-
-                responsive:true,
-
-                maintainAspectRatio:false,
-
-                cutout:'68%',
-
-                animation:{
-                    animateRotate:true,
-                    duration:1800
-                },
-
-                plugins:{
-
-                    legend:{
-
-                        position:'bottom',
-
-                        labels:{
-
-                            usePointStyle:true,
-
-                            pointStyle:'circle',
-
-                            padding:20,
-
-                            font:{
-                                size:13,
-                                weight:'600'
-                            }
-
-                        }
-
-                    },
-
-                    tooltip:{
-
-                        backgroundColor:'#1E293B',
-
-                        padding:12,
-
-                        callbacks:{
-
-                            label:function(context){
-
-                                let value=context.raw;
-
-                                let percent=((value/total)*100).toFixed(1);
-
-                                return value+' Tiket ('+percent+'%)';
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-
-    // ===========================
-    // COUNTER ANIMATION
-    // ===========================
-
-    const counters = document.querySelectorAll('.counter');
-
-    counters.forEach(counter=>{
-
-        const target=parseInt(counter.dataset.target);
-
-        let count=0;
-
-        const speed=Math.max(15,1200/Math.max(target,1));
-
-        function updateCounter(){
-
-            if(count<target){
-
-                count++;
-
-                counter.innerText=count;
-
-                setTimeout(updateCounter,speed);
-
-            }else{
-
-                counter.innerText=target;
-
-            }
-
-        }
-
-        updateCounter();
-
-    });
-
-    // ===========================
-    // CARD HOVER EFFECT
-    // ===========================
-
-    document.querySelectorAll('.modern-card').forEach(card=>{
-
-        card.addEventListener('mouseenter',()=>{
-
-            card.style.transition=".35s";
-
-        });
-
-    });
-
-});
-</script>
-
 @endpush
-
 @endsection

@@ -874,5 +874,28 @@ use Illuminate\Support\Str;
     </div>
 
 </div>
+
+</div> {{-- akhir row Tiket + Timeline --}}
+
+<script>
+document.querySelectorAll('.counter').forEach(counter => {
+    const target = parseInt(counter.dataset.target);
+
+    let count = 0;
+
+    const update = () => {
+        if (count < target) {
+            count++;
+            counter.innerText = count;
+            requestAnimationFrame(update);
+        } else {
+            counter.innerText = target;
+        }
+    };
+
+    update();
+});
+</script>
+
 @endsection
 

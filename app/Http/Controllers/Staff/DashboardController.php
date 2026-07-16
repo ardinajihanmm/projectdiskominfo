@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class DashboardController extends Controller
 {
@@ -57,32 +59,49 @@ class DashboardController extends Controller
      * Kanban Board
      */
     public function kanban(Request $request)
-    {
-        $search = $request->search;
+{
+    $search = $request->search;
+    $status = $request->status;
 
-        $query = Ticket::with(['user', 'service']);
+    // default bulan sekarang
+    $month = $request->month ?? now()->format('Y-m');
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('kode_ticket', 'like', "%{$search}%")
-                  ->orWhere('judul', 'like', "%{$search}%")
-                  ->orWhereHas('user', function ($user) use ($search) {
-                      $user->where('name', 'like', "%{$search}%");
-                  });
-            });
-        }
+    $query = Ticket::with(['user', 'service']);
 
-        $tickets = $query->latest()->get();
+    // Filter bulan
+    $query->whereYear('created_at', Carbon::parse($month)->year)
+          ->whereMonth('created_at', Carbon::parse($month)->month);
 
-        $todo = $tickets->where('status', 'To Do');
-        $progress = $tickets->where('status', 'In Progress');
-        $completed = $tickets->where('status', 'Completed');
-
-        return view('staff.kanban', compact(
-            'todo',
-            'progress',
-            'completed',
-            'search'
-        ));
+    // Search
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('kode_ticket', 'like', "%{$search}%")
+              ->orWhere('judul', 'like', "%{$search}%")
+              ->orWhereHas('user', function ($user) use ($search) {
+                  $user->where('name', 'like', "%{$search}%");
+              });
+        });
     }
+
+    // Filter status (opsional)
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    $tickets = $query->latest()->get();
+
+    $todo = $tickets->where('status', 'To Do');
+    $progress = $tickets->where('status', 'In Progress');
+    $completed = $tickets->where('status', 'Completed');
+
+    return view('staff.kanban', compact(
+        'todo',
+        'progress',
+        'completed',
+        'search',
+        'status',
+        'month'
+    ));
+}
+
 }

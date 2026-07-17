@@ -58,6 +58,7 @@ body{
     display:flex;
     align-items:center;
     gap:22px;
+    height:100%;
     min-height:180px;
     padding:28px;
     border-radius:24px;
@@ -347,27 +348,32 @@ body{
     border:1px solid #E2E8F0;
     border-radius:14px;
     padding:10px 36px 10px 16px;
-    min-width:190px;
+    min-width:180px;
+    cursor:pointer;
+    transition:.2s;
 }
- 
+
+.stat-pro-select:hover{
+    border-color:#93C5FD;
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
 .stat-pro-select > i:first-child{
     color:#94A3B8;
     font-size:16px;
+    pointer-events:none;
 }
- 
-.stat-pro-select select{
-    border:none;
-    outline:none;
-    background:transparent;
-    appearance:none;
-    -webkit-appearance:none;
+
+.stat-pro-select-text{
     font-weight:600;
     color:#1E293B;
     font-size:.92rem;
-    width:100%;
-    cursor:pointer;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    pointer-events:none;
 }
- 
+
 .stat-pro-select .chevron{
     position:absolute;
     right:14px;
@@ -376,6 +382,31 @@ body{
     color:#94A3B8;
     font-size:13px;
     pointer-events:none;
+}
+
+/* select asli disembunyikan (opacity:0) tapi menutupi SELURUH kotak,
+   jadi klik di mana saja (termasuk ikon panah) tetap membuka dropdown.
+   Dipilih native <select> (bukan custom div) supaya otomatis responsif
+   di mobile (pakai picker bawaan OS) dan tetap accessible/keyboard-friendly. */
+.stat-pro-select-native{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+}
+
+@media (max-width:576px){
+    .stat-pro-select{
+        min-width:0;
+        flex:1 1 calc(50% - 6px);
+    }
 }
  
 /* ---------- Donut ---------- */
@@ -512,11 +543,14 @@ body{
     max-width:340px;
     height:340px;
     margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 #statusDonutChart{
     width:100% !important;
-    height:300px !important;
+    height:100% !important;
 }
 /* =====================================
         TIMELINE AKTIVITAS
@@ -575,98 +609,62 @@ body{
 }
 
 .timeline-item-modern:not(:last-child)::before{
-
     content:"";
-
     position:absolute;
-
     left:19px;
-
-    top:42px;
-
+    top:20px;
     width:2px;
-
-    height:calc(100% - 18px);
-
+    height:100%;
     background:#dbeafe;
-
+    z-index:1;
 }
 
 .timeline-dot{
-
+    position:relative;
+    z-index:2;
     width:40px;
-
     height:40px;
-
     min-width:40px;
-
     border-radius:50%;
-
     background:linear-gradient(135deg,#3b82f6,#2563eb);
-
     color:white;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:17px;
-
     box-shadow:0 10px 25px rgba(37,99,235,.25);
-
 }
 
 .timeline-card-item{
-
     flex:1;
-
     background:#f8fafc;
-
     border-radius:18px;
-
     padding:16px;
-
     transition:.3s;
-
 }
 
 .timeline-card-item:hover{
-
     transform:translateY(-3px);
-
     background:white;
-
     box-shadow:0 12px 28px rgba(0,0,0,.08);
-
 }
 
 .timeline-card-item h6{
-
     margin-bottom:6px;
-
     font-weight:700;
-
 }
 
 .timeline-card-item p{
-
     margin-bottom:8px;
-
     color:#64748b;
-
     font-size:.92rem;
-
     line-height:1.5;
-
 }
 
 .timeline-card-item small{
-
     color:#94a3b8;
-
 }
+
 .timeline-item-modern{
     display:flex;
     gap:15px;
@@ -1071,26 +1069,43 @@ Tiket berhasil diselesaikan.
            {{-- ============ FILTER ============ --}}
             <div class="d-flex flex-wrap gap-3 mb-4">
 
+                {{-- Filter Bulan --}}
                 <div class="stat-pro-select">
                     <i class="bi bi-calendar3"></i>
-                    <select id="filterMonth">
-                        <option value="" selected>Semua Bulan</option>
-                        @foreach($monthlyLabels as $m)
-                            <option value="{{ $m }}">{{ $m }}</option>
+                    <span class="stat-pro-select-text" id="monthSelectText">Semua Bulan</span>
+                    <i class="bi bi-chevron-down chevron"></i>
+                    <select id="filterMonth" class="stat-pro-select-native">
+                        <option value="">Semua Bulan</option>
+                        @foreach($months as $num => $name)
+                            <option value="{{ $num }}">{{ $name }}</option>
                         @endforeach
                     </select>
-                    <i class="bi bi-chevron-down chevron"></i>
                 </div>
 
+                {{-- Filter Tahun --}}
                 <div class="stat-pro-select">
-                    <i class="bi bi-grid-fill"></i>
-                    <select id="filterService">
-                        <option value="" selected>Semua Layanan</option>
-                        @foreach($serviceLabels as $s)
-                            <option value="{{ $s }}">{{ $s }}</option>
+                    <i class="bi bi-calendar-event"></i>
+                    <span class="stat-pro-select-text" id="yearSelectText">Semua Tahun</span>
+                    <i class="bi bi-chevron-down chevron"></i>
+                    <select id="filterYear" class="stat-pro-select-native">
+                        <option value="">Semua Tahun</option>
+                        @foreach($years as $y)
+                            <option value="{{ $y }}">{{ $y }}</option>
                         @endforeach
                     </select>
+                </div>
+
+                {{-- Filter Layanan --}}
+                <div class="stat-pro-select">
+                    <i class="bi bi-grid-fill"></i>
+                    <span class="stat-pro-select-text" id="serviceSelectText">Semua Layanan</span>
                     <i class="bi bi-chevron-down chevron"></i>
+                    <select id="filterService" class="stat-pro-select-native">
+                        <option value="">Semua Layanan</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->nama_layanan }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
             </div>
@@ -1167,7 +1182,7 @@ Tiket berhasil diselesaikan.
                     <div class="stat-pro-mini stat-pro-mini-amber">
                         <div class="mini-icon"><i class="bi bi-clipboard-fill"></i></div>
                         <div class="mini-body">
-                            <h3 class="mini-number">{{ $todo }}</h3>
+                            <h3 class="mini-number" id="miniNumberTodo">{{ $todo }}</h3>
                             <div class="mini-label">To Do</div>
                             <span class="mini-pct" id="miniPctTodo">0%</span>
                         </div>
@@ -1178,7 +1193,7 @@ Tiket berhasil diselesaikan.
                     <div class="stat-pro-mini stat-pro-mini-blue">
                         <div class="mini-icon"><i class="bi bi-arrow-repeat"></i></div>
                         <div class="mini-body">
-                            <h3 class="mini-number">{{ $progress }}</h3>
+                            <h3 class="mini-number" id="miniNumberProgress">{{ $progress }}</h3>
                             <div class="mini-label">In Progress</div>
                             <span class="mini-pct" id="miniPctProgress">0%</span>
                         </div>
@@ -1189,7 +1204,7 @@ Tiket berhasil diselesaikan.
                     <div class="stat-pro-mini stat-pro-mini-green">
                         <div class="mini-icon"><i class="bi bi-check-circle-fill"></i></div>
                         <div class="mini-body">
-                            <h3 class="mini-number">{{ $completed }}</h3>
+                            <h3 class="mini-number" id="miniNumberCompleted">{{ $completed }}</h3>
                             <div class="mini-label">Completed</div>
                             <span class="mini-pct" id="miniPctCompleted">0%</span>
                         </div>
@@ -1200,7 +1215,7 @@ Tiket berhasil diselesaikan.
                     <div class="stat-pro-mini stat-pro-mini-purple">
                         <div class="mini-icon"><i class="bi bi-ticket-perforated-fill"></i></div>
                         <div class="mini-body">
-                            <h3 class="mini-number">{{ $totalTicket }}</h3>
+                            <h3 class="mini-number" id="miniNumberTotal">{{ $totalTicket }}</h3>
                             <div class="mini-label">Total Tiket</div>
                             <span class="mini-pct" id="miniPctTotal">100%</span>
                         </div>
@@ -1215,16 +1230,7 @@ Tiket berhasil diselesaikan.
                 data-todo="{{ $todo }}"
                 data-progress="{{ $progress }}"
                 data-completed="{{ $completed }}"
-                data-monthlabels='@json($monthlyLabels)'
-                data-monthtotals='@json($monthlyTotals)'
-                data-monthtodo='@json($monthlyTodo)'
-                data-monthprogress='@json($monthlyProgress)'
-                data-monthcompleted='@json($monthlyCompleted)'
-                data-servicelabels='@json($serviceLabels)'
-                data-servicetotals='@json($serviceTotals)'
-                data-servicetodo='@json($serviceTodo)'
-                data-serviceprogress='@json($serviceProgress)'
-                data-servicecompleted='@json($serviceCompleted)'>
+                data-statsurl="{{ route('admin.dashboard.ticket-stats') }}">
             </div>
  
         </div>

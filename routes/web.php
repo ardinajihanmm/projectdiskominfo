@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 
+
 // Staff
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
 use App\Http\Controllers\Staff\CommentController;
@@ -108,6 +109,9 @@ Route::middleware(['auth','role:admin'])
 
         Route::get('/dashboard', [AdminDashboard::class, 'index'])
             ->name('dashboard');
+
+        Route::get('/dashboard/ticket-stats', [AdminDashboard::class, 'ticketStats'])
+            ->name('dashboard.ticket-stats');
 
         // Ticket
         Route::resource('ticket', AdminTicket::class)

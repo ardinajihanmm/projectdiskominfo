@@ -1697,7 +1697,7 @@
         <button
             class="btn btn-light position-relative border-0"
             data-bs-toggle="offcanvas"
-            data-bs-target="#notificationCanvas">
+            data-bs-target="#notifCanvas">
 
             <i class="bi bi-bell fs-5"></i>
 
@@ -1856,7 +1856,8 @@ if (localStorage.getItem('sidebar') === 'collapsed') {
     sidebar.classList.add('collapsed');
 }
 
-toggle.addEventListener('click', () => {
+toggle.addEventListener('click',()=>{
+
     sidebar.classList.toggle('collapsed');
 
     localStorage.setItem(
@@ -1865,7 +1866,8 @@ toggle.addEventListener('click', () => {
             ? 'collapsed'
             : 'open'
     );
-});
+
+}); // <-- ini wajib
 </script>
 
 <script>

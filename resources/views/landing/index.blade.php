@@ -2706,9 +2706,7 @@ footer::before{
             <div class="modal-header" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;">
 
                 <h5 class="modal-title">
-
-                    {{ $service->nama }}
-
+                   {{ $service->nama_layanan }}
                 </h5>
 
                 <button
@@ -2732,19 +2730,13 @@ footer::before{
                         </h6>
 
                         <p>
-
-                            <strong>Bidang :</strong>
-
-                            {{ $service->bidang }}
-
+                           <strong>Bidang :</strong>
+                           {{ $service->department->nama_bidang ?? '-' }}
                         </p>
 
                         <p>
-
-                            <strong>Estimasi :</strong>
-
-                            {{ $service->estimasi }} Hari Kerja
-
+                          <strong>Estimasi :</strong>
+                             {{ $service->sla }} Hari Kerja
                         </p>
 
                     </div>

@@ -43,12 +43,9 @@ html{ scroll-behavior:smooth; }
 
 body{
 
-    font-family:'Poppins',sans-serif;
-
+    font-family:'Plus Jakarta Sans',sans-serif;
     color:var(--text);
-
     background:var(--white);
-
     overflow-x:hidden;
 
 }
@@ -57,48 +54,51 @@ body{
 
 img{ max-width:100%; }
 
-/* ---- navbar (identical language to landing page) ---- */
-
 .nav-wrap{
 
-    position:fixed;      /* keluar dari flow, tapi tetap "menempel" di atas saat scroll */
-
+    position:fixed;
     top:0;
     left:0;
     right:0;
-
     z-index:999;
-
-    background:transparent;   /* tidak ada blok putih di baliknya */
-
+    background:transparent;
     padding:24px 30px 0;
 
 }
+
 .navbar{
 
     max-width:1260px;
-
     margin:0 auto;
-
     background:rgba(255,255,255,.68);
-
     backdrop-filter:blur(24px) saturate(180%);
-
     -webkit-backdrop-filter:blur(24px) saturate(180%);
-
     border:1px solid rgba(255,255,255,.55);
-
     border-radius:999px;
-
     box-shadow:0 10px 36px rgba(15,23,42,.09);
-
     padding:16px 16px 16px 20px;
+    transition:padding .3s ease,box-shadow .3s ease,background .3s ease;
+
+}
+
+.nav-wrap.is-scrolled .navbar{
+
+    padding:9px 14px 9px 18px;
+    background:rgba(255,255,255,.86);
+    box-shadow:0 6px 22px rgba(15,23,42,.1);
+
+}
+
+.nav-wrap.is-scrolled .logo-pemalang{
+
+    width:36px;
+    height:36px;
 
 }
 
 .navbar-brand{ display:flex; align-items:center; gap:12px; font-weight:700; }
 
-.logo-pemalang{ width:42px; height:42px; object-fit:contain; flex-shrink:0; }
+.logo-pemalang{ width:42px; height:42px; object-fit:contain; flex-shrink:0; transition:.3s; }
 
 .brand-title{ line-height:1.15; text-align:left; }
 
@@ -108,18 +108,13 @@ img{ max-width:100%; }
 
 .nav-link{
 
+    position:relative;
     color:#475569!important;
-
     font-weight:500;
-
     font-size:.94rem;
-
     margin:0 2px;
-
     padding:9px 16px!important;
-
     border-radius:999px;
-
     transition:.2s;
 
 }
@@ -131,77 +126,46 @@ img{ max-width:100%; }
 .btn-login{
 
     border-radius:999px;
-
     padding:10px 24px;
-
     font-weight:600;
-
     font-size:.92rem;
-
     background:linear-gradient(135deg,var(--primary),var(--primary-light));
-
     border:none;
-
     box-shadow:0 8px 18px -6px rgba(37,99,235,.5);
+    transition:.2s;
 
 }
 
-/* ---- page hero ---- */
+.btn-login:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 12px 22px -6px rgba(37,99,235,.55);
+
+}
 
 .page-hero{
 
     position:relative;
-
     overflow:hidden;
-
-    background:linear-gradient(
-        180deg,
-        #f7faff 0%,
-        #ffffff 100%
-    );
-
-    /* dulu: padding:var(--sp-6) 0 var(--sp-5);
-       sekarang tambah ruang di atas seukuran tinggi navbar + jarak amannya */
-
+    background:linear-gradient(180deg,#f7faff 0%,#ffffff 100%);
     padding:calc(var(--sp-6) + 96px) 0 var(--sp-5);
-
     text-align:center;
 
 }
 
-.page-hero::before{
-
-    display:none;
-
-}
-
-.page-hero .container{
-
-    position:relative;
-
-    z-index:1;
-}
+.page-hero .container{ position:relative; z-index:1; }
 
 .page-eyebrow{
 
     display:inline-block;
-
     font-size:.78rem;
-
     font-weight:700;
-
     letter-spacing:.12em;
-
     text-transform:uppercase;
-
     color:var(--primary);
-
     background:var(--bg-soft);
-
     padding:6px 16px;
-
     border-radius:999px;
-
     margin-bottom:var(--sp-2);
 
 }
@@ -209,11 +173,8 @@ img{ max-width:100%; }
 .page-hero h1{
 
     font-size:2.5rem;
-
     font-weight:800;
-
     letter-spacing:-.02em;
-
     margin-bottom:var(--sp-2);
 
 }
@@ -221,18 +182,12 @@ img{ max-width:100%; }
 .page-hero p{
 
     color:var(--muted);
-
     max-width:640px;
-
     margin:0 auto;
-
     line-height:1.8;
-
     font-size:1.02rem;
 
 }
-
-/* ---- content sections ---- */
 
 .info-section{ padding:var(--sp-5) 0; }
 
@@ -241,13 +196,9 @@ img{ max-width:100%; }
 .info-block h2{
 
     font-size:1.7rem;
-
     font-weight:800;
-
     color:var(--text);
-
     margin-bottom:var(--sp-2);
-
     letter-spacing:-.01em;
 
 }
@@ -257,25 +208,17 @@ img{ max-width:100%; }
 .info-block p{
 
     color:var(--muted);
-
     line-height:1.85;
-
     font-size:1rem;
-
     max-width:820px;
 
 }
 
-/* jenis layanan */
-
 .layanan-list{
 
     display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
     gap:var(--sp-2);
-
     margin-top:var(--sp-3);
 
 }
@@ -283,25 +226,15 @@ img{ max-width:100%; }
 .layanan-list li{
 
     list-style:none;
-
     display:flex;
-
     align-items:flex-start;
-
     gap:10px;
-
     background:#fff;
-
     border:1px solid var(--border);
-
     border-radius:14px;
-
     padding:14px 16px;
-
     font-size:.92rem;
-
     color:var(--text);
-
     transition:.2s;
 
 }
@@ -309,25 +242,56 @@ img{ max-width:100%; }
 .layanan-list li:hover{
 
     border-color:#c9dcff;
-
     box-shadow:var(--shadow-sm);
-
     transform:translateY(-2px);
 
 }
 
 .layanan-list li i{ color:var(--primary); margin-top:2px; }
 
-/* manfaat cards */
+.bidang-tabs{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:var(--sp-3);
+
+}
+
+.bidang-tab{
+
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--muted);
+    font-family:inherit;
+    font-size:.86rem;
+    font-weight:600;
+    padding:9px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:.2s;
+
+}
+
+.bidang-tab:hover{ border-color:#c9dcff; color:var(--primary); }
+
+.bidang-tab.is-active{
+
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+
+}
+
+.bidang-panel{ display:none; }
+
+.bidang-panel.is-active{ display:block; }
 
 .manfaat-grid{
 
     display:grid;
-
     grid-template-columns:repeat(3,1fr);
-
     gap:var(--sp-3);
-
     margin-top:var(--sp-3);
 
 }
@@ -335,13 +299,9 @@ img{ max-width:100%; }
 .manfaat-card{
 
     background:#fff;
-
     border:1px solid var(--border);
-
     border-radius:var(--radius-md);
-
     padding:var(--sp-3);
-
     transition:.25s;
 
 }
@@ -349,9 +309,7 @@ img{ max-width:100%; }
 .manfaat-card:hover{
 
     transform:translateY(-6px);
-
     box-shadow:var(--shadow-md);
-
     border-color:#c9dcff;
 
 }
@@ -359,23 +317,14 @@ img{ max-width:100%; }
 .manfaat-icon{
 
     width:50px;
-
     height:50px;
-
     border-radius:14px;
-
     background:linear-gradient(135deg,var(--primary),var(--primary-light));
-
     color:#fff;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:1.25rem;
-
     margin-bottom:14px;
 
 }
@@ -384,88 +333,43 @@ img{ max-width:100%; }
 
 .manfaat-card p{ color:var(--muted); font-size:.88rem; line-height:1.7; margin:0; }
 
-/* timeline (rinci) */
-
 .timeline-detail{
 
     margin-top:var(--sp-4);
-
     border-left:2px solid var(--border);
-
     padding-left:var(--sp-4);
 
 }
 
-.timeline-detail-item{
-
-    position:relative;
-
-    padding-bottom:var(--sp-4);
-
-}
+.timeline-detail-item{ position:relative; padding-bottom:var(--sp-4); }
 
 .timeline-detail-item:last-child{ padding-bottom:0; }
 
 .timeline-detail-item::before{
 
     content:"";
-
     position:absolute;
-
     left:calc(-1 * var(--sp-4) - 7px);
-
     top:2px;
-
     width:14px;
-
     height:14px;
-
     border-radius:50%;
-
     background:var(--primary);
-
     border:3px solid #fff;
-
     box-shadow:0 0 0 2px var(--primary);
 
 }
 
-.timeline-detail-item h5{
+.timeline-detail-item h5{ font-weight:700; color:var(--text); margin-bottom:6px; font-size:1.02rem; }
 
-    font-weight:700;
-
-    color:var(--text);
-
-    margin-bottom:6px;
-
-    font-size:1.02rem;
-
-}
-
-.timeline-detail-item p{
-
-    color:var(--muted);
-
-    font-size:.92rem;
-
-    line-height:1.75;
-
-    max-width:700px;
-
-}
-
-/* info tambahan */
+.timeline-detail-item p{ color:var(--muted); font-size:.92rem; line-height:1.75; max-width:700px; }
 
 .note-card{
 
     background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-
     color:#fff;
-
     border-radius:var(--radius-lg);
-
     padding:var(--sp-4);
-
     margin-top:var(--sp-3);
 
 }
@@ -479,30 +383,25 @@ img{ max-width:100%; }
 .btn-hero-primary{
 
     display:inline-flex;
-
     align-items:center;
-
     background:linear-gradient(135deg,var(--primary),var(--primary-light));
-
     color:#fff;
-
     border:none;
-
     padding:14px 30px;
-
     border-radius:999px;
-
     font-weight:600;
-
     box-shadow:0 14px 28px -10px rgba(37,99,235,.55);
-
     transition:.25s;
+    text-decoration:none;
 
 }
 
-.btn-hero-primary:hover{ transform:translateY(-3px); color:#fff; }
+.btn-hero-primary:hover{ transform:translateY(-3px); color:#fff;  text-decoration:none; }
 
-/* footer (compact, same language as landing page) */
+
+/* =====================================
+   FOOTER
+===================================== */
 
 footer{
 
@@ -512,7 +411,7 @@ footer{
 
     color:rgba(255,255,255,.72);
 
-    padding:var(--sp-5) 0 0;
+     padding:20px 0 0;
 
 }
 
@@ -522,51 +421,137 @@ footer::before{
 
     position:absolute;
 
-    top:0; left:0; right:0;
+    top:0;
+
+    left:0;
+
+    right:0;
 
     height:3px;
 
     background:linear-gradient(90deg,var(--primary-dark),var(--primary),var(--primary-light),var(--primary));
 
 }
+
 .footer-top{
 
     display:grid;
+
     grid-template-columns:1.3fr 1fr 1.1fr;
-    gap:24px;
-    padding-bottom:24px;
+    gap:4px;
+    padding-bottom:4px;
+
     border-bottom:1px solid rgba(255,255,255,.08);
 
 }
 
-.footer-contact li{
+.footer-brand{
 
     display:flex;
-    gap:10px;
-    align-items:flex-start;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:var(--sp-2);
+
+}
+
+.footer-brand img{
+
+    width:40px;
+
+    height:40px;
+
+    object-fit:contain;
+
+}
+
+.footer-brand strong{
+
+    display:block;
+
+    color:#fff;
+
+    font-size:.98rem;
+
+}
+
+.footer-brand small{
+
+    color:rgba(255,255,255,.55);
+
+}
+
+.footer-col p{
+
     font-size:.88rem;
-    margin-bottom:12px;
-    list-style:none;
-    color:rgba(255,255,255,.65);
+
+    line-height:1.85;
+
+    color:rgba(255,255,255,.62);
+
+    max-width:320px;
+
+    margin-bottom:var(--sp-2);
 
 }
 
-.footer-contact i{
+.footer-social{
 
-    color:var(--primary-light);
-    margin-top:3px;
+    display:flex;
+
+    gap:10px;
 
 }
 
-.footer-brand{ display:flex; align-items:center; gap:12px; margin-bottom:var(--sp-2); }
+.footer-social a{
 
-.footer-brand img{ width:40px; height:40px; object-fit:contain; }
+    width:38px;
 
-.footer-brand strong{ display:block; color:#fff; font-size:.98rem; }
+    height:38px;
 
-.footer-brand small{ color:rgba(255,255,255,.55); }
+    border-radius:50%;
 
-.footer-col p{ font-size:.88rem; line-height:1.85; color:rgba(255,255,255,.62); max-width:320px; }
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:.95rem;
+
+    transition:.2s;
+
+}
+
+.footer-social a:hover{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    transform:translateY(-3px);
+
+}
+
+.footer-col h6{
+
+    color:#fff;
+
+    font-weight:700;
+
+    margin-bottom:var(--sp-2);
+
+    font-size:.92rem;
+
+}
 
 .footer-links a{
 
@@ -584,9 +569,39 @@ footer::before{
 
 }
 
-.footer-links a:hover{ color:#fff; padding-left:4px; }
+.footer-links a:hover{
 
-.footer-col h6{ color:#fff; font-weight:700; margin-bottom:var(--sp-2); font-size:.92rem; }
+    color:#fff;
+
+    padding-left:4px;
+
+}
+
+.footer-contact li{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:flex-start;
+
+    font-size:.88rem;
+
+    margin-bottom:12px;
+
+    list-style:none;
+
+    color:rgba(255,255,255,.65);
+
+}
+
+.footer-contact i{
+
+    color:var(--primary-light);
+
+    margin-top:3px;
+
+}
 
 .footer-bottom{
 
@@ -594,16 +609,19 @@ footer::before{
 
     justify-content:space-between;
 
+    align-items:center;
+
     flex-wrap:wrap;
 
     gap:10px;
-
-    padding:var(--sp-2) 0;
-
+    padding:8px 0;
     font-size:.82rem;
 
     color:rgba(255,255,255,.48);
 
+}
+footer .container{
+    max-width:1300px;
 }
 
 @media(max-width:767px){
@@ -613,87 +631,11 @@ footer::before{
 
     .page-hero h1{ font-size:2rem; }
 
-    .nav-wrap{
+    .nav-wrap{ padding:14px 14px 0; }
 
-        padding:14px 14px 0;
-
-    }
-
-    .page-hero{
-
-        padding-top:calc(var(--sp-6) + 84px);
-
-    }
-}
-.navbar{
-
-    max-width:1260px;
-    margin:0 auto;
-    background:rgba(255,255,255,.68);
-    backdrop-filter:blur(24px) saturate(180%);
-    -webkit-backdrop-filter:blur(24px) saturate(180%);
-    border:1px solid rgba(255,255,255,.55);
-    border-radius:999px;
-    box-shadow:0 10px 36px rgba(15,23,42,.09);
-    padding:16px 16px 16px 20px;
-
-    /* baru: */
-    transition:padding .3s ease,box-shadow .3s ease,background .3s ease;
+    .page-hero{ padding-top:calc(var(--sp-6) + 84px); }
 
 }
-
-/* baru — belum ada di pelajari-lebih-lanjut sama sekali */
-.nav-wrap.is-scrolled .navbar{
-
-    padding:9px 14px 9px 18px;
-    background:rgba(255,255,255,.86);
-    box-shadow:0 6px 22px rgba(15,23,42,.1);
-
-}
-
-.nav-wrap.is-scrolled .logo-pemalang{
-
-    width:36px;
-    height:36px;
-
-}
-
-.nav-link{
-
-    position:relative;   /* baru */
-    color:#475569!important;
-    font-weight:500;
-    font-size:.94rem;
-    margin:0 2px;
-    padding:9px 16px!important;
-    border-radius:999px;
-    transition:.2s;
-
-}
-
-.btn-login{
-
-    border-radius:999px;
-    padding:10px 24px;
-    font-weight:600;
-    font-size:.92rem;
-    background:linear-gradient(135deg,var(--primary),var(--primary-light));
-    border:none;
-    box-shadow:0 8px 18px -6px rgba(37,99,235,.5);
-    transition:.2s;   /* baru */
-
-}
-
-/* baru — belum ada di pelajari-lebih-lanjut sama sekali */
-.btn-login:hover{
-
-    transform:translateY(-2px);
-    box-shadow:0 12px 22px -6px rgba(37,99,235,.55);
-
-}
-/* =====================================
-   CHAT FAB
-===================================== */
 
 .chat-fab{
 
@@ -716,25 +658,11 @@ footer::before{
 
 }
 
-.chat-fab:hover{
+.chat-fab:hover{ transform:translateY(-3px) scale(1.05); }
 
-    transform:translateY(-3px) scale(1.05);
+.chat-fab i{ transition:.25s; }
 
-}
-
-.chat-fab i{
-
-    transition:.25s;
-
-}
-
-.chat-fab:hover i{
-
-    transform:scale(1.1) rotate(-6deg);
-
-}
-
-/* ---- Back to top ---- */
+.chat-fab:hover i{ transform:scale(1.1) rotate(-6deg); }
 
 .back-to-top{
 
@@ -760,23 +688,9 @@ footer::before{
 
 }
 
-.back-to-top.is-visible{
+.back-to-top.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
 
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-
-}
-
-.back-to-top:hover{
-
-    background:var(--primary);
-    color:#fff;
-    transform:translateY(-3px);
-
-}
-
-/* ---- Chat panel ---- */
+.back-to-top:hover{ background:var(--primary); color:#fff; transform:translateY(-3px); }
 
 .chat-panel{
 
@@ -797,13 +711,7 @@ footer::before{
 
 }
 
-.chat-panel.is-open{
-
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0) scale(1);
-
-}
+.chat-panel.is-open{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
 
 .chat-panel-head{
 
@@ -816,19 +724,9 @@ footer::before{
 
 }
 
-.chat-panel-head strong{
+.chat-panel-head strong{ font-size:.94rem; }
 
-    font-size:.94rem;
-
-}
-
-.chat-panel-head small{
-
-    display:block;
-    opacity:.85;
-    font-size:.76rem;
-
-}
+.chat-panel-head small{ display:block; opacity:.85; font-size:.76rem; }
 
 .chat-panel-close{
 
@@ -842,11 +740,7 @@ footer::before{
 
 }
 
-.chat-panel-body{
-
-    padding:16px 18px;
-
-}
+.chat-panel-body{ padding:16px 18px; }
 
 .chat-panel-body a{
 
@@ -872,15 +766,9 @@ footer::before{
 
 }
 
-.chat-panel-body a i{
-
-    color:var(--primary);
-    font-size:1rem;
-
-}
+.chat-panel-body a i{ color:var(--primary); font-size:1rem; }
 </style>
 
-{{-- ===================== NAVBAR ===================== --}}
 <div class="nav-wrap">
 
 <nav class="navbar navbar-expand-lg">
@@ -895,8 +783,8 @@ footer::before{
                 alt="Logo Pemalang">
 
             <div class="brand-title">
-                <strong>Helpdesk Diskominfo</strong>
-                <small>Kabupaten Pemalang</small>
+                <strong>Helpdesk</strong>
+                <small>Pemkab Pemalang</small>
             </div>
 
         </a>
@@ -939,7 +827,6 @@ footer::before{
 </nav>
 
 </div>
-{{-- ===================== PAGE HERO ===================== --}}
 
 <section class="page-hero">
 
@@ -947,45 +834,36 @@ footer::before{
 
         <span class="page-eyebrow">Pelajari Lebih Lanjut</span>
 
-        <h1>Tentang Portal Helpdesk Diskominfo Pemalang</h1>
+        <h1>Tentang Helpdesk Pemkab Pemalang</h1>
 
         <p>
 
-            Halaman ini menjelaskan secara lengkap apa itu Portal Helpdesk,
-            tujuan dan fungsinya, jenis layanan yang tersedia, cara pengajuan,
-            hingga manfaat yang bisa Anda peroleh sebagai pengguna.
+            Halaman ini menjelaskan secara lengkap apa itu Helpdesk Pemkab
+            Pemalang, tujuan dan fungsinya, daftar layanan yang tersedia di
+            setiap bidang, cara pengajuan, hingga manfaat yang bisa Anda
+            peroleh sebagai pengguna.
 
         </p>
 
     </div>
 
 </section>
-
-{{-- ===================== TENTANG HELPDESK ===================== --}}
 
 <section class="info-section">
 
     <div class="container info-block" data-aos="fade-up">
 
-        <h2><i class="bi bi-info-circle-fill"></i>Apa itu Portal Helpdesk</h2>
+        <h2><i class="bi bi-info-circle-fill"></i>Apa itu Helpdesk Pemkab Pemalang</h2>
 
         <p>
 
-            Portal Helpdesk Diskominfo Kabupaten Pemalang adalah aplikasi layanan
-            Teknologi Informasi dan Komunikasi (TIK) yang dikelola oleh Dinas
-            Komunikasi dan Informatika Kabupaten Pemalang. Melalui portal ini,
-            perangkat daerah maupun aparatur sipil negara dapat mengajukan
-            permohonan layanan TIK, menyampaikan pengaduan, serta memantau
-            status penyelesaian permohonan secara online tanpa perlu datang
-            langsung ke kantor Diskominfo.
+            Helpdesk Pemkab Pemalang adalah aplikasi layanan yang dikelola oleh Dinas Komunikasi dan Informatika (Diskominfo) Kabupaten Pemalang untuk mewadahi permohonan layanan dari berbagai bidang di lingkungan Kantor Bupati Pemalang. Melalui portal ini, perangkat daerah, aparatur sipil negara, maupun masyarakat umum dapat mengajukan permohonan layanan, menyampaikan pengaduan, serta memantau status penyelesaian permohonan secara online tanpa perlu datang langsung ke kantor terkait.
 
         </p>
 
     </div>
 
 </section>
-
-{{-- ===================== TUJUAN & FUNGSI ===================== --}}
 
 <section class="info-section alt">
 
@@ -995,18 +873,17 @@ footer::before{
 
         <p>
 
-            Portal ini dibangun untuk menyederhanakan proses permohonan layanan
-            TIK di lingkungan Pemerintah Kabupaten Pemalang, mempercepat waktu
-            tindak lanjut, serta meningkatkan transparansi dan akuntabilitas
-            setiap permohonan yang diajukan oleh perangkat daerah.
+            Portal ini dibangun untuk menyederhanakan proses permohonan dan pengaduan 
+            layanan dari setiap bidang di lingkungan Kantor Bupati Pemalang,
+            mempercepat waktu tindak lanjut, serta meningkatkan transparansi
+            dan akuntabilitas setiap permohonan yang diajukan oleh perangkat
+            daerah.
 
         </p>
 
     </div>
 
 </section>
-
-{{-- ===================== JENIS LAYANAN ===================== --}}
 
 <section class="info-section">
 
@@ -1016,27 +893,43 @@ footer::before{
 
         <p>
 
-            Berikut kategori layanan yang dapat diajukan melalui Portal Helpdesk. Daftar layanan lengkap beserta detailnya
-            dapat dilihat langsung pada halaman beranda.
+            Berikut daftar layanan yang dapat diajukan, dikelompokkan per
+            bidang. Pilih bidang di bawah untuk melihat layanannya.
 
         </p>
 
-        <ul class="layanan-list">
+        <div class="bidang-tabs" id="bidangTabs">
 
-            <li><i class="bi bi-check-circle-fill"></i> Infrastruktur Jaringan &amp; Internet</li>
-            <li><i class="bi bi-check-circle-fill"></i> Website &amp; Domain Perangkat Daerah</li>
-            <li><i class="bi bi-check-circle-fill"></i> Email Resmi Pemerintah</li>
-            <li><i class="bi bi-check-circle-fill"></i> Hosting &amp; Penyimpanan Data</li>
-            <li><i class="bi bi-check-circle-fill"></i> Keamanan Sistem Informasi</li>
-            <li><i class="bi bi-check-circle-fill"></i> Konsultasi &amp; Pendampingan Teknis TIK</li>
+            @foreach($bidangs as $i => $bidang)
+                <button
+                    type="button"
+                    class="bidang-tab {{ $i === 0 ? 'is-active' : '' }}"
+                    data-target="bidangPanel{{ $i }}">
+                    {{ $bidang['nama'] }}
+                </button>
+            @endforeach
 
-        </ul>
+        </div>
+
+        @foreach($bidangs as $i => $bidang)
+
+            <div class="bidang-panel {{ $i === 0 ? 'is-active' : '' }}" id="bidangPanel{{ $i }}">
+
+                <ul class="layanan-list">
+
+                    @foreach($bidang['layanan'] as $item)
+                        <li><i class="bi bi-check-circle-fill"></i> {{ $item }}</li>
+                    @endforeach
+
+                </ul>
+
+            </div>
+
+        @endforeach
 
     </div>
 
 </section>
-
-{{-- ===================== CARA PENGAJUAN ===================== --}}
 
 <section class="info-section alt">
 
@@ -1047,7 +940,8 @@ footer::before{
         <p>
 
             Proses pengajuan layanan dirancang sesederhana mungkin agar dapat
-            diselesaikan hanya dalam beberapa langkah.
+            diselesaikan hanya dalam beberapa langkah, apa pun bidang yang
+            Anda tuju.
 
         </p>
 
@@ -1055,11 +949,11 @@ footer::before{
 
             <div class="timeline-detail-item" data-aos="fade-up">
                 <h5>1. Login ke Portal</h5>
-                <p>Masuk menggunakan akun Helpdesk yang telah terdaftar untuk perangkat daerah Anda.</p>
+                <p>Masuk menggunakan akun Helpdesk.</p>
             </div>
 
             <div class="timeline-detail-item" data-aos="fade-up" data-aos-delay="80">
-                <h5>2. Pilih Layanan yang Dibutuhkan</h5>
+                <h5>2. Pilih Bidang &amp; Layanan yang Dibutuhkan</h5>
                 <p>Telusuri atau cari layanan yang sesuai dengan kebutuhan instansi Anda pada halaman beranda.</p>
             </div>
 
@@ -1069,8 +963,8 @@ footer::before{
             </div>
 
             <div class="timeline-detail-item" data-aos="fade-up" data-aos-delay="240">
-                <h5>4. Verifikasi oleh Petugas</h5>
-                <p>Tim Diskominfo memverifikasi kelengkapan dan kesesuaian permohonan yang masuk.</p>
+                <h5>4. Verifikasi oleh Petugas Bidang Terkait</h5>
+                <p>Petugas dari bidang yang dituju memverifikasi kelengkapan dan kesesuaian permohonan yang masuk.</p>
             </div>
 
             <div class="timeline-detail-item" data-aos="fade-up" data-aos-delay="320">
@@ -1084,8 +978,6 @@ footer::before{
 
 </section>
 
-{{-- ===================== MANFAAT ===================== --}}
-
 <section class="info-section">
 
     <div class="container info-block" data-aos="fade-up">
@@ -1095,7 +987,8 @@ footer::before{
         <p>
 
             Beberapa keuntungan yang bisa Anda rasakan dengan mengajukan
-            layanan TIK melalui portal ini dibandingkan cara konvensional.
+            layanan dari bidang mana pun melalui portal ini dibandingkan cara
+            konvensional.
 
         </p>
 
@@ -1125,8 +1018,6 @@ footer::before{
 
 </section>
 
-{{-- ===================== INFORMASI TAMBAHAN ===================== --}}
-
 <section class="info-section alt">
 
     <div class="container info-block" data-aos="fade-up">
@@ -1141,8 +1032,8 @@ footer::before{
 
                 Jika Anda mengalami kendala saat menggunakan portal atau
                 membutuhkan informasi tambahan, silakan hubungi Tim Helpdesk
-                Diskominfo Kabupaten Pemalang melalui ikon chat yang tersedia
-                di pojok kanan bawah halaman beranda.
+                Pemkab Pemalang melalui ikon chat yang tersedia di pojok
+                kanan bawah halaman beranda.
 
             </p>
 
@@ -1164,8 +1055,6 @@ footer::before{
 
 </div>
 
-{{-- ===================== FOOTER ===================== --}}
-
 <footer>
 
     <div class="container">
@@ -1179,15 +1068,17 @@ footer::before{
                     <img src="{{ asset('images/logo-pemalang.png') }}" alt="Logo Pemalang">
 
                     <div>
-                        <strong>Helpdesk Diskominfo</strong>
-                        <small>Kabupaten Pemalang</small>
+                        <strong>Helpdesk</strong>
+                        <small>Pemkab pemalang
+                        </small>
                     </div>
 
                 </div>
 
                 <p>
-                    Portal layanan resmi Dinas Komunikasi dan Informatika
-                    Kabupaten Pemalang.
+                    Portal layanan resmi lintas bidang di lingkungan Kantor
+                    Bupati Pemalang, dikelola oleh Diskominfo Kabupaten
+                    Pemalang.
                 </p>
 
             </div>
@@ -1220,7 +1111,7 @@ footer::before{
 
                     <li>
                         <i class="bi bi-envelope-fill"></i>
-                        <span>diskominfo@pemalangkab.go.id</span>
+                        <span>helpdesk@pemalangkab.go.id</span>
                     </li>
 
                 </ul>
@@ -1231,7 +1122,7 @@ footer::before{
 
         <div class="footer-bottom">
 
-            <div>© {{ date('Y') }} Helpdesk Diskominfo Kabupaten Pemalang.</div>
+            <div>© {{ date('Y') }} Helpdesk Pemkab Pemalang.</div>
 
         </div>
 
@@ -1260,9 +1151,9 @@ footer::before{
             WhatsApp Pengaduan
         </a>
 
-        <a href="mailto:diskominfo@pemalangkab.go.id">
+        <a href="mailto:helpdesk@pemalangkab.go.id">
             <i class="bi bi-envelope-fill"></i>
-            diskominfo@pemalangkab.go.id
+            helpdesk@pemalangkab.go.id
         </a>
 
         <a href="tel:0284000000">
@@ -1309,7 +1200,6 @@ AOS.init({ duration:700, once:true, offset:60 });
 </script>
 <script>
 
-/* Back to top button */
 (function(){
 
     let btn = document.getElementById("backToTopBtn");
@@ -1330,7 +1220,6 @@ AOS.init({ duration:700, once:true, offset:60 });
 
 })();
 
-/* Functional chat panel */
 (function(){
 
     let fab = document.getElementById("chatFabBtn");
@@ -1362,6 +1251,29 @@ AOS.init({ duration:700, once:true, offset:60 });
             panel.classList.remove("is-open");
 
         }
+
+    });
+
+})();
+
+(function(){
+
+    let tabs = document.querySelectorAll(".bidang-tab");
+    let panels = document.querySelectorAll(".bidang-panel");
+
+    tabs.forEach(function(tab){
+
+        tab.addEventListener("click",function(){
+
+            tabs.forEach(function(t){ t.classList.remove("is-active"); });
+            panels.forEach(function(p){ p.classList.remove("is-active"); });
+
+            tab.classList.add("is-active");
+
+            let target = document.getElementById(tab.getAttribute("data-target"));
+            if(target) target.classList.add("is-active");
+
+        });
 
     });
 

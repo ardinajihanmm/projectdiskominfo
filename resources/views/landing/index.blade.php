@@ -106,17 +106,14 @@ img{
 ===================================== */
 
 .nav-wrap{
-    position:sticky;
+    position:fixed;
     top:0;
+    left:0;
+    right:0;
     z-index:999;
-
-    /* Background biru di belakang navbar */
-    background:var(--bg-hero);
-
-    /* Tetap memberi jarak di atas, kiri, dan kanan navbar */
-    padding:16px 24px 0;
+    background:transparent;
+    padding:24px 30px 0;
 }
-
 .navbar{
 
     max-width:1260px;
@@ -289,7 +286,7 @@ img{
 
     background:linear-gradient(180deg,var(--bg-hero) 0%,var(--white) 100%);
 
-    padding:var(--sp-6) 0 var(--sp-6);
+    padding:calc(var(--sp-6) + 96px) 0 var(--sp-6);
 
     min-height:auto;
 
@@ -484,6 +481,7 @@ img{
     box-shadow:0 14px 28px -10px rgba(37,99,235,.55);
 
     transition:.25s;
+    text-decoration:none;
 
 }
 
@@ -494,6 +492,7 @@ img{
     box-shadow:0 18px 32px -10px rgba(37,99,235,.6);
 
     color:#fff;
+    text-decoration:none;
 
 }
 
@@ -2060,7 +2059,6 @@ footer::before{
     }
 
 }
-
 @media(max-width:767px){
 
     section{
@@ -2071,8 +2069,13 @@ footer::before{
 
     .nav-wrap{
 
-        padding:0 14px;
-        background:var(--bg-hero);
+        padding:14px 14px 0;
+
+    }
+
+    #hero{
+
+        padding-top:calc(var(--sp-6) + 84px);
 
     }
 
@@ -2081,25 +2084,6 @@ footer::before{
         font-size:2rem;
 
     }
-
-    .hero-text{
-
-        font-size:1rem;
-
-    }
-
-    .service-grid{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-    .footer-top{
-
-        grid-template-columns:1fr;
-
-    }
-
 }
 
 .hero-title{
@@ -2110,20 +2094,20 @@ footer::before{
 }
 
 .hero-title .title-small{
-    font-size:2.4rem;      
+    font-size:2.8rem;      
     font-weight:790;
     color:var(--text);
     text-decoration:none;
 }
 
 .hero-title .title-highlight{
-    font-size:3.4rem;  
+    font-size:3.7rem;  
     font-weight:800;
     color:var(--primary);
 }
 
 .hero-title .title-big{
-    font-size:3.2rem;    
+    font-size:3.6rem;    
     font-weight:800;
     color:var(--text);
 }
@@ -2151,9 +2135,9 @@ footer::before{
 
 .hero-image{
     margin:0;
-    max-width:190px;
+    max-width:260px;
     overflow:hidden;
-    height:125px;           
+    height:180px;           
 }
 
 .hero-image img{
@@ -2234,14 +2218,12 @@ footer::before{
 
                 <strong>
 
-                    Helpdesk Diskominfo
+                    Helpdesk 
 
                 </strong>
 
                 <small>
-
-                    Kabupaten Pemalang
-
+                    Pemkab Pemalang
                 </small>
 
             </div>
@@ -2318,16 +2300,13 @@ footer::before{
 
         <span class="title-small">Helpdesk</span>
 
-        <span class="title-highlight">Diskominfo</span>
-
-        <span class="title-big">Kabupaten</span>
+        <span class="title-highlight">Pemkab</span>
 
         <span class="title-big">Pemalang</span>
-
     </h1>
 
     <p class="hero-text">
-        Selamat datang di portal layanan teknologi informasi dan komunikasi Diskominfo Kabupaten Pemalang.
+        Selamat datang di Helpdesk Pemkab Pemalang
     </p>
 
     <div class="hero-image" data-aos="fade-up" data-aos-duration="700">
@@ -2343,8 +2322,8 @@ footer::before{
     </span>
 
     <span class="hero-quick-text">
-        <strong style="text-decoration:none;">Pengaduan</strong>
-        <small style="text-decoration:none;">Sampaikan kendala layanan TIK Anda</small>
+        <strong style="text-decoration:none;">Ajukan Layanan</strong>
+        <small style="text-decoration:none;">Sampaikan pengajuan Anda</small>
     </span>
 
     <span class="hero-quick-arrow">
@@ -2571,16 +2550,15 @@ footer::before{
                     <img src="{{ asset('images/logo-pemalang.png') }}" alt="Logo Pemalang">
 
                     <div>
-                        <strong>Helpdesk Diskominfo</strong>
-                        <small>Kabupaten Pemalang</small>
+                        <strong>Helpdesk </strong>
+                        <small>Pemkab Pemalang</small>
                     </div>
 
                 </div>
 
                 <p>
 
-                    Portal layanan resmi Dinas Komunikasi dan Informatika
-                    Kabupaten Pemalang.
+                    Portal layanan resmi lintas bidang di lingkungan Kantor Bupati Pemalang, dikelola oleh Diskominfo Kabupaten Pemalang.
 
                 </p>
 
@@ -2592,6 +2570,8 @@ footer::before{
 
                 <a href="#services">Layanan</a>
                 <a href="#flow">Alur Layanan</a>
+                <a href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a>
+                
 
             </div>
 
@@ -2626,7 +2606,7 @@ footer::before{
 
             <div>
 
-                © {{ date('Y') }} Helpdesk Diskominfo Kabupaten Pemalang. 
+                © {{ date('Y') }} Helpdesk Pemkab Pemalang. 
 
             </div>
 

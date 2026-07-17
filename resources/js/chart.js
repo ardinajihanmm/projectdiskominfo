@@ -6,24 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!dataEl) return;
 
     /* =====================================
-       DATA
+       DATA AWAL (tanpa filter, dari controller)
     ===================================== */
 
-    const todo = Number(dataEl.dataset.todo || 0);
-    const progress = Number(dataEl.dataset.progress || 0);
-    const completed = Number(dataEl.dataset.completed || 0);
-
-    const monthlyLabels = JSON.parse(dataEl.dataset.monthlabels || "[]");
-    const monthlyTotals = JSON.parse(dataEl.dataset.monthtotals || "[]");
-    const monthlyTodo = JSON.parse(dataEl.dataset.monthtodo || "[]");
-    const monthlyProgress = JSON.parse(dataEl.dataset.monthprogress || "[]");
-    const monthlyCompleted = JSON.parse(dataEl.dataset.monthcompleted || "[]");
-
-    const serviceLabels = JSON.parse(dataEl.dataset.servicelabels || "[]");
-    const serviceTotals = JSON.parse(dataEl.dataset.servicetotals || "[]");
-    const serviceTodo = JSON.parse(dataEl.dataset.servicetodo || "[]");
-    const serviceProgress = JSON.parse(dataEl.dataset.serviceprogress || "[]");
-    const serviceCompleted = JSON.parse(dataEl.dataset.servicecompleted || "[]");
+    const initialTodo = Number(dataEl.dataset.todo || 0);
+    const initialProgress = Number(dataEl.dataset.progress || 0);
+    const initialCompleted = Number(dataEl.dataset.completed || 0);
+    const statsUrl = dataEl.dataset.statsurl;
 
     const COLORS = {
         todo: "#F59E0B",
@@ -36,7 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================== */
 
     const filterMonth = document.getElementById("filterMonth");
+    const filterYear = document.getElementById("filterYear");
     const filterService = document.getElementById("filterService");
+
+    const monthText = document.getElementById("monthSelectText");
+    const yearText = document.getElementById("yearSelectText");
+    const serviceText = document.getElementById("serviceSelectText");
 
     const canvas = document.getElementById("statusDonutChart");
 
@@ -59,41 +53,41 @@ document.addEventListener("DOMContentLoaded", () => {
         return (value / total) * 100;
     }
 
+    // Sinkronkan teks yang tampil (span faux) dengan opsi <select> asli yang dipilih
+    function syncSelectText(selectEl, textEl, fallbackLabel) {
+        if (!selectEl || !textEl) return;
+        const selected = selectEl.options[selectEl.selectedIndex];
+        textEl.textContent = selected && selected.value !== "" ? selected.text : fallbackLabel;
+    }
+
     /* =====================================
-       INITIAL VALUE
+       STATE FILTER (AND - bulan + tahun + layanan)
     ===================================== */
 
-    let currentTodo = todo;
-    let currentProgress = progress;
-    let currentCompleted = completed;
+    let currentTodo = initialTodo;
+    let currentProgress = initialProgress;
+    let currentCompleted = initialCompleted;
 
-    let currentTotal =
-        currentTodo +
-        currentProgress +
-        currentCompleted;
+    const filters = {
+        month: "",
+        year: "",
+        service: ""
+    };
 
     /* =====================================
-       UPDATE UI
+       UPDATE UI (badge, donut center, legend, mini card)
     ===================================== */
 
     function updateUI(todoValue, progressValue, completedValue) {
 
-        currentTotal =
-            todoValue +
-            progressValue +
-            completedValue;
+        const total = todoValue + progressValue + completedValue;
 
-        const pctTodo =
-            calculatePercent(todoValue, currentTotal);
+        const pctTodo = calculatePercent(todoValue, total);
+        const pctProgress = calculatePercent(progressValue, total);
+        const pctCompleted = calculatePercent(completedValue, total);
 
-        const pctProgress =
-            calculatePercent(progressValue, currentTotal);
-
-        const pctCompleted =
-            calculatePercent(completedValue, currentTotal);
-
-        setText("badgeTotal", currentTotal);
-        setText("donutTotal", currentTotal);
+        setText("badgeTotal", total);
+        setText("donutTotal", total);
 
         setText("legendTodo", todoValue);
         setText("legendProgress", progressValue);
@@ -112,342 +106,178 @@ document.addEventListener("DOMContentLoaded", () => {
         setWidth("barProgress", pctProgress + "%");
         setWidth("barCompleted", pctCompleted + "%");
 
+        // angka besar di 4 mini card (To Do / In Progress / Completed / Total)
+        setText("miniNumberTodo", todoValue.toLocaleString("id-ID"));
+        setText("miniNumberProgress", progressValue.toLocaleString("id-ID"));
+        setText("miniNumberCompleted", completedValue.toLocaleString("id-ID"));
+        setText("miniNumberTotal", total.toLocaleString("id-ID"));
     }
 
-    updateUI(
-        currentTodo,
-        currentProgress,
-        currentCompleted
-    );
+    updateUI(currentTodo, currentProgress, currentCompleted);
 
     /* =====================================
-       DONUT LABEL PLUGIN
-    ===================================== */
-
-    const outerLabelPlugin = {
-
-        id: "outerLabelPlugin",
-
-        afterDraw(chart) {
-
-            const ctx = chart.ctx;
-            const meta = chart.getDatasetMeta(0);
-
-            meta.data.forEach((arc, index) => {
-
-                const value =
-                    chart.data.datasets[0].data[index];
-
-                if (value <= 0) return;
-
-                const total =
-                    chart.data.datasets[0].data.reduce(
-                        (a, b) => a + b,
-                        0
-                    );
-
-                const percent =
-                    total === 0
-                        ? 0
-                        : ((value / total) * 100).toFixed(1);
-
-                const angle =
-                    (arc.startAngle + arc.endAngle) / 2;
-
-                const x =
-                    arc.x +
-                    Math.cos(angle) *
-                        (arc.outerRadius + 15);
-
-                const y =
-                    arc.y +
-                    Math.sin(angle) *
-                        (arc.outerRadius + 15);
-
-                const x2 =
-                    arc.x +
-                    Math.cos(angle) *
-                        (arc.outerRadius + 35);
-
-                const y2 =
-                    arc.y +
-                    Math.sin(angle) *
-                        (arc.outerRadius + 35);
-
-                const right =
-                    Math.cos(angle) > 0;
-
-                ctx.save();
-
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(x2, y2);
-                ctx.lineTo(
-                    x2 + (right ? 18 : -18),
-                    y2
-                );
-
-                ctx.strokeStyle = "#CBD5E1";
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
-                ctx.fillStyle =
-                    chart.data.datasets[0]
-                        .backgroundColor[index];
-
-                ctx.font = "bold 13px Segoe UI";
-                ctx.textAlign =
-                    right ? "left" : "right";
-
-                ctx.fillText(
-                    percent + "%",
-                    x2 + (right ? 22 : -22),
-                    y2 + 4
-                );
-
-                ctx.restore();
-
-            });
-
-        }
-
-    };
-        /* =====================================
        CHART
     ===================================== */
 
     let donutChart = null;
 
     if (canvas) {
-
         donutChart = new Chart(canvas, {
             type: "doughnut",
-
             data: {
-                labels: [
-                    "To Do",
-                    "In Progress",
-                    "Completed"
-                ],
-
+                labels: ["To Do", "In Progress", "Completed"],
                 datasets: [{
-                    data: [
-                        currentTodo,
-                        currentProgress,
-                        currentCompleted
-                    ],
-
-                    backgroundColor: [
-                        COLORS.todo,
-                        COLORS.progress,
-                        COLORS.completed
-                    ],
-
+                    data: [currentTodo, currentProgress, currentCompleted],
+                    backgroundColor: [COLORS.todo, COLORS.progress, COLORS.completed],
                     borderColor: "#ffffff",
                     borderWidth: 5,
                     hoverOffset: 10
                 }]
             },
-
             options: {
-
                 responsive: true,
                 maintainAspectRatio: false,
                 cutout: "70%",
-
                 plugins: {
-
-                    legend: {
-                        display: false
-                    },
-
+                    legend: { display: false },
                     tooltip: {
-
                         callbacks: {
-
                             label(context) {
-
-                                const total =
-                                    context.dataset.data.reduce((a, b) => a + b, 0);
-
-                                const p =
-                                    total > 0
-                                        ? ((context.raw / total) * 100).toFixed(1)
-                                        : 0;
-
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const p = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
                                 return `${context.label}: ${context.raw} (${p}%)`;
-
                             }
-
                         }
-
                     }
-
                 }
-
             },
-
-            plugins: [
-                outerLabelPlugin
-            ]
-
+            plugins: []
         });
-
     }
 
     /* =====================================
-       UPDATE DONUT
+       UPDATE DONUT + SELURUH UI DARI SATU SUMBER DATA
     ===================================== */
 
     function updateDonut(todoValue, progressValue, completedValue) {
 
-        currentTodo = Number(todoValue);
-        currentProgress = Number(progressValue);
-        currentCompleted = Number(completedValue);
+        currentTodo = Number(todoValue) || 0;
+        currentProgress = Number(progressValue) || 0;
+        currentCompleted = Number(completedValue) || 0;
 
-        updateUI(
-            currentTodo,
-            currentProgress,
-            currentCompleted
-        );
+        updateUI(currentTodo, currentProgress, currentCompleted);
 
         if (donutChart) {
-
-            donutChart.data.datasets[0].data = [
-
-                currentTodo,
-                currentProgress,
-                currentCompleted
-
-            ];
-
+            donutChart.data.datasets[0].data = [currentTodo, currentProgress, currentCompleted];
             donutChart.update();
-
         }
-
     }
 
     /* =====================================
-       FILTER BULAN
+       AMBIL DATA DARI SERVER SESUAI KOMBINASI FILTER (AND)
+       Bulan + Tahun + Layanan dikirim bersamaan ke backend,
+       backend yang menentukan hasil gabungan (bukan JS menimpa
+       array lama), jadi tidak ada filter yang saling override.
+    ===================================== */
+
+    let isFetching = false;
+
+    function fetchTicketStats() {
+
+        if (!statsUrl) return;
+
+        const params = new URLSearchParams();
+        if (filters.month) params.append("month", filters.month);
+        if (filters.year) params.append("year", filters.year);
+        if (filters.service) params.append("service", filters.service);
+
+        isFetching = true;
+
+        fetch(`${statsUrl}?${params.toString()}`, {
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Gagal mengambil data statistik");
+                return res.json();
+            })
+            .then(data => {
+                updateDonut(data.todo ?? 0, data.progress ?? 0, data.completed ?? 0);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+            .finally(() => {
+                isFetching = false;
+            });
+    }
+
+    /* =====================================
+       EVENT FILTER (Bulan, Tahun, Layanan)
+       Ketiganya menulis ke object `filters` yang sama,
+       lalu fetchTicketStats() selalu mengirim ketiga nilai
+       sekaligus -> hasilnya selalu kombinasi AND yang benar.
     ===================================== */
 
     if (filterMonth) {
-
         filterMonth.addEventListener("change", function () {
-
-            if (this.value === "") {
-
-                updateDonut(
-                    todo,
-                    progress,
-                    completed
-                );
-
-                return;
-
-            }
-
-            const index = this.selectedIndex - 1;
-
-            if (index < 0) return;
-
-            updateDonut(
-
-                monthlyTodo[index] ?? 0,
-                monthlyProgress[index] ?? 0,
-                monthlyCompleted[index] ?? 0
-
-            );
-
+            filters.month = this.value;
+            syncSelectText(this, monthText, "Semua Bulan");
+            fetchTicketStats();
         });
-
     }
 
-    /* =====================================
-       FILTER LAYANAN
-    ===================================== */
+    if (filterYear) {
+        filterYear.addEventListener("change", function () {
+            filters.year = this.value;
+            syncSelectText(this, yearText, "Semua Tahun");
+            fetchTicketStats();
+        });
+    }
 
     if (filterService) {
-
         filterService.addEventListener("change", function () {
-
-            if (this.value === "") {
-
-                updateDonut(
-                    todo,
-                    progress,
-                    completed
-                );
-
-                return;
-
-            }
-
-            const index = this.selectedIndex - 1;
-
-            if (index < 0) return;
-
-            updateDonut(
-
-                serviceTodo[index] ?? 0,
-                serviceProgress[index] ?? 0,
-                serviceCompleted[index] ?? 0
-
-            );
-
+            filters.service = this.value;
+            syncSelectText(this, serviceText, "Semua Layanan");
+            fetchTicketStats();
         });
-
     }
 
     /* =====================================
-       COUNTER CARD
+       COUNTER CARD (angka di 4 card ringkasan atas)
     ===================================== */
 
     const counters = document.querySelectorAll(".counter");
+    const COUNTER_DURATION = 2000; // dalam milidetik, naikkan angka ini kalau mau lebih lambat lagi
 
     counters.forEach(counter => {
+        const target = Number(counter.dataset.target);
+        const startTime = performance.now();
 
-        const target =
-            Number(counter.dataset.target);
+        function step(now) {
+            const progress = Math.min((now - startTime) / COUNTER_DURATION, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out, melambat di akhir
+            const current = Math.floor(eased * target);
 
-        let current = 0;
+            counter.textContent = current.toLocaleString("id-ID");
 
-        const step =
-            Math.max(1, Math.ceil(target / 60));
-
-        const timer = setInterval(() => {
-
-            current += step;
-
-            if (current >= target) {
-
-                current = target;
-
-                clearInterval(timer);
-
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                counter.textContent = target.toLocaleString("id-ID");
             }
+        }
 
-            counter.textContent =
-                current.toLocaleString("id-ID");
-
-        }, 20);
-
-    });
+    requestAnimationFrame(step);
+});
 
     /* =====================================
        CARD HOVER
     ===================================== */
 
-    document
-        .querySelectorAll(".modern-card")
-        .forEach(card => {
-
-            card.addEventListener("mouseenter", () => {
-
-                card.style.transition = ".3s";
-
-            });
-
+    document.querySelectorAll(".modern-card").forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transition = ".3s";
         });
+    });
 
 });

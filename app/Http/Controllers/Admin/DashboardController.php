@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Ticket;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -43,7 +44,7 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Semua Layanan
+        | Semua Layanan (dipakai untuk Quick Menu & Filter Layanan)
         |--------------------------------------------------------------------------
         */
 
@@ -51,80 +52,12 @@ class DashboardController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Statistik Bulanan
+        | Data untuk Filter Statistik Tiket (Bulan & Tahun)
         |--------------------------------------------------------------------------
         */
 
-       $chartData = Ticket::selectRaw("
-            DATE_FORMAT(created_at, '%Y-%m') as ym,
-            SUM(status='To Do') as todo,
-            SUM(status='In Progress') as progress,
-            SUM(status='Completed') as completed,
-            COUNT(*) as total
-        ")
-        ->groupBy('ym')
-        ->orderBy('ym')
-        ->get()
-        ->keyBy('ym');
-
-        $namaBulan = [
-            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
-        ];
-
-        $monthlyLabels = [];
-        $monthlyTotals = [];
-        $monthlyTodo = [];
-        $monthlyProgress = [];
-        $monthlyCompleted = [];
-        $jumlahBulan = 6;
-        
-        for ($i = $jumlahBulan - 1; $i >= 0; $i--) {
-            $tanggal = Carbon::now()->subMonths($i);
-            $key = $tanggal->format('Y-m'); // "2026-07"
-
-            $monthlyLabels[] = $namaBulan[(int) $tanggal->format('n')] . ' ' . $tanggal->format('Y'); // "Juli 2026"
-
-            $row = $chartData->get($key);
-
-            $monthlyTotals[]    = $row ? (int) $row->total : 0;
-            $monthlyTodo[]      = $row ? (int) $row->todo : 0;
-            $monthlyProgress[]  = $row ? (int) $row->progress : 0;
-            $monthlyCompleted[] = $row ? (int) $row->completed : 0;
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Statistik Per Layanan
-        |--------------------------------------------------------------------------
-        */
-
-        $serviceData = Ticket::selectRaw("
-                service_id,
-                SUM(status='To Do') as todo,
-                SUM(status='In Progress') as progress,
-                SUM(status='Completed') as completed,
-                COUNT(*) as total
-            ")
-            ->with('service')
-            ->groupBy('service_id')
-            ->get();
-
-        $serviceLabels = [];
-        $serviceTotals = [];
-        $serviceTodo = [];
-        $serviceProgress = [];
-        $serviceCompleted = [];
-
-        foreach ($serviceData as $item) {
-
-            $serviceLabels[] = optional($item->service)->nama_layanan ?? '-';
-            $serviceTotals[] = (int) $item->total;
-            $serviceTodo[] = (int) $item->todo;
-            $serviceProgress[] = (int) $item->progress;
-            $serviceCompleted[] = (int) $item->completed;
-        }
+        $months = $this->monthNames();
+        $years = $this->availableYears();
 
         /*
         |--------------------------------------------------------------------------
@@ -148,20 +81,96 @@ class DashboardController extends Controller
 
             'services' => $services,
 
-            'chartData' => $chartData,
-
-            'monthlyLabels' => $monthlyLabels,
-            'monthlyTotals' => $monthlyTotals,
-            'monthlyTodo' => $monthlyTodo,
-            'monthlyProgress' => $monthlyProgress,
-            'monthlyCompleted' => $monthlyCompleted,
-
-            'serviceLabels' => $serviceLabels,
-            'serviceTotals' => $serviceTotals,
-            'serviceTodo' => $serviceTodo,
-            'serviceProgress' => $serviceProgress,
-            'serviceCompleted' => $serviceCompleted,
+            'months' => $months,
+            'years' => $years,
 
         ]);
+    }
+
+    /**
+     * Endpoint AJAX untuk Statistik Tiket.
+     * Menerima kombinasi filter month + year + service sekaligus (AND),
+     * lalu mengembalikan hitungan status tiket hasil filter tersebut.
+     * Dipanggil oleh resources/js/chart.js setiap ada perubahan filter,
+     * jadi ketiga filter selalu dikirim bersamaan (tidak saling menimpa).
+     */
+    public function ticketStats(Request $request): JsonResponse
+    {
+        $query = $this->applyTicketFilters(Ticket::query(), $request);
+
+        $todo = (clone $query)->where('status', 'To Do')->count();
+        $progress = (clone $query)->where('status', 'In Progress')->count();
+        $completed = (clone $query)->where('status', 'Completed')->count();
+
+        return response()->json([
+            'todo' => $todo,
+            'progress' => $progress,
+            'completed' => $completed,
+            'total' => $todo + $progress + $completed,
+        ]);
+    }
+
+    /**
+     * Terapkan filter bulan, tahun, dan layanan ke query tiket.
+     * Filter yang tidak diisi (kosong) otomatis diabaikan,
+     * sedangkan filter yang diisi digabung dengan AND.
+     */
+    private function applyTicketFilters(\Illuminate\Database\Eloquent\Builder $query, Request $request): \Illuminate\Database\Eloquent\Builder
+    {
+        if ($request->filled('month')) {
+            $query->whereMonth('created_at', (int) $request->input('month'));
+        }
+
+        if ($request->filled('year')) {
+            $query->whereYear('created_at', (int) $request->input('year'));
+        }
+
+        if ($request->filled('service')) {
+            $query->where('service_id', (int) $request->input('service'));
+        }
+
+        return $query;
+    }
+
+    /**
+     * Daftar nama bulan (1-12) dalam Bahasa Indonesia, dipakai untuk
+     * mengisi dropdown Filter Bulan dan diseragamkan di satu tempat
+     * supaya tidak ada duplikasi array bulan di bagian lain controller.
+     */
+    private function monthNames(): array
+    {
+        return [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+    }
+
+    /**
+     * Daftar tahun yang tersedia untuk Filter Tahun, diambil dari tahun-tahun
+     * yang benar-benar ada tiketnya, ditambah tahun berjalan (supaya tahun
+     * ini selalu muncul walau belum ada tiket sama sekali), diurutkan terbaru dulu.
+     */
+    private function availableYears(): array
+    {
+        $years = Ticket::selectRaw('DISTINCT YEAR(created_at) as year')
+            ->pluck('year')
+            ->map(fn ($year) => (int) $year);
+
+        return $years
+            ->push(now()->year)
+            ->unique()
+            ->sortDesc()
+            ->values()
+            ->all();
     }
 }

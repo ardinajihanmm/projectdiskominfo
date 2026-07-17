@@ -34,7 +34,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'department_id' => 'required|exists:departments,id',
+            'nama_bidang' => 'required|max:255',
             'nama_layanan' => 'required|max:255',
             'deskripsi' => 'required',
             'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
@@ -42,7 +42,10 @@ class ServiceController extends Controller
             'status' => 'required'
         ]);
 
-        $data = $request->except('icon');
+        $department = $this->resolveDepartment($request->nama_bidang);
+
+        $data = $request->except('icon', 'nama_bidang');
+        $data['department_id'] = $department->id;
 
         if ($request->hasFile('icon')) {
             $data['icon'] = $request->file('icon')->store('services', 'public');
@@ -57,7 +60,7 @@ class ServiceController extends Controller
 
     public function show(string $id)
     {
-        //
+
     }
 
     public function edit(string $id)
@@ -71,7 +74,7 @@ class ServiceController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'department_id' => 'required|exists:departments,id',
+            'nama_bidang' => 'required|max:255',
             'nama_layanan' => 'required|max:255',
             'deskripsi' => 'required',
             'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
@@ -80,7 +83,11 @@ class ServiceController extends Controller
         ]);
 
         $service = Service::findOrFail($id);
-        $data = $request->except('icon', 'hapus_icon');
+
+        $department = $this->resolveDepartment($request->nama_bidang);
+
+        $data = $request->except('icon', 'hapus_icon', 'nama_bidang');
+        $data['department_id'] = $department->id;
 
         if ($request->hasFile('icon')) {
 
@@ -109,7 +116,13 @@ class ServiceController extends Controller
 
     public function destroy(string $id)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::find($id);
+
+        if (! $service) {
+            return redirect()
+                ->route('admin.service.index')
+                ->with('error', 'Layanan tidak ditemukan, mungkin sudah terhapus sebelumnya.');
+        }
 
         if ($service->icon && Storage::disk('public')->exists($service->icon)) {
             Storage::disk('public')->delete($service->icon);
@@ -120,5 +133,25 @@ class ServiceController extends Controller
         return redirect()
             ->route('admin.service.index')
             ->with('success', 'Layanan berhasil dihapus.');
+    }
+    
+    private function resolveDepartment(string $namaBidang): Department
+    {
+        $namaBidang = trim($namaBidang);
+
+        $existing = Department::whereRaw('LOWER(nama_bidang) = ?', [strtolower($namaBidang)])
+            ->first();
+
+        if ($existing) {
+            return $existing;
+        }
+
+        $agencyId = Department::value('agency_id') ?? 1;
+
+        return Department::create([
+            'nama_bidang' => $namaBidang,
+            'agency_id' => $agencyId,
+            'status' => 1,
+        ]);
     }
 }

@@ -24,4 +24,8 @@ class Department extends Model
     {
         return $this->hasMany(Service::class);
     }
+    public function layanans()
+    {
+        return $this->hasMany(Layanan::class);
+    }
 }

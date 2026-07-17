@@ -137,6 +137,23 @@
         }
     }
 
+    .icon-preview-pro{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        margin-bottom:12px;
+    }
+
+    .icon-preview-pro img{
+        width:56px;
+        height:56px;
+        object-fit:contain;
+        border:1px solid #E2E8F0;
+        border-radius:14px;
+        padding:6px;
+        background:#F8FAFC;
+    }
+
     .form-actions-pro{
         display:flex;
         gap:12px;
@@ -211,7 +228,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.service.store') }}" method="POST">
+        <form action="{{ route('admin.service.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group-pro">
@@ -257,6 +274,19 @@
                           rows="5"
                           placeholder="Jelaskan cakupan layanan ini secara singkat..."
                           required>{{ old('deskripsi') }}</textarea>
+            </div>
+
+            <div class="form-group-pro">
+                <label class="form-label-pro">
+                    <i class="bi bi-image"></i> Icon Layanan
+                </label>
+                <input type="file"
+                       name="icon"
+                       class="form-control-pro"
+                       accept="image/*">
+                <small class="text-muted d-block mt-1">
+                    Format: JPG, PNG, WEBP, SVG. Maksimal 2MB.
+                </small>
             </div>
 
             <div class="form-row-pro">

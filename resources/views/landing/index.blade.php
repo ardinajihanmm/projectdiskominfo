@@ -2716,7 +2716,7 @@ footer::before{
 
                         <p>
                           <strong>Estimasi :</strong>
-                             {{ $service->sla }} Hari Kerja
+                             {{ $service->sla }} Jam 
                         </p>
 
                     </div>

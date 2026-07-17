@@ -69,7 +69,8 @@
         <div class="card-body p-4">
 
             <form action="{{ route('admin.service.update',$service->id) }}"
-                  method="POST">
+                  method="POST"
+                  enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
@@ -82,23 +83,21 @@
             Bidang
         </label>
 
-        <select
-            name="department_id"
-            class="form-select rounded-4 shadow-sm"
+        <input
+            type="text"
+            name="nama_bidang"
+            list="bidangList"
+            class="form-control rounded-4 shadow-sm"
+            placeholder="Ketik nama bidang (bisa pilih yang sudah ada atau tulis baru)"
+            value="{{ old('nama_bidang', $service->department->nama_bidang ?? '') }}"
+            autocomplete="off"
             required>
 
+        <datalist id="bidangList">
             @foreach($departments as $department)
-
-                <option value="{{ $department->id }}"
-                    {{ $service->department_id == $department->id ? 'selected' : '' }}>
-
-                    {{ $department->nama_bidang }}
-
-                </option>
-
+                <option value="{{ $department->nama_bidang }}">
             @endforeach
-
-        </select>
+        </datalist>
 
     </div>
 
@@ -135,6 +134,41 @@
         rows="6"
         class="form-control rounded-4 shadow-sm"
         required>{{ old('deskripsi',$service->deskripsi) }}</textarea>
+
+</div>
+
+<div class="mb-4">
+
+    <label class="form-label fw-semibold">
+        <i class="bi bi-image-fill text-primary me-2"></i>
+        Icon Layanan
+    </label>
+
+    @if($service->icon)
+        <div class="mb-2 d-flex align-items-center gap-3">
+            <img src="{{ asset('storage/'.$service->icon) }}"
+                 alt="Icon saat ini"
+                 style="width:60px;height:60px;object-fit:contain;border:1px solid #e2e8f0;border-radius:12px;padding:6px;">
+
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="hapus_icon"
+                       value="1"
+                       id="hapusIcon">
+                <label class="form-check-label" for="hapusIcon">
+                    Hapus icon ini
+                </label>
+            </div>
+        </div>
+    @endif
+
+    <input type="file"
+           name="icon"
+           class="form-control rounded-4 shadow-sm"
+           accept="image/*">
+
+    <small class="text-muted">Format: JPG, PNG, WEBP, SVG. Maksimal 2MB. Kosongkan jika tidak ingin mengubah icon.</small>
 
 </div>
 
@@ -187,14 +221,14 @@
             <option value="1"
                 {{ $service->status==1 ? 'selected' : '' }}>
 
-                🟢 Aktif
+                Aktif
 
             </option>
 
             <option value="0"
                 {{ $service->status==0 ? 'selected' : '' }}>
 
-                🔴 Nonaktif
+                Nonaktif
 
             </option>
 
@@ -291,4 +325,4 @@
 
 </style>
 
-@endsection           
+@endsection

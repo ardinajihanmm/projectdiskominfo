@@ -615,9 +615,12 @@
 
 
 .quick-card,
-
 .latest-ticket-card{
     border-radius:22px;
+}
+
+.quick-card .card-body{
+    padding:24px;
 }
 
 .latest-ticket-card .card-body{
@@ -625,19 +628,14 @@
 }
 
 .quick-title-icon{
-    width:66px;
-    height:66px;
-    border-radius:18px;
-    background:#eef4ff;
-    color:#2563eb;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-right:18px;
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    margin-right:14px;
 }
 
 .quick-title-icon i{
-    font-size:30px;
+    font-size:24px;
 }
 
 .quick-menu{
@@ -647,12 +645,12 @@
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    min-height:160px;
-    border-radius:24px;
+    height:130px;
+    border-radius:20px;
     color:#fff;
     text-decoration:none;
     transition:.35s;
-    box-shadow:0 15px 30px rgba(0,0,0,.12);
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
 }
 
 .quick-menu::before{
@@ -672,15 +670,22 @@
 }
 
 .quick-menu i{
-    font-size:54px;
-    margin-bottom:20px;
+    font-size:42px;
+    margin-bottom:14px;
 }
 
 .quick-menu h5{
     margin:0;
     text-align:center;
-    line-height:1.4;
+    line-height:1.35;
+    font-size:1.1rem;
     font-weight:700;
+}
+
+.quick-menu span{
+    font-size:1rem;
+    font-weight:600;
+    line-height:1.3;
 }
 
 .quick-blue{

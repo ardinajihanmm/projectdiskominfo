@@ -326,14 +326,43 @@
 
 @endforelse
 </div>
+
+<div class="mt-4">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-circle-fill me-2"></i>
+            {{ $errors->first() }}
+        </div>
+    @endif
+
+    <form action="{{ route('user.ticket.comment.store', $ticket->id) }}" method="POST">
+
+        @csrf
+
+        <div class="mb-3">
+            <textarea
+                name="komentar"
+                rows="3"
+                class="form-control rounded-4 shadow-sm"
+                placeholder="Tulis balasan Anda di sini..."
+                required>{{ old('komentar') }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-pill px-4">
+            <i class="bi bi-send-fill me-1"></i>
+            Kirim Balasan
+        </button>
+
+    </form>
+
+</div>
             </div>
-
-</div>
-
-
 </div>
 </div>
-    </div>
+</div>
+</div>
+</div>
 
 
 

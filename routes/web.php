@@ -94,6 +94,8 @@ Route::put('/profile/password', [UserProfileController::class,'password'])
             
         Route::put('/notification/{notification}/read',[UserDashboard::class,'markAsRead'])
             ->name('notification.read');
+        Route::post('/ticket/{ticket}/comment', [UserTicket::class, 'storeComment'])
+    ->name('ticket.comment.store');
     });
 
 /*

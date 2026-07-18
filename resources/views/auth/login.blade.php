@@ -4,13 +4,24 @@
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root{
     --primary:#2563eb;
+    --primary-light:#3b82f6;
     --primary-dark:#1d4ed8;
     --secondary:#3b82f6;
-    --text:#334155;
+    --text:#0f172a;
     --muted:#64748b;
     --border:#e2e8f0;
+
+    --radius-lg:24px;
+    --radius-md:20px;
+    --radius-sm:12px;
+
+    --shadow-sm:0 4px 16px rgba(15,23,42,.06);
+    --shadow-md:0 16px 36px rgba(37,99,235,.14);
+    --shadow-lg:0 26px 60px rgba(37,99,235,.18);
 }
 
 /* =====================================
@@ -35,7 +46,7 @@ body{
 
 body{
 
-    font-family:'Poppins',sans-serif;
+    font-family:'Plus Jakarta Sans',sans-serif;
 
     display:flex;
 
@@ -58,7 +69,7 @@ body{
         rgba(255,255,255,.10) 0%,
         transparent 32%),
 
-        linear-gradient(135deg,#2563eb,#4f8dfd);
+        linear-gradient(135deg,var(--primary),var(--primary-light));
 
 }
 
@@ -133,11 +144,14 @@ body::after{
 
     background:#fff;
 
-    border-radius:24px;
+    border-radius:var(--radius-lg);
 
     padding:28px 34px;
 
-    box-shadow:0 18px 45px rgba(0,0,0,.18);
+    box-shadow:var(--shadow-lg);
+
+    position:relative;
+    z-index:1;
 
 }
 
@@ -145,8 +159,7 @@ body::after{
 
     transform:translateY(-4px);
 
-    box-shadow:
-        0 24px 55px rgba(0,0,0,.20);
+    box-shadow:0 30px 65px rgba(37,99,235,.25);
 
 }
 
@@ -170,11 +183,11 @@ body::after{
 
     font-size:2.15rem;
 
-    font-weight:900;
+    font-weight:800;
 
     color:var(--primary);
 
-    letter-spacing:.5px;
+    letter-spacing:-.02em;
 
     margin-bottom:2px;
 
@@ -196,7 +209,7 @@ body::after{
 
     font-size:.92rem;
 
-    line-height:1.55;
+    line-height:1.7;
 
     color:var(--muted);
 
@@ -215,12 +228,12 @@ body::after{
 ===================================== */
 
 .form-label{
-    font-size:.95rem;
+    font-size:.9rem;
     font-weight:600;
 
     color:var(--text);
 
-    margin-bottom:5px;
+    margin-bottom:6px;
 
 }
 
@@ -229,11 +242,13 @@ body::after{
     margin-bottom:10px;
     margin-top:2px;
 
-    border-radius:14px;
+    border-radius:999px;
 
     overflow:hidden;
 
     transition:.25s;
+
+    border:1.5px solid var(--border);
 
 }
 
@@ -241,7 +256,9 @@ body::after{
 
     transform:scale(1.01);
 
-    box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    box-shadow:0 0 0 5px rgba(37,99,235,.14);
+
+    border-color:var(--primary);
 
 }
 
@@ -251,7 +268,7 @@ body::after{
 
     justify-content:center;
 
-    background:var(--primary);
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
 
     color:#fff;
 
@@ -261,11 +278,9 @@ body::after{
 
 .form-control{
 
-    height:45px;
+    height:48px;
 
-    border:1px solid var(--border);
-
-    border-left:none;
+    border:none;
 
     font-size:14px;
 
@@ -281,7 +296,7 @@ body::after{
 
 .form-control:focus{
 
-    border-color:var(--primary);
+    background:#fff;
 
 }
 
@@ -299,9 +314,7 @@ body::after{
 
     width:56px;
 
-    border:1px solid var(--border);
-
-    border-left:none;
+    border:none;
 
     background:#fff;
 
@@ -345,37 +358,35 @@ body::after{
 
     width:100%;
 
-    height:45px;
+    height:48px;
 
     border:none;
 
-    border-radius:13px;
+    border-radius:999px;
 
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
 
     color:#fff;
 
-    font-weight:700;
+    font-weight:600;
 
     font-size:15px;
 
-    letter-spacing:.3px;
+    letter-spacing:.2px;
 
-    transition:.3s;
+    transition:.25s;
 
-    box-shadow:
-        0 12px 28px rgba(37,99,235,.25);
+    box-shadow:0 14px 28px -10px rgba(37,99,235,.55);
 
 }
 
 .btn-login:hover{
 
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 
-    background:linear-gradient(135deg,#1d4ed8,#2563eb);
+    background:linear-gradient(135deg,var(--primary-dark),var(--primary));
 
-    box-shadow:
-        0 18px 35px rgba(37,99,235,.35);
+    box-shadow:0 18px 32px -10px rgba(37,99,235,.6);
 
 }
 
@@ -441,7 +452,7 @@ body::after{
 
     border:none;
 
-    border-radius:14px;
+    border-radius:var(--radius-sm);
 
 }
 
@@ -491,7 +502,7 @@ body{
 
     padding:28px;
 
-    border-radius:20px;
+    border-radius:var(--radius-md);
 
 }
 
@@ -529,23 +540,17 @@ body{
             class="logo-pemalang"
             alt="Logo Kabupaten Pemalang">
 
-        <h1 class="login-title">
+       <h1 class="login-title">
 
-            HELPDESK
+    Helpdesk
 
-        </h1>
+</h1>
 
-        <div class="login-instansi">
+<div class="login-instansi">
 
-            Dinas Komunikasi dan Informatika
+    Pemkab Pemalang
 
-        </div>
-
-        <div class="fw-semibold text-secondary mb-3">
-
-            Kabupaten Pemalang
-
-        </div>
+</div>
 
         <p class="login-subtitle">
 
@@ -722,8 +727,7 @@ body{
 
     <div class="login-footer">
 
-        © {{ date('Y') }} Diskominfo Kabupaten Pemalang
-
+        © {{ date('Y') }} Helpdesk Pemkab Pemalang
     </div>
 
 </div>

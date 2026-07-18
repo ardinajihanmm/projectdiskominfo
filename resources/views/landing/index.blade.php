@@ -784,7 +784,6 @@ img{
     z-index:2;
 
 }
-
 .service-thumb{
 
     position:relative;
@@ -797,19 +796,30 @@ img{
 
     justify-content:center;
 
-    padding:var(--sp-4);
+    padding:0;
 
     height:128px;
 
-}
+    overflow:hidden;
 
+}
+.service-thumb::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:30%;
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,.08));
+    pointer-events:none;
+}
 .service-thumb img{
 
-    max-height:68px;
+    width:100%;
 
-    width:auto;
+    height:100%;
 
-    object-fit:contain;
+    object-fit:cover;
 
     transition:.4s ease;
 

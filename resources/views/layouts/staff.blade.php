@@ -1496,6 +1496,7 @@
 
 .logo-text{
     text-align:left;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 .logo-text h3{
@@ -1503,7 +1504,9 @@
     color:#fff;
     font-size:1.65rem;
     font-weight:800;
+    letter-spacing:-.02em;
     line-height:1.1;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 .logo-text small{
@@ -1513,8 +1516,8 @@
     line-height:1.35;
     font-weight:500;
     margin-top:4px;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
-
 .footer{
     padding:20px 30px;
     color:#64748B;
@@ -1613,11 +1616,10 @@
         alt="Logo Kabupaten Pemalang">
 
     <div class="logo-text">
-        <h3>Helpdesk</h3>
-        <small>
-            Diskominfo<br>
-            Kabupaten Pemalang
-        </small>
+    <h3>Helpdesk</h3>
+    <small>
+        Pemkab Pemalang
+    </small>
     </div>
 
 </div>
@@ -1741,7 +1743,7 @@
 
         <div class="footer">
 
-            © {{ date('Y') }} HelpDesk Diskominfo Kabupaten Pemalang
+            © {{ date('Y') }} Helpdesk Pemkab Pemalang
 
         </div>
 

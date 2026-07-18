@@ -75,7 +75,24 @@ class TicketController extends Controller
         return redirect()->route('user.ticket.history')
             ->with('success', 'Pengajuan tiket berhasil dibuat.');
     }
+public function storeComment(Request $request, \App\Models\Ticket $ticket)
+{
+    // Pastikan user cuma bisa komen di tiket miliknya sendiri
+    if ($ticket->user_id !== auth()->id()) {
+        abort(403);
+    }
 
+    $request->validate([
+        'komentar' => 'required|string|max:2000',
+    ]);
+
+    $ticket->comments()->create([
+        'user_id' => auth()->id(),
+        'komentar' => $request->komentar,
+    ]);
+
+    return back()->with('success', 'Balasan berhasil dikirim.');
+}
     /**
      * Riwayat tiket user
      */

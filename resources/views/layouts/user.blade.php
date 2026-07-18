@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title','Helpdesk')</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -77,9 +78,9 @@
     object-fit:contain;
     flex-shrink:0;
 }
-
 .logo-text{
     text-align:left;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 .logo-text h3{
@@ -87,7 +88,9 @@
     color:#fff;
     font-size:1.65rem;
     font-weight:800;
+    letter-spacing:-.02em;
     line-height:1.1;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 
 .logo-text small{
@@ -97,6 +100,7 @@
     line-height:1.35;
     font-weight:500;
     margin-top:4px;
+    font-family:'Plus Jakarta Sans',sans-serif;
 }
 .profile{
 
@@ -1770,12 +1774,11 @@ border-radius:16px;
         alt="Logo Kabupaten Pemalang">
 
     <div class="logo-text">
-        <h3>Helpdesk</h3>
-        <small>
-            Diskominfo<br>
-            Kabupaten Pemalang
-        </small>
-    </div>
+    <h3>Helpdesk</h3>
+    <small>
+        Pemkab Pemalang
+    </small>
+</div>
 
 </div>
 <div class="profile">
@@ -1933,7 +1936,7 @@ border-radius:16px;
 
 <div class="footer">
 
-    © {{ date('Y') }} HelpDesk Diskominfo Kabupaten Pemalang
+    © {{ date('Y') }} Helpdesk Pemkab Pemalang
 
 </div>
 

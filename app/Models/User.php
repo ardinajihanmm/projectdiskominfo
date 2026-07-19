@@ -33,13 +33,11 @@ class User extends Authenticatable
         ];
     }
 
-    // Relasi: satu user memiliki banyak tiket
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }
 
-    // Relasi: satu user memiliki banyak komentar
     public function comments()
     {
         return $this->hasMany(Comment::class);

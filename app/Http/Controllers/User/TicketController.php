@@ -15,9 +15,6 @@ use Illuminate\Support\Str;
 
 class TicketController extends Controller
 {
-    /**
-     * Form buat tiket
-     */
     public function create()
     {
         $services = Service::all();
@@ -25,9 +22,6 @@ class TicketController extends Controller
         return view('user.ticket.create', compact('services'));
     }
 
-    /**
-     * Simpan tiket
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -46,11 +40,9 @@ class TicketController extends Controller
             'prioritas'    => 'Sedang',
             'status'       => 'To Do',
         ]);
-        // Kirim notifikasi ke semua admin
+
         $admins = User::where('role', 'admin')->get();
-
         foreach ($admins as $admin) {
-
             Notification::create([
                 'user_id'   => $admin->id,
                 'ticket_id' => $ticket->id,
@@ -58,26 +50,21 @@ class TicketController extends Controller
                 'pesan'     => Auth::user()->name . ' membuat tiket "' . $ticket->judul . '"',
                 'is_read'   => false,
             ]);
-
         }
 
         if ($request->hasFile('lampiran')) {
-
             $path = $request->file('lampiran')->store('attachments', 'public');
-
             Attachment::create([
                 'ticket_id' => $ticket->id,
                 'nama_file' => $request->file('lampiran')->getClientOriginalName(),
                 'path_file' => $path,
             ]);
         }
-
         return redirect()->route('user.ticket.history')
             ->with('success', 'Pengajuan tiket berhasil dibuat.');
     }
-public function storeComment(Request $request, \App\Models\Ticket $ticket)
+    public function storeComment(Request $request, \App\Models\Ticket $ticket)
 {
-    // Pastikan user cuma bisa komen di tiket miliknya sendiri
     if ($ticket->user_id !== auth()->id()) {
         abort(403);
     }
@@ -93,45 +80,30 @@ public function storeComment(Request $request, \App\Models\Ticket $ticket)
 
     return back()->with('success', 'Balasan berhasil dikirim.');
 }
-    /**
-     * Riwayat tiket user
-     */
-public function history(Request $request)
+
+    public function history(Request $request)
 {
     $query = Ticket::with('service')
         ->where('user_id', Auth::id());
-
-    // Search berdasarkan kode tiket atau judul
     if ($request->filled('search')) {
-
         $search = $request->search;
-
         $query->where(function ($q) use ($search) {
-
             $q->where('kode_ticket', 'like', "%{$search}%")
               ->orWhere('judul', 'like', "%{$search}%");
-
         });
     }
 
-    // Filter status
     if ($request->filled('status')) {
-
         $query->where('status', $request->status);
-
     }
 
     $tickets = $query
         ->latest()
         ->paginate(10)
         ->withQueryString();
-
     return view('user.ticket.history', compact('tickets'));
 }
 
-    /**
-     * Detail tiket
-     */
     public function detail($id)
     {
         $ticket = Ticket::with([
@@ -141,7 +113,6 @@ public function history(Request $request)
         ])
         ->where('user_id', Auth::id())
         ->findOrFail($id);
-
         return view('user.ticket.detail', compact('ticket'));
     }
 }

@@ -30,23 +30,13 @@ public function update(Request $request)
 
     $user = Auth::user();
 
-    // Upload foto baru
     if ($request->hasFile('foto')) {
-
-        // Hapus foto lama jika ada
         if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-
             Storage::disk('public')->delete($user->foto);
-
         }
-
-        // Simpan foto baru
         $path = $request->file('foto')->store('profile', 'public');
-
     } else {
-
         $path = $user->foto;
-
     }
 
     $user->update([
@@ -70,19 +60,15 @@ public function password(Request $request)
     ]);
 
     $user = Auth::user();
-
     if (!Hash::check($request->current_password, $user->password)) {
-
         return back()->withErrors([
             'current_password' => 'Password lama tidak sesuai.'
         ]);
-
     }
 
     $user->update([
         'password' => Hash::make($request->password)
     ]);
-
     return back()->with('success_password', 'Password berhasil diubah.');
 }
 }

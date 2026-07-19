@@ -10,7 +10,6 @@ class LandingController extends Controller
     public function index()
     {
         $services = Service::orderBy('nama_layanan')->get();
-
         return view('landing.index', compact('services'));
     }
 
@@ -25,7 +24,6 @@ class LandingController extends Controller
                     'layanan' => $dept->services->where('status', 1)->pluck('nama_layanan'),
                 ];
             });
-
         return view('landing.pelajari-lebih-lanjut', compact('bidangs'));
     }
 }

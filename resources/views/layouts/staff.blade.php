@@ -393,8 +393,9 @@
 }
 
 .modern-card:hover .icon-box{
-    transform:rotate(-8deg) scale(1.12);
-    background:rgba(255,255,255,.28);
+    animation: floatIcon .6s ease;
+    transform: rotate(-8deg) scale(1.12);
+    background: rgba(255,255,255,.28);
 }
 
 
@@ -470,20 +471,29 @@
     align-items:center;
     font-size:34px;
     flex-shrink:0;
-    transition:.4s;
-}
+    transition:.35s;
 
-.icon-box{
-    animation: floatIcon 3s ease-in-out infinite;
+    transform: rotate(0deg);
 }
 
 @keyframes floatIcon{
-    0%,100%{
-        transform: translateY(0) rotate(-8deg);
+
+    0%{
+        transform: rotate(0deg) translateY(0);
     }
-    50%{
-        transform: translateY(-8px) rotate(-8deg);
+
+    40%{
+        transform: rotate(-8deg) translateY(-6px);
     }
+
+    70%{
+        transform: rotate(-8deg) translateY(-2px);
+    }
+
+    100%{
+        transform: rotate(-8deg) translateY(0);
+    }
+
 }
 
 .card-content{

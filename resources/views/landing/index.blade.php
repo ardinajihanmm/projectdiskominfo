@@ -1027,6 +1027,34 @@ img{
     height:100%;
 
 }
+.service-desc-body{
+    line-height: 1.8;
+    color: var(--text);
+    font-size: .95rem;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.service-desc-body::-webkit-scrollbar{
+    width: 6px;
+}
+
+.service-desc-body::-webkit-scrollbar-thumb{
+    background: #cbd8f0;
+    border-radius: 999px;
+}
+
+.desc-line{
+    text-indent: -1.2em;
+    padding-left: 1.2em;
+}
+
+.desc-indent-0{ margin-left: 0; }
+.desc-indent-1{ margin-left: 1.4em; }
+.desc-indent-2{ margin-left: 2.8em; }
+.desc-indent-3{ margin-left: 4.2em; }
+.desc-blank{ height: .8em; }
 
 /* =====================================
    TIMELINE PENGAJUAN (single section)
@@ -2706,49 +2734,60 @@ footer::before{
                 </button>
 
             </div>
-
             <div class="modal-body p-4">
 
-                <div class="row">
+                <div class="row mb-4">
 
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
 
-                        <h6 class="fw-bold mb-3">
-
-                            Informasi Layanan
-
+                        <h6 class="fw-bold mb-2 text-primary">
+                            <i class="bi bi-building me-1"></i> Bidang
                         </h6>
 
-                        <p>
-                           <strong>Bidang :</strong>
-                           {{ $service->department->nama_bidang ?? '-' }}
-                        </p>
-
-                        <p>
-                          <strong>Estimasi :</strong>
-                             {{ $service->sla }} Jam 
+                        <p class="mb-0">
+                            {{ $service->department->nama_bidang ?? '-' }}
                         </p>
 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
 
-                        <h6 class="fw-bold mb-3">
-
-                            Deskripsi
-
+                        <h6 class="fw-bold mb-2 text-primary">
+                            <i class="bi bi-clock-history me-1"></i> Estimasi
                         </h6>
 
-                        <p>
-
-                            {{ $service->deskripsi }}
-
+                        <p class="mb-0">
+                            {{ $service->sla }} Jam
                         </p>
 
                     </div>
 
                 </div>
 
+                <hr class="my-3">
+
+                <h6 class="fw-bold mb-3 text-primary">
+                    <i class="bi bi-file-text me-1"></i> Deskripsi
+                </h6>
+
+                <div class="service-desc-body">
+                @php
+                    $lines = preg_split('/\r\n|\r|\n/', $service->deskripsi ?? '');
+                @endphp
+
+                @foreach($lines as $line)
+                    @if(trim($line) === '')
+                        <div class="desc-blank"></div>
+                    @else
+                        @php
+                            $trimmed = ltrim($line, ' ');
+                            $leadingSpaces = strlen($line) - strlen($trimmed);
+                            $level = min(intdiv($leadingSpaces, 3), 3);
+                        @endphp
+                        <div class="desc-line desc-indent-{{ $level }}">{{ $trimmed }}</div>
+                    @endif
+                @endforeach
+            </div>
             </div>
 
             <div class="modal-footer">

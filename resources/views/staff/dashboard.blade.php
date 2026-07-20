@@ -22,7 +22,7 @@
             <p class="dashboard-desc">
                 Kelola seluruh tiket layanan, pantau progres pekerjaan,
                 dan tangani pengajuan pengguna melalui
-                <strong>Helpdesk Diskominfo.</strong>
+                <strong>Helpdesk Pemkab Pemalang.</strong>
             </p>
         </div>
 

@@ -647,7 +647,7 @@ Admin Helpdesk
 
 <div class="footer">
 
-    © {{ date('Y') }} HelpDesk Diskominfo Kota Pemalang
+    © {{ date('Y') }} Helpdesk Pemkab Pemalang
 
 </div>
 

@@ -157,6 +157,22 @@
                         {{ $progressPercent }}%
                     </div>
                 </div>
+                @if($myAveragePoint !== null)
+<div class="d-flex justify-content-between align-items-center mb-2 mt-2">
+    <small class="fw-semibold text-muted">
+        <i class="bi bi-lightning-charge-fill text-warning"></i>
+        Skor SLA (Ketepatan Waktu)
+    </small>
+    <small class="fw-bold {{ $myAveragePoint >= 80 ? 'text-success' : ($myAveragePoint >= 65 ? 'text-warning' : 'text-danger') }}">
+        {{ $myAveragePoint }}%
+    </small>
+</div>
+<div class="progress modern-progress mb-4" style="height:10px;">
+    <div class="progress-bar {{ $myAveragePoint >= 80 ? 'bg-success' : ($myAveragePoint >= 65 ? 'bg-warning' : 'bg-danger') }}"
+         style="width: {{ $myAveragePoint }}%">
+    </div>
+</div>
+@endif
 
                 <div class="progress modern-progress mb-3">
                     <div class="progress-bar progress-bar-striped progress-bar-animated"

@@ -20,7 +20,6 @@ use App\Http\Controllers\Admin\TicketController as AdminTicket;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\ReportController as AdminReport;
 
 // Staff
 use App\Http\Controllers\Staff\TicketController as StaffTicket;
@@ -151,9 +150,6 @@ Route::middleware(['auth','role:admin'])
 
         Route::get('/notification/{notification}', [AdminTicket::class, 'notification'])
             ->name('notification');
-        // Laporan & Evaluasi
-Route::get('/report', [AdminReport::class, 'index'])
-    ->name('report.index');
     });
 
 /*

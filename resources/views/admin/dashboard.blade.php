@@ -871,9 +871,23 @@ Tiket berhasil diselesaikan.
                     <div class="progress-circle">
                         {{ $progressPercent }}%
                     </div>
-
                 </div>
-
+@if($averagePoint !== null)
+<div class="d-flex justify-content-between align-items-center mb-2 mt-2">
+    <small class="fw-semibold text-muted">
+        <i class="bi bi-lightning-charge-fill text-warning"></i>
+        Skor SLA Keseluruhan
+    </small>
+    <small class="fw-bold {{ $averagePoint >= 80 ? 'text-success' : ($averagePoint >= 65 ? 'text-warning' : 'text-danger') }}">
+        {{ $averagePoint }}%
+    </small>
+</div>
+<div class="progress modern-progress mb-4" style="height:10px;">
+    <div class="progress-bar {{ $averagePoint >= 80 ? 'bg-success' : ($averagePoint >= 65 ? 'bg-warning' : 'bg-danger') }}"
+         style="width: {{ $averagePoint }}%">
+    </div>
+</div>
+@endif
                 <div class="progress modern-progress mb-3">
 
                     <div

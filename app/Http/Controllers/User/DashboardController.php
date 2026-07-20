@@ -32,6 +32,15 @@ class DashboardController extends Controller
         ? round(($completed / $totalTicket) * 100)
         : 0;
 
+        // Tingkat kepuasan layanan: rata-rata poin dari tiket milik user ini yang sudah selesai
+$myCompletedTickets = Ticket::where('user_id', $user->id)
+    ->where('status', 'Completed')
+    ->whereNotNull('point')
+    ->get();
+
+$satisfactionScore = $myCompletedTickets->count() > 0
+    ? round($myCompletedTickets->avg('point'))
+    : null;
     // 3 tiket terbaru
     $latestTickets = Ticket::with('service')
         ->where('user_id', $user->id)

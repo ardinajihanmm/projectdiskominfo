@@ -2350,7 +2350,7 @@ footer::before{
     <div class="hero-image" data-aos="fade-up" data-aos-duration="700">
         <img
             src="{{ asset('images/landing-illustration.png') }}"
-            alt="Ilustrasi Layanan Helpdesk Diskominfo">
+            alt="Ilustrasi Layanan Helpdesk">
     </div>
 
    <a href="{{ route('login') }}" class="hero-quick ripple-el" style="text-decoration:none;">
@@ -2475,7 +2475,7 @@ footer::before{
             <p>
 
                 Ikuti tahapan berikut untuk mengajukan layanan
-                pada Helpdesk Diskominfo Kabupaten Pemalang.
+                pada Helpdesk Helpdesk Pemkab Pemalang.
 
             </p>
 

@@ -86,6 +86,22 @@ use Illuminate\Support\Str;
                     </div>
                     <div class="progress-circle">{{ $progressPercent }}%</div>
                 </div>
+                @if($satisfactionScore !== null)
+                <div class="d-flex justify-content-between align-items-center mb-2 mt-2">
+                    <small class="fw-semibold text-muted">
+                        <i class="bi bi-emoji-smile-fill text-warning"></i>
+                        Tingkat Kepuasan Layanan
+                    </small>
+                    <small class="fw-bold {{ $satisfactionScore >= 80 ? 'text-success' : ($satisfactionScore >= 65 ? 'text-warning' : 'text-danger') }}">
+                        {{ $satisfactionScore }}%
+                    </small>
+                </div>
+                <div class="progress modern-progress mb-4" style="height:10px;">
+                    <div class="progress-bar {{ $satisfactionScore >= 80 ? 'bg-success' : ($satisfactionScore >= 65 ? 'bg-warning' : 'bg-danger') }}"
+                        style="width: {{ $satisfactionScore }}%">
+                    </div>
+                </div>
+                @endif
                 <div class="progress modern-progress mb-3">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ $progressPercent }}%"></div>
                 </div>

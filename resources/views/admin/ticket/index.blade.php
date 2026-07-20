@@ -146,7 +146,7 @@ Kelola Tiket
 
 <div class="page-subtitle">
 
-Kelola seluruh tiket Helpdesk Diskominfo.
+Kelola seluruh tiket Helpdesk Pemkab Pemalang
 
 </div>
 

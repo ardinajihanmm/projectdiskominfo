@@ -8,7 +8,7 @@
             <h2 class="fw-bold mb-2">
                 <i class="bi bi-send-plus-fill text-primary me-2"></i> Ajukan Layanan
             </h2>
-            <p class="text-muted mb-0">Lengkapi formulir berikut untuk menyampaikan permohonan layanan kepada Helpdesk Diskominfo.</p>
+            <p class="text-muted mb-0">Lengkapi formulir berikut untuk menyampaikan permohonan layanan kepada Helpdesk Pemkab Pemalang</p>
         </div>
     </div>
 

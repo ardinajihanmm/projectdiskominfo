@@ -726,7 +726,7 @@ Selamat Datang,
 
 <p class="dashboard-desc">
 
-Kelola seluruh sistem Helpdesk Diskominfo Kabupaten Pemalang.
+Kelola seluruh sistem Helpdesk Pemkab Pemalanb
 Pantau statistik tiket, kelola layanan, pengguna, serta aktivitas
 helpdesk dalam satu dashboard.
 

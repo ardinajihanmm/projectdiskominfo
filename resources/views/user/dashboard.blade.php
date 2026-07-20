@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
             <span class="dashboard-badge"><i class="bi bi-house-door-fill"></i> Dashboard</span>
             <h2 class="dashboard-title mt-3">Selamat Datang, <span>{{ $user->name }}</span></h2>
             <p class="dashboard-desc">
-                Silakan ajukan layanan atau laporkan kendala TIK yang Anda alami. Kami akan memproses pengajuan Anda, dan Anda dapat memantau perkembangannya melalui halaman <strong>Helpdesk Diskominfo.</strong>
+                Silakan ajukan layanan atau laporkan kendala TIK yang Anda alami. Kami akan memproses pengajuan Anda, dan Anda dapat memantau perkembangannya melalui halaman <strong>Helpdesk Pemkab Pemalang.</strong>
             </p>
         </div>
         <div class="col-lg-4">

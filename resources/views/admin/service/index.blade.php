@@ -21,7 +21,7 @@
                     </h2>
 
                     <p class="text-muted mb-0">
-                        Kelola seluruh data layanan Helpdesk Diskominfo.
+                        Kelola seluruh data layanan Helpdesk Pemkab Pemalang
                     </p>
 
                 </div>
@@ -203,7 +203,7 @@
 
             <i class="bi bi-clock-history me-1"></i>
 
-            {{ $service->sla }} Hari
+            {{ $service->sla }} Jam
 
         </span>
 

@@ -13,7 +13,7 @@
             </h2>
 
             <p class="text-muted mb-0">
-                Perbarui informasi layanan Helpdesk Diskominfo.
+                Perbarui informasi layanan Helpdesk Pemkab Pemalang
             </p>
         </div>
 
@@ -180,7 +180,7 @@
 
             <i class="bi bi-hourglass-split text-danger me-2"></i>
 
-            SLA (Hari)
+            SLA (Jam)
 
         </label>
 
@@ -196,7 +196,7 @@
 
             <span class="input-group-text rounded-end-4">
 
-                Hari
+                Jam
 
             </span>
 

@@ -1,0 +1,192 @@
+@extends('layouts.admin')
+
+@section('title', 'Laporan & Evaluasi')
+
+@section('content')
+
+<div class="container-fluid">
+
+    {{-- Header --}}
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-graph-up-arrow text-primary"></i>
+                Laporan & Evaluasi
+            </h2>
+            <p class="text-muted mb-0">
+                Evaluasi kinerja staff berdasarkan ketepatan waktu penyelesaian tiket (SLA).
+            </p>
+        </div>
+
+        <form action="{{ route('admin.report.index') }}" method="GET" class="d-flex gap-2">
+            <select name="month" class="form-select" onchange="this.form.submit()">
+                @foreach($months as $m)
+                    <option value="{{ $m['value'] }}" {{ $month == $m['value'] ? 'selected' : '' }}>
+                        {{ $m['label'] }}
+                    </option>
+                @endforeach
+            </select>
+        </form>
+    </div>
+
+    {{-- Ringkasan --}}
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <small class="text-muted">Tiket Selesai</small>
+                    <h3 class="fw-bold mb-0">{{ $totalCompleted }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <small class="text-muted">Rata-rata Poin</small>
+                    <h3 class="fw-bold mb-0 {{ $overallAverage >= 80 ? 'text-success' : ($overallAverage >= 65 ? 'text-warning' : 'text-danger') }}">
+                        {{ $overallAverage }}%
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <small class="text-muted">Selesai Tepat Waktu</small>
+                    <h3 class="fw-bold mb-0 text-success">{{ $totalTepatWaktu }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <small class="text-muted">Selesai Terlambat</small>
+                    <h3 class="fw-bold mb-0 text-danger">{{ $totalTelat }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        {{-- Evaluasi per Staff --}}
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-header bg-white">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-person-badge text-primary"></i>
+                        Evaluasi per Staff
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    @forelse($staffReport as $row)
+
+                        <div class="mb-4">
+
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div>
+                                    <span class="fw-semibold">{{ $row['staff']->name ?? '-' }}</span>
+                                    <small class="text-muted d-block">
+                                        {{ $row['staff']->department->nama_bidang ?? '-' }}
+                                        &middot; {{ $row['total_tiket'] }} tiket selesai
+                                        &middot; tepat waktu {{ $row['tepat_waktu'] }}, telat {{ $row['telat'] }}
+                                    </small>
+                                </div>
+                                <span class="fw-bold {{ $row['rata_rata_poin'] >= 80 ? 'text-success' : ($row['rata_rata_poin'] >= 65 ? 'text-warning' : 'text-danger') }}">
+                                    {{ $row['rata_rata_poin'] }}%
+                                </span>
+                            </div>
+
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar {{ $row['rata_rata_poin'] >= 80 ? 'bg-success' : ($row['rata_rata_poin'] >= 65 ? 'bg-warning' : 'bg-danger') }}"
+                                     role="progressbar"
+                                     style="width: {{ $row['rata_rata_poin'] }}%"
+                                     aria-valuenow="{{ $row['rata_rata_poin'] }}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    @empty
+
+                        <div class="text-center py-5">
+                            <i class="bi bi-inbox fs-2 text-muted"></i>
+                            <p class="text-muted mb-0">Belum ada tiket selesai di periode ini.</p>
+                        </div>
+
+                    @endforelse
+
+                </div>
+
+            </div>
+        </div>
+
+        {{-- Evaluasi per Bidang --}}
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-header bg-white">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-diagram-3 text-primary"></i>
+                        Evaluasi per Bidang
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    @forelse($departmentReport as $row)
+
+                        <div class="mb-4">
+
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-semibold">{{ $row['department']->nama_bidang ?? '-' }}</span>
+                                <span class="fw-bold {{ $row['rata_rata_poin'] >= 80 ? 'text-success' : ($row['rata_rata_poin'] >= 65 ? 'text-warning' : 'text-danger') }}">
+                                    {{ $row['rata_rata_poin'] }}%
+                                </span>
+                            </div>
+
+                            <small class="text-muted d-block mb-1">
+                                {{ $row['total_tiket'] }} tiket selesai
+                            </small>
+
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar {{ $row['rata_rata_poin'] >= 80 ? 'bg-success' : ($row['rata_rata_poin'] >= 65 ? 'bg-warning' : 'bg-danger') }}"
+                                     role="progressbar"
+                                     style="width: {{ $row['rata_rata_poin'] }}%"
+                                     aria-valuenow="{{ $row['rata_rata_poin'] }}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    @empty
+
+                        <div class="text-center py-5">
+                            <i class="bi bi-inbox fs-2 text-muted"></i>
+                            <p class="text-muted mb-0">Belum ada data di periode ini.</p>
+                        </div>
+
+                    @endforelse
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@endsection

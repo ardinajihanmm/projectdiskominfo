@@ -20,7 +20,7 @@
                     </h2>
 
                     <p class="text-muted mb-0">
-                        Kelola seluruh akun pengguna Helpdesk Diskominfo.
+                        Kelola seluruh akun pengguna Helpdesk Pemkab Pemalang
                     </p>
 
                 </div>

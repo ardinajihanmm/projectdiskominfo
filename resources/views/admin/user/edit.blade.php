@@ -17,7 +17,7 @@
         </h2>
 
         <p class="text-muted mb-0">
-            Perbarui informasi pengguna Helpdesk Diskominfo.
+            Perbarui informasi pengguna Helpdesk Pemkab Pemalang
         </p>
 
     </div>

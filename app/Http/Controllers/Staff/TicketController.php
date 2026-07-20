@@ -58,7 +58,6 @@ class TicketController extends Controller
             'user',
             'service',
             'staff',
-            'comments.user',
             'attachments',
             'comments.user'
         ])->findOrFail($id);
@@ -139,8 +138,9 @@ class TicketController extends Controller
         }
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
-            $ticket->completed_at = now();
-        }
+    $ticket->completed_at = now();
+    $ticket->point = $ticket->calculatePoint();
+}
 
         $ticket->save();
 
@@ -192,8 +192,9 @@ class TicketController extends Controller
         }
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
-            $ticket->completed_at = now();
-        }
+    $ticket->completed_at = now();
+    $ticket->point = $ticket->calculatePoint();
+}
 
         $ticket->save();
 

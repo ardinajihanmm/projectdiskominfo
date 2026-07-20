@@ -17,83 +17,96 @@ class TicketController extends Controller
      * Daftar semua tiket
      */
     public function index(Request $request)
-    {
-        $query = Ticket::with([
-            'user',
-            'service',
-            'staff'
-        ]);
+{
+    $admin = auth()->user();
 
-        // Search
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('judul', 'like', '%' . $request->search . '%')
-                    ->orWhere('kode_ticket', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('user', function ($user) use ($request) {
-                        $user->where('name', 'like', '%' . $request->search . '%');
-                    })
-                    ->orWhereHas('service', function ($service) use ($request) {
-                        $service->where('nama_layanan', 'like', '%' . $request->search . '%');
-                    });
-            });
-        }
+    $query = Ticket::with(['user', 'service', 'staff']);
 
-        // Filter Status
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-
-        // Filter Prioritas
-        if ($request->prioritas) {
-            $query->where('prioritas', $request->prioritas);
-        }
-
-        $tickets = $query->latest()->paginate(10);
-
-        return view('admin.ticket.index', compact('tickets'));
+    if ($admin->isScopedToDepartment()) {
+        $query->whereHas('service', function ($q) use ($admin) {
+            $q->where('department_id', $admin->department_id);
+        });
     }
+
+    if ($request->search) {
+        $query->where(function ($q) use ($request) {
+            $q->where('judul', 'like', '%' . $request->search . '%')
+                ->orWhere('kode_ticket', 'like', '%' . $request->search . '%')
+                ->orWhereHas('user', function ($user) use ($request) {
+                    $user->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhereHas('service', function ($service) use ($request) {
+                    $service->where('nama_layanan', 'like', '%' . $request->search . '%');
+                });
+        });
+    }
+
+    if ($request->status) {
+        $query->where('status', $request->status);
+    }
+
+    if ($request->prioritas) {
+        $query->where('prioritas', $request->prioritas);
+    }
+
+    $tickets = $query->latest()->paginate(10);
+
+    return view('admin.ticket.index', compact('tickets'));
+}
 
     /**
      * Detail tiket
      */
     public function show(Ticket $ticket)
-    {
-        $ticket->load([
-            'user',
-            'service',
-            'staff',
-            'attachments',
-            'comments.user'
-        ]);
+{
+    $admin = auth()->user();
 
-        $staffs = User::where('role', 'staff')->get();
+    $ticket->load(['user', 'service', 'staff', 'attachments', 'comments.user']);
 
-        return view('admin.ticket.detail', compact('ticket', 'staffs'));
+    if ($admin->isScopedToDepartment() && $ticket->service->department_id != $admin->department_id) {
+        abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
     }
 
+    $staffs = User::where('role', 'staff')
+        ->when($admin->isScopedToDepartment(), function ($q) use ($admin) {
+            $q->where('department_id', $admin->department_id);
+        })
+        ->get();
+
+    return view('admin.ticket.detail', compact('ticket', 'staffs'));
+}
     /**
      * Halaman edit
      */
     public function edit(Ticket $ticket)
-    {
-        $ticket->load([
-            'user',
-            'service',
-            'staff'
-        ]);
+{
+    $admin = auth()->user();
 
-        return view('admin.ticket.edit', compact('ticket'));
+    $ticket->load(['user', 'service', 'staff']);
+
+    if ($admin->isScopedToDepartment() && $ticket->service->department_id != $admin->department_id) {
+        abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
     }
 
+    return view('admin.ticket.edit', compact('ticket'));
+}
     /**
      * Update Status & Prioritas
      */
     public function update(Request $request, Ticket $ticket)
-    {
-        $request->validate([
-            'status' => 'required|in:To Do,In Progress,Completed',
-            'prioritas' => 'required|in:Rendah,Sedang,Tinggi',
-        ]);
+{
+    $admin = auth()->user();
+    $ticket->loadMissing('service');
+
+    if ($admin->isScopedToDepartment() && $ticket->service->department_id != $admin->department_id) {
+        abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+    }
+
+    $request->validate([
+        'status' => 'required|in:To Do,In Progress,Completed',
+        'prioritas' => 'required|in:Rendah,Sedang,Tinggi',
+    ]);
+
 
         // Simpan waktu mulai
         if ($request->status == 'In Progress' && !$ticket->started_at) {
@@ -133,10 +146,17 @@ class TicketController extends Controller
      * Assign Staff
      */
     public function assign(Request $request, Ticket $ticket)
-    {
-        $request->validate([
-            'staff_id' => 'required|exists:users,id',
-        ]);
+{
+    $admin = auth()->user();
+    $ticket->loadMissing('service');
+
+    if ($admin->isScopedToDepartment() && $ticket->service->department_id != $admin->department_id) {
+        abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+    }
+
+    $request->validate([
+        'staff_id' => 'required|exists:users,id',
+    ]);
 
         $ticket->update([
             'staff_id' => $request->staff_id,
@@ -154,42 +174,31 @@ class TicketController extends Controller
             ->route('admin.ticket.show', $ticket)
             ->with('success', 'Staff berhasil ditugaskan.');
     }
-    /**
-     * Export PDF
-     */
     public function exportPdf()
-    {
-        $tickets = Ticket::with([
-            'user',
-            'service',
-            'staff'
-        ])->get();
+{
+    $admin = auth()->user();
 
-        $pdf = Pdf::loadView('admin.ticket.pdf', compact('tickets'));
+    $query = Ticket::with(['user', 'service', 'staff']);
 
-        return $pdf->download('data-ticket.pdf');
+    if ($admin->isScopedToDepartment()) {
+        $query->whereHas('service', function ($q) use ($admin) {
+            $q->where('department_id', $admin->department_id);
+        });
     }
 
-    /**
-     * Export Excel
-     */
-    public function exportExcel()
-    {
-        return Excel::download(new TicketsExport, 'data-ticket.xlsx');
-    }
-    public function notification(Notification $notification)
-    {
-        if ($notification->user_id != auth()->id()) {
-            abort(403);
-        }
+    $tickets = $query->get();
 
-        $notification->update([
-            'is_read' => true,
-        ]);
+    $pdf = Pdf::loadView('admin.ticket.pdf', compact('tickets'));
 
-        return redirect()->route(
-            'admin.ticket.show',
-            $notification->ticket_id
-        );
-    }
+    return $pdf->download('data-ticket.pdf');
+}
+
+public function exportExcel()
+{
+    $admin = auth()->user();
+
+    $departmentId = $admin->isScopedToDepartment() ? $admin->department_id : null;
+
+    return Excel::download(new TicketsExport($departmentId), 'data-ticket.xlsx');
+}
 }

@@ -273,19 +273,40 @@
             </div>
 
             <div class="form-group-pro">
-                <label class="form-label-pro">
-                    <i class="bi bi-person-badge"></i> Role
-                </label>
-                <div class="select-wrap-pro">
-                    <select name="role" class="form-control-pro" required>
-                        <option value="">-- Pilih Role --</option>
-                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
-                        <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                    </select>
-                    <i class="bi bi-chevron-down chevron-pro"></i>
-                </div>
-            </div>
+    <label class="form-label-pro">
+        <i class="bi bi-person-badge"></i> Role
+    </label>
+    <div class="select-wrap-pro">
+        <select name="role" id="roleSelect" class="form-control-pro" required onchange="toggleDepartmentField()">
+            <option value="">-- Pilih Role --</option>
+            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+        </select>
+        <i class="bi bi-chevron-down chevron-pro"></i>
+    </div>
+</div>
+
+<div class="form-group-pro" id="departmentField" style="display:none;">
+    <label class="form-label-pro">
+        <i class="bi bi-diagram-3"></i> Bidang
+    </label>
+    <div class="select-wrap-pro">
+        <select name="department_id" class="form-control-pro">
+            <option value="">-- Pilih Bidang --</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}"
+                    {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                    {{ $department->nama_bidang }}
+                </option>
+            @endforeach
+        </select>
+        <i class="bi bi-chevron-down chevron-pro"></i>
+    </div>
+    <small class="text-muted d-block mt-1">
+        Bidang menentukan tiket layanan mana yang akan muncul di Kanban staff ini.
+    </small>
+</div>
 
             <div class="form-actions-pro">
                 <button type="submit" class="btn-save-pro">
@@ -302,5 +323,13 @@
     </div>
 
 </div>
+<script>
+    function toggleDepartmentField() {
+        const role = document.getElementById('roleSelect').value;
+        const field = document.getElementById('departmentField');
+        field.style.display = (role === 'staff' || role === 'admin') ? 'block' : 'none';
+    }
 
+    toggleDepartmentField(); 
+</script>
 @endsection

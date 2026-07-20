@@ -37,7 +37,7 @@ body{
 
     border-radius:20px;
 
-    padding:25px;
+    padding:20px;
 
     box-shadow:0 .5rem 1rem rgba(0,0,0,.07);
 

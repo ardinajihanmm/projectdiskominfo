@@ -293,7 +293,7 @@
 
                 <div class="form-group-pro">
                     <label class="form-label-pro">
-                        <i class="bi bi-hourglass-split"></i> SLA (Hari)
+                        <i class="bi bi-hourglass-split"></i> SLA (Jam)
                     </label>
                     <input type="number"
                            name="sla"

@@ -185,7 +185,19 @@
 </style>
 
 <div class="container-fluid">
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle"></i> {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle"></i> {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
 
@@ -318,16 +330,19 @@
                     @foreach($column['data'] as $ticket)
 
                     <div
-                        class="ticket-card card shadow-sm mb-2"
-                        data-id="{{ $ticket->id }}"
-                        data-kode="{{ $ticket->kode_ticket }}"
-                        data-judul="{{ $ticket->judul }}"
-                        data-pelapor="{{ $ticket->user->name }}"
-                        data-layanan="{{ $ticket->service->nama_layanan }}"
-                        data-prioritas="{{ $ticket->prioritas }}"
-                        data-status="{{ $ticket->status }}"
-                        data-created="{{ $ticket->created_at->format('d M Y H:i') }}"
-                        data-url="{{ route('staff.ticket.show',$ticket->id) }}">
+    class="ticket-card card shadow-sm mb-2"
+    data-id="{{ $ticket->id }}"
+    data-kode="{{ $ticket->kode_ticket }}"
+    data-judul="{{ $ticket->judul }}"
+    data-pelapor="{{ $ticket->user->name }}"
+    data-layanan="{{ $ticket->service->nama_layanan }}"
+    data-prioritas="{{ $ticket->prioritas }}"
+    data-status="{{ $ticket->status }}"
+    data-created="{{ $ticket->created_at->format('d M Y H:i') }}"
+    data-url="{{ route('staff.ticket.show',$ticket->id) }}"
+    data-assign-url="{{ route('staff.ticket.assign',$ticket->id) }}"
+    data-staff-id="{{ $ticket->staff_id }}"
+    data-staff-name="{{ $ticket->staff->name ?? '' }}">
 
                         <div class="card-body p-2">
 
@@ -343,18 +358,23 @@
 
                             </div>
 
-                            <div class="mt-2">
+                           <div class="mt-2 d-flex flex-wrap gap-1">
+    @if($ticket->prioritas=="Tinggi")
+        <span class="badge bg-danger">Tinggi</span>
+    @elseif($ticket->prioritas=="Sedang")
+        <span class="badge bg-warning text-dark">Sedang</span>
+    @else
+        <span class="badge bg-success">Rendah</span>
+    @endif
 
-                               @if($ticket->prioritas=="Tinggi")
-                                    <span class="badge bg-danger">Tinggi</span>
-                                @elseif($ticket->prioritas=="Sedang")
-                                    <span class="badge bg-warning text-dark">Sedang</span>
-                                @else
-                                    <span class="badge bg-success">Rendah</span>
-                                @endif
-
-                            </div>
-
+    @if($ticket->staff_id)
+        <span class="badge bg-primary-subtle text-primary">
+            <i class="bi bi-person-check"></i> {{ $ticket->staff->name ?? 'Anda' }}
+        </span>
+    @else
+        <span class="badge bg-secondary">Belum diambil</span>
+    @endif
+</div>
                         </div>
 
                     </div>
@@ -448,7 +468,10 @@
         <div class="drawer-value" id="drawerTanggal"></div>
 
     </div>
-
+<div class="mb-4">
+    <div class="drawer-label">Ditangani</div>
+    <div class="drawer-value" id="drawerStaff"></div>
+</div>
     <hr>
 
     <div class="text-muted small mb-3">
@@ -459,8 +482,11 @@
         riwayat, komentar, dan lampiran.
 
     </div>
-
+<button id="drawerAssignBtn" class="btn btn-outline-primary w-100 mb-2" style="display:none;">
+    <i class="bi bi-hand-index-thumb"></i> Ambil Tiket Ini
+</button>
     <a
+        
         id="drawerDetailBtn"
         class="btn btn-primary w-100">
 
@@ -628,6 +654,8 @@ const drawerPrioritas = document.getElementById("drawerPrioritas");
 const drawerTanggal = document.getElementById("drawerTanggal");
 const drawerDetailBtn = document.getElementById("drawerDetailBtn");
 const overlay = document.getElementById("drawerOverlay");
+const drawerStaff = document.getElementById("drawerStaff");
+const drawerAssignBtn = document.getElementById("drawerAssignBtn");
 
 
 // klik card
@@ -651,6 +679,15 @@ document.querySelectorAll(".ticket-card").forEach(card=>{
         drawerLayanan.innerText = this.dataset.layanan;
         drawerStatus.innerText = this.dataset.status;
         drawerTanggal.innerText = this.dataset.created;
+
+        if (this.dataset.staffId) {
+    drawerStaff.innerText = this.dataset.staffName || "Anda";
+    drawerAssignBtn.style.display = "none";
+} else {
+    drawerStaff.innerText = "Belum diambil";
+    drawerAssignBtn.style.display = "block";
+}
+drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 
         if(this.dataset.prioritas=="Tinggi"){
 
@@ -698,7 +735,29 @@ overlay.addEventListener("click", function () {
     drawer.classList.remove("show");
     overlay.classList.remove("show");
 });
+// AMBIL TIKET (SELF ASSIGN)
+drawerAssignBtn.addEventListener("click", function () {
+    const url = this.dataset.assignUrl;
+    if (!url) return;
 
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        }
+    })
+    .then(res => {
+        if (res.redirected) { window.location.reload(); return; }
+        return res.json();
+    })
+    .then(() => {
+        Swal.fire({ icon: "success", title: "Tiket berhasil diambil", timer: 1200, showConfirmButton: false })
+            .then(() => window.location.reload());
+    })
+    .catch(() => window.location.reload());
+});
 
 flatpickr("#monthPicker", {
 

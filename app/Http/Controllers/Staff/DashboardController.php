@@ -14,94 +14,92 @@ class DashboardController extends Controller
      * Dashboard Staff
      */
     public function index()
-{
-    // User yang login
-    $user = auth()->user();
+    {
+        // User yang login
+        $user = auth()->user();
 
-    // Statistik
-    $totalTicket = Ticket::count();
+        // Tiket dibatasi hanya untuk bidang staff ini, dan
+        // hanya yang belum diambil atau sudah menjadi milik staff ini
+        $baseQuery = Ticket::whereHas('service', function ($q) use ($user) {
+                $q->where('department_id', $user->department_id);
+            })
+            ->where(function ($q) use ($user) {
+                $q->whereNull('staff_id')
+                  ->orWhere('staff_id', $user->id);
+            });
 
-    $todo = Ticket::where('status', 'To Do')->count();
+        // Statistik
+        $totalTicket = (clone $baseQuery)->count();
+        $todo = (clone $baseQuery)->where('status', 'To Do')->count();
+        $progress = (clone $baseQuery)->where('status', 'In Progress')->count();
+        $completed = (clone $baseQuery)->where('status', 'Completed')->count();
 
-    $progress = Ticket::where('status', 'In Progress')->count();
+        // Progress %
+        $progressPercent = $totalTicket > 0
+            ? round(($completed / $totalTicket) * 100)
+            : 0;
 
-    $completed = Ticket::where('status', 'Completed')->count();
+        // Tiket terbaru
+        $latestTickets = (clone $baseQuery)->with(['user', 'service'])
+            ->latest()
+            ->take(3)
+            ->get();
 
-    // Progress %
-    $progressPercent = $totalTicket > 0
-        ? round(($completed / $totalTicket) * 100)
-        : 0;
+        // Timeline aktivitas
+        $activities = (clone $baseQuery)->latest('updated_at')
+            ->take(7)
+            ->get();
 
-    // Tiket terbaru
-    $latestTickets = Ticket::with(['user', 'service'])
-        ->latest()
-        ->take(3)
-        ->get();
-
-    // Timeline aktivitas
-    $activities = Ticket::latest('updated_at')
-        ->take(7)
-        ->get();
-
-    return view('staff.dashboard', compact(
-        'user',
-        'totalTicket',
-        'todo',
-        'progress',
-        'completed',
-        'progressPercent',
-        'latestTickets',
-        'activities'
-    ));
-}
+        return view('staff.dashboard', compact(
+            'user', 'totalTicket', 'todo', 'progress',
+            'completed', 'progressPercent', 'latestTickets', 'activities'
+        ));
+    }
 
     /**
      * Kanban Board
      */
     public function kanban(Request $request)
-{
-    $search = $request->search;
-    $status = $request->status;
+    {
+        $search = $request->search;
+        $status = $request->status;
+        $month = $request->month ?? now()->format('Y-m');
+        $user = auth()->user();
 
-    // default bulan sekarang
-    $month = $request->month ?? now()->format('Y-m');
+        $query = Ticket::with(['user', 'service', 'staff'])
+            ->whereHas('service', function ($q) use ($user) {
+                $q->where('department_id', $user->department_id);
+            })
+            ->where(function ($q) use ($user) {
+                $q->whereNull('staff_id')
+                  ->orWhere('staff_id', $user->id);
+            });
 
-    $query = Ticket::with(['user', 'service']);
+        $query->whereYear('created_at', Carbon::parse($month)->year)
+              ->whereMonth('created_at', Carbon::parse($month)->month);
 
-    // Filter bulan
-    $query->whereYear('created_at', Carbon::parse($month)->year)
-          ->whereMonth('created_at', Carbon::parse($month)->month);
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_ticket', 'like', "%{$search}%")
+                  ->orWhere('judul', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($user) use ($search) {
+                      $user->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
 
-    // Search
-    if ($search) {
-        $query->where(function ($q) use ($search) {
-            $q->where('kode_ticket', 'like', "%{$search}%")
-              ->orWhere('judul', 'like', "%{$search}%")
-              ->orWhereHas('user', function ($user) use ($search) {
-                  $user->where('name', 'like', "%{$search}%");
-              });
-        });
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        $tickets = $query->latest()->get();
+
+        $todo = $tickets->where('status', 'To Do');
+        $progress = $tickets->where('status', 'In Progress');
+        $completed = $tickets->where('status', 'Completed');
+
+        return view('staff.kanban', compact(
+            'todo', 'progress', 'completed', 'search', 'status', 'month'
+        ));
     }
-
-    // Filter status (opsional)
-    if ($status) {
-        $query->where('status', $status);
-    }
-
-    $tickets = $query->latest()->get();
-
-    $todo = $tickets->where('status', 'To Do');
-    $progress = $tickets->where('status', 'In Progress');
-    $completed = $tickets->where('status', 'Completed');
-
-    return view('staff.kanban', compact(
-        'todo',
-        'progress',
-        'completed',
-        'search',
-        'status',
-        'month'
-    ));
-}
-
 }

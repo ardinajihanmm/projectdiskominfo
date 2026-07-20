@@ -176,6 +176,9 @@ Route::middleware(['auth','role:staff'])
         // Update Status Ticket (letakkan di atas resource)
         Route::put('/ticket/{ticket}/status', [StaffTicket::class, 'updateStatus'])
             ->name('ticket.status');
+        // Staff mengambil tiket untuk diri sendiri
+        Route::post('/ticket/{ticket}/assign', [StaffTicket::class, 'assignSelf'])
+            ->name('ticket.assign');
 
         // Ticket
         Route::resource('ticket', StaffTicket::class)

@@ -321,7 +321,34 @@
                         </div>
 
                     </div>
+{{-- Bidang (read-only) --}}
+<div class="col-md-6">
 
+    <label class="form-label fw-semibold">
+        <i class="bi bi-diagram-3-fill text-info me-2"></i>
+        Bidang
+    </label>
+
+    <div class="input-group">
+
+        <span class="input-group-text bg-white">
+            <i class="bi bi-diagram-3"></i>
+        </span>
+
+        <input
+            type="text"
+            class="form-control bg-light"
+            value="{{ auth()->user()->department->nama_bidang ?? 'Semua Bidang (Superadmin)' }}"
+            readonly
+            style="cursor: not-allowed;">
+
+    </div>
+
+    <small class="text-muted">
+        Bidang hanya bisa diatur lewat menu Data User.
+    </small>
+
+</div>
                     <!-- Upload Foto -->
                     <div class="col-12">
 

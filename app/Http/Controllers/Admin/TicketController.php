@@ -13,11 +13,9 @@ use App\Exports\TicketsExport;
 
 class TicketController extends Controller
 {
-    /**
-     * Daftar semua tiket
-     */
+   
     public function index(Request $request)
-{
+    {
     $admin = auth()->user();
 
     $query = Ticket::with(['user', 'service.department', 'staff']);
@@ -52,13 +50,10 @@ class TicketController extends Controller
     $tickets = $query->latest()->paginate(10);
 
     return view('admin.ticket.index', compact('tickets'));
-}
+    }
 
-    /**
-     * Detail tiket
-     */
     public function show(Ticket $ticket)
-{
+    {   
     $admin = auth()->user();
 
     $ticket->load(['user', 'service', 'staff', 'attachments', 'comments.user']);
@@ -74,12 +69,10 @@ class TicketController extends Controller
         ->get();
 
     return view('admin.ticket.detail', compact('ticket', 'staffs'));
-}
-    /**
-     * Halaman edit
-     */
+    }
+
     public function edit(Ticket $ticket)
-{
+    {
     $admin = auth()->user();
 
     $ticket->load(['user', 'service', 'staff']);
@@ -89,12 +82,10 @@ class TicketController extends Controller
     }
 
     return view('admin.ticket.edit', compact('ticket'));
-}
-    /**
-     * Update Status & Prioritas
-     */
+    }
+
     public function update(Request $request, Ticket $ticket)
-{
+    {
     $admin = auth()->user();
     $ticket->loadMissing('service');
 
@@ -107,13 +98,10 @@ class TicketController extends Controller
         'prioritas' => 'required|in:Rendah,Sedang,Tinggi',
     ]);
 
-
-        // Simpan waktu mulai
         if ($request->status == 'In Progress' && !$ticket->started_at) {
             $ticket->started_at = now();
         }
 
-        // Simpan waktu selesai
         if ($request->status == 'Completed') {
             $ticket->completed_at = now();
         }
@@ -142,11 +130,8 @@ class TicketController extends Controller
             ->with('success', 'Status dan prioritas berhasil diperbarui.');
     }
 
-    /**
-     * Assign Staff
-     */
     public function assign(Request $request, Ticket $ticket)
-{
+    {
     $admin = auth()->user();
     $ticket->loadMissing('service');
 
@@ -175,7 +160,7 @@ class TicketController extends Controller
             ->with('success', 'Staff berhasil ditugaskan.');
     }
     public function exportPdf()
-{
+    {
     $admin = auth()->user();
 
     $query = Ticket::with(['user', 'service.department', 'staff']);
@@ -191,14 +176,14 @@ class TicketController extends Controller
     $pdf = Pdf::loadView('admin.ticket.pdf', compact('tickets'));
 
     return $pdf->download('data-ticket.pdf');
-}
+    }
 
-public function exportExcel()
-{
+    public function exportExcel()
+    {
     $admin = auth()->user();
 
     $departmentId = $admin->isScopedToDepartment() ? $admin->department_id : null;
 
     return Excel::download(new TicketsExport($departmentId), 'data-ticket.xlsx');
-}
+    }
 }

@@ -75,60 +75,105 @@ use Illuminate\Support\Str;
 
 {{-- Progress & Aksi Cepat --}}
 <div class="row g-4 mb-4">
-    {{-- Progress --}}
-    <div class="col-lg-8">
-        <div class="card progress-modern shadow-sm border-0 h-100">
-            <div class="card-body p-4">
+    <!-- Tingkat Kepuasan Layanan -->
+<div class="col-lg-8">
+
+    <div class="card progress-modern shadow-sm border-0 h-100">
+
+        <div class="card-body p-4">
+
+            @if($satisfactionScore !== null)
+
+                @php
+                    $slaLabel = $satisfactionScore >= 80 ? 'Sangat Baik' : ($satisfactionScore >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
+                    $slaDesc = $satisfactionScore >= 80
+                        ? 'Layanan yang kamu terima diproses dengan cepat dan tepat waktu.'
+                        : ($satisfactionScore >= 65
+                            ? 'Sebagian layananmu diproses agak lambat dari target waktu.'
+                            : 'Layanan yang kamu terima cenderung terlambat dari target waktu.');
+                @endphp
+
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h4 class="fw-bold mb-1">Progress Penyelesaian</h4>
-                        <small class="text-muted">Ringkasan perkembangan seluruh pengajuan Anda.</small>
+                        <h4 class="fw-bold mb-1">
+                            <i class="bi bi-emoji-smile-fill text-warning"></i>
+                            Tingkat Kepuasan Layanan
+                        </h4>
+
+                        <small class="text-muted">
+                            {{ $slaDesc }}
+                        </small>
                     </div>
-                    <div class="progress-circle">{{ $progressPercent }}%</div>
-                </div>
-                @if($satisfactionScore !== null)
-                <div class="d-flex justify-content-between align-items-center mb-2 mt-2">
-                    <small class="fw-semibold text-muted">
-                        <i class="bi bi-emoji-smile-fill text-warning"></i>
-                        Tingkat Kepuasan Layanan
-                    </small>
-                    <small class="fw-bold {{ $satisfactionScore >= 80 ? 'text-success' : ($satisfactionScore >= 65 ? 'text-warning' : 'text-danger') }}">
+
+                    <div class="progress-circle">
                         {{ $satisfactionScore }}%
-                    </small>
+                    </div>
                 </div>
-                <div class="progress modern-progress mb-4" style="height:10px;">
-                    <div class="progress-bar {{ $satisfactionScore >= 80 ? 'bg-success' : ($satisfactionScore >= 65 ? 'bg-warning' : 'bg-danger') }}"
+
+                <div class="progress modern-progress mb-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
                         style="width: {{ $satisfactionScore }}%">
                     </div>
                 </div>
-                @endif
-                <div class="progress modern-progress mb-3">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ $progressPercent }}%"></div>
-                </div>
+
                 <div class="mb-4 text-muted">
-                    <strong>{{ $completed }}</strong> dari <strong>{{ $totalTicket }}</strong> pengajuan telah berhasil diselesaikan.
+                    <strong>{{ $tepatWaktu }}</strong>
+                    dari
+                    <strong>{{ $completed }}</strong>
+                    pengajuanmu diselesaikan tepat waktu.
                 </div>
+
                 <div class="row g-3">
+
                     <div class="col-md-4">
-                        <div class="status-box status-success"><i class="bi bi-check-circle-fill"></i>
-                            <div><strong>{{ $completed }}</strong><small>Selesai</small></div>
+                        <div class="status-box status-success h-100">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>
+                                <strong>{{ $tepatWaktu }}</strong>
+                                <small>Tepat Waktu</small>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-md-4">
-                        <div class="status-box status-warning"><i class="bi bi-hourglass-split"></i>
-                            <div><strong>{{ $todo }}</strong><small>Menunggu Diproses</small></div>
+                        <div class="status-box status-warning h-100">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                <strong>{{ $telat }}</strong>
+                                <small>Terlambat dari SLA</small>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-md-4">
-                        <div class="status-box status-info"><i class="bi bi-arrow-repeat"></i>
-                            <div><strong>{{ $progress }}</strong><small>Sedang Diproses</small></div>
+                        <div class="status-box status-info h-100">
+                            <i class="bi bi-arrow-repeat"></i>
+                            <div>
+                                <strong>{{ $progress }}</strong>
+                                <small>Sedang Diproses</small>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
+
+            @else
+
+                <div class="text-center py-5">
+                    <i class="bi bi-emoji-smile fs-1 text-secondary"></i>
+                    <h5 class="fw-bold mt-3 mb-1">Belum Ada Data</h5>
+                    <p class="text-muted mb-0">
+                        Tingkat kepuasan akan muncul setelah ada pengajuanmu yang selesai diproses.
+                    </p>
+                </div>
+
+            @endif
+
         </div>
+
     </div>
 
+</div>
     {{-- Aksi Cepat --}}
     <div class="col-lg-4">
         <div class="card quick-card border-0 shadow-sm h-100">

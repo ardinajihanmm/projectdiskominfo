@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     public function index()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
     return view('user.profile', compact('user'));
-}
+    }
 
-public function update(Request $request)
-{
+    public function update(Request $request)
+    {
     $request->validate([
         'name'      => 'required|max:255',
         'email'     => 'required|email|unique:users,email,' . Auth::id(),
@@ -50,10 +50,10 @@ public function update(Request $request)
     return redirect()
         ->route('user.profile')
         ->with('success', 'Profil berhasil diperbarui.');
-}
+    }
 
-public function password(Request $request)
-{
+    public function password(Request $request)
+    {
     $request->validate([
         'current_password' => 'required',
         'password' => 'required|min:6|confirmed',
@@ -70,5 +70,5 @@ public function password(Request $request)
         'password' => Hash::make($request->password)
     ]);
     return back()->with('success_password', 'Password berhasil diubah.');
-}
+    }
 }

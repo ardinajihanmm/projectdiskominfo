@@ -846,133 +846,105 @@ Tiket berhasil diselesaikan.
 
 </div>
 <div class="row g-4 mb-4">
+    {{-- Skor SLA --}}
+<div class="col-lg-8">
 
-    {{-- Progress Penyelesaian --}}
-    <div class="col-lg-8">
+    <div class="card progress-modern border-0 h-100">
 
-        <div class="card progress-modern border-0 h-100">
+        <div class="card-body p-4">
 
-            <div class="card-body p-4">
+            @if($averagePoint !== null)
+
+                @php
+                    $slaLabel = $averagePoint >= 80 ? 'Sangat Baik' : ($averagePoint >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
+                    $slaDesc = $averagePoint >= 80
+                        ? 'Mayoritas tiket diselesaikan tepat waktu sesuai SLA.'
+                        : ($averagePoint >= 65
+                            ? 'Sebagian tiket terlambat dari SLA, masih dalam batas wajar.'
+                            : 'Banyak tiket terlambat dari SLA, perlu evaluasi kinerja.');
+                @endphp
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
 
                     <div>
-
                         <h4 class="fw-bold mb-1">
-                            Progress Penyelesaian
+                            Skor SLA Keseluruhan
                         </h4>
 
                         <small class="text-muted">
-                            Ringkasan penyelesaian seluruh tiket Helpdesk.
+                            {{ $slaDesc }}
                         </small>
-
                     </div>
 
                     <div class="progress-circle">
-                        {{ $progressPercent }}%
+                        {{ $averagePoint }}%
                     </div>
+
                 </div>
-@if($averagePoint !== null)
-<div class="d-flex justify-content-between align-items-center mb-2 mt-2">
-    <small class="fw-semibold text-muted">
-        <i class="bi bi-lightning-charge-fill text-warning"></i>
-        Skor SLA Keseluruhan
-    </small>
-    <small class="fw-bold {{ $averagePoint >= 80 ? 'text-success' : ($averagePoint >= 65 ? 'text-warning' : 'text-danger') }}">
-        {{ $averagePoint }}%
-    </small>
-</div>
-<div class="progress modern-progress mb-4" style="height:10px;">
-    <div class="progress-bar {{ $averagePoint >= 80 ? 'bg-success' : ($averagePoint >= 65 ? 'bg-warning' : 'bg-danger') }}"
-         style="width: {{ $averagePoint }}%">
+
+                <div class="progress modern-progress mb-3">
+    <div class="progress-bar progress-bar-striped progress-bar-animated"
+         style="width: {{ $averagePoint }}%; background: repeating-linear-gradient(45deg, #3B82F6, #3B82F6 8px, #2563EB 8px, #2563EB 16px);">
     </div>
 </div>
-@endif
-                <div class="progress modern-progress mb-3">
-
-                    <div
-                        class="progress-bar progress-bar-striped progress-bar-animated"
-                        style="width: {{ $progressPercent }}%">
-                    </div>
-
-                </div>
 
                 <div class="mb-4 text-muted">
-
-                    <strong>{{ $completed }}</strong>
-
+                    <strong>{{ $tepatWaktu }}</strong>
                     dari
-
-                    <strong>{{ $totalTicket }}</strong>
-
-                    tiket berhasil diselesaikan.
-
+                    <strong>{{ $completed }}</strong>
+                    tiket selesai tepat waktu sesuai SLA.
                 </div>
+<div class="row g-3">
 
-                <div class="row g-3">
-
-                    <div class="col-md-4">
-
-                        <div class="status-box status-success">
-
-                            <i class="bi bi-check-circle-fill"></i>
-
-                            <div>
-
-                                <strong>{{ $completed }}</strong>
-
-                                <small>Completed</small>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="status-box status-warning">
-
-                            <i class="bi bi-hourglass-split"></i>
-
-                            <div>
-
-                                <strong>{{ $todo }}</strong>
-
-                                <small>To Do</small>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="status-box status-info">
-
-                            <i class="bi bi-arrow-repeat"></i>
-
-                            <div>
-
-                                <strong>{{ $progress }}</strong>
-
-                                <small>In Progress</small>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+    <div class="col-md-4">
+        <div class="status-box status-success h-100">
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+                <strong>{{ $tepatWaktu }}</strong>
+                <small>Tepat Waktu</small>
             </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="status-box status-warning h-100">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+                <strong>{{ $telat }}</strong>
+                <small>Terlambat dari SLA</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="status-box status-info h-100">
+            <i class="bi bi-arrow-repeat"></i>
+            <div>
+                <strong>{{ $progress }}</strong>
+                <small>Sedang Dikerjakan</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+            @else
+
+                <div class="text-center py-5">
+                    <i class="bi bi-lightning-charge fs-1 text-secondary"></i>
+                    <h5 class="fw-bold mt-3 mb-1">Belum Ada Data SLA</h5>
+                    <p class="text-muted mb-0">
+                        Skor SLA akan muncul setelah ada tiket yang diselesaikan.
+                    </p>
+                </div>
+
+            @endif
 
         </div>
 
     </div>
 
+</div>
+   
     {{-- Quick Action --}}
     <div class="col-lg-4">
 
@@ -1053,7 +1025,6 @@ Tiket berhasil diselesaikan.
 
 </div>
 <div class="row g-4 mb-4">
-
   
 {{-- ==================== STATISTIK ==================== --}}
 <div class="col-lg-8">

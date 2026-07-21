@@ -136,92 +136,99 @@
 </div>
 
 <div class="row g-4">
+<!-- Skor SLA -->
+<div class="col-lg-8">
+    <div class="card progress-modern shadow-sm border-0 h-100">
+        <div class="card-body p-4">
 
-    <!-- Progress -->
-    <div class="col-lg-8">
-        <div class="card progress-modern shadow-sm border-0 h-100">
-            <div class="card-body p-4">
+            @if($myAveragePoint !== null)
+
+                @php
+                    $slaLabel = $myAveragePoint >= 80 ? 'Sangat Baik' : ($myAveragePoint >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
+                    $slaDesc = $myAveragePoint >= 80
+                        ? 'Kerja bagus! Mayoritas tiketmu selesai tepat waktu.'
+                        : ($myAveragePoint >= 65
+                            ? 'Beberapa tiketmu terlambat dari SLA, coba lebih cepat lagi.'
+                            : 'Banyak tiketmu terlambat dari SLA, perlu ditingkatkan.');
+                @endphp
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="fw-bold mb-1">
-                            Progress Penyelesaian Tiket
+                            Skor SLA 
                         </h4>
 
                         <small class="text-muted">
-                            Ringkasan penyelesaian seluruh tiket yang sedang Anda tangani.
+                            {{ $slaDesc }}
                         </small>
                     </div>
 
                     <div class="progress-circle">
-                        {{ $progressPercent }}%
+                        {{ $myAveragePoint }}%
                     </div>
                 </div>
-                @if($myAveragePoint !== null)
-<div class="d-flex justify-content-between align-items-center mb-2 mt-2">
-    <small class="fw-semibold text-muted">
-        <i class="bi bi-lightning-charge-fill text-warning"></i>
-        Skor SLA (Ketepatan Waktu)
-    </small>
-    <small class="fw-bold {{ $myAveragePoint >= 80 ? 'text-success' : ($myAveragePoint >= 65 ? 'text-warning' : 'text-danger') }}">
-        {{ $myAveragePoint }}%
-    </small>
-</div>
-<div class="progress modern-progress mb-4" style="height:10px;">
-    <div class="progress-bar {{ $myAveragePoint >= 80 ? 'bg-success' : ($myAveragePoint >= 65 ? 'bg-warning' : 'bg-danger') }}"
-         style="width: {{ $myAveragePoint }}%">
-    </div>
-</div>
-@endif
 
                 <div class="progress modern-progress mb-3">
                     <div class="progress-bar progress-bar-striped progress-bar-animated"
-                        style="width: {{ $progressPercent }}%">
+                        style="width: {{ $myAveragePoint }}%">
                     </div>
                 </div>
 
                 <div class="mb-4 text-muted">
-                    <strong>{{ $completed }}</strong>
+                    <strong>{{ $myTepatWaktu }}</strong>
                     dari
-                    <strong>{{ $totalTicket }}</strong>
-                    tiket telah berhasil diselesaikan.
+                    <strong>{{ $completed }}</strong>
+                    tiketmu selesai tepat waktu sesuai SLA.
                 </div>
 
                 <div class="row g-2">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="status-box status-success">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <div>
-                                <strong>{{ $completed }}</strong>
-                                <small>Completed</small>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-4">
-                        <div class="status-box status-warning">
-                            <i class="bi bi-hourglass-split"></i>
-                            <div>
-                                <strong>{{ $todo }}</strong>
-                                <small>To Do</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4">
-                        <div class="status-box status-info">
-                            <i class="bi bi-arrow-repeat"></i>
-                            <div>
-                                <strong>{{ $progress }}</strong>
-                                <small>In Progress</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="col-lg-4 col-md-4">
+        <div class="status-box status-success h-100">
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+                <strong>{{ $myTepatWaktu }}</strong>
+                <small>Tepat Waktu</small>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4 col-md-4">
+        <div class="status-box status-warning h-100">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <div>
+                <strong>{{ $myTelat }}</strong>
+                <small>Terlambat dari SLA</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4">
+        <div class="status-box status-info h-100">
+            <i class="bi bi-arrow-repeat"></i>
+            <div>
+                <strong>{{ $progress }}</strong>
+                <small>Sedang Dikerjakan</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+            @else
+
+                <div class="text-center py-5">
+                    <i class="bi bi-lightning-charge fs-1 text-secondary"></i>
+                    <h5 class="fw-bold mt-3 mb-1">Belum Ada Data SLA</h5>
+                    <p class="text-muted mb-0">
+                        Skor SLA-mu akan muncul setelah kamu menyelesaikan tiket pertama.
+                    </p>
+                </div>
+
+            @endif
+
+        </div>
+    </div>
+</div>
 
     <!-- Quick Action -->
     <div class="col-lg-4">

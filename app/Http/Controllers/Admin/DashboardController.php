@@ -14,12 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        /*
-        |--------------------------------------------------------------------------
-        | Ringkasan Dashboard
-        |--------------------------------------------------------------------------
-        */
-
+   
         $admin = auth()->user();
 
         $ticketBase = Ticket::query();
@@ -45,7 +40,6 @@ class DashboardController extends Controller
             ? round(($completed / $totalTicket) * 100)
             : 0;
 
-        // Rata-rata poin SLA (ikut scope bidang admin)
         $completedWithPoint = (clone $ticketBase)
             ->where('status', 'Completed')
             ->whereNotNull('point')
@@ -55,12 +49,9 @@ class DashboardController extends Controller
             ? round($completedWithPoint->avg('point'))
             : null;
 
-        /*
-        |--------------------------------------------------------------------------
-        | Timeline Aktivitas
-        |--------------------------------------------------------------------------
-        */
-
+        $tepatWaktu = $completedWithPoint->where('point', '>=', 100)->count();
+        $telat = $completedWithPoint->where('point', '<', 100)->count();
+            
         $activities = (clone $ticketBase)->latest('updated_at')
             ->take(5)
             ->get();
@@ -73,25 +64,27 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', [
 
-            'totalUser' => $totalUser,
-            'totalService' => $totalService,
-            'totalTicket' => $totalTicket,
+    'totalUser' => $totalUser,
+    'totalService' => $totalService,
+    'totalTicket' => $totalTicket,
 
-            'todo' => $todo,
-            'progress' => $progress,
-            'completed' => $completed,
+    'todo' => $todo,
+    'progress' => $progress,
+    'completed' => $completed,
 
-            'progressPercent' => $progressPercent,
-            'averagePoint' => $averagePoint,
+    'progressPercent' => $progressPercent,
+    'averagePoint' => $averagePoint,
+    'tepatWaktu' => $tepatWaktu,
+    'telat' => $telat,
 
-            'activities' => $activities,
+    'activities' => $activities,
 
-            'services' => $services,
+    'services' => $services,
 
-            'months' => $months,
-            'years' => $years,
+    'months' => $months,
+    'years' => $years,
 
-        ]);
+]);
     }
 
     public function ticketStats(Request $request): JsonResponse
@@ -137,11 +130,6 @@ class DashboardController extends Controller
         return $query;
     }
 
-    /**
-     * Daftar nama bulan (1-12) dalam Bahasa Indonesia, dipakai untuk
-     * mengisi dropdown Filter Bulan dan diseragamkan di satu tempat
-     * supaya tidak ada duplikasi array bulan di bagian lain controller.
-     */
     private function monthNames(): array
     {
         return [
@@ -160,11 +148,6 @@ class DashboardController extends Controller
         ];
     }
 
-    /**
-     * Daftar tahun yang tersedia untuk Filter Tahun, diambil dari tahun-tahun
-     * yang benar-benar ada tiketnya, ditambah tahun berjalan (supaya tahun
-     * ini selalu muncul walau belum ada tiket sama sekali), diurutkan terbaru dulu.
-     */
     private function availableYears(): array
     {
         $admin = auth()->user();

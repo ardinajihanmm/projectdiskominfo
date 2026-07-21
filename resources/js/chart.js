@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!dataEl) return;
 
     /* =====================================
-       DATA AWAL (tanpa filter, dari controller)
+       DATA AWAL
     ===================================== */
 
     const initialTodo = Number(dataEl.dataset.todo || 0);
@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return (value / total) * 100;
     }
 
-    // Sinkronkan teks yang tampil (span faux) dengan opsi <select> asli yang dipilih
     function syncSelectText(selectEl, textEl, fallbackLabel) {
         if (!selectEl || !textEl) return;
         const selected = selectEl.options[selectEl.selectedIndex];
@@ -61,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       STATE FILTER (AND - bulan + tahun + layanan)
+       STATE FILTER 
     ===================================== */
 
     let currentTodo = initialTodo;
@@ -75,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =====================================
-       UPDATE UI (badge, donut center, legend, mini card)
+       UPDATE UI 
     ===================================== */
 
     function updateUI(todoValue, progressValue, completedValue) {
@@ -156,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================
-       UPDATE DONUT + SELURUH UI DARI SATU SUMBER DATA
+       UPDATE DONUT
     ===================================== */
 
     function updateDonut(todoValue, progressValue, completedValue) {
@@ -172,13 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
             donutChart.update();
         }
     }
-
-    /* =====================================
-       AMBIL DATA DARI SERVER SESUAI KOMBINASI FILTER (AND)
-       Bulan + Tahun + Layanan dikirim bersamaan ke backend,
-       backend yang menentukan hasil gabungan (bukan JS menimpa
-       array lama), jadi tidak ada filter yang saling override.
-    ===================================== */
 
     let isFetching = false;
 
@@ -211,13 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    /* =====================================
-       EVENT FILTER (Bulan, Tahun, Layanan)
-       Ketiganya menulis ke object `filters` yang sama,
-       lalu fetchTicketStats() selalu mengirim ketiga nilai
-       sekaligus -> hasilnya selalu kombinasi AND yang benar.
-    ===================================== */
-
     if (filterMonth) {
         filterMonth.addEventListener("change", function () {
             filters.month = this.value;
@@ -242,12 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* =====================================
-       COUNTER CARD (angka di 4 card ringkasan atas)
-    ===================================== */
-
     const counters = document.querySelectorAll(".counter");
-    const COUNTER_DURATION = 2000; // dalam milidetik, naikkan angka ini kalau mau lebih lambat lagi
+    const COUNTER_DURATION = 2000; 
 
     counters.forEach(counter => {
         const target = Number(counter.dataset.target);
@@ -255,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function step(now) {
             const progress = Math.min((now - startTime) / COUNTER_DURATION, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out, melambat di akhir
+            const eased = 1 - Math.pow(1 - progress, 3); 
             const current = Math.floor(eased * target);
 
             counter.textContent = current.toLocaleString("id-ID");

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index()
-{
+    {
     $user = Auth::user();
 
     $totalTicket = Ticket::where('user_id', $user->id)->count();
@@ -27,21 +27,22 @@ class DashboardController extends Controller
         ->where('status', 'Completed')
         ->count();
 
-    // Persentase penyelesaian
     $progressPercent = $totalTicket > 0
         ? round(($completed / $totalTicket) * 100)
         : 0;
 
-        // Tingkat kepuasan layanan: rata-rata poin dari tiket milik user ini yang sudah selesai
-$myCompletedTickets = Ticket::where('user_id', $user->id)
-    ->where('status', 'Completed')
-    ->whereNotNull('point')
-    ->get();
+    $myCompletedTickets = Ticket::where('user_id', $user->id)
+        ->where('status', 'Completed')
+        ->whereNotNull('point')
+        ->get();
 
-$satisfactionScore = $myCompletedTickets->count() > 0
-    ? round($myCompletedTickets->avg('point'))
-    : null;
-    // 3 tiket terbaru
+    $satisfactionScore = $myCompletedTickets->count() > 0
+        ? round($myCompletedTickets->avg('point'))
+        : null;
+
+    $tepatWaktu = $myCompletedTickets->where('point', '>=', 100)->count();
+    $telat = $myCompletedTickets->where('point', '<', 100)->count();
+
     $latestTickets = Ticket::with('service')
         ->where('user_id', $user->id)
         ->latest()
@@ -65,13 +66,16 @@ $satisfactionScore = $myCompletedTickets->count() > 0
         'progress',
         'completed',
         'progressPercent',
+        'satisfactionScore',
+        'tepatWaktu',
+        'telat',
         'latestTickets',
         'latestTicket',
         'activities'
     ));
-}
+    }
     public function markAsRead(Notification $notification)
-{
+    {
     if ($notification->user_id != Auth::id()) {
         abort(403);
     }
@@ -79,6 +83,7 @@ $satisfactionScore = $myCompletedTickets->count() > 0
     $notification->update([
         'is_read' => true
     ]);
+
     return back()->with('success', 'Notifikasi telah ditandai sebagai sudah dibaca.');
-}
+    }
 }

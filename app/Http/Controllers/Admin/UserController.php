@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-   public function index(Request $request)
-{
+    public function index(Request $request)
+    {
     $admin = auth()->user();
     $search = $request->search;
 
@@ -33,15 +33,15 @@ class UserController extends Controller
         ->paginate(10);
 
     return view('admin.user.index', compact('users', 'search'));
-}
-public function create()
-{
+    }
+    public function create()
+    {
     $departments = Department::orderBy('nama_bidang')->get();
     return view('admin.user.create', compact('departments'));
-}
+    }
 
-public function store(Request $request)
-{
+    public function store(Request $request)
+    {
     $admin = auth()->user();
     $request->validate([
         'name' => 'required',
@@ -61,14 +61,14 @@ public function store(Request $request)
     'department_id' => in_array($request->role, ['staff', 'admin'])
         ? ($admin->isScopedToDepartment() ? $admin->department_id : $request->department_id)
         : null,
-]);
+    ]);
 
     return redirect()->route('admin.user.index')
         ->with('success', 'User berhasil ditambahkan');
-}
+    }
 
-public function edit(User $user)
-{
+    public function edit(User $user)
+    {
     $admin = auth()->user();
 
     if ($admin->isScopedToDepartment() && $user->role === 'staff' && $user->department_id != $admin->department_id) {
@@ -77,10 +77,10 @@ public function edit(User $user)
 
     $departments = Department::orderBy('nama_bidang')->get();
     return view('admin.user.edit', compact('user', 'departments'));
-}
+    }
 
-public function update(Request $request, User $user)
-{
+    public function update(Request $request, User $user)
+    {
     $admin = auth()->user();
 
     if ($admin->isScopedToDepartment() && $user->role === 'staff' && $user->department_id != $admin->department_id) {

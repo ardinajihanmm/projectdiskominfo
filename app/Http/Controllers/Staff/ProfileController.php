@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-   public function edit()
-{
-    return view('staff.profile');
-}
+    public function edit()
+    {
+        return view('staff.profile');
+    }
 
-public function update(Request $request)
-{
+    public function update(Request $request)
+    {
     $user = Auth::user();
 
     $request->validate([
@@ -50,10 +50,8 @@ public function update(Request $request)
     $user->save();
 
     return back()->with('success', 'Profil berhasil diperbarui.');
-}
-    /**
-     * Update Password
-     */
+    }
+
     public function updatePassword(Request $request)
     {
         $request->validate([

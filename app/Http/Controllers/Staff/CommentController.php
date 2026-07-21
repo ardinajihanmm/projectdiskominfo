@@ -11,7 +11,7 @@ use App\Models\Notification;
 class CommentController extends Controller
 {
     public function store(Request $request)
-{
+    {
     $request->validate([
         'ticket_id' => 'required|exists:tickets,id',
         'komentar'  => 'required'
@@ -24,16 +24,16 @@ class CommentController extends Controller
     ]);
     $ticket = Ticket::find($request->ticket_id);
 
-Notification::create([
-    'user_id'   => $ticket->user_id,
-    'ticket_id' => $ticket->id,
-    'judul'     => 'Komentar Baru',
-    'pesan'     => 'Staff memberikan balasan pada tiket '.$ticket->kode_ticket,
-    'is_read'   => false,
-]);
-    return back()->with(
-        'success',
-        'Komentar berhasil dikirim.'
-    );
-}
+    Notification::create([
+        'user_id'   => $ticket->user_id,
+        'ticket_id' => $ticket->id,
+        'judul'     => 'Komentar Baru',
+        'pesan'     => 'Staff memberikan balasan pada tiket '.$ticket->kode_ticket,
+        'is_read'   => false,
+    ]);
+        return back()->with(
+            'success',
+            'Komentar berhasil dikirim.'
+        );
+    }
 }

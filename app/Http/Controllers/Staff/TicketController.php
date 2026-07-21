@@ -64,12 +64,10 @@ class TicketController extends Controller
 
         $user = auth()->user();
 
-        // Staff hanya boleh melihat tiket bidangnya sendiri
         if ($ticket->service->department_id != $user->department_id) {
             abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
         }
 
-        // Kalau sudah diambil staff lain, tidak boleh dibuka detailnya
         if ($ticket->staff_id && $ticket->staff_id != $user->id) {
             return redirect()
                 ->route('staff.ticket.index')
@@ -79,9 +77,6 @@ class TicketController extends Controller
         return view('staff.ticket.detail', compact('ticket'));
     }
 
-    /**
-     * Staff mengambil (self-assign) tiket yang belum ada penanganya.
-     */
     public function assignSelf($id)
     {
         $ticket = Ticket::with('service')->findOrFail($id);
@@ -107,10 +102,10 @@ class TicketController extends Controller
         ]);
 
         return back()->with('success', 'Tiket berhasil diambil, sekarang tiket ini milik Anda.');
-    }
+        }
 
-    public function update(Request $request, $id)
-    {
+        public function update(Request $request, $id)
+        {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed'
         ]);
@@ -126,7 +121,6 @@ class TicketController extends Controller
             return back()->with('error', 'Tiket ini sudah ditangani oleh staff lain.');
         }
 
-        // Jika belum ada yang menangani, otomatis jadi milik staff yang mengubah status
         if (!$ticket->staff_id) {
             $ticket->staff_id = $user->id;
         }
@@ -138,9 +132,9 @@ class TicketController extends Controller
         }
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
-    $ticket->completed_at = now();
-    $ticket->point = $ticket->calculatePoint();
-}
+            $ticket->completed_at = now();
+            $ticket->point = $ticket->calculatePoint();
+        }
 
         $ticket->save();
 
@@ -155,10 +149,10 @@ class TicketController extends Controller
         return redirect()
             ->route('staff.ticket.show', $ticket->id)
             ->with('success', 'Status tiket berhasil diperbarui.');
-    }
+        }
 
-    public function updateStatus(Request $request, Ticket $ticket)
-    {
+        public function updateStatus(Request $request, Ticket $ticket)
+        {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed',
         ]);
@@ -180,7 +174,6 @@ class TicketController extends Controller
             ], 403);
         }
 
-        // Jika belum ada yang menangani, otomatis jadi milik staff yang menggeser kartu
         if (!$ticket->staff_id) {
             $ticket->staff_id = $user->id;
         }
@@ -192,9 +185,9 @@ class TicketController extends Controller
         }
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
-    $ticket->completed_at = now();
-    $ticket->point = $ticket->calculatePoint();
-}
+            $ticket->completed_at = now();
+            $ticket->point = $ticket->calculatePoint();
+        }
 
         $ticket->save();
 
@@ -209,10 +202,10 @@ class TicketController extends Controller
         return response()->json([
             'success' => true
         ]);
-    }
+        }
 
-    public function notification(Notification $notification)
-    {
+        public function notification(Notification $notification)
+        {
         if ($notification->user_id != auth()->id()) {
             abort(403);
         }

@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $progressPercent = $totalTicket > 0
             ? round(($completed / $totalTicket) * 100)
             : 0;
- // Rata-rata poin SLA dari tiket yang sudah diselesaikan staff ini
+// Rata-rata poin SLA dari tiket yang sudah diselesaikan staff ini
 $myCompletedTickets = (clone $baseQuery)
     ->where('status', 'Completed')
     ->where('staff_id', $user->id)
@@ -48,6 +48,9 @@ $myCompletedTickets = (clone $baseQuery)
 $myAveragePoint = $myCompletedTickets->count() > 0
     ? round($myCompletedTickets->avg('point'))
     : null;
+
+$myTepatWaktu = $myCompletedTickets->where('point', '>=', 100)->count();
+$myTelat = $myCompletedTickets->where('point', '<', 100)->count();
 
         // Tiket terbaru
         $latestTickets = (clone $baseQuery)->with(['user', 'service'])
@@ -60,10 +63,10 @@ $myAveragePoint = $myCompletedTickets->count() > 0
             ->take(7)
             ->get();
 
-        return view('staff.dashboard', compact(
+       return view('staff.dashboard', compact(
     'user', 'totalTicket', 'todo', 'progress',
     'completed', 'progressPercent', 'latestTickets', 'activities',
-    'myAveragePoint'
+    'myAveragePoint', 'myTepatWaktu', 'myTelat'
 ));
     }
 

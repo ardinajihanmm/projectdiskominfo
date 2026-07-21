@@ -2,7 +2,6 @@
 @section('title','Ajukan Layanan')
 @section('content')
 <div class="container py-4">
-    {{-- Header --}}
     <div class="modern-header mb-4">
         <div>
             <h2 class="fw-bold mb-2">
@@ -29,7 +28,6 @@
             <div class="card-body p-5">
                 <h5 class="fw-bold mb-4">Informasi Pengajuan</h5>
 
-                {{-- layanan --}}
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Pilih Layanan <span class="text-danger">*</span></label>
                     <select name="service_id" class="form-select modern-input" required>
@@ -40,20 +38,17 @@
                     </select>
                 </div>
 
-                {{-- judul --}}
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Judul Pengajuan <span class="text-danger">*</span></label>
                     <input type="text" name="judul" class="form-control modern-input" placeholder="Contoh: Permohonan Pembuatan Email Dinas" value="{{ old('judul') }}" required>
                 </div>
 
-                {{-- deskripsi --}}
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Deskripsi Permasalahan <span class="text-danger">*</span></label>
                     <textarea name="deskripsi" rows="6" class="form-control modern-input" placeholder="Jelaskan permasalahan atau kebutuhan Anda secara lengkap agar petugas lebih mudah membantu." required>{{ old('deskripsi') }}</textarea>
                     <div class="form-text">Semakin lengkap informasi yang diberikan, semakin cepat pengajuan diproses.</div>
                 </div>
 
-                {{-- upload --}}
                 <h5 class="fw-bold mt-5 mb-4">Lampiran</h5>
                 <div class="upload-box">
                     <div class="upload-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
@@ -63,7 +58,6 @@
                     <small class="text-muted">Format: JPG, PNG, PDF • Maksimal 2 MB</small>
                 </div>
 
-                {{-- tips --}}
                 <div class="tips-box mt-4">
                     <i class="bi bi-lightbulb-fill text-warning"></i>
                     <div>
@@ -82,4 +76,5 @@
         </div>
     </form>
 </div>
+
 @endsection

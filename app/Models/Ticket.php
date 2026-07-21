@@ -53,30 +53,16 @@ class Ticket extends Model
     return $this->hasMany(Comment::class)->latest();
     }
  
-    /**
-     * Apakah tiket ini belum diambil/di-assign staff manapun.
-     */
     public function isUnassigned(): bool
     {
         return is_null($this->staff_id);
     }
  
-    /**
-     * Apakah tiket ini sedang ditangani oleh staff tertentu.
-     */
     public function isHandledBy($userId): bool
     {
         return $this->staff_id == $userId;
     }
  
-    /**
-     * Hitung poin kepuasan/SLA tiket ini berdasarkan waktu pengerjaan
-     * (created_at -> completed_at) dibanding SLA layanan (dalam jam).
-     *
-     * - Selesai dalam/lebih cepat dari SLA -> 100 poin.
-     * - Makin lama telat dari SLA -> poin makin turun (persentase),
-     *   tapi mentok minimal di 50 (nggak akan sampai 0).
-     */
     public function calculatePoint(): float
     {
         if (!$this->completed_at || !$this->created_at) {

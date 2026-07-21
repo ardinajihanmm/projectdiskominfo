@@ -10,16 +10,10 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    /**
-     * Dashboard Staff
-     */
     public function index()
     {
-        // User yang login
         $user = auth()->user();
 
-        // Tiket dibatasi hanya untuk bidang staff ini, dan
-        // hanya yang belum diambil atau sudah menjadi milik staff ini
         $baseQuery = Ticket::whereHas('service', function ($q) use ($user) {
                 $q->where('department_id', $user->department_id);
             })
@@ -28,52 +22,45 @@ class DashboardController extends Controller
                   ->orWhere('staff_id', $user->id);
             });
 
-        // Statistik
         $totalTicket = (clone $baseQuery)->count();
         $todo = (clone $baseQuery)->where('status', 'To Do')->count();
         $progress = (clone $baseQuery)->where('status', 'In Progress')->count();
         $completed = (clone $baseQuery)->where('status', 'Completed')->count();
 
-        // Progress %
         $progressPercent = $totalTicket > 0
             ? round(($completed / $totalTicket) * 100)
             : 0;
-// Rata-rata poin SLA dari tiket yang sudah diselesaikan staff ini
-$myCompletedTickets = (clone $baseQuery)
-    ->where('status', 'Completed')
-    ->where('staff_id', $user->id)
-    ->whereNotNull('point')
-    ->get();
 
-$myAveragePoint = $myCompletedTickets->count() > 0
-    ? round($myCompletedTickets->avg('point'))
-    : null;
+        $myCompletedTickets = (clone $baseQuery)
+            ->where('status', 'Completed')
+            ->where('staff_id', $user->id)
+            ->whereNotNull('point')
+            ->get();
 
-$myTepatWaktu = $myCompletedTickets->where('point', '>=', 100)->count();
-$myTelat = $myCompletedTickets->where('point', '<', 100)->count();
+        $myAveragePoint = $myCompletedTickets->count() > 0
+            ? round($myCompletedTickets->avg('point'))
+            : null;
 
-        // Tiket terbaru
+        $myTepatWaktu = $myCompletedTickets->where('point', '>=', 100)->count();
+        $myTelat = $myCompletedTickets->where('point', '<', 100)->count();
+
         $latestTickets = (clone $baseQuery)->with(['user', 'service'])
             ->latest()
             ->take(3)
             ->get();
 
-        // Timeline aktivitas
-        $activities = (clone $baseQuery)->latest('updated_at')
+            $activities = (clone $baseQuery)->latest('updated_at')
             ->take(7)
             ->get();
 
-       return view('staff.dashboard', compact(
-    'user', 'totalTicket', 'todo', 'progress',
-    'completed', 'progressPercent', 'latestTickets', 'activities',
-    'myAveragePoint', 'myTepatWaktu', 'myTelat'
-));
+            return view('staff.dashboard', compact(
+            'user', 'totalTicket', 'todo', 'progress',
+            'completed', 'progressPercent', 'latestTickets', 'activities',
+            'myAveragePoint', 'myTepatWaktu', 'myTelat'
+        ));
     }
 
-    /**
-     * Kanban Board
-     */
-    public function kanban(Request $request)
+        public function kanban(Request $request)
     {
         $search = $request->search;
         $status = $request->status;

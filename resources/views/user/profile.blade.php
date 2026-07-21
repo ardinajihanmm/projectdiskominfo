@@ -1,6 +1,7 @@
 @extends('layouts.user')
 @section('title', 'Edit Profil')
 @section('content')
+
     <div class="container-fluid">
         <div class="mb-4">
             <h2 class="fw-bold">
@@ -13,10 +14,8 @@
         </div>
 
         <div class="row g-4">
-            <!-- ================= PROFILE CARD ================= -->
             <div class="col-lg-4">
                 <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
-                    <!-- Header -->
                     <div
                         class="text-center py-5 text-white"
                         style="background: linear-gradient(135deg, #2563eb, #4f8dfd);"
@@ -48,8 +47,6 @@
                             Pengguna Helpdesk
                         </span>
                     </div>
-
-                    <!-- Body -->
                     <div class="card-body">
                         <div class="list-group list-group-flush">
                             <div class="list-group-item border-0 py-3">
@@ -65,7 +62,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="list-group-item border-0 py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
@@ -79,7 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="list-group-item border-0 py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
@@ -94,7 +89,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <button
                             class="btn btn-warning w-100 rounded-pill py-3 mt-4 shadow-sm"
                             data-bs-toggle="modal"
@@ -106,8 +100,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- ================= FORM EDIT PROFILE ================= -->
             <div class="col-lg-8">
                 <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
                     <div
@@ -130,7 +122,6 @@
                             @method('PUT')
 
                             <div class="row g-4">
-                                <!-- Nama -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-person-fill text-primary me-2"></i>
@@ -149,8 +140,6 @@
                                         >
                                     </div>
                                 </div>
-
-                                <!-- Email -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-envelope-fill text-danger me-2"></i>
@@ -169,8 +158,6 @@
                                         >
                                     </div>
                                 </div>
-
-                                <!-- No HP -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-phone-fill text-success me-2"></i>
@@ -188,8 +175,6 @@
                                         >
                                     </div>
                                 </div>
-
-                                <!-- Instansi -->
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-building-fill text-warning me-2"></i>
@@ -207,8 +192,6 @@
                                         >
                                     </div>
                                 </div>
-
-                                <!-- Upload Foto -->
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-camera-fill text-info me-2"></i>
@@ -240,8 +223,6 @@
             </div>
         </div>
     </div>
-
-    <!-- =================== MODAL GANTI PASSWORD =================== -->
     <div
         class="modal fade"
         id="passwordModal"
@@ -273,7 +254,6 @@
                     @method('PUT')
 
                     <div class="modal-body p-4">
-                        <!-- Password Lama -->
                         <label class="fw-semibold mb-2">
                             <i class="bi bi-lock-fill text-warning me-2"></i>
                             Password Lama
@@ -298,8 +278,6 @@
                                 <i class="bi bi-eye-fill"></i>
                             </button>
                         </div>
-
-                        <!-- Password Baru -->
                         <label class="fw-semibold mb-2">
                             <i class="bi bi-shield-fill-lock text-primary me-2"></i>
                             Password Baru
@@ -324,8 +302,6 @@
                                 <i class="bi bi-eye-fill"></i>
                             </button>
                         </div>
-
-                        <!-- Konfirmasi -->
                         <label class="fw-semibold mb-2">
                             <i class="bi bi-check-circle-fill text-success me-2"></i>
                             Konfirmasi Password
@@ -373,70 +349,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .card {
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-        }
-
-        .input-group-text {
-            border-right: none;
-            background: #fff;
-        }
-
-        .form-control {
-            border-left: none;
-        }
-
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #86b7fe;
-        }
-
-        .list-group-item {
-            transition: 0.25s;
-        }
-
-        .list-group-item:hover {
-            background: #f8f9fa;
-        }
-
-        .btn {
-            transition: 0.25s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .profile-foto {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center;
-            border: 6px solid #fff;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Hilangkan ikon mata bawaan Microsoft Edge */
-        input[type="password"]::-ms-reveal,
-        input[type="password"]::-ms-clear {
-            display: none;
-        }
-
-        /* Hilangkan ikon bawaan browser Chromium */
-        input[type="password"]::-webkit-credentials-auto-fill-button,
-        input[type="password"]::-webkit-textfield-decoration-container {
-            display: none !important;
-        }
-    </style>
 
     <script>
         function togglePassword(id, button) {

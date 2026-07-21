@@ -19,7 +19,7 @@ class User extends Authenticatable
     'instansi',
     'foto',
     'department_id',
-];
+    ];
 
     protected $hidden = [
         'password',

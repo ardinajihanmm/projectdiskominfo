@@ -4,7 +4,6 @@
 
 <div class="container mt-4">
 
-    {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1">
@@ -17,13 +16,11 @@
         </a>
     </div>
 
-    {{-- Card Utama --}}
     <div class="card shadow-sm border-0">
         <div class="card">
             <div class="card-body">
                 <div class="row">
 
-                    {{-- KIRI --}}
                     <div class="col-lg-7">
                         <div class="mb-4">
                             <small class="text-muted">Kode Tiket</small>
@@ -51,7 +48,6 @@
                         </div>
                     </div>
 
-                    {{-- KANAN --}}
                     <div class="col-lg-5">
                         <div class="border rounded-4 p-4 bg-light h-100">
                             <h5 class="fw-bold mb-4">Status Tiket</h5>
@@ -70,10 +66,7 @@
                                     <i class="bi bi-check-circle-fill"></i> Selesai
                                 </span>
                             @endif
-
                             <hr>
-
-                            {{-- Prioritas --}}
                             <h6 class="text-muted">Prioritas</h6>
                             @if($ticket->prioritas=="Tinggi")
                                 <span class="badge bg-danger px-3 py-2">
@@ -88,26 +81,18 @@
                                     <i class="bi bi-check-circle-fill me-1"></i> Rendah
                                 </span>
                             @endif
-
                             <hr>
-
-                            {{-- Dibuat --}}
                             <h6 class="text-muted">Dibuat</h6>
                             <strong>{{ $ticket->created_at->format('d F Y') }}</strong><br>
                             <small class="text-muted">{{ $ticket->created_at->format('H:i') }}</small>
                         </div>
                     </div>
                 </div>
-
                 <hr class="my-4">
-
-                {{-- Deskripsi --}}
                 <div class="mb-4">
                     <h5 class="fw-bold"><i class="bi bi-card-text text-primary"></i> Deskripsi Permasalahan</h5>
                     <div class="border rounded-3 p-4 bg-white shadow-sm">{{ $ticket->deskripsi }}</div>
                 </div>
-
-                {{-- Lampiran --}}
                 <div class="mb-4">
                     <h4 class="fw-bold mb-3"><i class="bi bi-paperclip text-primary"></i> Lampiran</h4>
                     @if($ticket->attachments->count())
@@ -128,8 +113,6 @@
                         </div>
                     @endif
                 </div>
-
-                {{-- Percakapan --}}
                 <div class="mt-4">
                     <h4 class="fw-bold mb-3"><i class="bi bi-chat-dots-fill text-primary"></i> Percakapan</h4>
                     <div class="border rounded-4 p-4" style="min-height:350px; background:#f8fafc;">
@@ -158,8 +141,6 @@
                             </div>
                         @endforelse
                     </div>
-
-                    {{-- Form Balasan --}}
                     <div class="mt-4">
                         @if ($errors->any())
                             <div class="alert alert-danger">

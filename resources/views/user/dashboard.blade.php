@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 @section('title','Dashboard')
 @section('content')
 
-{{-- Header --}}
 <div class="dashboard-header mb-4">
     <div class="row align-items-center">
         <div class="col-lg-8">
@@ -28,8 +27,6 @@ use Illuminate\Support\Str;
         </div>
     </div>
 </div>
-
-{{-- Statistik --}}
 <div class="row g-4 mb-4">
     <div class="col-xl-3 col-md-6">
         <div class="modern-card total-card">
@@ -72,18 +69,11 @@ use Illuminate\Support\Str;
         </div>
     </div>
 </div>
-
-{{-- Progress & Aksi Cepat --}}
 <div class="row g-4 mb-4">
-    <!-- Tingkat Kepuasan Layanan -->
 <div class="col-lg-8">
-
     <div class="card progress-modern shadow-sm border-0 h-100">
-
         <div class="card-body p-4">
-
             @if($satisfactionScore !== null)
-
                 @php
                     $slaLabel = $satisfactionScore >= 80 ? 'Sangat Baik' : ($satisfactionScore >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
                     $slaDesc = $satisfactionScore >= 80
@@ -92,39 +82,32 @@ use Illuminate\Support\Str;
                             ? 'Sebagian layananmu diproses agak lambat dari target waktu.'
                             : 'Layanan yang kamu terima cenderung terlambat dari target waktu.');
                 @endphp
-
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="fw-bold mb-1">
                             <i class="bi bi-emoji-smile-fill text-warning"></i>
                             Tingkat Kepuasan Layanan
                         </h4>
-
                         <small class="text-muted">
                             {{ $slaDesc }}
                         </small>
                     </div>
-
                     <div class="progress-circle">
                         {{ $satisfactionScore }}%
                     </div>
                 </div>
-
                 <div class="progress modern-progress mb-3">
                     <div class="progress-bar progress-bar-striped progress-bar-animated"
                         style="width: {{ $satisfactionScore }}%">
                     </div>
                 </div>
-
                 <div class="mb-4 text-muted">
                     <strong>{{ $tepatWaktu }}</strong>
                     dari
                     <strong>{{ $completed }}</strong>
                     pengajuanmu diselesaikan tepat waktu.
                 </div>
-
                 <div class="row g-3">
-
                     <div class="col-md-4">
                         <div class="status-box status-success h-100">
                             <i class="bi bi-check-circle-fill"></i>
@@ -134,7 +117,6 @@ use Illuminate\Support\Str;
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="status-box status-warning h-100">
                             <i class="bi bi-exclamation-triangle-fill"></i>
@@ -144,7 +126,6 @@ use Illuminate\Support\Str;
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="status-box status-info h-100">
                             <i class="bi bi-arrow-repeat"></i>
@@ -154,11 +135,8 @@ use Illuminate\Support\Str;
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             @else
-
                 <div class="text-center py-5">
                     <i class="bi bi-emoji-smile fs-1 text-secondary"></i>
                     <h5 class="fw-bold mt-3 mb-1">Belum Ada Data</h5>
@@ -166,15 +144,10 @@ use Illuminate\Support\Str;
                         Tingkat kepuasan akan muncul setelah ada pengajuanmu yang selesai diproses.
                     </p>
                 </div>
-
             @endif
-
         </div>
-
     </div>
-
 </div>
-    {{-- Aksi Cepat --}}
     <div class="col-lg-4">
         <div class="card quick-card border-0 shadow-sm h-100">
             <div class="card-body">
@@ -209,10 +182,7 @@ use Illuminate\Support\Str;
         </div>
     </div>
 </div>
-
-{{-- Pengajuan Terbaru & Timeline --}}
 <div class="row g-4 mb-4">
-    {{-- Pengajuan Terakhir --}}
     <div class="col-lg-8">
         <div class="card latest-ticket-card border-0 shadow-sm h-100">
             <div class="card-body p-5">
@@ -222,7 +192,6 @@ use Illuminate\Support\Str;
                         <p class="text-muted mb-0">Informasi tiket terbaru yang Anda ajukan.</p>
                     </div>
                 </div>
-
                 @if($latestTicket)
                     {{-- Header Tiket --}}
                     <div class="latest-ticket-content">
@@ -244,8 +213,6 @@ use Illuminate\Support\Str;
                                 @endif
                             </div>
                         </div>
-
-                        {{-- Informasi --}}
                         <div class="row g-3 mb-4">
                             <div class="col-md-4">
                                 <div class="ticket-info">
@@ -275,8 +242,6 @@ use Illuminate\Support\Str;
                                 </div>
                             </div>
                         </div>
-
-                        {{-- Tombol --}}
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('user.ticket.detail',$latestTicket->id) }}" class="btn btn-primary rounded-pill px-4">
                                 <i class="bi bi-eye-fill me-2"></i> Lihat Detail
@@ -294,8 +259,6 @@ use Illuminate\Support\Str;
             </div>
         </div>
     </div>
-
-    {{-- Timeline Aktivitas --}}
     <div class="col-lg-4">
         <div class="card timeline-card border-0 shadow-sm h-100">
             <div class="timeline-header">
@@ -334,8 +297,6 @@ use Illuminate\Support\Str;
         </div>
     </div>
 </div>
-
-{{-- Panduan --}}
 <div class="card guide-card border-0 shadow-sm">
     <div class="card-body p-5">
         <div class="text-center mb-5">

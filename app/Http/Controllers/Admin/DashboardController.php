@@ -14,89 +14,92 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        /*
-        |--------------------------------------------------------------------------
-        | Ringkasan Dashboard
-        |--------------------------------------------------------------------------
-        */
+   
+        $admin = auth()->user();
+
+        $ticketBase = Ticket::query();
+        $serviceBase = Service::query();
+
+        if ($admin->isScopedToDepartment()) {
+            $ticketBase->whereHas('service', function ($q) use ($admin) {
+                $q->where('department_id', $admin->department_id);
+            });
+
+            $serviceBase->where('department_id', $admin->department_id);
+        }
 
         $totalUser = User::where('role', 'user')->count();
-        $totalService = Service::count();
-        $totalTicket = Ticket::count();
+        $totalService = (clone $serviceBase)->count();
+        $totalTicket = (clone $ticketBase)->count();
 
-        $todo = Ticket::where('status', 'To Do')->count();
-        $progress = Ticket::where('status', 'In Progress')->count();
-        $completed = Ticket::where('status', 'Completed')->count();
+        $todo = (clone $ticketBase)->where('status', 'To Do')->count();
+        $progress = (clone $ticketBase)->where('status', 'In Progress')->count();
+        $completed = (clone $ticketBase)->where('status', 'Completed')->count();
 
         $progressPercent = $totalTicket > 0
             ? round(($completed / $totalTicket) * 100)
             : 0;
 
-        /*
-        |--------------------------------------------------------------------------
-        | Timeline Aktivitas
-        |--------------------------------------------------------------------------
-        */
+        $completedWithPoint = (clone $ticketBase)
+            ->where('status', 'Completed')
+            ->whereNotNull('point')
+            ->get();
 
-        $activities = Ticket::latest('updated_at')
+        $averagePoint = $completedWithPoint->count() > 0
+            ? round($completedWithPoint->avg('point'))
+            : null;
+
+        $tepatWaktu = $completedWithPoint->where('point', '>=', 100)->count();
+        $telat = $completedWithPoint->where('point', '<', 100)->count();
+            
+        $activities = (clone $ticketBase)->latest('updated_at')
             ->take(5)
             ->get();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Semua Layanan (dipakai untuk Quick Menu & Filter Layanan)
-        |--------------------------------------------------------------------------
-        */
 
-        $services = Service::orderBy('nama_layanan')->get();
-
-        /*
-        |--------------------------------------------------------------------------
-        | Data untuk Filter Statistik Tiket (Bulan & Tahun)
-        |--------------------------------------------------------------------------
-        */
+        $services = (clone $serviceBase)->orderBy('nama_layanan')->get();
 
         $months = $this->monthNames();
         $years = $this->availableYears();
 
-        /*
-        |--------------------------------------------------------------------------
-        | View
-        |--------------------------------------------------------------------------
-        */
-
         return view('admin.dashboard', [
 
-            'totalUser' => $totalUser,
-            'totalService' => $totalService,
-            'totalTicket' => $totalTicket,
+    'totalUser' => $totalUser,
+    'totalService' => $totalService,
+    'totalTicket' => $totalTicket,
 
-            'todo' => $todo,
-            'progress' => $progress,
-            'completed' => $completed,
+    'todo' => $todo,
+    'progress' => $progress,
+    'completed' => $completed,
 
-            'progressPercent' => $progressPercent,
+    'progressPercent' => $progressPercent,
+    'averagePoint' => $averagePoint,
+    'tepatWaktu' => $tepatWaktu,
+    'telat' => $telat,
 
-            'activities' => $activities,
+    'activities' => $activities,
 
-            'services' => $services,
+    'services' => $services,
 
-            'months' => $months,
-            'years' => $years,
+    'months' => $months,
+    'years' => $years,
 
-        ]);
+]);
     }
 
-    /**
-     * Endpoint AJAX untuk Statistik Tiket.
-     * Menerima kombinasi filter month + year + service sekaligus (AND),
-     * lalu mengembalikan hitungan status tiket hasil filter tersebut.
-     * Dipanggil oleh resources/js/chart.js setiap ada perubahan filter,
-     * jadi ketiga filter selalu dikirim bersamaan (tidak saling menimpa).
-     */
     public function ticketStats(Request $request): JsonResponse
     {
-        $query = $this->applyTicketFilters(Ticket::query(), $request);
+        $admin = auth()->user();
+
+        $query = Ticket::query();
+
+        if ($admin->isScopedToDepartment()) {
+            $query->whereHas('service', function ($q) use ($admin) {
+                $q->where('department_id', $admin->department_id);
+            });
+        }
+
+        $query = $this->applyTicketFilters($query, $request);
 
         $todo = (clone $query)->where('status', 'To Do')->count();
         $progress = (clone $query)->where('status', 'In Progress')->count();
@@ -110,11 +113,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Terapkan filter bulan, tahun, dan layanan ke query tiket.
-     * Filter yang tidak diisi (kosong) otomatis diabaikan,
-     * sedangkan filter yang diisi digabung dengan AND.
-     */
     private function applyTicketFilters(\Illuminate\Database\Eloquent\Builder $query, Request $request): \Illuminate\Database\Eloquent\Builder
     {
         if ($request->filled('month')) {
@@ -132,11 +130,6 @@ class DashboardController extends Controller
         return $query;
     }
 
-    /**
-     * Daftar nama bulan (1-12) dalam Bahasa Indonesia, dipakai untuk
-     * mengisi dropdown Filter Bulan dan diseragamkan di satu tempat
-     * supaya tidak ada duplikasi array bulan di bagian lain controller.
-     */
     private function monthNames(): array
     {
         return [
@@ -155,14 +148,19 @@ class DashboardController extends Controller
         ];
     }
 
-    /**
-     * Daftar tahun yang tersedia untuk Filter Tahun, diambil dari tahun-tahun
-     * yang benar-benar ada tiketnya, ditambah tahun berjalan (supaya tahun
-     * ini selalu muncul walau belum ada tiket sama sekali), diurutkan terbaru dulu.
-     */
     private function availableYears(): array
     {
-        $years = Ticket::selectRaw('DISTINCT YEAR(created_at) as year')
+        $admin = auth()->user();
+
+        $query = Ticket::query();
+
+        if ($admin->isScopedToDepartment()) {
+            $query->whereHas('service', function ($q) use ($admin) {
+                $q->where('department_id', $admin->department_id);
+            });
+        }
+
+        $years = $query->selectRaw('DISTINCT YEAR(created_at) as year')
             ->pluck('year')
             ->map(fn ($year) => (int) $year);
 

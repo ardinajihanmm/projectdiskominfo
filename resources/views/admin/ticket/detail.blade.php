@@ -301,7 +301,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-warning text-dark badge-custom">
 
-⏳ To Do
+To Do
 
 </span>
 
@@ -309,7 +309,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-info badge-custom">
 
-🔄 In Progress
+In Progress
 
 </span>
 
@@ -317,7 +317,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-success badge-custom">
 
-✅ Completed
+Completed
 
 </span>
 
@@ -329,7 +329,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-danger badge-custom">
 
-🔥 Tinggi
+Tinggi
 
 </span>
 
@@ -337,7 +337,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-warning text-dark badge-custom">
 
-⚡ Sedang
+Sedang
 
 </span>
 
@@ -345,7 +345,7 @@ Tidak ada lampiran.
 
 <span class="badge bg-success badge-custom">
 
-🌿 Rendah
+Rendah
 
 </span>
 
@@ -384,21 +384,21 @@ Tidak ada lampiran.
                     <option value="To Do"
                         {{ $ticket->status=='To Do' ? 'selected' : '' }}>
 
-                        ⏳ To Do
+                        To Do
 
                     </option>
 
                     <option value="In Progress"
                         {{ $ticket->status=='In Progress' ? 'selected' : '' }}>
 
-                        🔄 In Progress
+                        In Progress
 
                     </option>
 
                     <option value="Completed"
                         {{ $ticket->status=='Completed' ? 'selected' : '' }}>
 
-                        ✅ Completed
+                        Completed
 
                     </option>
 
@@ -421,21 +421,21 @@ Tidak ada lampiran.
                     <option value="Rendah"
                         {{ $ticket->prioritas=='Rendah' ? 'selected' : '' }}>
 
-                        🟢 Rendah
+                        Rendah
 
                     </option>
 
                     <option value="Sedang"
                         {{ $ticket->prioritas=='Sedang' ? 'selected' : '' }}>
 
-                        🟡 Sedang
+                        Sedang
 
                     </option>
 
                     <option value="Tinggi"
                         {{ $ticket->prioritas=='Tinggi' ? 'selected' : '' }}>
 
-                        🔴 Tinggi
+                        Tinggi
 
                     </option>
 
@@ -500,7 +500,7 @@ Tidak ada lampiran.
                         value="{{ $staff->id }}"
                         {{ $ticket->staff_id == $staff->id ? 'selected' : '' }}>
 
-                        👤 {{ $staff->name }}
+                        {{ $staff->name }}
 
                     </option>
 

@@ -15,9 +15,6 @@ class Attachment extends Model
         'path_file',
     ];
 
-    /**
-     * Relasi ke tiket
-     */
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);

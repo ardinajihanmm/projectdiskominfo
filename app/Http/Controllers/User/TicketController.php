@@ -64,7 +64,7 @@ class TicketController extends Controller
             ->with('success', 'Pengajuan tiket berhasil dibuat.');
     }
     public function storeComment(Request $request, \App\Models\Ticket $ticket)
-{
+    {
     if ($ticket->user_id !== auth()->id()) {
         abort(403);
     }
@@ -79,10 +79,10 @@ class TicketController extends Controller
     ]);
 
     return back()->with('success', 'Balasan berhasil dikirim.');
-}
+    }
 
-    public function history(Request $request)
-{
+        public function history(Request $request)
+    {
     $query = Ticket::with('service')
         ->where('user_id', Auth::id());
     if ($request->filled('search')) {
@@ -102,7 +102,7 @@ class TicketController extends Controller
         ->paginate(10)
         ->withQueryString();
     return view('user.ticket.history', compact('tickets'));
-}
+    }
 
     public function detail($id)
     {

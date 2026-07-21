@@ -10,43 +10,37 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    /**
-     * Halaman Profil
-     */
     public function edit()
     {
         return view('staff.profile');
     }
 
-    /**
-     * Update Profil
-     */
-   public function update(Request $request)
-{
+    public function update(Request $request)
+    {
     $user = Auth::user();
 
-   $request->validate([
-    'name'      => 'required|string|max:255',
-    'email'     => 'required|email|unique:users,email,' . $user->id,
-    'no_hp'     => 'required|string|max:20',
-    'instansi'  => 'nullable|string|max:255',
-    'foto'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-],[
-    'foto.image' => 'File harus berupa gambar.',
-    'foto.mimes' => 'Foto harus berformat JPG, JPEG, atau PNG.',
-    'foto.max'   => 'Ukuran foto maksimal 2 MB.',
-]);
+    $request->validate([
+        'name'      => 'required|string|max:255',
+        'email'     => 'required|email|unique:users,email,' . $user->id,
+        'no_hp'     => 'required|string|max:20',
+        'instansi'  => 'nullable|string|max:255',
+        'foto'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ],[
+        'foto.image' => 'File harus berupa gambar.',
+        'foto.mimes' => 'Foto harus berformat JPG, JPEG, atau PNG.',
+        'foto.max'   => 'Ukuran foto maksimal 2 MB.',
+    ]);
 
-  if ($request->hasFile('foto')) {
+    if ($request->hasFile('foto')) {
 
-    if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-        Storage::disk('public')->delete($user->foto);
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        $path = $request->file('foto')->store('staff/profile', 'public');
+
+        $user->foto = $path;
     }
-
-    $path = $request->file('foto')->store('staff/profile', 'public');
-
-    $user->foto = $path;
-}
 
     $user->name = $request->name;
     $user->email = $request->email;
@@ -56,11 +50,8 @@ class ProfileController extends Controller
     $user->save();
 
     return back()->with('success', 'Profil berhasil diperbarui.');
-}
+    }
 
-    /**
-     * Update Password
-     */
     public function updatePassword(Request $request)
     {
         $request->validate([

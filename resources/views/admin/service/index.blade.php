@@ -21,7 +21,7 @@
                     </h2>
 
                     <p class="text-muted mb-0">
-                        Kelola seluruh data layanan Helpdesk Diskominfo.
+                        Kelola seluruh data layanan Helpdesk Pemkab Pemalang
                     </p>
 
                 </div>
@@ -127,188 +127,152 @@
             </div>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th width="70">No</th>
-                            <th>Bidang</th>
-                            <th>Nama Layanan</th>
-                            <th width="120">SLA</th>
-                            <th width="120">Status</th>
-                            <th width="170" class="text-center">
-                                Aksi
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+    {{-- ===== TAMPILAN TABEL (desktop, layar ≥768px) ===== --}}
+    <div class="table-responsive d-none d-md-block">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th width="70">No</th>
+                    <th>Bidang</th>
+                    <th>Nama Layanan</th>
+                    <th width="120">SLA</th>
+                    <th width="120">Status</th>
+                    <th width="170" class="text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
 @forelse($services as $service)
 <tr class="service-row">
-
-    <td class="fw-bold text-primary">
-
-        {{ $loop->iteration }}
-
-    </td>
-
+    <td class="fw-bold text-primary">{{ $loop->iteration }}</td>
     <td>
-
         <div class="d-flex align-items-center">
-
             <div class="service-icon me-3">
-
                 <i class="bi bi-diagram-3-fill"></i>
-
             </div>
-
             <div>
-
-                <div class="fw-semibold">
-
-                    {{ $service->department->nama_bidang ?? '-' }}
-
-                </div>
-
-                <small class="text-muted">
-
-                    Bidang Layanan
-
-                </small>
-
+                <div class="fw-semibold">{{ $service->department->nama_bidang ?? '-' }}</div>
+                <small class="text-muted">Bidang Layanan</small>
             </div>
-
         </div>
-
     </td>
-
     <td>
-
-        <div class="fw-bold fs-6">
-
-            {{ $service->nama_layanan }}
-
-        </div>
-
-        <small class="text-muted">
-
-            Helpdesk Diskominfo
-
-        </small>
-
+        <div class="fw-bold fs-6">{{ $service->nama_layanan }}</div>
+        <small class="text-muted">Helpdesk Diskominfo</small>
     </td>
-
     <td>
-
         <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-2">
-
-            <i class="bi bi-clock-history me-1"></i>
-
-            {{ $service->sla }} Hari
-
+            <i class="bi bi-clock-history me-1"></i> {{ $service->sla }} Jam
         </span>
-
     </td>
-
     <td>
-
         @if($service->status)
-
             <span class="badge bg-success rounded-pill px-3 py-2">
-
-                <i class="bi bi-check-circle-fill me-1"></i>
-
-                Aktif
-
+                <i class="bi bi-check-circle-fill me-1"></i> Aktif
             </span>
-
         @else
-
             <span class="badge bg-danger rounded-pill px-3 py-2">
-
-                <i class="bi bi-x-circle-fill me-1"></i>
-
-                Nonaktif
-
+                <i class="bi bi-x-circle-fill me-1"></i> Nonaktif
             </span>
-
         @endif
-
     </td>
-
     <td>
-
         <div class="d-flex justify-content-center gap-2">
-
             <a href="{{ route('admin.service.edit',$service->id) }}"
                class="btn btn-warning btn-sm rounded-circle action-btn"
-               data-bs-toggle="tooltip"
-               title="Edit">
-
+               data-bs-toggle="tooltip" title="Edit">
                 <i class="bi bi-pencil-fill"></i>
-
             </a>
-
-            <form action="{{ route('admin.service.destroy',$service->id) }}"
-                  method="POST"
+            <form action="{{ route('admin.service.destroy',$service->id) }}" method="POST"
                   onsubmit="return confirm('Hapus layanan ini?')">
-
                 @csrf
-
                 @method('DELETE')
-
-                <button
-                    class="btn btn-danger btn-sm rounded-circle action-btn"
-                    data-bs-toggle="tooltip"
-                    title="Hapus">
-
+                <button class="btn btn-danger btn-sm rounded-circle action-btn"
+                        data-bs-toggle="tooltip" title="Hapus">
                     <i class="bi bi-trash-fill"></i>
-
                 </button>
-
             </form>
-
         </div>
-
     </td>
-
 </tr>
-
 @empty
-
 <tr>
-
     <td colspan="6">
-
         <div class="text-center py-5">
-
             <i class="bi bi-inbox display-3 text-secondary"></i>
-
-            <h5 class="mt-3 fw-bold">
-
-                Belum Ada Data Layanan
-
-            </h5>
-
-            <p class="text-muted">
-
-                Klik tombol <b>Tambah Layanan</b> untuk menambahkan layanan baru.
-
-            </p>
-
+            <h5 class="mt-3 fw-bold">Belum Ada Data Layanan</h5>
+            <p class="text-muted">Klik tombol <b>Tambah Layanan</b> untuk menambahkan layanan baru.</p>
         </div>
-
     </td>
-
 </tr>
-
 @endforelse
-                    </tbody>
+            </tbody>
+        </table>
+    </div>
 
-                </table>
+    {{-- ===== TAMPILAN KARTU (mobile, layar <768px) ===== --}}
+    <div class="d-md-none p-3">
 
+        @forelse($services as $service)
+        <div class="service-card-mobile">
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1">
+                    #{{ $loop->iteration }}
+                </span>
+
+                <div class="d-flex gap-2">
+                    <a href="{{ route('admin.service.edit',$service->id) }}"
+                       class="btn btn-warning btn-sm rounded-circle action-btn">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <form action="{{ route('admin.service.destroy',$service->id) }}" method="POST"
+                          onsubmit="return confirm('Hapus layanan ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-sm rounded-circle action-btn">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center mb-3">
+                <div class="service-icon me-3">
+                    <i class="bi bi-diagram-3-fill"></i>
+                </div>
+                <div>
+                    <div class="fw-bold fs-6">{{ $service->nama_layanan }}</div>
+                    <small class="text-muted">{{ $service->department->nama_bidang ?? '-' }}</small>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-2">
+                    <i class="bi bi-clock-history me-1"></i> {{ $service->sla }} Jam
+                </span>
+
+                @if($service->status)
+                    <span class="badge bg-success rounded-pill px-3 py-2">
+                        <i class="bi bi-check-circle-fill me-1"></i> Aktif
+                    </span>
+                @else
+                    <span class="badge bg-danger rounded-pill px-3 py-2">
+                        <i class="bi bi-x-circle-fill me-1"></i> Nonaktif
+                    </span>
+                @endif
             </div>
 
         </div>
+        @empty
+        <div class="text-center py-5">
+            <i class="bi bi-inbox display-3 text-secondary"></i>
+            <h5 class="mt-3 fw-bold">Belum Ada Data Layanan</h5>
+            <p class="text-muted">Klik tombol <b>Tambah Layanan</b> untuk menambahkan layanan baru.</p>
+        </div>
+        @endforelse
+
+    </div>
 
         <div class="card-footer bg-white border-0 py-3">
 
@@ -354,22 +318,24 @@
 
 .table thead th{
 
-    color:white;
+    background:#F8FAFC !important;
+
+    color:#475569;
 
     border:none;
+    border-bottom:2px solid #E2E8F0;
 
-    padding:18px;
+    padding:16px 18px;
 
-    font-size:14px;
+    font-size:12.5px;
 
     text-transform:uppercase;
 
-    letter-spacing:.5px;
+    letter-spacing:.6px;
 
-    font-weight:600;
+    font-weight:700;
 
 }
-
 .table tbody td{
 
     padding:18px;
@@ -438,6 +404,21 @@
 
     transform:translateY(-3px) scale(1.05);
 
+}
+.service-card-mobile{
+    border:1px solid #eef1f5;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    transition:.2s;
+}
+
+.service-card-mobile:hover{
+    box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+
+.service-card-mobile:last-child{
+    margin-bottom:0;
 }
 
 .input-group-text{

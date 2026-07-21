@@ -14,8 +14,18 @@ class TicketController extends Controller
     {
         $search = $request->search;
         $status = $request->status;
+        $user = auth()->user();
 
-        $tickets = Ticket::with(['user','service'])
+        $tickets = Ticket::with(['user','service','staff'])
+
+            ->whereHas('service', function ($q) use ($user) {
+                $q->where('department_id', $user->department_id);
+            })
+
+            ->where(function ($q) use ($user) {
+                $q->whereNull('staff_id')
+                  ->orWhere('staff_id', $user->id);
+            })
 
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
@@ -41,27 +51,79 @@ class TicketController extends Controller
             'status'
         ));
     }
+
     public function show($id)
     {
-
         $ticket = Ticket::with([
             'user',
             'service',
-            'comments.user',
+            'staff',
             'attachments',
             'comments.user'
         ])->findOrFail($id);
 
-        return view('staff.ticket.detail', compact('ticket'));
+        $user = auth()->user();
 
+        if ($ticket->service->department_id != $user->department_id) {
+            abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+        }
+
+        if ($ticket->staff_id && $ticket->staff_id != $user->id) {
+            return redirect()
+                ->route('staff.ticket.index')
+                ->with('error', 'Tiket ini sudah ditangani oleh staff lain.');
+        }
+
+        return view('staff.ticket.detail', compact('ticket'));
     }
-    public function update(Request $request, $id)
+
+    public function assignSelf($id)
     {
+        $ticket = Ticket::with('service')->findOrFail($id);
+        $user = auth()->user();
+
+        if ($ticket->service->department_id != $user->department_id) {
+            abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+        }
+
+        if ($ticket->staff_id) {
+            return back()->with('error', 'Tiket ini sudah diambil oleh staff lain.');
+        }
+
+        $ticket->staff_id = $user->id;
+        $ticket->save();
+
+        Notification::create([
+            'user_id'   => $ticket->user_id,
+            'ticket_id' => $ticket->id,
+            'judul'     => 'Tiket Diambil Staff',
+            'pesan'     => 'Tiket '.$ticket->kode_ticket.' sedang ditangani oleh '.$user->name,
+            'is_read'   => false,
+        ]);
+
+        return back()->with('success', 'Tiket berhasil diambil, sekarang tiket ini milik Anda.');
+        }
+
+        public function update(Request $request, $id)
+        {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed'
         ]);
 
-        $ticket = Ticket::findOrFail($id);
+        $ticket = Ticket::with('service')->findOrFail($id);
+        $user = auth()->user();
+
+        if ($ticket->service->department_id != $user->department_id) {
+            abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+        }
+
+        if ($ticket->staff_id && $ticket->staff_id != $user->id) {
+            return back()->with('error', 'Tiket ini sudah ditangani oleh staff lain.');
+        }
+
+        if (!$ticket->staff_id) {
+            $ticket->staff_id = $user->id;
+        }
 
         $ticket->status = $request->status;
 
@@ -71,6 +133,7 @@ class TicketController extends Controller
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
             $ticket->completed_at = now();
+            $ticket->point = $ticket->calculatePoint();
         }
 
         $ticket->save();
@@ -86,12 +149,34 @@ class TicketController extends Controller
         return redirect()
             ->route('staff.ticket.show', $ticket->id)
             ->with('success', 'Status tiket berhasil diperbarui.');
-    }
-    public function updateStatus(Request $request, Ticket $ticket)
-    {
+        }
+
+        public function updateStatus(Request $request, Ticket $ticket)
+        {
         $request->validate([
             'status' => 'required|in:To Do,In Progress,Completed',
         ]);
+
+        $user = auth()->user();
+        $ticket->loadMissing('service');
+
+        if ($ticket->service->department_id != $user->department_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tiket ini bukan bagian dari bidang Anda.',
+            ], 403);
+        }
+
+        if ($ticket->staff_id && $ticket->staff_id != $user->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tiket ini sudah ditangani oleh staff lain.',
+            ], 403);
+        }
+
+        if (!$ticket->staff_id) {
+            $ticket->staff_id = $user->id;
+        }
 
         $ticket->status = $request->status;
 
@@ -101,6 +186,7 @@ class TicketController extends Controller
 
         if ($request->status == 'Completed' && !$ticket->completed_at) {
             $ticket->completed_at = now();
+            $ticket->point = $ticket->calculatePoint();
         }
 
         $ticket->save();
@@ -116,9 +202,10 @@ class TicketController extends Controller
         return response()->json([
             'success' => true
         ]);
-    }
-    public function notification(Notification $notification)
-    {
+        }
+
+        public function notification(Notification $notification)
+        {
         if ($notification->user_id != auth()->id()) {
             abort(403);
         }

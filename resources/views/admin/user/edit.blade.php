@@ -17,7 +17,7 @@
         </h2>
 
         <p class="text-muted mb-0">
-            Perbarui informasi pengguna Helpdesk Diskominfo.
+            Perbarui informasi pengguna Helpdesk Pemkab Pemalang
         </p>
 
     </div>
@@ -178,9 +178,7 @@
                 <i class="bi bi-person-badge-fill"></i>
             </span>
 
-            <select
-                name="role"
-                class="form-select">
+            <select name="role" id="roleSelect" class="form-select" onchange="toggleDepartmentField()">
 
                 <option value="admin"
                     {{ $user->role=='admin' ? 'selected' : '' }}>
@@ -202,6 +200,26 @@
         </div>
 
     </div>
+
+    <div class="col-md-12 mb-4" id="departmentField" style="display:none;">
+    <label class="form-label fw-semibold">
+        <i class="bi bi-diagram-3-fill text-primary me-1"></i> Bidang
+    </label>
+    <div class="input-group">
+        <span class="input-group-text bg-primary text-white">
+            <i class="bi bi-diagram-3"></i>
+        </span>
+        <select name="department_id" class="form-select">
+            <option value="">-- Pilih Bidang --</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}"
+                    {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>
+                    {{ $department->nama_bidang }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</div>
         {{-- Tombol --}}
     <div class="d-flex justify-content-between align-items-center mt-2">
 
@@ -282,5 +300,13 @@
 }
 
 </style>
+<script>
+    function toggleDepartmentField() {
+        const role = document.getElementById('roleSelect').value;
+        const field = document.getElementById('departmentField');
+        field.style.display = (role === 'staff' || role === 'admin') ? 'block' : 'none';
+    }
 
+    toggleDepartmentField(); 
+</script>
 @endsection

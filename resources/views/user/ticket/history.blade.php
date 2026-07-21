@@ -2,7 +2,6 @@
 @section('title','Riwayat Pengajuan')
 @section('content')
 
-{{-- Header --}}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h2 class="fw-bold mb-2">Riwayat Pengajuan</h2>
@@ -12,8 +11,6 @@
         <i class="bi bi-arrow-left me-2"></i> Kembali
     </a>
 </div>
-
-{{-- Filter Pencarian --}}
 <div class="card border-0 shadow-sm rounded-4 mb-4">
     <div class="card-body p-4">
         <form method="GET">
@@ -45,8 +42,6 @@
         </form>
     </div>
 </div>
-
-{{-- Tabel Riwayat --}}
 <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -115,9 +110,20 @@
         </div>
     </div>
 </div>
-
-{{-- Pagination --}}
 <div class="mt-3">
-    {{ $tickets->onEachSide(1)->links('pagination::bootstrap-5') }}
 </div>
+@if(session('success'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    Swal.fire({
+        icon: 'success',
+        title: 'Tiket Berhasil Dibuat!',
+        text: '{{ session('success') }}',
+        confirmButtonText: 'Oke',
+        confirmButtonColor: '#2563eb',
+    });
+});
+</script>
+@endif
 @endsection

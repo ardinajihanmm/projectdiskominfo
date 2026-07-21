@@ -2,18 +2,16 @@
 
 @section('content')
 
-@if(session('success'))
+@if(session('success') || session('error'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil',
-        text: '{{ session('success') }}',
-        timer: 1800,
-        showConfirmButton: false
-    });
+    @if(session('success'))
+    Swal.fire({ icon: 'success', title: 'Berhasil', text: '{{ session('success') }}', timer: 1800, showConfirmButton: false });
+    @endif
+    @if(session('error'))
+    Swal.fire({ icon: 'error', title: 'Gagal', text: '{{ session('error') }}' });
+    @endif
 });
 </script>
 @endif
@@ -175,63 +173,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 <div class="card-body">
 
-                    <p>
-                        <strong>Staff</strong><br>
-                        {{ Auth::user()->name }}
-                    </p>
+    <p>
+        <strong>Staff Penanggung Jawab</strong><br>
+        @if($ticket->staff_id)
+            {{ $ticket->staff->name ?? '-' }}
+            @if($ticket->staff_id == Auth::id())
+                <span class="badge bg-primary-subtle text-primary ms-1">Milik Anda</span>
+            @endif
+        @else
+            <span class="text-muted">Belum ada yang menangani</span>
+        @endif
+    </p>
 
-                    <hr>
+    <hr>
 
-                    <p>
+    <p>
+        <strong>Status Saat Ini</strong><br>
+        @if($ticket->status=="To Do")
+            <span class="badge bg-warning">To Do</span>
+        @elseif($ticket->status=="In Progress")
+            <span class="badge bg-info">In Progress</span>
+        @else
+            <span class="badge bg-success">Completed</span>
+        @endif
+    </p>
 
-                        <strong>Status Saat Ini</strong><br>
+    <hr>
 
-                        @if($ticket->status=="To Do")
-                            <span class="badge bg-warning">To Do</span>
-                        @elseif($ticket->status=="In Progress")
-                            <span class="badge bg-info">In Progress</span>
-                        @else
-                            <span class="badge bg-success">Completed</span>
-                        @endif
+    @if(!$ticket->staff_id)
+        <form action="{{ route('staff.ticket.assign',$ticket->id) }}" method="POST">
+            @csrf
+            <button class="btn btn-primary w-100">
+                <i class="bi bi-hand-index-thumb"></i> Ambil Tiket Ini
+            </button>
+        </form>
+    @else
+        <form action="{{ route('staff.ticket.update',$ticket->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <label class="form-label">Ubah Status</label>
+            <select class="form-select mb-3" name="status">
+                <option value="To Do" {{ $ticket->status=='To Do'?'selected':'' }}>To Do</option>
+                <option value="In Progress" {{ $ticket->status=='In Progress'?'selected':'' }}>In Progress</option>
+                <option value="Completed" {{ $ticket->status=='Completed'?'selected':'' }}>Completed</option>
+            </select>
+            <button class="btn btn-success w-100">
+                <i class="bi bi-check-circle"></i> Simpan Status
+            </button>
+        </form>
+    @endif
 
-                    </p>
-
-                    <hr>
-
-                    <form action="{{ route('staff.ticket.update',$ticket->id) }}" method="POST">
-            
-
-                        @csrf
-                        @method('PUT')
-
-                        <label class="form-label">
-                            Ubah Status
-                        </label>
-
-                        <select class="form-select mb-3" name="status">
-
-                            <option value="To Do" {{ $ticket->status=='To Do'?'selected':'' }}>
-                                To Do
-                            </option>
-
-                            <option value="In Progress" {{ $ticket->status=='In Progress'?'selected':'' }}>
-                                In Progress
-                            </option>
-
-                            <option value="Completed" {{ $ticket->status=='Completed'?'selected':'' }}>
-                                Completed
-                            </option>
-
-                        </select>
-
-                        <button class="btn btn-success w-100">
-                            <i class="bi bi-check-circle"></i>
-                            Simpan Status
-                        </button>
-
-                    </form>
-
-                </div>
+</div>
 
             </div>
 

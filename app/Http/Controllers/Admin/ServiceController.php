@@ -10,23 +10,30 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function index(Request $request)
+        public function index(Request $request)
     {
-    $search = $request->search;
+        $admin = auth()->user();
+        $search = $request->search;
 
-    $services = Service::when($search, function ($query) use ($search) {
-        $query->where('nama_layanan', 'like', "%{$search}%")
-              ->orWhere('deskripsi', 'like', "%{$search}%");
-    })
-    ->latest()
-    ->paginate(10);
+        $services = Service::when($admin->isScopedToDepartment(), function ($query) use ($admin) {
+                $query->where('department_id', $admin->department_id);
+            })
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_layanan', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
 
-    return view('admin.service.index', compact('services', 'search'));
+        return view('admin.service.index', compact('services', 'search'));
     }
 
     public function create()
     {
-        $departments = Department::where('status', 1)->get();
+        $admin = auth()->user();
+        $departments = $admin->isScopedToDepartment()
+            ? Department::where('id', $admin->department_id)->get()
+            : Department::where('status', 1)->get();
 
         return view('admin.service.create', compact('departments'));
     }
@@ -43,6 +50,12 @@ class ServiceController extends Controller
         ]);
 
         $department = $this->resolveDepartment($request->nama_bidang);
+        $department = $this->resolveDepartment($request->nama_bidang);
+
+        $admin = auth()->user();
+        if ($admin->isScopedToDepartment() && $department->id != $admin->department_id) {
+            abort(403, 'Anda hanya bisa menambahkan layanan untuk bidang Anda sendiri.');
+        }
 
         $data = $request->except('icon', 'nama_bidang');
         $data['department_id'] = $department->id;
@@ -66,13 +79,24 @@ class ServiceController extends Controller
     public function edit(string $id)
     {
         $service = Service::findOrFail($id);
-        $departments = Department::where('status', 1)->get();
+        $admin = auth()->user();
 
+        if ($admin->isScopedToDepartment() && $service->department_id != $admin->department_id) {
+            abort(403, 'Layanan ini bukan bagian dari bidang Anda.');
+        }
+
+        $departments = Department::where('status', 1)->get();
         return view('admin.service.edit', compact('service', 'departments'));
     }
 
     public function update(Request $request, string $id)
     {
+        $service = Service::findOrFail($id);
+        $admin = auth()->user();
+
+    if ($admin->isScopedToDepartment() && $service->department_id != $admin->department_id) {
+        abort(403, 'Layanan ini bukan bagian dari bidang Anda.');
+    }
         $request->validate([
             'nama_bidang' => 'required|max:255',
             'nama_layanan' => 'required|max:255',
@@ -114,9 +138,19 @@ class ServiceController extends Controller
             ->with('success', 'Layanan berhasil diubah.');
     }
 
-    public function destroy(string $id)
+   public function destroy(string $id)
     {
         $service = Service::find($id);
+
+    if (! $service) {
+        return redirect()->route('admin.service.index')
+            ->with('error', 'Layanan tidak ditemukan, mungkin sudah terhapus sebelumnya.');
+    }
+
+    $admin = auth()->user();
+    if ($admin->isScopedToDepartment() && $service->department_id != $admin->department_id) {
+        abort(403, 'Layanan ini bukan bagian dari bidang Anda.');
+    }
 
         if (! $service) {
             return redirect()

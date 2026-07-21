@@ -18,7 +18,8 @@ class User extends Authenticatable
     'no_hp',
     'instansi',
     'foto',
-];
+    'department_id',
+    ];
 
     protected $hidden = [
         'password',
@@ -41,5 +42,18 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function department()
+    {
+    return $this->belongsTo(Department::class);
+    }
+    public function isScopedToDepartment(): bool
+    {
+    return $this->role === 'admin' && !is_null($this->department_id);
+    }
+
+    public function assignedTickets()
+    {
+    return $this->hasMany(Ticket::class, 'staff_id');
     }
 }

@@ -20,7 +20,7 @@
                     </h2>
 
                     <p class="text-muted mb-0">
-                        Kelola seluruh akun pengguna Helpdesk Diskominfo.
+                        Kelola seluruh akun pengguna Helpdesk Pemkab Pemalang
                     </p>
 
                 </div>
@@ -135,11 +135,12 @@
 
         <div class="card-body p-0">
 
-            <div class="table-responsive">
+            {{-- ===== TAMPILAN TABEL (desktop, layar >=768px) ===== --}}
+            <div class="table-responsive d-none d-md-block">
 
                 <table class="table table-hover align-middle mb-0">
 
-                    <thead class="table-primary">
+                    <thead>
 
                         <tr>
 
@@ -349,6 +350,96 @@
 
             </div>
 
+            {{-- ===== TAMPILAN KARTU (mobile, layar <768px) ===== --}}
+            <div class="d-md-none p-3">
+
+@forelse($users as $user)
+<div class="user-card-mobile">
+
+    <div class="d-flex justify-content-between align-items-start mb-3">
+
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1">
+            #{{ $loop->iteration }}
+        </span>
+
+        <div class="d-flex gap-2">
+
+            <a href="{{ route('admin.user.edit',$user->id) }}"
+               class="btn btn-warning btn-sm rounded-circle action-btn">
+                <i class="bi bi-pencil-fill"></i>
+            </a>
+
+            <form
+                action="{{ route('admin.user.destroy',$user->id) }}"
+                method="POST"
+                onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+
+                @csrf
+                @method('DELETE')
+
+                <button class="btn btn-danger btn-sm rounded-circle action-btn">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+
+        <div class="avatar-circle me-3">
+            {{ strtoupper(substr($user->name,0,1)) }}
+        </div>
+
+        <div>
+            <div class="fw-bold">{{ $user->name }}</div>
+            <small class="text-muted">ID User : {{ $user->id }}</small>
+        </div>
+
+    </div>
+
+    <div class="user-card-info mb-2">
+        <i class="bi bi-envelope-fill text-primary me-1"></i>
+        {{ $user->email }}
+    </div>
+
+    <div class="user-card-info mb-2">
+        <i class="bi bi-telephone-fill text-primary me-1"></i>
+        {{ $user->no_hp ?? '-' }}
+    </div>
+
+    <div class="user-card-info mb-3">
+        <i class="bi bi-building text-primary me-1"></i>
+        {{ $user->instansi ?? '-' }}
+    </div>
+
+    @if($user->role=='admin')
+        <span class="badge bg-danger rounded-pill px-3 py-2">
+            <i class="bi bi-shield-lock-fill me-1"></i> Admin
+        </span>
+    @elseif($user->role=='staff')
+        <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+            <i class="bi bi-person-workspace me-1"></i> Staff
+        </span>
+    @else
+        <span class="badge bg-primary rounded-pill px-3 py-2">
+            <i class="bi bi-person-fill me-1"></i> User
+        </span>
+    @endif
+
+</div>
+@empty
+<div class="text-center py-5">
+    <i class="bi bi-people display-3 text-secondary"></i>
+    <h4 class="fw-bold mt-3">Belum Ada Data User</h4>
+    <p class="text-muted">Klik tombol <strong>Tambah User</strong> untuk menambahkan pengguna baru.</p>
+</div>
+@endforelse
+
+            </div>
+
         </div>
 
         <div class="card-footer bg-white border-0 py-3">
@@ -387,27 +478,23 @@
 
 }
 
-.table thead{
-
-    background:linear-gradient(90deg,#2563eb,#3b82f6);
-
-}
-
 .table thead th{
 
-    color:#fff;
+    background:#F8FAFC;
+    color:#475569;
 
     border:none;
+    border-bottom:2px solid #E2E8F0;
 
-    padding:18px;
+    padding:16px 18px;
 
-    font-size:14px;
+    font-size:12.5px;
 
-    font-weight:600;
+    font-weight:700;
 
     text-transform:uppercase;
 
-    letter-spacing:.5px;
+    letter-spacing:.6px;
 
 }
 
@@ -479,6 +566,29 @@
 
     transform:scale(1.08);
 
+}
+
+/* ===== Kartu mobile ===== */
+
+.user-card-mobile{
+    border:1px solid #eef1f5;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    transition:.2s;
+}
+
+.user-card-mobile:hover{
+    box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+
+.user-card-mobile:last-child{
+    margin-bottom:0;
+}
+
+.user-card-info{
+    font-size:.9rem;
+    color:#475569;
 }
 
 .input-group-text{

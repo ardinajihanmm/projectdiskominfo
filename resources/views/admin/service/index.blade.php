@@ -318,22 +318,24 @@
 
 .table thead th{
 
-    color:white;
+    background:#F8FAFC !important;
+
+    color:#475569;
 
     border:none;
+    border-bottom:2px solid #E2E8F0;
 
-    padding:18px;
+    padding:16px 18px;
 
-    font-size:14px;
+    font-size:12.5px;
 
     text-transform:uppercase;
 
-    letter-spacing:.5px;
+    letter-spacing:.6px;
 
-    font-weight:600;
+    font-weight:700;
 
 }
-
 .table tbody td{
 
     padding:18px;

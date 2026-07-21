@@ -549,24 +549,6 @@ document.querySelectorAll(".ticket-column").forEach(column => {
 
                 if(data.success){
 
-                flatpickr("#monthPicker", {
-
-                    plugins: [
-                        new monthSelectPlugin({
-                            shorthand: true,
-                            dateFormat: "Y-m",
-                            altFormat: "F Y"
-                        })
-                    ],
-
-                    altInput: true,
-                    altFormat: "F Y",
-                    dateFormat: "Y-m",
-
-                    allowInput: false
-
-                });
-
                 updateEmptyState();
 
                     Swal.fire({

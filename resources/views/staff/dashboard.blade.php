@@ -33,7 +33,7 @@
 <!-- Statistik -->
 <div class="row g-4 mb-4">
 
-    <div class="col-xl-3 col-md-6">
+    <div class="col-12 col-sm-6 col-xl-3">
 
         <div class="modern-card total-card">
 
@@ -138,7 +138,7 @@
 <div class="row g-4">
 
     <!-- Progress -->
-    <div class="col-lg-8">
+    <div class="col-12 col-lg-8">
         <div class="card progress-modern shadow-sm border-0 h-100">
             <div class="card-body p-4">
 
@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="row g-2">
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="status-box status-success">
                             <i class="bi bi-check-circle-fill"></i>
                             <div>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="status-box status-warning">
                             <i class="bi bi-hourglass-split"></i>
                             <div>
@@ -192,7 +192,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="status-box status-info">
                             <i class="bi bi-arrow-repeat"></i>
                             <div>
@@ -208,7 +208,7 @@
     </div>
 
     <!-- Quick Action -->
-    <div class="col-lg-4">
+    <div class="col-12 col-lg-4">
 
         <div class="card quick-card border-0 shadow-sm">
 
@@ -232,7 +232,7 @@
                 </div>
 
                 <div class="row g-4">
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.ticket.index') }}"
                             class="quick-menu quick-blue">
 
@@ -246,7 +246,7 @@
 
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.kanban') }}"
                             class="quick-menu quick-green">
 

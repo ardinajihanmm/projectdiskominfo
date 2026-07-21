@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@yield('title','Helpdesk')</title>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -58,7 +59,7 @@
         }
             body{
                 background:#F1F5F9;
-                font-family:'Segoe UI',sans-serif;
+                font-family:'Plus Jakarta Sans',sans-serif;
                 overflow-x:hidden;
             }
             .sidebar{
@@ -125,7 +126,7 @@
                 line-height:1.35;
                 font-weight:500;
                 margin-top:4px;
-                font-family:'Plus Jakarta Sans',sans-serif;
+                font-family:'Segoe UI',sans-serif;
             }
             .profile{
                 text-align:center;
@@ -360,7 +361,7 @@
                 justify-content:center;
                 gap:6px;
                 white-space: nowrap;
-                font-weight:600;      
+                font-weight:600;      /* Tambahkan ini */
             }
             .notification-card .badge{
                 height:38px;
@@ -370,7 +371,7 @@
                 padding:0 18px;
                 border-radius:999px;
                 font-size:.9rem;
-                font-weight:600;      
+                font-weight:600;      /* Tambahkan ini */
             }
             .notification-card:hover{
                 background:#f8fafc;
@@ -1459,6 +1460,145 @@
                     font-size:23px;
                 }
             }
+            .progress-circle{
+                flex:0 0 90px;
+                min-width:90px;
+                max-width:90px;
+                aspect-ratio:1/1;
+            }
+            .status-icon,
+            .icon-box,
+            .ticket-icon,
+            .timeline-dot,
+            .guide-icon,
+            .notification-icon,
+            .quick-title-icon,
+            .stat-icon{
+                flex-shrink:0;
+                aspect-ratio:1/1;
+            }
+            .main,
+            .main .card,
+            .main .card-body,
+            .main .card-footer,
+            .main form,
+            .main .d-flex,
+            .main [class*="col-"]{
+                min-width:0;
+            }
+            .main img,
+            .main svg{
+                max-width:100%;
+            }
+            .main .btn{
+                max-width:100%;
+            }
+            @media(max-width:767.98px){
+                .main .container,
+                .main .container-fluid{
+                    width:100%;
+                    max-width:100%;
+                    padding-left:0;
+                    padding-right:0;
+                }
+                .main .row{
+                    --bs-gutter-x:1rem;
+                }
+                .main .card,
+                .main form,
+                .main .card-body,
+                .main .card-footer{
+                    width:100%;
+                    max-width:100%;
+                }
+                .progress-modern .d-flex.justify-content-between{
+                    flex-wrap:wrap;
+                    gap:16px;
+                }
+                .progress-circle{
+                    flex-basis:76px;
+                    width:76px;
+                    min-width:76px;
+                    max-width:76px;
+                    height:76px;
+                    font-size:1.1rem;
+                }
+                .main form .d-flex.justify-content-between,
+                .main form .d-flex:has(> a.btn):has(> button.btn),
+                .main .card-body > .d-flex:has(> a.btn):has(> button.btn),
+                .main .card-footer > .d-flex:has(> a.btn):has(> button.btn){
+                    display:grid!important;
+                    grid-template-columns:minmax(0,1fr)!important;
+                    align-items:stretch!important;
+                    gap:12px!important;
+                    width:100%!important;
+                }
+                .main form .d-flex.justify-content-between > *,
+                .main form .d-flex:has(> a.btn):has(> button.btn) > *,
+                .main .card-body > .d-flex:has(> a.btn):has(> button.btn) > *,
+                .main .card-footer > .d-flex:has(> a.btn):has(> button.btn) > *{
+                    width:100%!important;
+                    min-width:0!important;
+                    max-width:none!important;
+                    margin-left:0!important;
+                    margin-right:0!important;
+                }
+                .main form .d-flex.justify-content-between .btn,
+                .main form .d-flex:has(> a.btn):has(> button.btn) > .btn,
+                .main .card-body > .d-flex:has(> a.btn):has(> button.btn) > .btn,
+                .main .card-footer > .d-flex:has(> a.btn):has(> button.btn) > .btn{
+                    width:100%!important;
+                    min-height:48px;
+                    padding-left:16px!important;
+                    padding-right:16px!important;
+                    display:inline-flex!important;
+                    align-items:center;
+                    justify-content:center;
+                    white-space:normal;
+                    text-align:center;
+                    transform:none!important;
+                }
+                .main form .d-flex.justify-content-between .btn:hover,
+                .main form .d-flex:has(> a.btn):has(> button.btn) > .btn:hover,
+                .main .card-body > .d-flex:has(> a.btn):has(> button.btn) > .btn:hover,
+                .main .card-footer > .d-flex:has(> a.btn):has(> button.btn) > .btn:hover{
+                    transform:none!important;
+                }
+                .tips-box,
+                .status-box,
+                .account-status,
+                .ticket-info{
+                    width:100%;
+                    min-width:0;
+                }
+                .tips-box > div,
+                .status-box > div,
+                .account-status > div,
+                .ticket-info > div{
+                    min-width:0;
+                }
+                .tips-box p,
+                .status-box p,
+                .account-status p,
+                .ticket-info p{
+                    overflow-wrap:anywhere;
+                }
+            }
+            @media(max-width:575.98px){
+                .progress-modern .card-body{
+                    padding:20px!important;
+                }
+                .progress-modern .d-flex.justify-content-between{
+                    align-items:flex-start!important;
+                }
+                .progress-circle{
+                    flex-basis:72px;
+                    width:72px;
+                    min-width:72px;
+                    max-width:72px;
+                    height:72px;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1528,7 +1668,9 @@
         </div>
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <div class="content">
+            <!-- Topbar -->
             <div class="topbar">
+                <!-- Tombol Toggle Sidebar -->
                 <button type="button" class="btn btn-light border-0 me-3" id="toggleSidebar" aria-label="Buka menu" aria-controls="sidebarMenu" aria-expanded="false">
                     <i class="bi bi-list fs-3"></i>
                 </button>

@@ -40,7 +40,7 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Judul Pengajuan <span class="text-danger">*</span></label>
-                    <input type="text" name="judul" class="form-control modern-input" placeholder="Contoh: Permohonan Pembuatan Email Dinas" value="{{ old('judul') }}" required>
+                    <input type="text" name="judul" class="form-control modern-input" placeholder="Contoh: Pengaduan WiFi Desa" value="{{ old('judul') }}" required>
                 </div>
 
                 <div class="mb-4">

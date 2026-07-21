@@ -65,28 +65,11 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Semua Layanan (dipakai untuk Quick Menu & Filter Layanan)
-        |--------------------------------------------------------------------------
-        */
 
         $services = (clone $serviceBase)->orderBy('nama_layanan')->get();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Data untuk Filter Statistik Tiket (Bulan & Tahun)
-        |--------------------------------------------------------------------------
-        */
-
         $months = $this->monthNames();
         $years = $this->availableYears();
-
-        /*
-        |--------------------------------------------------------------------------
-        | View
-        |--------------------------------------------------------------------------
-        */
 
         return view('admin.dashboard', [
 
@@ -111,13 +94,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Endpoint AJAX untuk Statistik Tiket.
-     * Menerima kombinasi filter month + year + service sekaligus (AND),
-     * lalu mengembalikan hitungan status tiket hasil filter tersebut.
-     * Dipanggil oleh resources/js/chart.js setiap ada perubahan filter,
-     * jadi ketiga filter selalu dikirim bersamaan (tidak saling menimpa).
-     */
     public function ticketStats(Request $request): JsonResponse
     {
         $admin = auth()->user();
@@ -144,11 +120,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Terapkan filter bulan, tahun, dan layanan ke query tiket.
-     * Filter yang tidak diisi (kosong) otomatis diabaikan,
-     * sedangkan filter yang diisi digabung dengan AND.
-     */
     private function applyTicketFilters(\Illuminate\Database\Eloquent\Builder $query, Request $request): \Illuminate\Database\Eloquent\Builder
     {
         if ($request->filled('month')) {

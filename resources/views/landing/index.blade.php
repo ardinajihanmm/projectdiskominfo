@@ -2286,13 +2286,18 @@ footer::before{
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#services" data-section="services">Layanan</a>
+                    <a class="nav-link" href="#hero" data-section="hero">Layanan</a>
 
                 </li>
 
                 <li class="nav-item">
 
                     <a class="nav-link" href="#flow" data-section="flow">Alur</a>
+
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a>
 
                 </li>
 
@@ -2606,7 +2611,7 @@ footer::before{
 
                 <h6>Navigasi</h6>
 
-                <a href="#services">Layanan</a>
+                <a href="#hero">Layanan</a>
                 <a href="#flow">Alur Layanan</a>
                 <a href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a>
                 

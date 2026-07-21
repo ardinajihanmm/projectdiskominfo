@@ -41,6 +41,7 @@ Route::get('/pelajari-lebih-lanjut', [
     LandingController::class,
     'pelajariLebihLanjut'
 ])->name('landing.pelajari');
+
 /*
 |--------------------------------------------------------------------------
 | Authentication
@@ -67,17 +68,16 @@ Route::middleware(['auth','role:user'])
     ->group(function () {
 
         Route::get('/dashboard',[UserDashboard::class,'index'])
-            ->name('dashboard');
-
+             ->name('dashboard');
         
         Route::get('/profile', [UserProfileController::class,'index'])
-    ->name('profile');
+             ->name('profile');
 
-Route::put('/profile', [UserProfileController::class,'update'])
-    ->name('profile.update');
+        Route::put('/profile', [UserProfileController::class,'update'])
+            ->name('profile.update');
 
-Route::put('/profile/password', [UserProfileController::class,'password'])
-    ->name('password.update');
+        Route::put('/profile/password', [UserProfileController::class,'password'])
+            ->name('password.update');
 
         Route::get('/ticket/create',[UserTicket::class,'create'])
             ->name('ticket.create');
@@ -93,8 +93,9 @@ Route::put('/profile/password', [UserProfileController::class,'password'])
             
         Route::put('/notification/{notification}/read',[UserDashboard::class,'markAsRead'])
             ->name('notification.read');
+
         Route::post('/ticket/{ticket}/comment', [UserTicket::class, 'storeComment'])
-    ->name('ticket.comment.store');
+            ->name('ticket.comment.store');
     });
 
 /*
@@ -114,7 +115,6 @@ Route::middleware(['auth','role:admin'])
         Route::get('/dashboard/ticket-stats', [AdminDashboard::class, 'ticketStats'])
             ->name('dashboard.ticket-stats');
 
-        // Ticket
         Route::resource('ticket', AdminTicket::class)
             ->names('ticket');
 
@@ -130,15 +130,12 @@ Route::middleware(['auth','role:admin'])
             [AdminTicket::class, 'assign'])
             ->name('ticket.assign');
 
-        // Service
         Route::resource('service', ServiceController::class)
             ->names('service');
 
-        // User
         Route::resource('user', UserController::class)
             ->names('user');
 
-        // Profile
         Route::get('/profile', [AdminProfileController::class, 'index'])
             ->name('profile');
 
@@ -162,31 +159,24 @@ Route::middleware(['auth','role:staff'])
     ->prefix('staff')
     ->name('staff.')
     ->group(function () {
-
-        // Dashboard
         Route::get('/dashboard', [StaffDashboard::class, 'index'])
             ->name('dashboard');
 
-        // Kanban
         Route::get('/kanban', [StaffDashboard::class, 'kanban'])
             ->name('kanban');
 
-        // Update Status Ticket (letakkan di atas resource)
         Route::put('/ticket/{ticket}/status', [StaffTicket::class, 'updateStatus'])
             ->name('ticket.status');
-        // Staff mengambil tiket untuk diri sendiri
+
         Route::post('/ticket/{ticket}/assign', [StaffTicket::class, 'assignSelf'])
             ->name('ticket.assign');
 
-        // Ticket
         Route::resource('ticket', StaffTicket::class)
             ->names('ticket');
 
-        // Komentar
         Route::post('/comment', [CommentController::class, 'store'])
             ->name('comment.store');
 
-        // Profile
         Route::get('/profile', [ProfileController::class, 'edit'])
             ->name('profile');
 

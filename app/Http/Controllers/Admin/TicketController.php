@@ -20,7 +20,7 @@ class TicketController extends Controller
 {
     $admin = auth()->user();
 
-    $query = Ticket::with(['user', 'service', 'staff']);
+    $query = Ticket::with(['user', 'service.department', 'staff']);
 
     if ($admin->isScopedToDepartment()) {
         $query->whereHas('service', function ($q) use ($admin) {
@@ -178,7 +178,7 @@ class TicketController extends Controller
 {
     $admin = auth()->user();
 
-    $query = Ticket::with(['user', 'service', 'staff']);
+    $query = Ticket::with(['user', 'service.department', 'staff']);
 
     if ($admin->isScopedToDepartment()) {
         $query->whereHas('service', function ($q) use ($admin) {

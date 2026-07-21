@@ -809,6 +809,11 @@ footer .container{
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/#flow') }}" data-section="flow">Alur</a>
                 </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="{{ url('/pelajari-lebih-lanjut') }}">Tentang Layanan</a>
+
+                </li>
 
             </ul>
 

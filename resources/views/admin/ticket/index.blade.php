@@ -84,17 +84,23 @@ body{
 
 }
 
-.table thead{
-
-    background:#0d6efd;
-    color:white;
-
-}
-
 .table thead th{
 
+    background:#F8FAFC;
+    color:#475569;
+
     border:none;
-    padding:16px;
+    border-bottom:2px solid #E2E8F0;
+
+    padding:16px 18px;
+
+    font-size:12.5px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+
+    font-weight:700;
 
 }
 
@@ -128,11 +134,37 @@ body{
 
 }
 
+/* ===== Kartu mobile ===== */
+
+.ticket-card-mobile{
+    border:1px solid #eef1f5;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    transition:.2s;
+    background:#fff;
+}
+
+.ticket-card-mobile:hover{
+    box-shadow:0 10px 22px rgba(0,0,0,.06);
+}
+
+.ticket-card-mobile:last-child{
+    margin-bottom:0;
+}
+
+.ticket-avatar-mobile{
+    width:42px;
+    height:42px;
+    font-weight:600;
+    flex-shrink:0;
+}
+
 </style>
 
 <div class="container-fluid py-4">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
 
 <div>
 
@@ -152,10 +184,10 @@ Kelola seluruh tiket Helpdesk Pemkab Pemalang
 
 </div>
 
-<div>
+<div class="d-flex flex-wrap gap-2">
 
 <a href="{{ route('admin.ticket.export.pdf') }}"
-class="btn btn-danger btn-export shadow-sm me-2">
+class="btn btn-danger btn-export shadow-sm">
 
 <i class="bi bi-file-earmark-pdf-fill"></i>
 
@@ -311,7 +343,8 @@ Filter
 
 <div class="card-body p-0">
 
-<div class="table-responsive">
+{{-- ===== TAMPILAN TABEL (desktop, layar >=768px) ===== --}}
+<div class="table-responsive d-none d-md-block">
 
 <table class="table align-middle">
 
@@ -359,7 +392,6 @@ Aksi
 
 </thead>
 
-<tbody>
 <tbody>
 
 @forelse($tickets as $ticket)
@@ -419,10 +451,6 @@ Aksi
 
     </td>
 
-
-
-
-
     {{-- STATUS --}}
 
     <td>
@@ -460,10 +488,6 @@ Aksi
         @endif
 
     </td>
-
-
-
-
 
     {{-- PRIORITAS --}}
 
@@ -504,10 +528,6 @@ Aksi
         @endif
 
     </td>
-
-
-
-
 
     {{-- AKSI --}}
 
@@ -562,11 +582,83 @@ Saat ini belum ada tiket yang masuk.
 
 </div>
 
+{{-- ===== TAMPILAN KARTU (mobile, layar <768px) ===== --}}
+<div class="d-md-none p-3">
+
+@forelse($tickets as $ticket)
+<div class="ticket-card-mobile">
+
+    <div class="d-flex justify-content-between align-items-start mb-3">
+
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1">
+            #{{ $loop->iteration }}
+        </span>
+
+        <a href="{{ route('admin.ticket.show',$ticket->id) }}"
+           class="btn btn-primary btn-sm rounded-pill shadow-sm">
+            <i class="bi bi-eye-fill"></i>
+            View
+        </a>
+
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 ticket-avatar-mobile">
+            {{ strtoupper(substr($ticket->user->name,0,1)) }}
+        </div>
+
+        <div>
+            <div class="fw-semibold">{{ $ticket->judul }}</div>
+            <small class="text-muted">{{ $ticket->user->name }} &middot; Pelapor</small>
+        </div>
+
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+
+        @if($ticket->status == 'To Do')
+            <span class="badge bg-warning text-dark px-3 py-2">
+                <i class="bi bi-hourglass-split me-1"></i> To Do
+            </span>
+        @elseif($ticket->status == 'In Progress')
+            <span class="badge bg-info px-3 py-2">
+                <i class="bi bi-arrow-repeat me-1"></i> In Progress
+            </span>
+        @else
+            <span class="badge bg-success px-3 py-2">
+                <i class="bi bi-check-circle-fill me-1"></i> Completed
+            </span>
+        @endif
+
+        @if($ticket->prioritas == 'Tinggi')
+            <span class="badge bg-danger px-3 py-2">🔥 Tinggi</span>
+        @elseif($ticket->prioritas == 'Sedang')
+            <span class="badge bg-warning text-dark px-3 py-2">⚡ Sedang</span>
+        @elseif($ticket->prioritas == 'Rendah')
+            <span class="badge bg-success px-3 py-2">🌿 Rendah</span>
+        @else
+            <span class="badge bg-secondary px-3 py-2">-</span>
+        @endif
+
+    </div>
+
+</div>
+@empty
+<div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-secondary"></i>
+    <h4 class="mt-3">Belum Ada Tiket</h4>
+    <p class="text-muted">Saat ini belum ada tiket yang masuk.</p>
+</div>
+@endforelse
+
+</div>
+
 </div>
 
 </div>
 
-<div class="d-flex justify-content-between align-items-center mt-4">
+<div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
 
 <div class="text-muted">
 

@@ -206,7 +206,7 @@
         </div>
 
         <div class="card-footer bg-white">
-            {{ $tickets->links() }}
+            {{ $tickets->onEachSide(1)->links('pagination::bootstrap-5') }}
         </div>
 
     </div>

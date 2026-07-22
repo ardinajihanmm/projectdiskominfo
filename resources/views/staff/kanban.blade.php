@@ -418,6 +418,7 @@
         </div>
 
         <button
+            type="button"
             class="btn-close"
             id="closeDrawer">
         </button>
@@ -482,11 +483,11 @@
         riwayat, komentar, dan lampiran.
 
     </div>
-<button id="drawerAssignBtn" class="btn btn-outline-primary w-100 mb-2" style="display:none;">
+<button type="button" id="drawerAssignBtn" class="btn btn-outline-primary w-100 mb-2" style="display:none;">
     <i class="bi bi-hand-index-thumb"></i> Ambil Tiket Ini
 </button>
     <a
-        
+
         id="drawerDetailBtn"
         class="btn btn-primary w-100">
 
@@ -513,7 +514,7 @@ href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css"
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-
+(() => {
 function updateEmptyState(){
 
     document.querySelectorAll(".ticket-column").forEach(column=>{
@@ -620,7 +621,6 @@ document.querySelectorAll(".ticket-column").forEach(column => {
 
 });
 
-
 // ==============================
 // DRAWER
 // ==============================
@@ -635,10 +635,9 @@ const drawerStatus = document.getElementById("drawerStatus");
 const drawerPrioritas = document.getElementById("drawerPrioritas");
 const drawerTanggal = document.getElementById("drawerTanggal");
 const drawerDetailBtn = document.getElementById("drawerDetailBtn");
-const overlay = document.getElementById("drawerOverlay");
+const drawerOverlay = document.getElementById("drawerOverlay");
 const drawerStaff = document.getElementById("drawerStaff");
 const drawerAssignBtn = document.getElementById("drawerAssignBtn");
-
 
 // klik card
 
@@ -653,7 +652,7 @@ document.querySelectorAll(".ticket-card").forEach(card=>{
         }
 
         drawer.classList.add("show");
-        overlay.classList.add("show");
+        drawerOverlay.classList.add("show");
 
         drawerJudul.innerText = this.dataset.judul;
         drawerKode.innerText = this.dataset.kode;
@@ -698,11 +697,9 @@ drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 
 });
 
-
 // ==============================
 // CLOSE DRAWER
 // ==============================
-
 
 // klik luar drawer = tutup
 
@@ -710,12 +707,12 @@ drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 // Tombol X
 document.getElementById("closeDrawer").addEventListener("click", function () {
     drawer.classList.remove("show");
-    overlay.classList.remove("show");
+    drawerOverlay.classList.remove("show");
 });
 
-overlay.addEventListener("click", function () {
+drawerOverlay.addEventListener("click", function () {
     drawer.classList.remove("show");
-    overlay.classList.remove("show");
+    drawerOverlay.classList.remove("show");
 });
 // AMBIL TIKET (SELF ASSIGN)
 drawerAssignBtn.addEventListener("click", function () {
@@ -760,7 +757,7 @@ flatpickr("#monthPicker", {
 });
 
 updateEmptyState();
-
+})();
 </script>
 
 @endsection

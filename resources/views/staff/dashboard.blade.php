@@ -134,141 +134,101 @@
     </div>
 
 </div>
-
 <div class="row g-4">
-<!-- Skor SLA -->
-<div class="col-lg-8">
-    <div class="card progress-modern shadow-sm border-0 h-100">
-        <div class="card-body p-4">
 
-<<<<<<< HEAD
-    <!-- Progress -->
-    <div class="col-12 col-lg-8">
+    <!-- Skor SLA -->
+    <div class="col-lg-8">
         <div class="card progress-modern shadow-sm border-0 h-100">
             <div class="card-body p-4">
-=======
-            @if($myAveragePoint !== null)
 
-                @php
-                    $slaLabel = $myAveragePoint >= 80 ? 'Sangat Baik' : ($myAveragePoint >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
-                    $slaDesc = $myAveragePoint >= 80
-                        ? 'Kerja bagus! Mayoritas tiketmu selesai tepat waktu.'
-                        : ($myAveragePoint >= 65
-                            ? 'Beberapa tiketmu terlambat dari SLA, coba lebih cepat lagi.'
-                            : 'Banyak tiketmu terlambat dari SLA, perlu ditingkatkan.');
-                @endphp
->>>>>>> 8a4a2a7132646e7f08e8ac7e341cb5336de3b303
+                @if($myAveragePoint !== null)
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                        <h4 class="fw-bold mb-1">
-                            Skor SLA 
-                        </h4>
+                    @php
+                        $slaLabel = $myAveragePoint >= 80 ? 'Sangat Baik' : ($myAveragePoint >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
+                        $slaDesc = $myAveragePoint >= 80
+                            ? 'Kerja bagus! Mayoritas tiketmu selesai tepat waktu.'
+                            : ($myAveragePoint >= 65
+                                ? 'Beberapa tiketmu terlambat dari SLA, coba lebih cepat lagi.'
+                                : 'Banyak tiketmu terlambat dari SLA, perlu ditingkatkan.');
+                    @endphp
 
-                        <small class="text-muted">
-                            {{ $slaDesc }}
-                        </small>
-                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1">
+                                Skor SLA
+                            </h4>
+                            <small class="text-muted">
+                                {{ $slaDesc }}
+                            </small>
+                        </div>
 
-                    <div class="progress-circle">
-                        {{ $myAveragePoint }}%
-                    </div>
-                </div>
-
-                <div class="progress modern-progress mb-3">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated"
-                        style="width: {{ $myAveragePoint }}%">
-                    </div>
-                </div>
-
-                <div class="mb-4 text-muted">
-                    <strong>{{ $myTepatWaktu }}</strong>
-                    dari
-                    <strong>{{ $completed }}</strong>
-                    tiketmu selesai tepat waktu sesuai SLA.
-                </div>
-
-                <div class="row g-2">
-<<<<<<< HEAD
-                    <div class="col-12 col-md-4">
-                        <div class="status-box status-success">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <div>
-                                <strong>{{ $completed }}</strong>
-                                <small>Completed</small>
-                            </div>
+                        <div class="progress-circle">
+                            {{ $myAveragePoint }}%
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <div class="status-box status-warning">
-                            <i class="bi bi-hourglass-split"></i>
-                            <div>
-                                <strong>{{ $todo }}</strong>
-                                <small>To Do</small>
-                            </div>
+                    <div class="progress modern-progress mb-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                            style="width: {{ $myAveragePoint }}%">
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <div class="status-box status-info">
-                            <i class="bi bi-arrow-repeat"></i>
-                            <div>
-                                <strong>{{ $progress }}</strong>
-                                <small>In Progress</small>
+                    <div class="mb-4 text-muted">
+                        <strong>{{ $myTepatWaktu }}</strong>
+                        dari
+                        <strong>{{ $completed }}</strong>
+                        tiketmu selesai tepat waktu sesuai SLA.
+                    </div>
+
+                    <div class="row g-2">
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="status-box status-success h-100">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <div>
+                                    <strong>{{ $myTepatWaktu }}</strong>
+                                    <small>Tepat Waktu</small>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="status-box status-warning h-100">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <div>
+                                    <strong>{{ $myTelat }}</strong>
+                                    <small>Terlambat dari SLA</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="status-box status-info h-100">
+                                <i class="bi bi-arrow-repeat"></i>
+                                <div>
+                                    <strong>{{ $progress }}</strong>
+                                    <small>Sedang Dikerjakan</small>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-=======
->>>>>>> 8a4a2a7132646e7f08e8ac7e341cb5336de3b303
 
-    <div class="col-lg-4 col-md-4">
-        <div class="status-box status-success h-100">
-            <i class="bi bi-check-circle-fill"></i>
-            <div>
-                <strong>{{ $myTepatWaktu }}</strong>
-                <small>Tepat Waktu</small>
+                @else
+
+                    <div class="text-center py-5">
+                        <i class="bi bi-lightning-charge fs-1 text-secondary"></i>
+                        <h5 class="fw-bold mt-3 mb-1">Belum Ada Data SLA</h5>
+                        <p class="text-muted mb-0">
+                            Skor SLA-mu akan muncul setelah kamu menyelesaikan tiket pertama.
+                        </p>
+                    </div>
+
+                @endif
+
             </div>
         </div>
     </div>
-
-    <div class="col-lg-4 col-md-4">
-        <div class="status-box status-warning h-100">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <div>
-                <strong>{{ $myTelat }}</strong>
-                <small>Terlambat dari SLA</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4 col-md-4">
-        <div class="status-box status-info h-100">
-            <i class="bi bi-arrow-repeat"></i>
-            <div>
-                <strong>{{ $progress }}</strong>
-                <small>Sedang Dikerjakan</small>
-            </div>
-        </div>
-    </div>
-
-</div>
-            @else
-
-                <div class="text-center py-5">
-                    <i class="bi bi-lightning-charge fs-1 text-secondary"></i>
-                    <h5 class="fw-bold mt-3 mb-1">Belum Ada Data SLA</h5>
-                    <p class="text-muted mb-0">
-                        Skor SLA-mu akan muncul setelah kamu menyelesaikan tiket pertama.
-                    </p>
-                </div>
-
-            @endif
-
-        </div>
-    </div>
-</div>
 
     <!-- Quick Action -->
     <div class="col-12 col-lg-4">
@@ -298,50 +258,32 @@
                     <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.ticket.index') }}"
                             class="quick-menu quick-blue">
-
                             <i class="bi bi-ticket-perforated-fill"></i>
-
-                            <h5>
-                                 Daftar<br>Tiket
-                            </h5>
-
+                            <h5>Daftar<br>Tiket</h5>
                         </a>
-
                     </div>
 
                     <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.kanban') }}"
                             class="quick-menu quick-green">
-
                             <i class="bi bi-kanban-fill"></i>
-
-                            <h5>
-                                Kanban<br>Board
-                            </h5>
-                        </a>
-                    
-                     </div>
-
-                    <div class="col-12">
-
-                        <a href="{{ route('staff.profile') }}"
-                            class="quick-menu quick-gray">
-
-                            <i class="bi bi-person-circle"></i>
-
-                            <h5>
-                                Profil Saya
-                            </h5>
-
+                            <h5>Kanban<br>Board</h5>
                         </a>
                     </div>
+
+                    <div class="col-12">
+                        <a href="{{ route('staff.profile') }}"
+                            class="quick-menu quick-gray">
+                            <i class="bi bi-person-circle"></i>
+                            <h5>Profil Saya</h5>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
 
 </div>
-
 
 <div class="row g-4 mt-4">
 

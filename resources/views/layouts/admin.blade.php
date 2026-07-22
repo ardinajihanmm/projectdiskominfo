@@ -31,7 +31,7 @@
             body{
                 margin:0;
                 background:#f4f7fb;
-                font-family:'Plus Jakarta Sans',sans-serif;
+                font-family:'Segoe UI',sans-serif;
             }
 
             .sidebar{

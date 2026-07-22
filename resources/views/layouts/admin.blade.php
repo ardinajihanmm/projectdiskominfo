@@ -1,15 +1,18 @@
 @php
 
-    use App\Models\Notification;
-    use Illuminate\Support\Str;
+use App\Models\Notification;
+use Illuminate\Support\Str;
 
+if (random_int(1, 100) === 1) {
     Notification::where('created_at', '<', now()->subDays(30))->delete();
-    $notifications = Notification::where('user_id', auth()->id())
+}
+
+$notifications = Notification::where('user_id', auth()->id())
     ->latest()
     ->take(10)
     ->get();
 
-    $unread = $notifications->where('is_read', false)->count();
+$unread = $notifications->where('is_read', false)->count();
 @endphp
 
 <!DOCTYPE html>

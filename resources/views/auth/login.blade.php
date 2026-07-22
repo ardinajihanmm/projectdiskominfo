@@ -16,7 +16,40 @@
     --radius-sm: 12px;
     --shadow-lg: 0 26px 60px rgba(37, 99, 235, .18);
 }
+.btn-home-float {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, .35);
+    text-decoration: none;
+    z-index: 999;
+    transition: .3s;
+}
 
+.btn-home-float:hover {
+    color: #fff;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, .45);
+}
+
+@media (max-width: 576px) {
+    .btn-home-float {
+        right: 18px;
+        bottom: 18px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}
 * {
     box-sizing: border-box;
 }
@@ -570,4 +603,7 @@ input[type='password']::-webkit-textfield-decoration-container {
     }
 })();
 </script>
+<a href="{{ route('landing') }}" class="btn-home-float" title="Kembali ke Beranda">
+    <i class="bi bi-house-door-fill"></i>
+</a>
 @endsection

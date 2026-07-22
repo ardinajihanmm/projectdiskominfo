@@ -59,7 +59,7 @@
         }
             body{
                 background:#F1F5F9;
-                font-family:'Plus Jakarta Sans',sans-serif;
+                font-family: 'Segoe UI',sans-serif;
                 overflow-x:hidden;
             }
             .sidebar{
@@ -1149,7 +1149,7 @@
             }
             @media(max-width:991.98px){
                 body{
-                    font-family:'Plus Jakarta Sans',sans-serif;
+                    font-family:'Segoe UI',sans-serif;
                 }
                 .sidebar,
                 .sidebar.collapsed{

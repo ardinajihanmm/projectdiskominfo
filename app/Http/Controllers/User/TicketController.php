@@ -78,6 +78,18 @@ class TicketController extends Controller
         'komentar' => $request->komentar,
     ]);
 
+     if ($ticket->staff_id) {
+        Notification::create([
+            'user_id'   => $ticket->staff_id,
+            'ticket_id' => $ticket->id,
+            'judul'     => 'Komentar Baru',
+            'pesan'     => auth()->user()->name .
+                           ' memberikan balasan pada tiket ' .
+                           $ticket->kode_ticket,
+            'is_read'   => false,
+        ]);
+    }
+
     return back()->with('success', 'Balasan berhasil dikirim.');
     }
 

@@ -186,4 +186,20 @@ class TicketController extends Controller
 
     return Excel::download(new TicketsExport($departmentId), 'data-ticket.xlsx');
     }
+    public function notification(Notification $notification)
+    {
+        abort_if($notification->user_id !== auth()->id(), 403);
+
+        if (! $notification->is_read) {
+            $notification->update(['is_read' => true]);
+        }
+
+        if (! $notification->ticket_id) {
+            return redirect()
+                ->route('admin.ticket.index')
+                ->with('error', 'Tiket terkait notifikasi ini tidak ditemukan.');
+        }
+
+        return redirect()->route('admin.ticket.show', $notification->ticket_id);
+    }
 }

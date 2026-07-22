@@ -389,17 +389,58 @@ body{
    Dipilih native <select> (bukan custom div) supaya otomatis responsif
    di mobile (pakai picker bawaan OS) dan tetap accessible/keyboard-friendly. */
 .stat-pro-select-native{
+    display:none;
+}
+.stat-pro-dropdown-list{
     position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    opacity:0;
-    border:none;
-    margin:0;
-    padding:0;
+    top:calc(100% + 8px);
+    left:0;
+    right:0;
+    background:#fff;
+    border:1px solid #E2E8F0;
+    border-radius:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    padding:6px;
+    max-height:260px;
+    overflow-y:auto;
+    z-index:50;
+    display:none;
+}
+
+.stat-pro-dropdown-list.show{
+    display:block;
+}
+
+.stat-pro-dropdown-item{
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:.9rem;
+    color:#334155;
+    font-weight:500;
     cursor:pointer;
-    appearance:none;
-    -webkit-appearance:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.stat-pro-dropdown-item:hover{
+    background:#EFF6FF;
+    color:#2563EB;
+}
+
+.stat-pro-dropdown-item.active{
+    background:#2563EB;
+    color:#fff;
+    font-weight:600;
+}
+
+.stat-pro-dropdown-item .check-icon{
+    font-size:.85rem;
+    opacity:0;
+}
+
+.stat-pro-dropdown-item.active .check-icon{
+    opacity:1;
 }
 
 @media (max-width:576px){

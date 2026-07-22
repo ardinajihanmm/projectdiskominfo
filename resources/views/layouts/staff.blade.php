@@ -4,25 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Staff')</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
     <style>
-
         *{
             margin:0;
             padding:0;
             box-sizing:border-box;
         }
-
         body{
             background:#f5f7fb;
             font-family:'Segoe UI',sans-serif;
         }
-
         /* ================= SIDEBAR ================= */
-
 .sidebar{
     width:260px;
     height:100vh;
@@ -41,7 +35,6 @@
     overflow-x:hidden;
     box-shadow:8px 0 25px rgba(0,0,0,.08);
 }
-
 .topbar{
     height:70px;
     background:white;
@@ -50,95 +43,68 @@
     justify-content:space-between;
     padding:0 30px;
     box-shadow:0 2px 12px rgba(0,0,0,.05);
-
     position: relative;
     overflow: visible;
     z-index: 1000;
 }
-
 .sidebar::-webkit-scrollbar{
     width:6px;
 }
-
 .sidebar::-webkit-scrollbar-thumb{
     background:rgba(255,255,255,.35);
     border-radius:20px;
 }
-
 .logo{
     padding:28px 20px 15px;
     text-align:center;
     color:#fff;
 }
-
 .logo h3{
     color:#fff;
     font-weight:700;
     margin-bottom:0;
     letter-spacing: 0;
 }
-
 .logo small{
     color:#dbeafe;
 }
-
 .avatar{
-
     width:90px;
     height:90px;
-
     margin:auto;
-
     border-radius:50%;
-
     overflow:hidden;
-
     background:white;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     box-shadow:0 8px 20px rgba(0,0,0,.18);
-
     border:4px solid rgba(255,255,255,.3);
-
 }
-
 .avatar img{
-
     width:100%;
     height:100%;
     object-fit:cover;
-
 }
-
 .profile{
     text-align:center;
     padding:14px 20px 10px;
 }
-
 .profile h5{
     color:#fff;
     margin-top:15px;
     margin-bottom:2px;
 }
-
 .profile small{
     color:#dbeafe;
 }
-
         .profile p{
             margin:0;
             font-size:18px;
         }
-
 .menu{
     padding:8px 15px 15px;
 }
-
 .menu a{
     color:#fff;
     text-decoration:none;
@@ -151,27 +117,22 @@
     transition:.3s;
     font-weight:500;
 }
-
 .menu a:hover{
     background:rgba(255,255,255,.15);
     transform:translateX(6px);
 }
-
 .menu a.active{
     background:#fff;
     color:#0d6efd;
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
         .menu i{
             font-size:20px;
         }
-
 .logout{
     margin-top:auto;
     padding:20px;
 }
-
 .logout button{
     width:100%;
     border:none;
@@ -182,19 +143,16 @@
     font-weight:600;
     transition:.3s;
 }
-
 .logout button:hover{
     background:#dc2626;
     transform:translateY(-2px);
 }
         /* ================= CONTENT ================= */
-
 .main{
     flex:1;
     overflow-y:auto;
     padding:30px;
 }
-
 .content{
     margin-left:260px;
     height:100vh;
@@ -210,86 +168,69 @@
     min-height:650px;
     transition:.3s;
 }
-
 .ticket-column.sortable-ghost{
     background:#eef4ff;
 }
-
 .card.shadow.border-0{
     border-radius:20px !important;
     overflow:hidden;
     box-shadow:0 12px 35px rgba(0,0,0,.08)!important;
 }
-
 .card-header{
     border:none;
     padding:16px 20px;
     font-size:17px;
     font-weight:700;
 }
-
 .ticket-card{
     border:none !important;
     border-radius:16px !important;
     transition:.25s;
     box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
-
 .ticket-card:hover{
     transform:translateY(-6px);
     box-shadow:0 15px 35px rgba(37,99,235,.18);
 }
-
 .ticket-card .card-body{
     padding:20px;
 }
-
 .ticket-card h6{
     font-size:17px;
     font-weight:700;
     color:#1e293b;
 }
-
 .ticket-card small{
     color:#64748b;
 }
-
 .ticket-card hr{
     margin:15px 0;
     opacity:.15;
 }
-
 .ticket-card .badge{
     padding:7px 12px;
     border-radius:30px;
     font-weight:600;
 }
-
 .ticket-card .btn{
     border-radius:10px;
     font-weight:600;
 }
-
 .ticket-card .btn-primary{
     background:#2563eb;
     border:none;
 }
-
 .ticket-card .btn-primary:hover{
     background:#1d4ed8;
 }
-
 .ticket-column::-webkit-scrollbar{
     width:6px;
 }
-
 .ticket-column::-webkit-scrollbar-thumb{
     background:#cbd5e1;
     border-radius:20px;
 }
-
 /* ================= DASHBOARD ================= */
-
 .dashboard-header{
     background:#fff;
     border-radius:20px;
@@ -297,7 +238,6 @@
     color:#111827;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-
 .dashboard-badge{
     display:inline-flex;
     align-items:center;
@@ -309,23 +249,19 @@
     font-size:14px;
     font-weight:600;
 }
-
 .dashboard-title{
     font-weight:700;
     font-size:34px;
     color:#111827;
 }
-
 .dashboard-title span{
     color:#2563eb;
 }
-
 .dashboard-desc{
     color:#4b5563;
     margin-top:12px;
     opacity:1;
 }
-
 .account-status{
     background:rgba(255,255,255,.12);
     border-radius:18px;
@@ -333,10 +269,8 @@
     display:flex;
     align-items:center;
     gap:18px;
-    
     backdrop-filter:blur(12px);
 }
-
 .status-icon{
     width:60px;
     height:60px;
@@ -348,7 +282,6 @@
     align-items:center;
     font-size:28px;
 }
-
 .modern-card{
     position:relative;
     overflow:hidden;
@@ -363,7 +296,6 @@
     transition:.35s cubic-bezier(.4,0,.2,1);
     box-shadow:0 15px 30px rgba(0,0,0,.12);
 }
-
 .modern-card small{
     display:block;
     font-size:.95rem;
@@ -371,14 +303,12 @@
     margin-bottom:8px;
     letter-spacing:.3px;
 }
-
 .modern-card h2{
     margin:8px 0 12px;
     font-size:2.4rem;
     font-weight:700;
     line-height:1;
 }
-
 .modern-card span{
     display:block;
     min-height:52px;
@@ -386,20 +316,15 @@
     font-size:.9rem;
     opacity:.92;
 }
-
-
 .modern-card:hover{
     transform:translateY(-10px) scale(1.02);
     box-shadow:0 30px 60px rgba(0,0,0,.18);
 }
-
 .modern-card:hover .icon-box{
     animation: floatIcon .6s ease;
     transform: rotate(-8deg) scale(1.12);
     background: rgba(255,255,255,.28);
 }
-
-
 .modern-card::before{
     content:"";
     position:absolute;
@@ -410,7 +335,6 @@
     right:-80px;
     top:-80px;
 }
-
 .modern-card::after{
     content:"";
     position:absolute;
@@ -421,7 +345,6 @@
     left:-30px;
     bottom:-30px;
 }
-
 .total-card{
     background:linear-gradient(
         135deg,
@@ -431,7 +354,6 @@
     );
     box-shadow:0 20px 45px rgba(37,99,235,.35);
 }
-
 .waiting-card{
     background:linear-gradient(
         135deg,
@@ -441,7 +363,6 @@
     );
     box-shadow:0 20px 45px rgba(245,158,11,.35);
 }
-
 .progress-card{
     background:linear-gradient(
         135deg,
@@ -451,7 +372,6 @@
     );
     box-shadow:0 20px 45px rgba(6,182,212,.35);
 }
-
 .complete-card{
     background:linear-gradient(
         135deg,
@@ -461,7 +381,6 @@
     );
     box-shadow:0 20px 45px rgba(34,197,94,.35);
 }
-
 .icon-box{
     width:78px;
     height:78px;
@@ -473,30 +392,22 @@
     font-size:34px;
     flex-shrink:0;
     transition:.35s;
-
     transform: rotate(0deg);
 }
-
 @keyframes floatIcon{
-
     0%{
         transform: rotate(0deg) translateY(0);
     }
-
     40%{
         transform: rotate(-8deg) translateY(-6px);
     }
-
     70%{
         transform: rotate(-8deg) translateY(-2px);
     }
-
     100%{
         transform: rotate(-8deg) translateY(0);
     }
-
 }
-
 .card-content{
     flex:1;
     display:flex;
@@ -504,27 +415,21 @@
     justify-content:center;
     height:100%;
 }
-
-
 .card-content h2{
     font-weight:700;
     margin-bottom:0;
 }
-
 .card-content small{
     display:block;
     opacity:.85;
 }
-
 .card-content span{
     font-size:13px;
     opacity:.85;
 }
-
 .progress-modern{
     border-radius:18px;
 }
-
 .progress-circle{
     width:75px;
     height:75px;
@@ -536,13 +441,11 @@
     align-items:center;
     font-weight:bold;
 }
-
 .modern-progress{
     height:12px;
     border-radius:20px;
     overflow:hidden;
 }
-
 .status-box{
     display:flex;
     align-items:center;
@@ -551,54 +454,43 @@
     border-radius:18px;
     transition:.3s;
 }
-
 .status-box i{
     font-size:28px;
 }
-
 .status-box strong{
     font-size:32px;
     font-weight:700;
     display:block;
 }
-
 .status-box small{
     font-size:15px;
 }
-
 .status-success{
     background:#EAF8EF;
     color:#16A34A;
 }
-
 .status-success i{
     color:#16A34A;
 }
-
 .status-warning{
     background:#FFF8E6;
     color:#D97706;
 }
-
 .status-warning i{
     color:#D97706;
 }
-
 .status-info{
     background:#EAF7FD;
     color:#0284C7;
 }
-
 .status-info i{
     color:#0284C7;
 }
-
 .modern-progress{
     height:14px;
     border-radius:20px;
     background:#E5E7EB;
 }
-
 .modern-progress .progress-bar{
     background:repeating-linear-gradient(
         45deg,
@@ -609,7 +501,6 @@
     );
     border-radius:20px;
 }
-
 .progress-circle{
     width:78px;
     height:78px;
@@ -623,32 +514,25 @@
     font-weight:700;
     box-shadow:0 10px 25px rgba(37,99,235,.25);
 }
-
-
 .quick-card,
 .latest-ticket-card{
     border-radius:22px;
 }
-
 .quick-card .card-body{
     padding:24px;
 }
-
 .latest-ticket-card .card-body{
     padding:40px;
 }
-
 .quick-title-icon{
     width:56px;
     height:56px;
     border-radius:16px;
     margin-right:14px;
 }
-
 .quick-title-icon i{
     font-size:24px;
 }
-
 .quick-menu{
     position:relative;
     overflow:hidden;
@@ -663,7 +547,6 @@
     transition:.35s;
     box-shadow:0 10px 22px rgba(0,0,0,.12);
 }
-
 .quick-menu::before{
     content:"";
     position:absolute;
@@ -674,17 +557,14 @@
     right:-45px;
     top:-45px;
 }
-
 .quick-menu:hover{
     transform:translateY(-8px) scale(1.03);
     color:#fff;
 }
-
 .quick-menu i{
     font-size:42px;
     margin-bottom:14px;
 }
-
 .quick-menu h5{
     margin:0;
     text-align:center;
@@ -692,13 +572,11 @@
     font-size:1.1rem;
     font-weight:700;
 }
-
 .quick-menu span{
     font-size:1rem;
     font-weight:600;
     line-height:1.3;
 }
-
 .quick-blue{
     background:linear-gradient(
         135deg,
@@ -715,7 +593,6 @@
         #15803D
     );
 }
-
 .quick-gray{
     background:linear-gradient(
         135deg,
@@ -724,38 +601,31 @@
         #334155
     );
 }
-
 .ticket-item{
     display:flex;
     gap:24px;
     padding:28px 16px;
     border-bottom:1px solid #eee;
 }
-
 .ticket-content h5{
     font-size:1.3rem;
     font-weight:700;
 }
-
 .ticket-content p{
     font-size:15px;
     margin-top:10px;
 }
-
 .ticket-meta{
     font-size:15px;
     gap:24px;
 }
-
 .badge{
     font-size:0.9rem;
     padding:10px 18px;
 }
-
 .ticket-item:last-child{
     border-bottom:none;
 }
-
 .ticket-icon{
     width:55px;
     height:55px;
@@ -767,11 +637,9 @@
     align-items:center;
     font-size:24px;
 }
-
 .ticket-content{
     flex:1;
 }
-
 .ticket-meta{
     display:flex;
     gap:20px;
@@ -779,13 +647,11 @@
     font-size:14px;
     margin:10px 0;
 }
-
 .timeline-item{
     display:flex;
     gap:15px;
     margin-bottom:22px;
 }
-
 .timeline-icon{
     width:48px;
     height:48px;
@@ -796,24 +662,19 @@
     align-items:center;
     font-size:20px;
 }
-
 .timeline-content h6{
     margin-bottom:4px;
 }
-
 .timeline-content p{
     margin-bottom:4px;
     color:#6b7280;
 }
-
 .step-wrapper{
     margin-top:20px;
 }
-
 .step-item{
     position:relative;
 }
-
 .step-number{
     width:55px;
     height:55px;
@@ -826,33 +687,26 @@
     font-weight:bold;
     margin-bottom:15px;
 }
-
 .step-title{
     font-weight:600;
     margin-bottom:8px;
 }
-
 .step-desc{
     font-size:14px;
     color:#6b7280;
 }
-
 .empty-ticket{
     text-align:center;
     padding:60px 20px;
 }
-
 .empty-ticket i{
     font-size:60px;
     color:#9ca3af;
 }
-
 .counter{
     transition:all .5s;
 }
-
 /* ================= KANBAN ================= */
-
 .ticket-column{
     background:#f8fafc;
     border-radius:18px;
@@ -860,102 +714,81 @@
     min-height:650px;
     transition:.3s;
 }
-
 .ticket-column.sortable-ghost{
     background:#eef4ff;
 }
-
 .card.shadow.border-0{
     border-radius:20px !important;
     overflow:hidden;
     box-shadow:0 12px 35px rgba(0,0,0,.08)!important;
 }
-
 .card-header{
     border:none;
     padding:16px 20px;
     font-size:17px;
     font-weight:700;
 }
-
 .ticket-card{
     border:none !important;
     border-radius:16px !important;
     transition:.25s;
     box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
-
 .ticket-card:hover{
     transform:translateY(-6px);
     box-shadow:0 15px 35px rgba(37,99,235,.18);
 }
-
 .ticket-card .card-body{
     padding:20px;
 }
-
 .ticket-card h6{
     font-size:17px;
     font-weight:700;
     color:#1e293b;
 }
-
 .ticket-card small{
     color:#64748b;
 }
-
 .ticket-card hr{
     margin:15px 0;
     opacity:.15;
 }
-
 .ticket-card .badge{
     padding:7px 12px;
     border-radius:30px;
     font-weight:600;
 }
-
 .ticket-card .btn{
     border-radius:10px;
     font-weight:600;
 }
-
 .ticket-card .btn-primary{
     background:#2563eb;
     border:none;
 }
-
 .ticket-card .btn-primary:hover{
     background:#1d4ed8;
 }
-
 .ticket-column::-webkit-scrollbar{
     width:6px;
 }
-
 .ticket-column::-webkit-scrollbar-thumb{
     background:#cbd5e1;
     border-radius:20px;
 }
-
 .todo-header{
     background:linear-gradient(135deg,#facc15,#f59e0b);
     color:#fff;
 }
-
 .progress-header{
     background:linear-gradient(135deg,#38bdf8,#2563eb);
     color:#fff;
 }
-
 .done-header{
     background:linear-gradient(135deg,#22c55e,#16a34a);
     color:#fff;
 }
-
-
 /* ================= DAFTAR TIKET ================= */
-
 .ticket-header{
     background:#fff;
     border-radius:20px;
@@ -963,151 +796,119 @@
     box-shadow:0 10px 30px rgba(0,0,0,.06);
     margin-bottom:25px;
 }
-
 .ticket-header h2{
     font-weight:700;
     color:#1e293b;
 }
-
 .ticket-header p{
     color:#64748b;
     margin-bottom:0;
 }
-
 /* Filter */
-
 .filter-card{
     border:none;
     border-radius:18px;
     box-shadow:0 10px 30px rgba(15,23,42,.06);
 }
-
 .filter-card .card-body{
     padding:22px;
 }
-
 .filter-card .form-control,
 .filter-card .form-select{
     height:48px;
     border-radius:12px;
     border:1px solid #dbe3ef;
 }
-
 .filter-card .form-control:focus,
 .filter-card .form-select:focus{
     border-color:#2563eb;
     box-shadow:0 0 0 .15rem rgba(37,99,235,.15);
 }
-
 .filter-card .btn{
     height:48px;
     border-radius:12px;
     font-weight:600;
 }
-
 /* Table Card */
-
 .ticket-table-card{
     border:none;
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 12px 35px rgba(0,0,0,.08);
 }
-
 .ticket-table-card .card-header{
     background:linear-gradient(135deg,#2563eb,#1d4ed8);
     color:#fff;
     padding:18px 25px;
     border:none;
 }
-
 .ticket-table-card .card-header h5{
     margin:0;
     font-weight:700;
 }
-
 /* Table */
-
 .ticket-table{
     margin-bottom:0;
 }
-
 .ticket-table thead{
     background:#f8fafc;
 }
-
 .ticket-table thead th{
     border:none;
     color:#475569;
     font-weight:700;
     padding:18px;
 }
-
 .ticket-table tbody td{
     vertical-align:middle;
     padding:18px;
     border-color:#eef2f7;
 }
-
 .ticket-table tbody tr{
     transition:.25s;
 }
-
 .ticket-table tbody tr:hover{
     background:#f8fbff;
     transform:scale(1.002);
 }
-
 /* Badge */
-
 .badge-status{
     padding:7px 14px;
     border-radius:30px;
     font-weight:600;
     font-size:12px;
 }
-
 .badge-todo{
     background:#fef3c7;
     color:#92400e;
 }
-
 .badge-progress{
     background:#dbeafe;
     color:#1d4ed8;
 }
-
 .badge-completed{
     background:#dcfce7;
     color:#15803d;
 }
-
 /* Select Status */
-
 .status-select{
     border-radius:10px;
     min-width:140px;
 }
-
 /* Tombol */
-
 .btn-detail{
     border-radius:10px;
     padding:7px 16px;
     font-weight:600;
 }
-
 /* Hover Card */
-
 .ticket-table-card:hover{
     transform:translateY(-2px);
     transition:.3s;
 }
-
 /* =========================
    DETAIL TIKET
 ========================= */
-
 .detail-card{
     border:none;
     border-radius:18px;
@@ -1116,7 +917,6 @@
     box-shadow:0 10px 25px rgba(0,0,0,.08);
     margin-bottom:25px;
 }
-
 .detail-card .card-header{
     background:#fff;
     border-bottom:1px solid #edf2f7;
@@ -1125,117 +925,94 @@
     font-weight:700;
     color:#1e293b;
 }
-
 .detail-card .card-body{
     padding:25px;
 }
-
 .detail-table{
     width:100%;
 }
-
 .detail-table tr{
     border-bottom:1px solid #eef2f7;
 }
-
 .detail-table td{
     padding:13px 10px;
 }
-
 .detail-table td:first-child{
     width:180px;
     font-weight:600;
     color:#64748b;
 }
-
 .detail-table td:last-child{
     color:#1e293b;
     font-weight:500;
 }
-
 .status-card{
     border:none;
     border-radius:18px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-
 .status-card .card-header{
     background:#fff;
     border-bottom:1px solid #edf2f7;
     color:#1e293b;
     font-weight:700;
 }
-
 .status-card .card-body{
     padding:22px;
 }
-
 .status-card select{
     height:48px;
     border-radius:12px;
 }
-
 .status-card .btn-success{
     border-radius:12px;
     height:45px;
     font-weight:600;
 }
-
 .badge{
     padding:8px 12px;
     border-radius:50px;
     font-weight:600;
 }
-
 /* Diskusi */
-
 .comment-card{
     border:none;
     border-radius:18px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-
 .comment-card .card-header{
     background:#fff;
     color:#1e293b;
     font-weight:700;
     border-bottom:1px solid #edf2f7;
 }
-
 .comment-box{
     background:#f8fafc;
     border-radius:12px;
     padding:15px;
     margin-bottom:15px;
 }
-
 .comment-box strong{
     color:#2563eb;
 }
-
 .comment-box small{
     color:#94a3b8;
 }
-
 /* Timeline */
-
 .timeline-card{
     border:none;
     border-radius:18px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-
 .timeline-card .card-header{
     background:#fff;
     color:#1e293b;
     border-bottom:1px solid #edf2f7;
 }
-
 .timeline{
     position:relative;
     margin-left:18px;
 }
-
 .timeline::before{
     content:"";
     position:absolute;
@@ -1245,13 +1022,11 @@
     width:2px;
     background:#dbeafe;
 }
-
 .timeline-item{
     position:relative;
     padding-left:35px;
     margin-bottom:25px;
 }
-
 .timeline-dot{
     position:absolute;
     left:-2px;
@@ -1261,22 +1036,18 @@
     border-radius:50%;
     background:#2563eb;
 }
-
 .timeline-title{
     font-weight:600;
     color:#1e293b;
 }
-
 .timeline-time{
     font-size:13px;
     color:#94a3b8;
 }
-
 .timeline{
     position: relative;
     padding-left: 25px;
 }
-
 .timeline::before{
     content: "";
     position: absolute;
@@ -1286,12 +1057,10 @@
     width: 2px;
     background: #d6e4ff;
 }
-
 .timeline .d-flex{
     position: relative;
     margin-bottom: 30px !important;
 }
-
 .timeline .badge{
     width: 42px;
     height: 42px;
@@ -1304,9 +1073,7 @@
     position: relative;
     z-index: 2;
 }
-
 /* ===== Timeline Dashboard ===== */
-
 .timeline-item-modern{
     position:relative;
     display:flex;
@@ -1314,7 +1081,6 @@
     margin-bottom:22px;
     align-items:flex-start;
 }
-
 .timeline-item-modern:not(:last-child)::before{
     content:"";
     position:absolute;
@@ -1324,7 +1090,6 @@
     height:calc(100% + 8px);
     background:#dbeafe;
 }
-
 .timeline-icon-modern{
     width:42px;
     height:42px;
@@ -1338,7 +1103,6 @@
     flex-shrink:0;
     box-shadow:0 10px 20px rgba(37,99,235,.25);
 }
-
 .timeline-content-modern{
     flex:1;
     background:#f8fbff;
@@ -1347,39 +1111,32 @@
     transition:.3s;
     border:1px solid #edf2f7;
 }
-
 .timeline-content-modern:hover{
     transform:translateY(-2px);
     box-shadow:0 12px 24px rgba(0,0,0,.08);
 }
-
 .timeline-content-modern h6{
     font-weight:700;
     margin-bottom:6px;
     color:#1f2937;
 }
-
 .timeline-content-modern p{
     margin-bottom:8px;
     color:#64748b;
     font-size:14px;
 }
-
 .timeline-content-modern small{
     color:#94a3b8;
 }
-
 .profile-card{
     border-radius:25px;
     overflow:hidden;
 }
-
 .profile-header{
     background:linear-gradient(135deg,#2563eb,#5b8df7);
     color:#fff;
     padding:50px 20px 35px;
 }
-
 .profile-avatar{
     width:150px;
     height:150px;
@@ -1389,7 +1146,6 @@
     box-shadow:0 10px 25px rgba(0,0,0,.2);
     margin-bottom:20px;
 }
-
 .profile-role{
     display:inline-block;
     margin-top:12px;
@@ -1399,14 +1155,12 @@
     border-radius:30px;
     font-weight:600;
 }
-
 .profile-info .info-item{
     display:flex;
     align-items:center;
     gap:15px;
     margin-bottom:28px;
 }
-
 .profile-info i{
     width:50px;
     height:50px;
@@ -1417,17 +1171,14 @@
     background:#eef4ff;
     font-size:22px;
 }
-
 .profile-info small{
     display:block;
     color:#888;
 }
-
 .profile-info strong{
     display:block;
     font-size:16px;
 }
-
 .profile-form-header{
     background:linear-gradient(135deg,#2563eb,#5b8df7);
     color:white;
@@ -1435,49 +1186,38 @@
     font-weight:700;
     padding:20px 25px;
 }
-
 .card{
     border-radius:24px;
 }
-
 .card{
     transition:.3s;
 }
-
 .card:hover{
     transform:translateY(-4px);
 }
-
 .input-group-text{
     border-right:none;
     background:#fff;
 }
-
 .form-control{
     border-left:none;
 }
-
 .form-control:focus{
     box-shadow:none;
     border-color:#86b7fe;
 }
-
 .list-group-item{
     transition:.25s;
 }
-
 .list-group-item:hover{
     background:#f8f9fa;
 }
-
 .btn{
     transition:.25s;
 }
-
 .btn:hover{
     transform:translateY(-2px);
 }
-
 .profile-foto{
     width:240px;
     height:240px;
@@ -1489,7 +1229,6 @@
     display:block;
     margin:0 auto;
 }
-
 .logo{
     display:flex;
     align-items:center;
@@ -1497,19 +1236,16 @@
     gap:14px;
     padding:22px 18px 26px;
 }
-
 .logo-pemalang{
     width:64px;
     height:64px;
     object-fit:contain;
     flex-shrink:0;
 }
-
 .logo-text{
     text-align:left;
     font-family:'Plus Jakarta Sans',sans-serif;
 }
-
 .logo-text h3{
     margin:0;
     color:#fff;
@@ -1519,7 +1255,6 @@
     line-height:1.1;
     font-family:'Plus Jakarta Sans',sans-serif;
 }
-
 .logo-text small{
     display:block;
     color:rgba(255,255,255,.85);
@@ -1537,7 +1272,6 @@
 .sidebar{
     transition:all .35s ease;
 }
-
 .content{
     transition:all .35s ease;
 }
@@ -1547,11 +1281,9 @@
 .sidebar.collapsed .logo{
     justify-content:center;
 }
-
 .sidebar.collapsed .logo-text{
     display:none;
 }
-
 .sidebar.collapsed .logo-pemalang{
     width:50px;
     height:50px;
@@ -1560,7 +1292,6 @@
 .sidebar.collapsed .profile small{
     display:none;
 }
-
 .sidebar.collapsed .avatar{
     width:60px;
     height:60px;
@@ -1569,11 +1300,9 @@
     justify-content:center;
     padding:16px;
 }
-
 .sidebar.collapsed .menu a span{
     display:none;
 }
-
 .sidebar.collapsed .menu a i{
     margin:0;
     font-size:22px;
@@ -1582,22 +1311,18 @@
     font-size:0;
     padding:15px;
 }
-
 .sidebar.collapsed .logout button i{
     font-size:22px;
     margin:0 !important;
 }
-.sidebar.collapsed + .content{
+.sidebar.collapsed ~ .content{
     margin-left:85px;
 }
-
-
 .welcome h5{
     margin:0;
     font-size:1.15rem;
     font-weight:700;
 }
-
 .welcome small{
     display:block;
     color:#64748b;
@@ -1608,829 +1333,826 @@
     align-items:center;
     padding:18px 0 22px;
 }
-
-/* ==========================================
-   RESPONSIVE MOBILE
-========================================== */
-
-
-@media(max-width:991.98px){
-
-.status-box{
-
-    padding:16px;
-    gap:12px;
-
+.sidebar-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1040;
+    background:rgba(15,23,42,.52);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .3s ease,visibility .3s ease;
 }
-
-.status-box strong{
-
-    font-size:24px;
-
+.sidebar-overlay.is-visible{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
 }
-
-.status-box i{
-
-    font-size:22px;
-
+body.sidebar-open{
+    overflow:hidden;
 }
-
+.notification-card{
+    padding:18px;
+    border-bottom:1px solid #e5e7eb;
+    transition:.25s;
 }
-
-@media(max-width:991.98px){
-
-.quick-menu{
-
-    min-height:110px;
-    border-radius:18px;
-
+.notification-card:hover{
+    background:#f8fafc;
 }
-
-.quick-menu i{
-
-    font-size:36px;
-    margin-bottom:10px;
-
+.notification-card.notification-read{
+    background:#f8fafc;
 }
-
-.quick-menu h5{
-
-    font-size:16px;
-
+.notification-icon{
+    width:46px;
+    height:46px;
+    min-width:46px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eff6ff;
+    font-size:20px;
 }
-
+.offcanvas{
+    width:min(100vw,430px)!important;
 }
-
-@media(max-width:991.98px){
-
-.ticket-item{
-
-    flex-direction:column;
-    gap:14px;
-
+.progress-circle,
+.status-icon,
+.timeline-icon,
+.timeline-icon-modern,
+.ticket-icon,
+.step-number{
+    flex-shrink:0;
+    aspect-ratio:1/1;
 }
-
-.ticket-meta{
-
-    flex-direction:column;
-    gap:6px;
-
-}
-
-.ticket-icon{
-
-    width:50px;
-    height:50px;
-
-}
-
-}
-
-@media(max-width:991.98px){
-
-.timeline-item-modern{
-
-    gap:12px;
-
-}
-
-.timeline-content-modern{
-
-    padding:12px;
-
-}
-
-.timeline-content-modern h6{
-
-    font-size:15px;
-
-}
-
-.timeline-content-modern p{
-
-    font-size:13px;
-
-}
-
-}
-
-@media(max-width:991.98px){
-
-.sidebar{
-
-    width:280px;
-    left:-280px;
-    z-index:1055;
-    transition:.3s;
-
-}
-
-.sidebar.show{
-
-    left:0;
-
-}
-
-}
-
-@media (max-width:991.98px){
-
-    /* Layout utama */
-    .content{
-        margin-left:0 !important;
-        width:100%;
+@media(max-width:1199.98px){
+    .dashboard-header{
+        padding:28px;
     }
-
-    .main{
-        padding:16px;
-    }
-
-    .footer{
-        padding:15px;
-        text-align:center;
-    }
-
-    /* Header */
-    .topbar{
-        padding:12px 16px;
+    .modern-card{
         height:auto;
+        min-height:165px;
     }
-
-    .topbar h5{
+    .latest-ticket-card .card-body{
+        padding:30px;
+    }
+    .featured-ticket,
+    .detail-card .card-body{
+        padding:22px;
+    }
+}
+@media(max-width:991.98px){
+    body{
+        overflow-x:hidden;
+    }
+    .sidebar,
+    .sidebar.collapsed{
+        width:min(82vw,300px);
+        max-width:300px;
+        z-index:1050;
+        transform:translateX(-100%);
+        box-shadow:16px 0 40px rgba(15,23,42,.24);
+    }
+    .sidebar.mobile-open{
+        transform:translateX(0);
+    }
+    .sidebar.collapsed .logo{
+        justify-content:center;
+    }
+    .sidebar.collapsed .logo-text{
+        display:block;
+    }
+    .sidebar.collapsed .logo-pemalang{
+        width:64px;
+        height:64px;
+    }
+    .sidebar.collapsed .profile{
+        display:block;
+        padding:14px 20px 10px;
+    }
+    .sidebar.collapsed .profile h5,
+    .sidebar.collapsed .profile small{
+        display:block;
+    }
+    .sidebar.collapsed .avatar{
+        width:90px;
+        height:90px;
+        margin:auto;
+    }
+    .sidebar.collapsed .menu a{
+        justify-content:flex-start;
+        padding:14px 18px;
+    }
+    .sidebar.collapsed .menu a span{
+        display:inline;
+    }
+    .sidebar.collapsed .menu a i{
+        margin:0;
         font-size:20px;
     }
-
-    .welcome h5{
-        font-size:18px;
+    .sidebar.collapsed .logout button{
+        padding:12px;
+        font-size:inherit;
     }
-
-    /* Dashboard Header */
+    .sidebar.collapsed .logout button i{
+        font-size:inherit;
+    }
+    .content,
+    .sidebar.collapsed ~ .content{
+        width:100%;
+        min-width:0;
+        min-height:100vh;
+        height:auto;
+        margin-left:0;
+        overflow:visible;
+    }
+    .topbar{
+        position:sticky;
+        top:0;
+        z-index:1030;
+        min-height:64px;
+        height:auto;
+        padding:10px 16px;
+        gap:8px;
+    }
+    #toggleSidebar{
+        flex-shrink:0;
+        margin-right:4px!important;
+    }
+    .topbar h5{
+        min-width:0;
+        max-width:46vw;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        font-size:1rem;
+    }
+    .topbar > .d-flex{
+        gap:8px!important;
+    }
+    .topbar .text-end{
+        display:none;
+    }
+    .main{
+        flex:none;
+        min-width:0;
+        min-height:calc(100vh - 120px);
+        overflow:visible;
+        padding:20px 16px;
+    }
+    .footer{
+        padding:16px;
+        text-align:center;
+    }
     .dashboard-header{
         padding:24px;
+        border-radius:20px;
     }
-
     .dashboard-title{
-        font-size:30px;
+        font-size:1.75rem;
     }
-
-    /* Statistik */
-    .modern-card{
-        min-height:150px;
-        height:auto;
+    .dashboard-desc{
+        line-height:1.7;
+    }
+    .account-status{
         padding:20px;
     }
-
+    .modern-card{
+        min-height:155px;
+        height:auto;
+    }
+    .modern-card,
+    .ticket-card,
+    .card,
+    .ticket-table-card{
+        max-width:100%;
+    }
+    .modern-card:hover,
+    .ticket-card:hover,
+    .card:hover,
+    .ticket-table-card:hover,
+    .quick-menu:hover{
+        transform:none;
+    }
+    .progress-circle{
+        width:78px;
+        min-width:78px;
+        height:auto;
+        flex:0 0 78px;
+        border-radius:50%;
+    }
+    .ticket-column{
+        min-height:0;
+        height:auto;
+    }
+    .ticket-item{
+        gap:16px;
+        padding:22px 12px;
+    }
+    .ticket-meta{
+        flex-wrap:wrap;
+        gap:10px 16px;
+    }
+    .ticket-table-card .card-body,
+    .table-responsive{
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+    }
+    .ticket-table{
+        min-width:760px;
+    }
+    .filter-card .row{
+        row-gap:12px;
+    }
+    .modern-header,
+    .featured-header{
+        align-items:flex-start;
+        flex-wrap:wrap;
+        gap:14px;
+    }
+    .profile-foto{
+        width:180px;
+        height:180px;
+    }
+    .profile-avatar{
+        width:130px;
+        height:130px;
+    }
+    .timeline-content-modern,
+    .ticket-content,
+    .card-content,
+    .notification-card .flex-grow-1{
+        min-width:0;
+    }
+    .notification-card .mt-3.d-flex{
+        flex-wrap:wrap;
+        gap:8px!important;
+    }
+    .notification-card .btn,
+    .notification-card .badge{
+        height:auto;
+        min-height:38px;
+        white-space:normal;
+    }
+    .main img,
+    .main iframe,
+    .main video{
+        max-width:100%;
+    }
+    .main input,
+    .main select,
+    .main textarea,
+    .main .form-control,
+    .main .form-select{
+        min-width:0;
+        max-width:100%;
+    }
+    .modal-dialog{
+        margin:12px;
+    }
+}
+@media(max-width:767.98px){
+    .main{
+        padding:18px 12px;
+    }
+    .dashboard-header,
+    .ticket-header{
+        padding:20px;
+        border-radius:18px;
+    }
+    .dashboard-title,
+    .ticket-header h2{
+        font-size:1.5rem;
+    }
+    .modern-card{
+        min-height:145px;
+        padding:20px;
+        gap:16px;
+        border-radius:20px;
+    }
+    .icon-box{
+        width:62px;
+        height:62px;
+        min-width:62px;
+        border-radius:18px;
+        font-size:27px;
+    }
     .modern-card h2{
         font-size:2rem;
     }
-
-    .icon-box{
-        width:65px;
-        height:65px;
-        font-size:28px;
+    .modern-card span{
+        min-height:auto;
+        font-size:.86rem;
     }
-
-}
-
-@media(max-width:991.98px){
-
-.progress-circle{
-
-    width:60px;
-    height:60px;
-    font-size:20px;
-
-}
-
-}
-
-@media(max-width:991.98px){
-
-.modern-card{
-
-    min-height:130px;
-    height:auto;
-    padding:20px;
-
-}
-
-.icon-box{
-
-    width:60px;
-    height:60px;
-    font-size:26px;
-
-}
-
-.card-content h2{
-
-    font-size:2rem;
-
-}
-
-.card-content span{
-
-    font-size:13px;
-
-}
-
-}
-
-/* ================= MOBILE SIDEBAR ================= */
-
-@media (max-width:991.98px){
-
-    .sidebar{
-
-        left:-260px;
-        z-index:1055;
-        transition:.35s;
-
+    .quick-card .card-body,
+    .latest-ticket-card .card-body,
+    .detail-card .card-body,
+    .status-card .card-body{
+        padding:20px;
     }
-
-    .sidebar.show{
-
-        left:0;
-
+    .quick-menu{
+        height:auto;
+        min-height:120px;
+        padding:18px 12px;
     }
-
-    .content{
-
-        margin-left:0 !important;
-
+    .quick-menu i{
+        margin-bottom:10px;
+        font-size:34px;
     }
-
-    .topbar{
-
-        position:sticky;
-        top:0;
-        z-index:1040;
-
+    .ticket-item{
+        align-items:flex-start;
     }
-
-}
-
-.sidebar-overlay{
-
-    display:none;
-
-}
-
-@media (max-width:991.98px){
-
-    .sidebar-overlay{
-
-        position:fixed;
-        inset:0;
-        background:rgba(0,0,0,.45);
-        z-index:1050;
-        display:none;
-
+    .ticket-icon{
+        width:48px;
+        height:48px;
+        min-width:48px;
     }
-
-    .sidebar-overlay.show{
-
+    .ticket-content h5{
+        font-size:1.1rem;
+        overflow-wrap:anywhere;
+    }
+    .ticket-content p,
+    .timeline-content-modern p{
+        overflow-wrap:anywhere;
+    }
+    .detail-table,
+    .detail-table tbody,
+    .detail-table tr,
+    .detail-table td{
         display:block;
-
+        width:100%;
     }
-
-}   /* <-- tambahkan ini */
-
-@media(max-width:991.98px){
-
-    .dashboard-title{
-        font-size:28px;
+    .detail-table tr{
+        padding:10px 0;
     }
-
-    .dashboard-desc{
-        font-size:15px;
+    .detail-table td{
+        padding:4px 0;
+        border:0;
     }
-
-}
-
-@media(max-width:991.98px){
-
-.dashboard-header{
-
-    padding:20px;
-
-}
-
-.dashboard-badge{
-
-    font-size:13px;
-
-}
-
-.dashboard-title{
-
-    font-size:26px;
-
-}
-
-.dashboard-desc{
-
-    font-size:14px;
-    line-height:1.6;
-
-}
-
-}
-
-@media(max-width:991.98px){
-
-.card{
-
-    border-radius:18px;
-
-}
-
-.card-body{
-
-    padding:18px;
-
-}
-
-}
-
-@media(max-width:991.98px){
-
-.profile-foto{
-
-    width:170px;
-    height:170px;
-
-}
-
-}
-
-/* ================= MOBILE TABLE ================= */
-
-@media (max-width:991px){
-
-    .modern-table{
-        overflow-x:auto;
+    .detail-table td:first-child{
+        width:100%;
+        margin-bottom:3px;
     }
-
-    .modern-table table{
-        min-width:900px;
+    .timeline{
+        margin-left:0;
+        padding-left:18px;
     }
-
-    .modern-table th,
-    .modern-table td{
-        white-space:nowrap;
-        font-size:14px;
+    .timeline::before{
+        left:10px;
     }
-
+    .timeline .d-flex{
+        gap:10px;
+    }
+    .timeline .badge{
+        width:36px;
+        height:36px;
+        min-width:36px;
+    }
+    .timeline-item-modern{
+        gap:12px;
+    }
+    .timeline-icon-modern{
+        width:38px;
+        height:38px;
+        min-width:38px;
+    }
+    .timeline-item-modern:not(:last-child)::before{
+        left:18px;
+        top:43px;
+    }
+    .timeline-content-modern{
+        padding:14px;
+    }
+    .profile-header{
+        padding:35px 16px 28px;
+    }
+    .profile-info .info-item{
+        align-items:flex-start;
+        margin-bottom:20px;
+    }
+    .profile-info i{
+        width:44px;
+        height:44px;
+        min-width:44px;
+    }
+    .profile-form-header{
+        padding:17px 18px;
+        font-size:1.2rem;
+    }
+    .main form .d-flex.justify-content-between,
+    .main form .d-flex.justify-content-end,
+    .main .card-footer .d-flex.justify-content-between{
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr)!important;
+        gap:12px!important;
+        width:100%;
+    }
+    .main form .d-flex.justify-content-between > *,
+    .main form .d-flex.justify-content-end > *,
+    .main .card-footer .d-flex.justify-content-between > *{
+        width:100%!important;
+        min-width:0!important;
+        max-width:none!important;
+        margin:0!important;
+    }
+    .main form .d-flex.justify-content-between .btn,
+    .main form .d-flex.justify-content-end .btn,
+    .main .card-footer .d-flex.justify-content-between .btn{
+        width:100%!important;
+        min-height:46px;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        white-space:normal;
+        text-align:center;
+        transform:none!important;
+    }
+    .btn:hover{
+        transform:none;
+    }
 }
-
-@media (max-width:991.98px){
-
-    .btn{
-        min-height:44px;
-        font-size:15px;
+@media(max-width:575.98px){
+    .topbar{
+        padding:9px 12px;
     }
-
-    .btn-sm{
-        min-height:38px;
+    .topbar h5{
+        max-width:40vw;
+        font-size:.94rem;
     }
-
-}
-
-@media (max-width:991.98px){
-
-    .card{
-
-        border-radius:16px;
-
+    .main{
+        padding:16px 10px;
     }
-
-    .card-body{
-
+    .dashboard-header,
+    .ticket-header{
         padding:18px;
-
     }
-
-}
-
-@media (max-width:991.98px){
-
-    h1{
-        font-size:28px;
+    .dashboard-title,
+    .ticket-header h2{
+        font-size:1.35rem;
     }
-
-    h2{
-        font-size:24px;
+    .dashboard-desc{
+        font-size:.9rem;
     }
-
-    h3{
+    .modern-card{
+        padding:18px;
+        gap:13px;
+    }
+    .icon-box{
+        width:54px;
+        height:54px;
+        min-width:54px;
+        font-size:23px;
+    }
+    .modern-card h2{
+        font-size:1.75rem;
+    }
+    .status-box{
+        padding:16px;
+        gap:13px;
+    }
+    .status-box strong{
+        font-size:1.55rem;
+    }
+    .progress-circle{
+        width:66px;
+        min-width:66px;
+        flex-basis:66px;
         font-size:21px;
     }
-
-    h4{
+    .ticket-header{
+        margin-bottom:18px;
+    }
+    .filter-card .card-body,
+    .ticket-card .card-body{
+        padding:16px;
+    }
+    .ticket-table-card .card-header,
+    .detail-card .card-header{
+        padding:15px 17px;
+    }
+    .ticket-item{
+        display:block;
+        padding:18px 8px;
+    }
+    .ticket-icon{
+        margin-bottom:12px;
+    }
+    .ticket-meta{
+        display:grid;
+        grid-template-columns:1fr;
+        margin:8px 0;
+    }
+    .badge{
+        max-width:100%;
+        white-space:normal;
+    }
+    .notification-card{
+        padding:15px;
+    }
+    .notification-icon{
+        width:40px;
+        height:40px;
+        min-width:40px;
+        margin-right:10px!important;
         font-size:18px;
     }
-
+    .notification-card p{
+        font-size:.86rem;
+        overflow-wrap:anywhere;
+    }
+    .profile-foto{
+        width:135px;
+        height:135px;
+        border-width:4px;
+    }
+    .profile-avatar{
+        width:112px;
+        height:112px;
+        border-width:4px;
+    }
+    .footer{
+        padding:14px 10px;
+        font-size:.78rem;
+    }
 }
-
-@media (max-width:991.98px){
-
-.badge{
-
-    font-size:12px;
-
+@media(max-width:359.98px){
+    .sidebar,
+    .sidebar.collapsed{
+        width:88vw;
+    }
+    .topbar h5{
+        max-width:34vw;
+        font-size:.86rem;
+    }
+    .modern-card{
+        padding:15px;
+        gap:10px;
+    }
+    .icon-box{
+        width:48px;
+        height:48px;
+        min-width:48px;
+        font-size:21px;
+    }
 }
-
-}
-
-@media (max-width:991.98px){
-
-.ticket-card{
-
-    margin-bottom:14px;
-
-}
-
-.ticket-card .card-body{
-
-    padding:16px;
-
-}
-
-}
-
-@media (max-width:991.98px){
-
-.ticket-column{
-
-    min-height:auto;
-
-}
-
-}
-
-@media (max-width:991.98px){
-
-.offcanvas{
-
-    width:100%;
-
-}
-
-}
-
-@media (max-width:991.98px){
-
-.avatar{
-
-    width:70px;
-    height:70px;
-
-}
-
-.profile h5{
-
-    font-size:18px;
-
-}
-
-}
-
-@media (max-width:991.98px){
-
-.footer{
-
-    font-size:13px;
-    text-align:center;
-
-}
-
-}
-
 </style>
-
-
 </head>
-
 <body>
-    <div class="sidebar-overlay"></div>
-
     {{-- Sidebar --}}
-<div class="sidebar">
-
+<div class="sidebar" id="sidebarMenu">
     <div class="logo">
-
     <img
         src="{{ asset('images/logo-pemalang.png') }}"
         class="logo-pemalang"
         alt="Logo Kabupaten Pemalang">
-
     <div class="logo-text">
     <h3>Helpdesk</h3>
     <small>
         Pemkab Pemalang
     </small>
     </div>
-
 </div>
-
         <div class="profile">
-
             <div class="avatar">
                 @if(Auth::user()->foto)
-                    <img src="{{ asset('storage/' . Auth::user()->foto) }}?v={{ time() }}"
+                    <img
+                        src="{{ asset('storage/' . Auth::user()->foto) }}?v={{ time() }}"
                         alt="Profile">
                 @else
                     {{ strtoupper(substr(Auth::user()->name,0,1)) }}
                 @endif
             </div>
-
 <h5 class="mb-1">
     {{ Auth::user()->name }}
 </h5>
-
             <small>Staff</small>
-
         </div>
-
         <div class="menu">
-
             <a href="{{ route('staff.dashboard') }}"
                class="{{ request()->routeIs('staff.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
             </a>
-
             <a href="{{ route('staff.kanban') }}"
                class="{{ request()->routeIs('staff.kanban') ? 'active' : '' }}">
                 <i class="bi bi-kanban-fill"></i>
                 <span>Kanban Board</span>
             </a>
-
             <a href="{{ route('staff.ticket.index') }}"
                class="{{ request()->routeIs('staff.ticket.*') ? 'active' : '' }}">
                 <i class="bi bi-ticket-detailed-fill"></i>
                 <span>Daftar Tiket</span>
             </a>
-
             <a href="{{ route('staff.profile') }}"
                class="{{ request()->routeIs('staff.profile*') ? 'active' : '' }}">
                 <i class="bi bi-person-circle"></i>
                 <span>Profil</span>
             </a>
-
         </div>
-
         <div class="logout">
-
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit">
                     <i class="bi bi-box-arrow-right me-2"></i>
-                    <span>Logout<span>
+                    <span>Logout</span>
                 </button>
             </form>
-
         </div>
-
     </div>
-
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     {{-- Content --}}
     <div class="content">
-
 <div class="topbar">
  <!-- Tombol Toggle Sidebar -->
-    <button class="btn btn-light border-0 me-3" id="toggleSidebar">
+    <button type="button" class="btn btn-light border-0 me-3" id="toggleSidebar" aria-label="Buka menu" aria-controls="sidebarMenu" aria-expanded="false">
         <i class="bi bi-list fs-3"></i>
     </button>
     <h5 class="mb-0 fw-bold">
-
         @yield('title','Dashboard')
-
     </h5>
-
     <div class="d-flex align-items-center ms-auto gap-3">
-
         <button
             class="btn btn-light position-relative border-0"
             data-bs-toggle="offcanvas"
             data-bs-target="#notifCanvas">
-
             <i class="bi bi-bell fs-5"></i>
-
             @if($notificationCount>0)
-
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-
                 {{ $notificationCount }}
-
             </span>
-
             @endif
-
         </button>
-
         <div class="text-end">
-
             <strong>{{ auth()->user()->name }}</strong>
-
             <br>
-
             <small class="text-muted">
-
                 {{ ucfirst(auth()->user()->role) }}
-
             </small>
-
         </div>
-
     </div>
-
 </div>
         <div class="main">
             @yield('content')
         </div>
-
         <div class="footer">
-
             © {{ date('Y') }} Helpdesk Pemkab Pemalang
-
         </div>
-
     </div>
-
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <div class="offcanvas offcanvas-end"
         tabindex="-1"
         id="notifCanvas">
-
         <div class="offcanvas-header">
-
             <h5>
                 <i class="bi bi-bell-fill"></i>
                 Notifikasi
             </h5>
-
             <button
                 class="btn-close"
                 data-bs-dismiss="offcanvas">
             </button>
-
         </div>
-        
-
         <div class="offcanvas-body">
                 @forelse($notifications ?? [] as $notif)
-
                 <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
-
                     <div class="d-flex">
-
                         <div class="notification-icon me-3">
-
                             @if(Str::contains($notif->judul,'Komentar'))
                                 <i class="bi bi-chat-dots-fill text-success"></i>
-
                             @elseif(Str::contains($notif->judul,'Status'))
                                 <i class="bi bi-arrow-repeat text-primary"></i>
-
                             @else
                                 <i class="bi bi-info-circle-fill text-warning"></i>
-
                             @endif
-
                         </div>
-
                         <div class="flex-grow-1">
-
                             <h6 class="mb-1 fw-bold">
                                 {{ $notif->judul }}
                             </h6>
-
                             <p class="mb-2">
                                 {{ $notif->pesan }}
                             </p>
-
                             <small class="text-muted">
                                 {{ $notif->created_at->diffForHumans() }}
                             </small>
-
                             <div class="mt-3 d-flex align-items-center gap-3">
-
                                 <a href="{{ route('staff.notification',$notif->id) }}"
                                 class="btn btn-sm btn-light border rounded-pill px-4 py-2">
-
                                     <i class="bi bi-eye"></i>
-
                                     Lihat Tiket
-
                                 </a>
-
                                 @if($notif->is_read)
-
                                     <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
-
                                         <i class="bi bi-check-circle-fill me-1"></i>
-
                                         Sudah Dibaca
-
                                     </span>
-
                                 @endif
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 @empty
-
                 <div class="text-center py-5">
-
                     <i class="bi bi-bell-slash fs-1 text-secondary"></i>
-
                     <p class="mt-3">
                         Belum ada notifikasi.
                     </p>
-
                 </div>
-
                 @endforelse
-
         </div>
-
     </div>
 <script>
-const sidebar = document.querySelector('.sidebar');
-const toggle = document.getElementById('toggleSidebar');
-
-if(localStorage.getItem('sidebar') === 'collapsed'){
-    sidebar.classList.add('collapsed');
-}
-
-toggle.addEventListener('click',()=>{
-
-    if(window.innerWidth <= 991){
-
-        sidebar.classList.toggle('show');
-        overlay.classList.toggle('show');
-
-    }else{
-
-        sidebar.classList.toggle('collapsed');
-
-        localStorage.setItem(
-            'sidebar',
-            sidebar.classList.contains('collapsed')
-                ? 'collapsed'
-                : 'open'
-        );
-
+const sidebar=document.querySelector('.sidebar');
+const toggle=document.getElementById('toggleSidebar');
+const overlay=document.getElementById('sidebarOverlay');
+const mobileBreakpoint=992;
+const isMobile=()=>window.innerWidth<mobileBreakpoint;
+const setToggleState=isOpen=>{
+    if(!toggle){
+        return;
     }
-
+    toggle.setAttribute('aria-expanded',String(isOpen));
+    toggle.setAttribute('aria-label',isOpen?'Tutup menu':'Buka menu');
+};
+const closeMobileSidebar=()=>{
+    sidebar?.classList.remove('mobile-open');
+    overlay?.classList.remove('is-visible');
+    document.body.classList.remove('sidebar-open');
+    setToggleState(false);
+};
+const openMobileSidebar=()=>{
+    sidebar?.classList.remove('collapsed');
+    sidebar?.classList.add('mobile-open');
+    overlay?.classList.add('is-visible');
+    document.body.classList.add('sidebar-open');
+    setToggleState(true);
+};
+if(sidebar){
+    if(isMobile()){
+        sidebar.classList.remove('collapsed');
+    }else if(localStorage.getItem('sidebar')==='collapsed'){
+        sidebar.classList.add('collapsed');
+    }
+}
+toggle?.addEventListener('click',()=>{
+    if(isMobile()){
+        if(sidebar?.classList.contains('mobile-open')){
+            closeMobileSidebar();
+        }else{
+            openMobileSidebar();
+        }
+        return;
+    }
+    sidebar?.classList.toggle('collapsed');
+    localStorage.setItem(
+        'sidebar',
+        sidebar?.classList.contains('collapsed')?'collapsed':'open'
+    );
 });
-
-overlay.addEventListener('click',()=>{
-
-    sidebar.classList.remove('show');
-    overlay.classList.remove('show');
-
+overlay?.addEventListener('click',closeMobileSidebar);
+document.querySelectorAll('.sidebar .menu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+        if(isMobile()){
+            closeMobileSidebar();
+        }
+    });
+});
+document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){
+        closeMobileSidebar();
+    }
+});
+window.addEventListener('resize',()=>{
+    if(isMobile()){
+        sidebar?.classList.remove('collapsed');
+        closeMobileSidebar();
+        return;
+    }
+    closeMobileSidebar();
+    sidebar?.classList.toggle(
+        'collapsed',
+        localStorage.getItem('sidebar')==='collapsed'
+    );
 });
 </script>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
     document.querySelectorAll('.counter').forEach(counter => {
-
         const target = parseInt(counter.dataset.target);
-
         let count = 0;
-
         const step = Math.max(1, Math.ceil(target / 50));
-
         function update() {
-
             count += step;
-
             if (count >= target) {
                 counter.innerText = target;
             } else {
                 counter.innerText = count;
                 requestAnimationFrame(update);
             }
-
         }
-
         update();
-
     });
-
 });
 </script>
 </body>

@@ -144,9 +144,12 @@ Route::middleware(['auth','role:admin'])
 
         Route::put('/password', [AdminProfileController::class, 'password'])
             ->name('password.update');
-
+            
         Route::get('/notification/{notification}', [AdminTicket::class, 'notification'])
             ->name('notification');
+
+        Route::put('/notification/{id}/read', [AdminDashboard::class, 'markAsRead'])
+            ->name('notification.read');
     });
 
 /*

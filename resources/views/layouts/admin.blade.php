@@ -991,7 +991,7 @@ $unread = $notifications->where('is_read', false)->count();
 
                 </a>
 
-                @if($notif->is_read)
+               @if($notif->is_read)
 
                 <span class="badge rounded-pill bg-success-subtle text-success border border-success">
 
@@ -1000,6 +1000,24 @@ $unread = $notifications->where('is_read', false)->count();
                 Sudah Dibaca
 
                 </span>
+
+                @else
+
+                <form action="{{ route('admin.notification.read',$notif->id) }}" method="POST">
+
+                @csrf
+
+                @method('PUT')
+
+                <button type="submit" class="btn btn-sm btn-success rounded-pill px-4">
+
+                <i class="bi bi-check2-circle me-1"></i>
+
+                Tandai Dibaca
+
+                </button>
+
+                </form>
 
                 @endif
 

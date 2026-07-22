@@ -171,4 +171,13 @@ class DashboardController extends Controller
             ->values()
             ->all();
     }
+    public function markAsRead($id)
+    {
+        $notif = \App\Models\Notification::where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        $notif->update(['is_read' => true]);
+
+        return redirect()->back();
+    }
 }

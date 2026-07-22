@@ -262,3 +262,63 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    function initCustomDropdown(selectId, textId, fallbackLabel) {
+        const select = document.getElementById(selectId);
+        const textEl = document.getElementById(textId);
+        if (!select || !textEl) return;
+
+        const wrapper = select.closest('.stat-pro-select');
+        if (!wrapper) return;
+
+        const list = document.createElement('div');
+        list.className = 'stat-pro-dropdown-list';
+
+        Array.from(select.options).forEach(opt => {
+            const item = document.createElement('div');
+            item.className = 'stat-pro-dropdown-item';
+            if (opt.value === select.value) item.classList.add('active');
+
+            item.innerHTML = `<span>${opt.text}</span><i class="bi bi-check-lg check-icon"></i>`;
+
+            item.addEventListener('click', () => {
+                select.value = opt.value;
+                select.dispatchEvent(new Event('change'));
+
+                textEl.textContent = opt.value === '' ? fallbackLabel : opt.text;
+
+                list.querySelectorAll('.stat-pro-dropdown-item').forEach(el => el.classList.remove('active'));
+                item.classList.add('active');
+
+                list.classList.remove('show');
+            });
+
+            list.appendChild(item);
+        });
+
+        wrapper.appendChild(list);
+
+        wrapper.addEventListener('click', (e) => {
+            if (e.target.closest('.stat-pro-dropdown-item')) return;
+
+            document.querySelectorAll('.stat-pro-dropdown-list.show').forEach(el => {
+                if (el !== list) el.classList.remove('show');
+            });
+
+            list.classList.toggle('show');
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.stat-pro-select')) {
+            document.querySelectorAll('.stat-pro-dropdown-list.show').forEach(el => el.classList.remove('show'));
+        }
+    });
+
+    initCustomDropdown('filterMonth', 'monthSelectText', 'Semua Bulan');
+    initCustomDropdown('filterYear', 'yearSelectText', 'Semua Tahun');
+    initCustomDropdown('filterService', 'serviceSelectText', 'Semua Layanan');
+
+});

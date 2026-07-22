@@ -3,6 +3,7 @@
 use App\Models\Notification;
 use Illuminate\Support\Str;
 
+Notification::where('created_at', '<', now()->subDays(30))->delete();
 $notifications = Notification::where('user_id', auth()->id())
     ->latest()
     ->take(10)
@@ -434,6 +435,50 @@ body{
 .sidebar.collapsed + .content{
     margin-left:85px;
 }
+/* ===== Mobile: sidebar jadi off-canvas ===== */
+@media (max-width:768px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        z-index:2000;
+        width:260px !important;
+    }
+
+    .sidebar.mobile-open{
+        transform:translateX(0);
+    }
+
+    .sidebar.collapsed{
+        width:260px !important;
+    }
+
+    .sidebar.collapsed .logo-text,
+    .sidebar.collapsed .profile h5,
+    .sidebar.collapsed .profile small,
+    .sidebar.collapsed .menu a span,
+    .sidebar.collapsed .logout button span{
+        display:block !important;
+    }
+
+    .content,
+    .sidebar.collapsed + .content{
+        margin-left:0 !important;
+    }
+
+    .sidebar-backdrop{
+        display:none;
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.45);
+        z-index:1999;
+    }
+
+    .sidebar-backdrop.show{
+        display:block;
+    }
+
+}
+
 
 .topbar{
     height:70px;
@@ -474,7 +519,7 @@ body{
 </head>
 
 <body>
-
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="sidebar">
 
     <div class="logo">
@@ -761,12 +806,23 @@ Admin Helpdesk
 <script>
 const sidebar = document.querySelector('.sidebar');
 const toggle = document.getElementById('toggleSidebar');
+const backdrop = document.getElementById('sidebarBackdrop');
 
-if(localStorage.getItem('sidebar') === 'collapsed'){
+function isMobile(){
+    return window.innerWidth <= 768;
+}
+
+if(!isMobile() && localStorage.getItem('sidebar') === 'collapsed'){
     sidebar.classList.add('collapsed');
 }
 
 toggle.addEventListener('click',()=>{
+
+    if(isMobile()){
+        sidebar.classList.toggle('mobile-open');
+        backdrop.classList.toggle('show');
+        return;
+    }
 
     sidebar.classList.toggle('collapsed');
 
@@ -778,6 +834,12 @@ toggle.addEventListener('click',()=>{
     );
 
 });
+
+backdrop.addEventListener('click',()=>{
+    sidebar.classList.remove('mobile-open');
+    backdrop.classList.remove('show');
+});
+
 </script>
 </body>
 </html>

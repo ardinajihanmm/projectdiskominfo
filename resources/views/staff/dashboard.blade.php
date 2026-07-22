@@ -33,7 +33,7 @@
 <!-- Statistik -->
 <div class="row g-4 mb-4">
 
-    <div class="col-xl-3 col-md-6">
+    <div class="col-12 col-sm-6 col-xl-3">
 
         <div class="modern-card total-card">
 
@@ -141,6 +141,12 @@
     <div class="card progress-modern shadow-sm border-0 h-100">
         <div class="card-body p-4">
 
+<<<<<<< HEAD
+    <!-- Progress -->
+    <div class="col-12 col-lg-8">
+        <div class="card progress-modern shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+=======
             @if($myAveragePoint !== null)
 
                 @php
@@ -151,6 +157,7 @@
                             ? 'Beberapa tiketmu terlambat dari SLA, coba lebih cepat lagi.'
                             : 'Banyak tiketmu terlambat dari SLA, perlu ditingkatkan.');
                 @endphp
+>>>>>>> 8a4a2a7132646e7f08e8ac7e341cb5336de3b303
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
@@ -182,6 +189,39 @@
                 </div>
 
                 <div class="row g-2">
+<<<<<<< HEAD
+                    <div class="col-12 col-md-4">
+                        <div class="status-box status-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <div>
+                                <strong>{{ $completed }}</strong>
+                                <small>Completed</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="status-box status-warning">
+                            <i class="bi bi-hourglass-split"></i>
+                            <div>
+                                <strong>{{ $todo }}</strong>
+                                <small>To Do</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="status-box status-info">
+                            <i class="bi bi-arrow-repeat"></i>
+                            <div>
+                                <strong>{{ $progress }}</strong>
+                                <small>In Progress</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+=======
+>>>>>>> 8a4a2a7132646e7f08e8ac7e341cb5336de3b303
 
     <div class="col-lg-4 col-md-4">
         <div class="status-box status-success h-100">
@@ -231,7 +271,7 @@
 </div>
 
     <!-- Quick Action -->
-    <div class="col-lg-4">
+    <div class="col-12 col-lg-4">
 
         <div class="card quick-card border-0 shadow-sm">
 
@@ -255,7 +295,7 @@
                 </div>
 
                 <div class="row g-4">
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.ticket.index') }}"
                             class="quick-menu quick-blue">
 
@@ -269,7 +309,7 @@
 
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.kanban') }}"
                             class="quick-menu quick-green">
 

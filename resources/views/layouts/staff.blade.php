@@ -269,6 +269,7 @@
     display:flex;
     align-items:center;
     gap:18px;
+    
     backdrop-filter:blur(12px);
 }
 .status-icon{
@@ -1333,6 +1334,7 @@
     align-items:center;
     padding:18px 0 22px;
 }
+<<<<<<< HEAD
 .sidebar-overlay{
     position:fixed;
     inset:0;
@@ -1895,9 +1897,515 @@ body.sidebar-open{
         font-size:21px;
     }
 }
+=======
+
+/* ==========================================
+   RESPONSIVE MOBILE
+========================================== */
+
+
+@media(max-width:991.98px){
+
+.status-box{
+
+    padding:16px;
+    gap:12px;
+
+}
+
+.status-box strong{
+
+    font-size:24px;
+
+}
+
+.status-box i{
+
+    font-size:22px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.quick-menu{
+
+    min-height:110px;
+    border-radius:18px;
+
+}
+
+.quick-menu i{
+
+    font-size:36px;
+    margin-bottom:10px;
+
+}
+
+.quick-menu h5{
+
+    font-size:16px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.ticket-item{
+
+    flex-direction:column;
+    gap:14px;
+
+}
+
+.ticket-meta{
+
+    flex-direction:column;
+    gap:6px;
+
+}
+
+.ticket-icon{
+
+    width:50px;
+    height:50px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.timeline-item-modern{
+
+    gap:12px;
+
+}
+
+.timeline-content-modern{
+
+    padding:12px;
+
+}
+
+.timeline-content-modern h6{
+
+    font-size:15px;
+
+}
+
+.timeline-content-modern p{
+
+    font-size:13px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.sidebar{
+
+    width:280px;
+    left:-280px;
+    z-index:1055;
+    transition:.3s;
+
+}
+
+.sidebar.show{
+
+    left:0;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+    /* Layout utama */
+    .content{
+        margin-left:0 !important;
+        width:100%;
+    }
+
+    .main{
+        padding:16px;
+    }
+
+    .footer{
+        padding:15px;
+        text-align:center;
+    }
+
+    /* Header */
+    .topbar{
+        padding:12px 16px;
+        height:auto;
+    }
+
+    .topbar h5{
+        font-size:20px;
+    }
+
+    .welcome h5{
+        font-size:18px;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header{
+        padding:24px;
+    }
+
+    .dashboard-title{
+        font-size:30px;
+    }
+
+    /* Statistik */
+    .modern-card{
+        min-height:150px;
+        height:auto;
+        padding:20px;
+    }
+
+    .modern-card h2{
+        font-size:2rem;
+    }
+
+    .icon-box{
+        width:65px;
+        height:65px;
+        font-size:28px;
+    }
+
+}
+
+@media(max-width:991.98px){
+
+.progress-circle{
+
+    width:60px;
+    height:60px;
+    font-size:20px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.modern-card{
+
+    min-height:130px;
+    height:auto;
+    padding:20px;
+
+}
+
+.icon-box{
+
+    width:60px;
+    height:60px;
+    font-size:26px;
+
+}
+
+.card-content h2{
+
+    font-size:2rem;
+
+}
+
+.card-content span{
+
+    font-size:13px;
+
+}
+
+}
+
+/* ================= MOBILE SIDEBAR ================= */
+
+@media (max-width:991.98px){
+
+    .sidebar{
+
+        left:-260px;
+        z-index:1055;
+        transition:.35s;
+
+    }
+
+    .sidebar.show{
+
+        left:0;
+
+    }
+
+    .content{
+
+        margin-left:0 !important;
+
+    }
+
+    .topbar{
+
+        position:sticky;
+        top:0;
+        z-index:1040;
+
+    }
+
+}
+
+.sidebar-overlay{
+
+    display:none;
+
+}
+
+@media (max-width:991.98px){
+
+    .sidebar-overlay{
+
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.45);
+        z-index:1050;
+        display:none;
+
+    }
+
+    .sidebar-overlay.show{
+
+        display:block;
+
+    }
+
+}   /* <-- tambahkan ini */
+
+@media(max-width:991.98px){
+
+    .dashboard-title{
+        font-size:28px;
+    }
+
+    .dashboard-desc{
+        font-size:15px;
+    }
+
+}
+
+@media(max-width:991.98px){
+
+.dashboard-header{
+
+    padding:20px;
+
+}
+
+.dashboard-badge{
+
+    font-size:13px;
+
+}
+
+.dashboard-title{
+
+    font-size:26px;
+
+}
+
+.dashboard-desc{
+
+    font-size:14px;
+    line-height:1.6;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.card{
+
+    border-radius:18px;
+
+}
+
+.card-body{
+
+    padding:18px;
+
+}
+
+}
+
+@media(max-width:991.98px){
+
+.profile-foto{
+
+    width:170px;
+    height:170px;
+
+}
+
+}
+
+/* ================= MOBILE TABLE ================= */
+
+@media (max-width:991px){
+
+    .modern-table{
+        overflow-x:auto;
+    }
+
+    .modern-table table{
+        min-width:900px;
+    }
+
+    .modern-table th,
+    .modern-table td{
+        white-space:nowrap;
+        font-size:14px;
+    }
+
+}
+
+@media (max-width:991.98px){
+
+    .btn{
+        min-height:44px;
+        font-size:15px;
+    }
+
+    .btn-sm{
+        min-height:38px;
+    }
+
+}
+
+@media (max-width:991.98px){
+
+    .card{
+
+        border-radius:16px;
+
+    }
+
+    .card-body{
+
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:991.98px){
+
+    h1{
+        font-size:28px;
+    }
+
+    h2{
+        font-size:24px;
+    }
+
+    h3{
+        font-size:21px;
+    }
+
+    h4{
+        font-size:18px;
+    }
+
+}
+
+@media (max-width:991.98px){
+
+.badge{
+
+    font-size:12px;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+.ticket-card{
+
+    margin-bottom:14px;
+
+}
+
+.ticket-card .card-body{
+
+    padding:16px;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+.ticket-column{
+
+    min-height:auto;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+.offcanvas{
+
+    width:100%;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+.avatar{
+
+    width:70px;
+    height:70px;
+
+}
+
+.profile h5{
+
+    font-size:18px;
+
+}
+
+}
+
+@media (max-width:991.98px){
+
+.footer{
+
+    font-size:13px;
+    text-align:center;
+
+}
+
+}
+
+>>>>>>> 4275c001b6438466d3cec7469d833162c3baeca5
 </style>
 </head>
 <body>
+<<<<<<< HEAD
+=======
+    <div class="sidebar-overlay"></div>
+
+>>>>>>> 4275c001b6438466d3cec7469d833162c3baeca5
     {{-- Sidebar --}}
 <div class="sidebar" id="sidebarMenu">
     <div class="logo">
@@ -2063,6 +2571,7 @@ body.sidebar-open{
         </div>
     </div>
 <script>
+<<<<<<< HEAD
 const sidebar=document.querySelector('.sidebar');
 const toggle=document.getElementById('toggleSidebar');
 const overlay=document.getElementById('sidebarOverlay');
@@ -2134,6 +2643,42 @@ window.addEventListener('resize',()=>{
         'collapsed',
         localStorage.getItem('sidebar')==='collapsed'
     );
+=======
+const sidebar = document.querySelector('.sidebar');
+const toggle = document.getElementById('toggleSidebar');
+
+if(localStorage.getItem('sidebar') === 'collapsed'){
+    sidebar.classList.add('collapsed');
+}
+
+toggle.addEventListener('click',()=>{
+
+    if(window.innerWidth <= 991){
+
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+
+    }else{
+
+        sidebar.classList.toggle('collapsed');
+
+        localStorage.setItem(
+            'sidebar',
+            sidebar.classList.contains('collapsed')
+                ? 'collapsed'
+                : 'open'
+        );
+
+    }
+
+});
+
+overlay.addEventListener('click',()=>{
+
+    sidebar.classList.remove('show');
+    overlay.classList.remove('show');
+
+>>>>>>> 4275c001b6438466d3cec7469d833162c3baeca5
 });
 </script>
 <script>

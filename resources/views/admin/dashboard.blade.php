@@ -187,27 +187,26 @@ body{
 .status-box{
     display:flex;
     align-items:center;
-    gap:15px;
-    padding:18px;
+    gap:18px;
+    padding:26px 22px;
     border-radius:18px;
     transition:.3s;
+    width:100%;
+    height:100%;
 }
-
 .status-box:hover{
-    transform:translateY(-4px);
+    transform:translateY(-3px);
 }
-
 .status-box i{
-    font-size:28px;
+    font-size:38px;
 }
-
 .status-box strong{
     display:block;
-    font-size:1.3rem;
+    font-size:1.8rem;
 }
-
 .status-box small{
-    color:#64748B;
+    color:#6b7280;
+    font-size:.95rem;
 }
 
 .status-success{
@@ -935,39 +934,39 @@ Tiket berhasil diselesaikan.
                     <strong>{{ $completed }}</strong>
                     tiket selesai tepat waktu sesuai SLA.
                 </div>
-<div class="row g-3">
+            <div class="row g-3 flex-grow-1">
 
-    <div class="col-md-4">
-        <div class="status-box status-success h-100">
-            <i class="bi bi-check-circle-fill"></i>
-            <div>
-                <strong>{{ $tepatWaktu }}</strong>
-                <small>Tepat Waktu</small>
+                <div class="col-md-4 d-flex">
+                    <div class="status-box status-success">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <div>
+                            <strong>{{ $tepatWaktu }}</strong>
+                            <small>Tepat Waktu</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex">
+                    <div class="status-box status-warning">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <div>
+                            <strong>{{ $telat }}</strong>
+                            <small>Terlambat dari SLA</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex">
+                    <div class="status-box status-info">
+                        <i class="bi bi-arrow-repeat"></i>
+                        <div>
+                            <strong>{{ $progress }}</strong>
+                            <small>Sedang Dikerjakan</small>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="status-box status-warning h-100">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <div>
-                <strong>{{ $telat }}</strong>
-                <small>Terlambat dari SLA</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="status-box status-info h-100">
-            <i class="bi bi-arrow-repeat"></i>
-            <div>
-                <strong>{{ $progress }}</strong>
-                <small>Sedang Dikerjakan</small>
-            </div>
-        </div>
-    </div>
-
-</div>
             @else
 
                 <div class="text-center py-5">

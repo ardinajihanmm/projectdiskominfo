@@ -72,7 +72,7 @@ use Illuminate\Support\Str;
 <div class="row g-4 mb-4">
 <div class="col-lg-8">
     <div class="card progress-modern shadow-sm border-0 h-100">
-        <div class="card-body p-4">
+        <div class="card-body p-4 d-flex flex-column">
             @if($satisfactionScore !== null)
                 @php
                     $slaLabel = $satisfactionScore >= 80 ? 'Sangat Baik' : ($satisfactionScore >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');
@@ -107,9 +107,9 @@ use Illuminate\Support\Str;
                     <strong>{{ $completed }}</strong>
                     pengajuanmu diselesaikan tepat waktu.
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="status-box status-success h-100">
+                <div class="row g-3 flex-grow-1">
+                    <div class="col-md-4 d-flex">
+                        <div class="status-box status-success">
                             <i class="bi bi-check-circle-fill"></i>
                             <div>
                                 <strong>{{ $tepatWaktu }}</strong>
@@ -117,8 +117,8 @@ use Illuminate\Support\Str;
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="status-box status-warning h-100">
+                    <div class="col-md-4 d-flex">
+                        <div class="status-box status-warning">
                             <i class="bi bi-exclamation-triangle-fill"></i>
                             <div>
                                 <strong>{{ $telat }}</strong>
@@ -126,8 +126,8 @@ use Illuminate\Support\Str;
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="status-box status-info h-100">
+                    <div class="col-md-4 d-flex">
+                        <div class="status-box status-info">
                             <i class="bi bi-arrow-repeat"></i>
                             <div>
                                 <strong>{{ $progress }}</strong>
@@ -136,7 +136,7 @@ use Illuminate\Support\Str;
                         </div>
                     </div>
                 </div>
-            @else
+                @else
                 <div class="text-center py-5">
                     <i class="bi bi-emoji-smile fs-1 text-secondary"></i>
                     <h5 class="fw-bold mt-3 mb-1">Belum Ada Data</h5>

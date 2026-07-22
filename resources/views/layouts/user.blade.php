@@ -646,23 +646,26 @@
             .status-box{
                 display:flex;
                 align-items:center;
-                gap:15px;
-                padding:18px;
+                gap:18px;
+                padding:26px 22px;
                 border-radius:18px;
                 transition:.3s;
+                width:100%;
+                height:100%;
             }
             .status-box:hover{
                 transform:translateY(-3px);
             }
             .status-box i{
-                font-size:28px;
+                font-size:38px;
             }
             .status-box strong{
                 display:block;
-                font-size:1.3rem;
+                font-size:1.8rem;
             }
             .status-box small{
                 color:#6b7280;
+                font-size:.95rem;
             }
             .status-success{
                 background:#ecfdf5;

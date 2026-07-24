@@ -6,18 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-public function up()
-{
-    Schema::table('tickets', function (Blueprint $table) {
-        $table->timestamp('started_at')->nullable();
-        $table->timestamp('completed_at')->nullable();
-    });
-}
+    public function up()
+    {
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
+        });
+    }
 
-public function down()
-{
-    Schema::table('tickets', function (Blueprint $table) {
-        $table->dropColumn(['started_at', 'completed_at']);
-    });
-}
+    public function down()
+    {
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->dropColumn(['started_at', 'completed_at']);
+        });
+    }
 };

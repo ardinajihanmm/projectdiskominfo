@@ -9,7 +9,7 @@ use App\Models\Department;
 class Service extends Model
 {
     use HasFactory;
- 
+
     protected $fillable = [
         'department_id',
         'nama_layanan',

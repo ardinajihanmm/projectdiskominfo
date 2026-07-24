@@ -7,19 +7,18 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
   public function up(): void
-{
+  {
     Schema::create('notifications', function (Blueprint $table) {
 
         $table->id();
-
         $table->foreignId('user_id')
-              ->constrained()
-              ->cascadeOnDelete();
+            ->constrained()
+            ->cascadeOnDelete();
 
         $table->foreignId('ticket_id')
-              ->nullable()
-              ->constrained()
-              ->nullOnDelete();
+            ->nullable()
+            ->constrained()
+            ->nullOnDelete();
 
         $table->string('judul');
 
@@ -28,6 +27,6 @@ return new class extends Migration
         $table->boolean('is_read')->default(false);
 
         $table->timestamps();
-    });
-}
+     });
+  }
 };

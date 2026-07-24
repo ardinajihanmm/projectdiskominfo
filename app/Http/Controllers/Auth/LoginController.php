@@ -23,15 +23,11 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
-
             switch (auth()->user()->role) {
-
                 case 'admin':
                     return redirect()->route('admin.dashboard');
-
                 case 'staff':
                     return redirect()->route('staff.dashboard');
-
                 default:
                     return redirect()->route('user.dashboard');
             }
@@ -43,9 +39,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/login');

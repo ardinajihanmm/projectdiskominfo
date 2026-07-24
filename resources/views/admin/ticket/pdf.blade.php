@@ -41,8 +41,6 @@
             color: #555;
             margin-bottom: 18px;
         }
-
-        /* Ringkasan */
         table.summary{
             width: 100%;
             border-collapse: collapse;
@@ -71,7 +69,6 @@
             color: #0d6efd;
         }
 
-        /* Tabel Data */
         table.data{
             width:100%;
             border-collapse:collapse;
@@ -112,7 +109,6 @@
         .bg-info{ background:#0ea5e9; }
         .bg-success{ background:#16a34a; }
 
-        /* Tanda tangan */
         .ttd-wrap{
             width: 100%;
             margin-top: 40px;
@@ -155,7 +151,6 @@
         @endif
     </p>
 
-    {{-- Ringkasan --}}
     <table class="summary">
         <tr>
             <td>
@@ -182,7 +177,6 @@
         </tr>
     </table>
 
-    {{-- Data --}}
     <table class="data">
 
     <thead>
@@ -250,8 +244,6 @@
     </tbody>
 
     </table>
-
-    {{-- Tanda Tangan --}}
     <div class="ttd-wrap">
         <div class="ttd-box">
             <p>Pemalang, {{ now()->translatedFormat('d F Y') }}</p>

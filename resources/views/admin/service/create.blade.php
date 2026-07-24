@@ -103,7 +103,6 @@
         min-height:120px;
     }
 
-    /* select custom, seragam dengan style filter di dashboard */
     .select-wrap-pro{
         position:relative;
     }
@@ -273,7 +272,8 @@
                           class="form-control-pro"
                           rows="5"
                           placeholder="Jelaskan cakupan layanan ini secara singkat..."
-                          required>{{ old('deskripsi') }}</textarea>
+                          required>{{ old('deskripsi') }}
+                </textarea>
             </div>
 
             <div class="form-group-pro">

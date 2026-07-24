@@ -64,27 +64,27 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', [
 
-    'totalUser' => $totalUser,
-    'totalService' => $totalService,
-    'totalTicket' => $totalTicket,
+        'totalUser' => $totalUser,
+        'totalService' => $totalService,
+        'totalTicket' => $totalTicket,
 
-    'todo' => $todo,
-    'progress' => $progress,
-    'completed' => $completed,
+        'todo' => $todo,
+        'progress' => $progress,
+        'completed' => $completed,
 
-    'progressPercent' => $progressPercent,
-    'averagePoint' => $averagePoint,
-    'tepatWaktu' => $tepatWaktu,
-    'telat' => $telat,
+        'progressPercent' => $progressPercent,
+        'averagePoint' => $averagePoint,
+        'tepatWaktu' => $tepatWaktu,
+        'telat' => $telat,
 
-    'activities' => $activities,
+        'activities' => $activities,
 
-    'services' => $services,
+        'services' => $services,
 
-    'months' => $months,
-    'years' => $years,
+        'months' => $months,
+        'years' => $years,
 
-]);
+    ]);
     }
 
     public function ticketStats(Request $request): JsonResponse

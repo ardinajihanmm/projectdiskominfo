@@ -23,7 +23,7 @@ class RegisterController extends Controller
             'instansi' => 'nullable|string|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
-
+        
         User::create([
             'name' => $request->name,
             'email' => $request->email,

@@ -45,15 +45,15 @@ class User extends Authenticatable
     }
     public function department()
     {
-    return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class);
     }
     public function isScopedToDepartment(): bool
     {
-    return $this->role === 'admin' && !is_null($this->department_id);
+        return $this->role === 'admin' && !is_null($this->department_id);
     }
 
     public function assignedTickets()
     {
-    return $this->hasMany(Ticket::class, 'staff_id');
+        return $this->hasMany(Ticket::class, 'staff_id');
     }
 }

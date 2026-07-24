@@ -97,7 +97,7 @@ Route::middleware(['auth','role:user'])
         Route::post('/ticket/{ticket}/comment', [UserTicket::class, 'storeComment'])
             ->name('ticket.comment.store');
 
-        Route::post('/notifications/read-all', [XXXController::class, 'markAllRead'])
+        Route::post('/notifications/read-all', [UserTicket::class, 'markAllRead'])
             ->name('notification.read-all');
     });
 
@@ -154,7 +154,7 @@ Route::middleware(['auth','role:admin'])
         Route::put('/notification/{id}/read', [AdminDashboard::class, 'markAsRead'])
             ->name('notification.read');
 
-        Route::post('/notifications/read-all', [XXXController::class, 'markAllRead'])
+        Route::post('/notifications/read-all', [AdminTicket::class, 'markAllRead'])
             ->name('notification.read-all');
     });
 
@@ -198,7 +198,8 @@ Route::middleware(['auth','role:staff'])
         Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
             ->name('notification');
 
-        Route::post('/notifications/read-all', [XXXController::class, 'markAllRead'])
+        Route::post('/notifications/read-all', [StaffTicket::class, 'markAllRead'])
             ->name('notification.read-all');
+        
     });
 

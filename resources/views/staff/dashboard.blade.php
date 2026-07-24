@@ -4,7 +4,7 @@
 
 @section('content')
 
-<!-- Header -->
+<!-- ini Header -->
 <div class="dashboard-header mb-4">
     <div class="row align-items-center">
 
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<!-- Statistik -->
+<!-- ini Statistik -->
 <div class="row g-4 mb-4">
 
     <div class="col-12 col-sm-6 col-xl-3">
@@ -136,7 +136,7 @@
 </div>
 <div class="row g-4">
 
-    <!-- Skor SLA -->
+    <!-- ini Skor SLA -->
     <div class="col-lg-8">
         <div class="card progress-modern shadow-sm border-0 h-100">
             <div class="card-body p-4">
@@ -482,7 +482,7 @@
 
         </div>
 
-    </div> {{-- akhir Timeline --}}
-</div> {{-- akhir row Tiket + Timeline --}}
+    </div> 
+</div> 
 
 @endsection

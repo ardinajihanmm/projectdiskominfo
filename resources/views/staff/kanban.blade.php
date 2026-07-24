@@ -641,7 +641,6 @@ document.querySelectorAll(".ticket-card").forEach(card=>{
 
     card.addEventListener("click",function(e){
 
-        // kalau sedang drag jangan buka drawer
         if(this.classList.contains("sortable-chosen") ||
            this.classList.contains("sortable-ghost")){
             return;
@@ -705,7 +704,7 @@ drawerOverlay.addEventListener("click", function () {
     drawer.classList.remove("show");
     drawerOverlay.classList.remove("show");
 });
-// AMBIL TIKET (SELF ASSIGN)
+
 drawerAssignBtn.addEventListener("click", function () {
     const url = this.dataset.assignUrl;
     if (!url) return;

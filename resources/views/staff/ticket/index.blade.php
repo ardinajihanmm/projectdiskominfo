@@ -91,8 +91,7 @@
 
         </div>
     </div>
-
-    {{-- Tabel --}}
+    
     <div class="card ticket-table-card">
 
 <div class="card-header ticket-table-header">

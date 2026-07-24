@@ -134,12 +134,8 @@
 
 </div>
 
-{{-- FORM --}}
 <div class="col-lg-8">
-
-{{-- FORM EDIT PROFILE --}}
-
-
+    
     <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
 
         <div class="card-header border-0 text-white py-4"
@@ -164,7 +160,6 @@
 
                 <div class="row g-4">
 
-                    {{-- Nama --}}
                     <div class="col-md-6">
 
                         <label class="form-label fw-semibold">
@@ -189,7 +184,6 @@
 
                     </div>
 
-                    {{-- Email --}}
                     <div class="col-md-6">
 
                         <label class="form-label fw-semibold">
@@ -214,7 +208,6 @@
 
                     </div>
 
-                    {{-- Nomor HP --}}
                     <div class="col-md-6">
 
                         <label class="form-label fw-semibold">
@@ -238,7 +231,6 @@
 
                     </div>
 
-                    {{-- Instansi --}}
                     <div class="col-md-6">
 
                         <label class="form-label fw-semibold">
@@ -261,7 +253,7 @@
                         </div>
 
                     </div>
-{{-- Bidang (read-only) --}}
+
 <div class="col-md-6">
 
     <label class="form-label fw-semibold">
@@ -326,12 +318,12 @@
 
             </form>
 
-        </div> {{-- card-body --}}
-    </div> {{-- card --}}
-</div> {{-- col-lg-8 --}}
+        </div> 
+    </div> 
+</div> 
 
-</div> {{-- row --}}
-</div> {{-- container-fluid --}}
+</div> 
+</div> 
 
 <!-- MODAL GANTI PASSWORD -->
 <div class="modal fade"

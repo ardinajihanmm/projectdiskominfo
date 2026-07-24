@@ -536,9 +536,7 @@ function updateEmptyState(){
 
 }
 
-// ==============================
 // DRAG & DROP
-// ==============================
 
 document.querySelectorAll(".ticket-column").forEach(column => {
 
@@ -621,9 +619,7 @@ document.querySelectorAll(".ticket-column").forEach(column => {
 
 });
 
-// ==============================
 // DRAWER
-// ==============================
 
 const drawer = document.getElementById("ticketDrawer");
 
@@ -645,7 +641,6 @@ document.querySelectorAll(".ticket-card").forEach(card=>{
 
     card.addEventListener("click",function(e){
 
-        // kalau sedang drag jangan buka drawer
         if(this.classList.contains("sortable-chosen") ||
            this.classList.contains("sortable-ghost")){
             return;
@@ -697,14 +692,9 @@ drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 
 });
 
-// ==============================
+
 // CLOSE DRAWER
-// ==============================
 
-// klik luar drawer = tutup
-
-// Tombol X
-// Tombol X
 document.getElementById("closeDrawer").addEventListener("click", function () {
     drawer.classList.remove("show");
     drawerOverlay.classList.remove("show");
@@ -714,7 +704,7 @@ drawerOverlay.addEventListener("click", function () {
     drawer.classList.remove("show");
     drawerOverlay.classList.remove("show");
 });
-// AMBIL TIKET (SELF ASSIGN)
+
 drawerAssignBtn.addEventListener("click", function () {
     const url = this.dataset.assignUrl;
     if (!url) return;

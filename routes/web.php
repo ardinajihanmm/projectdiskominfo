@@ -96,6 +96,9 @@ Route::middleware(['auth','role:user'])
 
         Route::post('/ticket/{ticket}/comment', [UserTicket::class, 'storeComment'])
             ->name('ticket.comment.store');
+
+        Route::post('/notifications/read-all', [UserTicket::class, 'markAllRead'])
+            ->name('notification.read-all');
     });
 
 /*
@@ -150,6 +153,9 @@ Route::middleware(['auth','role:admin'])
 
         Route::put('/notification/{id}/read', [AdminDashboard::class, 'markAsRead'])
             ->name('notification.read');
+
+        Route::post('/notifications/read-all', [AdminTicket::class, 'markAllRead'])
+            ->name('notification.read-all');
     });
 
 /*
@@ -189,10 +195,16 @@ Route::middleware(['auth','role:staff'])
         Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
             ->name('profile.password');
 
-         Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
+        Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
             ->name('notification');
 
+<<<<<<< HEAD
         Route::put('/notification/{id}/read', [StaffDashboard::class, 'markAsRead'])
             ->name('notification.read');
+=======
+        Route::post('/notifications/read-all', [StaffTicket::class, 'markAllRead'])
+            ->name('notification.read-all');
+        
+>>>>>>> fb19733197efdc67b77cdd072f8b014c59339d36
     });
 

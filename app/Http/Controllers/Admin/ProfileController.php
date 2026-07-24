@@ -14,8 +14,7 @@ class ProfileController extends Controller
     {
         return view('admin.profile');
     }
-
-   public function update(Request $request)
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -24,25 +23,19 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
-
         $user->name = $request->name;
         $user->email = $request->email;
         $user->no_hp = $request->no_hp;
         $user->instansi = $request->instansi;
-
         if ($request->hasFile('foto')) {
 
             if ($user->foto) {
                 Storage::disk('public')->delete('profile/'.$user->foto);
             }
-
             $path = $request->file('foto')->store('profile', 'public');
-
             $user->foto = basename($path);
             }
-
-        $user->save();
-
+            $user->save();
         return redirect()
                 ->back()
                 ->with('success', 'Profil berhasil diperbarui.');
@@ -53,16 +46,12 @@ class ProfileController extends Controller
             'old_password' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
-
         $user = Auth::user();
-
         if (!Hash::check($request->old_password, $user->password)) {
             return back()->with('error', 'Password lama salah.');
         }
-
         $user->password = Hash::make($request->password);
         $user->save();
-
         return back()->with('success', 'Password berhasil diubah.');
     }
 }

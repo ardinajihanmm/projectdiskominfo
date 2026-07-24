@@ -127,4 +127,12 @@ class TicketController extends Controller
         ->findOrFail($id);
         return view('user.ticket.detail', compact('ticket'));
     }
+    public function markAllRead()
+    {
+        \App\Models\Notification::where('user_id', auth()->id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return back()->with('success', 'Semua notifikasi ditandai sudah dibaca.');
+    }
 }

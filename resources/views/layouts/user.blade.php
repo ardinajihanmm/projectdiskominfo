@@ -1716,22 +1716,21 @@
                         Notifikasi
                     </h5>
                 <div class="d-flex align-items-center gap-2 ms-auto me-2">
-        @if($notificationCount > 0)
-        <form action="{{ route('user.notification.read-all') }}" method="POST">
-            @csrf
-            <button class="btn btn-sm btn-outline-primary rounded-pill">
-                Tandai Semua Dibaca
-            </button>
-        </form>
-        @endif
-    </div>
+                        @if($notificationCount > 0)
+                        <form action="{{ route('user.notification.read-all') }}" method="POST">
+                            @csrf
+                            <button class="btn btn-sm btn-outline-primary rounded-pill">
+                                Tandai Semua Dibaca
+                            </button>
+                        </form>
+                        @endif
+                    </div>
 
-    <button
-        class="btn-close"
-        data-bs-dismiss="offcanvas">
-    </button>
-</div>
-
+                    <button
+                        class="btn-close"
+                        data-bs-dismiss="offcanvas">
+                    </button>
+                </div>
 
                 <div class="offcanvas-body p-0">
                     @forelse($notifications as $notif)

@@ -10,6 +10,20 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
+    public function markAsRead($id)
+{
+    $notification = \App\Models\Notification::findOrFail($id);
+
+    // Pastikan notifikasi milik user yang login
+    if ($notification->user_id != auth()->id()) {
+        abort(403);
+    }
+
+    $notification->is_read = true;
+    $notification->save();
+
+    return back();
+}
     public function index()
     {
         $user = auth()->user();

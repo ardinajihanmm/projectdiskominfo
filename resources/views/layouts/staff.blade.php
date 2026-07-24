@@ -1373,6 +1373,89 @@ body.sidebar-open{
     background:#eff6ff;
     font-size:20px;
 }
+.btn-tandai-dibaca{
+    background:#22c55e;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    padding:10px 22px;
+    font-weight:600;
+    font-size:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:.25s;
+}
+.btn-tandai-dibaca:hover{
+    background:#16a34a;
+    color:#fff;
+    transform:translateY(-2px);
+}
+.btn-tandai-dibaca:disabled{
+    background:#16a34a;
+    opacity:1;
+    cursor:default;
+}
+
+.btn-tandai-dibaca{
+    background:#16a34a;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    padding:10px 22px;
+    font-weight:600;
+    font-size:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:.25s;
+}
+.btn-tandai-dibaca:hover{
+    background:#15803d;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.btn-sudah-dibaca{
+    background:#dcfce7;
+    color:#16a34a;
+    border:1px solid #86efac;
+    border-radius:50px;
+    padding:10px 22px;
+    font-weight:600;
+    font-size:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    cursor:default;
+}
+
+.btn-lihat-tiket{
+    background:#fff;
+    color:#334155;
+    border:1px solid #dbe3ef;
+    border-radius:50px;
+    padding:10px 22px;
+    font-weight:600;
+    font-size:14px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:.25s;
+}
+.btn-lihat-tiket:hover{
+    background:#f8fafc;
+    color:#1e293b;
+}
+
 .offcanvas{
     width:min(100vw,430px)!important;
 }
@@ -2038,16 +2121,27 @@ body.sidebar-open{
                             </small>
                             <div class="mt-3 d-flex align-items-center gap-3">
                                 <a href="{{ route('staff.notification',$notif->id) }}"
-                                class="btn btn-sm btn-light border rounded-pill px-4 py-2">
-                                    <i class="bi bi-eye"></i>
-                                    Lihat Tiket
+                                    class="btn-lihat-tiket">
+                                        <i class="bi bi-eye"></i>
+                                        Lihat Tiket
                                 </a>
-                                @if($notif->is_read)
-                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
-                                        <i class="bi bi-check-circle-fill me-1"></i>
+                                    @if(!$notif->is_read)
+                                    <form action="{{ route('staff.notification.read', $notif->id) }}"
+                                        method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn-tandai-dibaca">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            Tandai Dibaca
+                                        </button>
+                                    </form>
+                                    @else
+                                    <button class="btn-sudah-dibaca" disabled>
+                                        <i class="bi bi-check-circle-fill"></i>
                                         Sudah Dibaca
-                                    </span>
-                                @endif
+                                    </button>
+                                    @endif
                             </div>
                         </div>
                     </div>

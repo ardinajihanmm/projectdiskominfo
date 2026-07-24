@@ -191,5 +191,8 @@ Route::middleware(['auth','role:staff'])
 
          Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
             ->name('notification');
+
+        Route::put('/notification/{id}/read', [StaffDashboard::class, 'markAsRead'])
+            ->name('notification.read');
     });
 

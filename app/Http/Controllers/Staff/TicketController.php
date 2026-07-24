@@ -52,33 +52,33 @@ class TicketController extends Controller
         ));
     }
 
-    public function show($id)
-    {
-        $ticket = Ticket::with([
-            'user',
-            'service',
-            'staff',
-            'attachments',
-            'comments.user'
-        ])->findOrFail($id);
+        public function show($id)
+        {
+            $ticket = Ticket::with([
+                'user',
+                'service',
+                'staff',
+                'attachments',
+                'comments.user'
+            ])->findOrFail($id);
 
-        $user = auth()->user();
+            $user = auth()->user();
 
-        if ($ticket->service->department_id != $user->department_id) {
-            abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+            if ($ticket->service->department_id != $user->department_id) {
+                abort(403, 'Tiket ini bukan bagian dari bidang Anda.');
+            }
+
+            if ($ticket->staff_id && $ticket->staff_id != $user->id) {
+                return redirect()
+                    ->route('staff.ticket.index')
+                    ->with('error', 'Tiket ini sudah ditangani oleh staff lain.');
+            }
+
+            return view('staff.ticket.detail', compact('ticket'));
         }
 
-        if ($ticket->staff_id && $ticket->staff_id != $user->id) {
-            return redirect()
-                ->route('staff.ticket.index')
-                ->with('error', 'Tiket ini sudah ditangani oleh staff lain.');
-        }
-
-        return view('staff.ticket.detail', compact('ticket'));
-    }
-
-    public function assignSelf($id)
-    {
+        public function assignSelf($id)
+        {
         $ticket = Ticket::with('service')->findOrFail($id);
         $user = auth()->user();
 
@@ -218,5 +218,13 @@ class TicketController extends Controller
             'staff.ticket.show',
             $notification->ticket_id
         );
-    }
+        }
+        public function markAllRead()
+        {
+            \App\Models\Notification::where('user_id', auth()->id())
+                ->where('is_read', false)
+                ->update(['is_read' => true]);
+
+            return back()->with('success', 'Semua notifikasi ditandai sudah dibaca.');
+        }
 }

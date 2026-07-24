@@ -186,4 +186,12 @@ class TicketController extends Controller
         }
         return redirect()->route('admin.ticket.show', $notification->ticket_id);
     }
+        public function markAllRead()
+    {
+        \App\Models\Notification::where('user_id', auth()->id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return back()->with('success', 'Semua notifikasi ditandai sudah dibaca.');
+    }
 }

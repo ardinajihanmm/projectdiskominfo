@@ -137,7 +137,7 @@
 {{-- FORM --}}
 <div class="col-lg-8">
 
-{{-- ================= FORM EDIT PROFILE ================= --}}
+{{-- FORM EDIT PROFILE --}}
 
 
     <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
@@ -333,7 +333,7 @@
 </div> {{-- row --}}
 </div> {{-- container-fluid --}}
 
-<!-- =================== MODAL GANTI PASSWORD =================== -->
+<!-- MODAL GANTI PASSWORD -->
 <div class="modal fade"
     id="passwordModal"
     tabindex="-1"
@@ -559,13 +559,11 @@
     margin:0 auto;
 }
 
-/* Hilangkan ikon mata bawaan Microsoft Edge */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
     display: none;
 }
 
-/* Hilangkan ikon bawaan browser Chromium */
 input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-textfield-decoration-container {
     display: none !important;

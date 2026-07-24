@@ -536,9 +536,7 @@ function updateEmptyState(){
 
 }
 
-// ==============================
 // DRAG & DROP
-// ==============================
 
 document.querySelectorAll(".ticket-column").forEach(column => {
 
@@ -621,9 +619,7 @@ document.querySelectorAll(".ticket-column").forEach(column => {
 
 });
 
-// ==============================
 // DRAWER
-// ==============================
 
 const drawer = document.getElementById("ticketDrawer");
 
@@ -697,14 +693,9 @@ drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 
 });
 
-// ==============================
+
 // CLOSE DRAWER
-// ==============================
 
-// klik luar drawer = tutup
-
-// Tombol X
-// Tombol X
 document.getElementById("closeDrawer").addEventListener("click", function () {
     drawer.classList.remove("show");
     drawerOverlay.classList.remove("show");

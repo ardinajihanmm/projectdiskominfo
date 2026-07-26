@@ -198,8 +198,13 @@ Route::middleware(['auth','role:staff'])
         Route::get('/notification/{notification}', [StaffTicket::class, 'notification'])
             ->name('notification');
 
+<<<<<<< HEAD
+        Route::put('/notification/{id}/read', [StaffDashboard::class, 'markAsRead'])
+            ->name('notification.read');
+=======
         Route::post('/notifications/read-all', [StaffTicket::class, 'markAllRead'])
             ->name('notification.read-all');
         
+>>>>>>> fb19733197efdc67b77cdd072f8b014c59339d36
     });
 

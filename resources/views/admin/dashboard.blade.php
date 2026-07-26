@@ -47,18 +47,18 @@
         margin-bottom: 0;
     }
 
-    .modern-card {
+        .modern-card {
         position: relative;
         overflow: hidden;
         display: flex;
         align-items: center;
         gap: 22px;
-        height: 100%;
         min-height: 180px;
+        height: 180px;
         padding: 28px;
         border-radius: 24px;
         color: #fff;
-        transition: .35s;
+        transition: .35s cubic-bezier(.4,0,.2,1);
         box-shadow: 0 15px 30px rgba(0,0,0,.12);
     }
 
@@ -108,6 +108,10 @@
 
     .card-content {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
     }
 
     .card-content small {
@@ -118,9 +122,10 @@
     }
 
     .card-content h2 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
         font-weight: 700;
-        margin-bottom: 6px;
+        margin: 8px 0 6px;
+        line-height: 1;
     }
 
     .card-content span {

@@ -30,267 +30,152 @@ $unread = $notifications->where('is_read', false)->count();
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
         <style>
-
             body{
                 margin:0;
                 background:#f4f7fb;
                 font-family:'Segoe UI',sans-serif;
             }
-
             .sidebar{
-
                 width:260px;
                 height:100vh;
-
                 background:linear-gradient(
                 180deg,
                 #0d6efd,
                 #2563eb,
                 #1e40af
                 );
-
                 display:flex;
                 flex-direction:column;
-
                 position:fixed;
                 left:0;
                 top:0;
-
                 overflow-y:auto;
                 overflow-x:hidden;
-
                 box-shadow:8px 0 25px rgba(0,0,0,.08);
-
             }
             .sidebar::-webkit-scrollbar{
                 width:6px;
             }
-
             .sidebar::-webkit-scrollbar-track{
                 background:transparent;
             }
-
             .sidebar::-webkit-scrollbar-thumb{
                 background:rgba(255,255,255,.35);
                 border-radius:20px;
             }
-
             .sidebar::-webkit-scrollbar-thumb:hover{
                 background:rgba(255,255,255,.7);
             }
-
             .logo{
-
                 padding:28px 20px 15px;
-
                 text-align:center;
-
                 color:white;
-
             }
-
             .logo h3{
-
                 font-weight:700;
-
                 margin-bottom:0;
-
                 letter-spacing:1px;
-
             }
-
             .logo small{
-
                 opacity:.8;
-
             }
-
             .profile{
-
                 text-align:center;
-
                 padding:20px;
-
             }
-
             .avatar{
-
                 width:90px;
                 height:90px;
-
                 margin:auto;
-
                 border-radius:50%;
-
                 overflow:hidden;
-
                 background:white;
-
                 display:flex;
-
                 justify-content:center;
-
                 align-items:center;
-
                 box-shadow:0 8px 20px rgba(0,0,0,.18);
-
                 border:4px solid rgba(255,255,255,.3);
-
             }
-
             .avatar img{
-
                 width:100%;
                 height:100%;
                 object-fit:cover;
-
             }
 
             .profile h5{
-
                 color:white;
-
                 margin-top:15px;
-
                 margin-bottom:2px;
-
             }
-
             .profile small{
-
                 color:#dbeafe;
-
             }
-
             .menu{
-
-                padding:15px;
-
+               padding:15px;
             }
-
             .menu a{
-
                 color:white;
-
                 text-decoration:none;
-
                 display:flex;
-
                 align-items:center;
-
                 gap:12px;
-
                 padding:14px 18px;
-
                 margin-bottom:10px;
-
                 border-radius:14px;
-
                 transition:.3s;
-
                 font-weight:500;
-
             }
-
             .menu a:hover{
-
                 background:rgba(255,255,255,.15);
-
                 transform:translateX(6px);
-
             }
-
             .menu a.active{
-
                 background:white;
-
                 color:#0d6efd;
-
                 box-shadow:0 10px 20px rgba(0,0,0,.15);
-
             }
-
             .menu i{
-
                 font-size:18px;
-
             }
-
             .logout{
-
                 margin-top:auto;
-
                 padding:20px;
-
             }
-
             .logout button{
-
                 width:100%;
-
                 border:none;
-
                 border-radius:14px;
-
                 padding:12px;
-
                 background:#ef4444;
-
                 color:white;
-
                 font-weight:600;
-
                 transition:.3s;
-
             }
-
             .logout button:hover{
-
                 background:#dc2626;
-
                 transform:translateY(-2px);
-
             }
-
             .content{
-
                 margin-left:260px;
-
                 min-height:100vh;
-
             }
-
             .welcome h5{
-
                 margin:0;
-
                 font-weight:700;
-
             }
-
             .welcome small{
-
                 color:#6c757d;
-
             }
-
             .clock{
-
                 color:#6c757d;
-
                 font-size:14px;
-
             }
-
             .main{
-
                 padding:30px;
-
             }
             .offcanvas{
                 width:430px !important;
             }
-
             .notification-card{
                 display:flex;
                 gap:15px;
@@ -298,21 +183,17 @@ $unread = $notifications->where('is_read', false)->count();
                 border-bottom:1px solid #ECECEC;
                 transition:.2s;
             }
-
             .notification-card:hover{
                 background:#F8FAFC;
             }
-
             .notification-read{
                 background:#f8fafc;
             }
-
             .notification-read h6,
             .notification-read p,
             .notification-read small{
                 color:#6c757d !important;
             }
-
             .notification-icon{
                 width:48px;
                 height:48px;
@@ -324,7 +205,6 @@ $unread = $notifications->where('is_read', false)->count();
                 font-size:22px;
                 flex-shrink:0;
             }
-
             .notification-card .btn{
                 height:38px;
                 border-radius:999px;
@@ -332,7 +212,6 @@ $unread = $notifications->where('is_read', false)->count();
                 align-items:center;
                 gap:6px;
             }
-
             .notification-card .badge{
                 height:38px;
                 display:inline-flex;
@@ -352,7 +231,6 @@ $unread = $notifications->where('is_read', false)->count();
                 gap:14px;
                 padding:22px 18px 26px;
             }
-
             .logo-pemalang{
                 width:64px;
                 height:64px;
@@ -363,7 +241,6 @@ $unread = $notifications->where('is_read', false)->count();
                 text-align:left;
                 font-family:'Plus Jakarta Sans',sans-serif;
             }
-
             .logo-text h3{
                 margin:0;
                 color:#fff;
@@ -373,7 +250,6 @@ $unread = $notifications->where('is_read', false)->count();
                 line-height:1.1;
                 font-family:'Plus Jakarta Sans',sans-serif;
             }
-
             .logo-text small{
                 display:block;
                 color:rgba(255,255,255,.85);
@@ -386,7 +262,6 @@ $unread = $notifications->where('is_read', false)->count();
             .sidebar{
                 transition:all .35s ease;
             }
-
             .content{
                 transition:all .35s ease;
             }
@@ -396,7 +271,6 @@ $unread = $notifications->where('is_read', false)->count();
             .sidebar.collapsed .logo{
                 justify-content:center;
             }
-
             .sidebar.collapsed .logo-text{
                 display:none;
             }
@@ -409,7 +283,6 @@ $unread = $notifications->where('is_read', false)->count();
             .sidebar.collapsed .profile small{
                 display:none;
             }
-
             .sidebar.collapsed .avatar{
                 width:60px;
                 height:60px;
@@ -418,11 +291,9 @@ $unread = $notifications->where('is_read', false)->count();
                 justify-content:center;
                 padding:16px;
             }
-
             .sidebar.collapsed .menu a span{
                 display:none;
             }
-
             .sidebar.collapsed .menu a i{
                 margin:0;
                 font-size:22px;
@@ -431,7 +302,6 @@ $unread = $notifications->where('is_read', false)->count();
                 font-size:0;
                 padding:15px;
             }
-
             .sidebar.collapsed .logout button i{
                 font-size:22px;
                 margin:0 !important;
@@ -439,7 +309,6 @@ $unread = $notifications->where('is_read', false)->count();
             .sidebar.collapsed + .content{
                 margin-left:85px;
             }
-
             .topbar{
                 height:70px;
                 background:white;
@@ -448,19 +317,16 @@ $unread = $notifications->where('is_read', false)->count();
                 justify-content:space-between;
                 padding:0 30px;
                 box-shadow:0 2px 12px rgba(0,0,0,.05);
-
                 position: sticky;
                 top: 0;
                 overflow: visible;
                 z-index: 1000;
             }
-
             .welcome h5{
                 margin:0;
                 font-size:1.15rem;
                 font-weight:700;
             }
-
             .welcome small{
                 display:block;
                 color:#64748b;
@@ -471,7 +337,6 @@ $unread = $notifications->where('is_read', false)->count();
                 align-items:center;
                 padding:18px 0 22px;
             }
-
             .sidebar-backdrop{
                 position:fixed;
                 inset:0;

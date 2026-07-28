@@ -1,9 +1,7 @@
 @extends('layouts.staff')
-
 @section('content')
 
 <div class="container-fluid">
-
     <div class="mb-4">
         <h2 class="fw-bold">
             <i class="bi bi-clock-history text-primary"></i>
@@ -13,12 +11,9 @@
             Riwayat aktivitas staff saat menggunakan sistem Helpdesk.
         </small>
     </div>
-
     <div class="card shadow border-0">
         <div class="card-body">
-
             <div class="timeline">
-
                 <div class="timeline-item">
                     <div class="timeline-icon bg-success">
                         <i class="bi bi-box-arrow-in-right"></i>
@@ -28,7 +23,6 @@
                         <small class="text-muted">08 Jul 2026 • 08:00 WIB</small>
                     </div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-icon bg-primary">
                         <i class="bi bi-eye-fill"></i>
@@ -38,7 +32,6 @@
                         <small class="text-muted">08 Jul 2026 • 08:05 WIB</small>
                     </div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-icon bg-warning">
                         <i class="bi bi-arrow-repeat"></i>
@@ -48,7 +41,6 @@
                         <small class="text-muted">08 Jul 2026 • 08:10 WIB</small>
                     </div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-icon bg-info">
                         <i class="bi bi-chat-dots-fill"></i>
@@ -58,7 +50,6 @@
                         <small class="text-muted">08 Jul 2026 • 08:20 WIB</small>
                     </div>
                 </div>
-
                 <div class="timeline-item">
                     <div class="timeline-icon bg-success">
                         <i class="bi bi-check-circle-fill"></i>
@@ -78,12 +69,9 @@
                         <small class="text-muted">08 Jul 2026 • 17:00 WIB</small>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-
 </div>
 
 <style>
@@ -118,5 +106,4 @@
     box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 </style>
-
 @endsection

@@ -160,7 +160,7 @@
 
                 <div class="row g-4">
 
-                    <div class="col-md-6">
+                    <div class="col-12">
 
                         <label class="form-label fw-semibold">
                             <i class="bi bi-person-fill text-primary me-2"></i>

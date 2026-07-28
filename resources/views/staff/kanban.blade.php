@@ -1,11 +1,8 @@
 @extends('layouts.staff')
-
 @section('title', 'Kanban Board')
-
 @section('content')
 
 <style>
-
 .ticket-card{
     cursor:grab;
     border-radius:12px;
@@ -64,7 +61,6 @@
 }
 
 #drawerOverlay{
-
     position:fixed;
 
     inset:0;
@@ -78,27 +74,21 @@
     transition:.25s;
 
     z-index:9998;
-
 }
 
 #drawerOverlay.show{
-
     opacity:1;
 
     visibility:visible;
-
 }
 
 .ticket-drawer{
-
     border-top-left-radius:18px;
 
     border-bottom-left-radius:18px;
-
 }
 
 .drawer-label{
-
     font-size:12px;
 
     color:#8b8b8b;
@@ -106,15 +96,12 @@
     text-transform:uppercase;
 
     letter-spacing:.5px;
-
 }
 
 .drawer-value{
-
     font-size:15px;
 
     font-weight:600;
-
 }
 
 .filter-month{
@@ -181,7 +168,6 @@
     background:#0d6efd;
     color:white;
 }
-
 </style>
 
 <div class="container-fluid">
@@ -198,9 +184,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 @endif
-    {{-- Header --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
 
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1">
                 <i class="bi bi-kanban-fill text-primary"></i>
@@ -210,25 +195,18 @@
             <small class="text-muted">
                 Kelola status tiket dengan drag & drop
             </small>
-
         </div>
 
         <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i>
             Dashboard
         </a>
-
     </div>
 
-    {{-- Search --}}
     <div class="card shadow-sm border-0 mb-4">
-
         <div class="card-body">
-
             <form action="{{ route('staff.kanban') }}" method="GET">
                 <div class="row g-3">
-
-                    {{-- Search Judul --}}
                     <div class="col-lg-8">
                         <input
                             type="text"
@@ -236,10 +214,8 @@
                             class="form-control"
                             placeholder="Cari judul tiket..."
                             value="{{ request('search') }}">
-
                     </div>
 
-                    {{-- Filter Bulan --}}
                     <div class="col-lg-2">
                         <input
                             type="text"
@@ -250,25 +226,18 @@
                             autocomplete="off">
                         </div>
 
-                    {{-- Tombol --}}
                     <div class="col-lg-2 d-grid">
                         <button class="btn btn-primary">
                             <i class="bi bi-search"></i>
                             Cari
                         </button>
                      </div>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
 
-    {{-- Kanban --}}
     <div class="row">
-
         @php
 
         $columns = [
@@ -301,32 +270,24 @@
         @foreach($columns as $column)
 
         <div class="col-lg-4">
-
             <div class="card shadow border-0">
-
                 <div class="card-header
                     {{ $column['status']=='To Do'
                         ? 'todo-header'
                         : ($column['status']=='In Progress'
                             ? 'progress-header'
                             : 'done-header') }}">
-
                     <strong>
-
                         <i class="bi {{ $column['icon'] }}"></i>
-
                         {{ $column['title'] }}
 
                         ({{ $column['data']->count() }})
-
                     </strong>
-
                 </div>
 
                 <div
                     class="card-body bg-light ticket-column"
                     data-status="{{ $column['status'] }}">
-
                     @foreach($column['data'] as $ticket)
 
                     <div
@@ -343,19 +304,13 @@
     data-assign-url="{{ route('staff.ticket.assign',$ticket->id) }}"
     data-staff-id="{{ $ticket->staff_id }}"
     data-staff-name="{{ $ticket->staff->name ?? '' }}">
-
                         <div class="card-body p-2">
-
                             <div class="fw-semibold">
-
                                 {{ $ticket->judul }}
-
                             </div>
 
                             <div class="small text-muted">
-
                                 {{ $ticket->service->nama_layanan }}
-
                             </div>
 
                            <div class="mt-2 d-flex flex-wrap gap-1">
@@ -376,9 +331,7 @@
     @endif
 </div>
                         </div>
-
                     </div>
-
                     @endforeach
 
                         <div class="empty-ticket text-center text-muted py-5" style="display:none;">
@@ -386,26 +339,16 @@
                                 <strong>Belum ada tiket</strong>
                         </div>
                 </div>
-
             </div>
-
         </div>
-
         @endforeach
-
     </div>
-
 </div>
 <div id="drawerOverlay"></div>
-
 <div id="ticketDrawer" class="ticket-drawer">
-
 <div class="drawer-header">
-
     <div class="d-flex justify-content-between">
-
         <div>
-
             <small class="text-muted"
                 id="drawerKode">
             </small>
@@ -414,7 +357,6 @@
                 class="mt-2 fw-bold"
                 id="drawerJudul">
             </h4>
-
         </div>
 
         <button
@@ -422,66 +364,51 @@
             class="btn-close"
             id="closeDrawer">
         </button>
-
     </div>
-
 </div>
 
 <div class="drawer-body">
-
     <div class="mb-3">
-
         <span id="drawerPrioritas"></span>
-
         <span
             id="drawerStatus"
             class="badge bg-primary ms-2">
         </span>
-
     </div>
 
     <div class="mb-4">
-
         <div class="drawer-label">
             Pelapor
         </div>
 
         <div class="drawer-value" id="drawerPelapor"></div>
-
     </div>
 
     <div class="mb-4">
-
         <div class="drawer-label">
             Layanan
         </div>
 
         <div class="drawer-value" id="drawerLayanan"></div>
-
     </div>
 
     <div class="mb-4">
-
         <div class="drawer-label">
             Dibuat
         </div>
 
         <div class="drawer-value" id="drawerTanggal"></div>
-
     </div>
 <div class="mb-4">
     <div class="drawer-label">Ditangani</div>
     <div class="drawer-value" id="drawerStaff"></div>
 </div>
     <hr>
-
     <div class="text-muted small mb-3">
-
         Ringkasan tiket.
 
         Klik tombol di bawah untuk melihat informasi lengkap,
         riwayat, komentar, dan lampiran.
-
     </div>
 <button type="button" id="drawerAssignBtn" class="btn btn-outline-primary w-100 mb-2" style="display:none;">
     <i class="bi bi-hand-index-thumb"></i> Ambil Tiket Ini
@@ -490,136 +417,90 @@
 
         id="drawerDetailBtn"
         class="btn btn-primary w-100">
-
         <i class="bi bi-eye"></i>
-
         Lihat Selengkapnya
-
     </a>
-
 </div>
-
 </div>
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 <link rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
 (() => {
 function updateEmptyState(){
-
     document.querySelectorAll(".ticket-column").forEach(column=>{
-
         const cards = column.querySelectorAll(".ticket-card");
         const empty = column.querySelector(".empty-ticket");
 
         if(cards.length===0){
-
             empty.style.display="block";
-
         }else{
-
             empty.style.display="none";
-
         }
-
     });
-
 }
 
-// DRAG & DROP
-
 document.querySelectorAll(".ticket-column").forEach(column => {
-
     new Sortable(column, {
-
         group: "tickets",
         animation: 200,
 
         onEnd: function (evt) {
-
             const ticketId = evt.item.dataset.id;
             const status = evt.to.dataset.status;
 
             fetch("{{ url('staff/ticket') }}/" + ticketId + "/status", {
-
                 method: "PUT",
 
                 headers: {
-
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
-
                 },
 
                 body: JSON.stringify({
                     status: status
                 })
-
             })
 
             .then(res => res.json())
 
             .then(data => {
-
                 if(data.success){
-
                 updateEmptyState();
 
                     Swal.fire({
-
                         icon:"success",
                         title:"Status berhasil diperbarui",
                         timer:1200,
                         showConfirmButton:false
-
                     });
-
                 }else{
-
                     Swal.fire({
-
                         icon:"error",
                         title:"Gagal",
                         text:"Status tiket gagal diperbarui."
-
                     });
-
                 }
-
             })
 
             .catch(err=>{
-
                 console.log(err);
 
                 Swal.fire({
-
                     icon:"error",
                     title:"Oops...",
                     text:"Terjadi kesalahan."
-
                 });
-
             });
-
         }
-
     });
-
 });
-
-// DRAWER
 
 const drawer = document.getElementById("ticketDrawer");
 
@@ -635,12 +516,8 @@ const drawerOverlay = document.getElementById("drawerOverlay");
 const drawerStaff = document.getElementById("drawerStaff");
 const drawerAssignBtn = document.getElementById("drawerAssignBtn");
 
-// klik card
-
 document.querySelectorAll(".ticket-card").forEach(card=>{
-
     card.addEventListener("click",function(e){
-
         if(this.classList.contains("sortable-chosen") ||
            this.classList.contains("sortable-ghost")){
             return;
@@ -666,34 +543,23 @@ document.querySelectorAll(".ticket-card").forEach(card=>{
 drawerAssignBtn.dataset.assignUrl = this.dataset.assignUrl;
 
         if(this.dataset.prioritas=="Tinggi"){
-
             drawerPrioritas.innerHTML =
             '<span class="badge bg-danger">Tinggi</span>';
-
         }
 
         else if(this.dataset.prioritas=="Sedang"){
-
             drawerPrioritas.innerHTML =
             '<span class="badge bg-warning text-dark">Sedang</span>';
-
         }
 
         else{
-
             drawerPrioritas.innerHTML =
             '<span class="badge bg-success">Rendah</span>';
-
         }
 
         drawerDetailBtn.href = this.dataset.url;
-
     });
-
 });
-
-
-// CLOSE DRAWER
 
 document.getElementById("closeDrawer").addEventListener("click", function () {
     drawer.classList.remove("show");
@@ -729,7 +595,6 @@ drawerAssignBtn.addEventListener("click", function () {
 });
 
 flatpickr("#monthPicker", {
-
     plugins: [
         new monthSelectPlugin({
             shorthand: true,
@@ -743,11 +608,9 @@ flatpickr("#monthPicker", {
     dateFormat: "Y-m",
 
     allowInput: false
-
 });
 
 updateEmptyState();
 })();
 </script>
-
 @endsection

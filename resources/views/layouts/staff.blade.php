@@ -674,6 +674,9 @@
     background:#d6e4ff;
     z-index:1;
 }
+.timeline-v2-item:last-child .timeline-v2-line{
+    display:none;
+}
 .timeline-v2-item .badge{
     position:relative;
     z-index:2;

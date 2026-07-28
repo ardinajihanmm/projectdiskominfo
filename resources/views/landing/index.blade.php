@@ -1715,8 +1715,7 @@ document
     }
 });
 </script>
-{{-- Presentational-only additions: scroll animations + navbar active-link highlighting.
-     Does not touch searchService() or any Blade/route/modal logic above. --}}
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 AOS.init({
@@ -1761,7 +1760,7 @@ AOS.init({
         window.scrollTo({ top:0, behavior:"smooth" });
     });
 })();
-/* Functional chat panel (no longer a dead placeholder) */
+
 (function(){
     let fab = document.getElementById("chatFabBtn");
     let panel = document.getElementById("chatPanel");
@@ -1797,7 +1796,6 @@ AOS.init({
         });
     });
 })();
-/* Light loading transition on first paint */
 window.addEventListener("load",function(){
     let loader = document.getElementById("pageLoader");
     if(loader){

@@ -112,50 +112,86 @@
                             <td>{{ $ticket->service->nama_layanan }}</td>
 
                             <td>
-                                @if($ticket->staff_id)
-                                    <span class="badge bg-primary-subtle text-primary">
-                                        <i class="bi bi-person-check"></i>
-                                        {{ $ticket->staff->name ?? '-' }}
+                                @if($ticket->status == 'To Do')
+                                    <span class="badge bg-warning text-dark">
+                                        To Do
                                     </span>
-                                @else
-                                    <span class="badge bg-secondary">Belum diambil</span>
+
+                                @elseif($ticket->status == 'In Progress')
+                                    <span class="badge bg-info text-dark">
+                                        In Progress
+                                    </span>
+
+                                @elseif($ticket->status == 'Completed')
+                                    <span class="badge bg-success">
+                                        Completed
+                                    </span>
+
                                 @endif
                             </td>
 
                             <td>
-                                @if(!$ticket->staff_id)
-                                    <form action="{{ route('staff.ticket.assign', $ticket->id) }}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-outline-primary btn-sm">
-                                            <i class="bi bi-hand-index-thumb"></i>
-                                            Ambil Tiket
-                                        </button>
-                                    </form>
+                                @if($ticket->staff_id)
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        <i class="bi bi-person-check"></i>
+                                        {{ $ticket->staff->name }}
+                                    </span>
                                 @else
-                                    <form
-                                        action="{{ route('staff.ticket.update', $ticket->id) }}"
-                                        method="POST"
-                                        class="d-flex gap-2">
-                                        @csrf
-                                        @method('PUT')
-
-                                        <select name="status" class="form-select form-select-sm">
-                                            <option value="To Do" {{ $ticket->status == 'To Do' ? 'selected' : '' }}>
-                                                To Do
-                                            </option>
-                                            <option value="In Progress" {{ $ticket->status == 'In Progress' ? 'selected' : '' }}>
-                                                In Progress
-                                            </option>
-                                            <option value="Completed" {{ $ticket->status == 'Completed' ? 'selected' : '' }}>
-                                                Completed
-                                            </option>
-                                        </select>
-
-                                        <button class="btn btn-primary btn-sm">
-                                            <i class="bi bi-check-lg"></i>
-                                        </button>
-                                    </form>
+                                    <span class="badge bg-secondary">
+                                        Belum Diambil
+                                    </span>
                                 @endif
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+
+                                    <a href="{{ route('staff.ticket.show', $ticket->id) }}"
+                                    class="btn btn-primary btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                        Detail
+                                    </a>
+
+                                    @if(!$ticket->staff_id)
+                                        <form action="{{ route('staff.ticket.assign', $ticket->id) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-hand-index-thumb"></i>
+                                                Ambil
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('staff.ticket.update', $ticket->id) }}"
+                                            method="POST"
+                                            class="d-flex gap-2">
+
+                                            @csrf
+                                            @method('PUT')
+
+                                            <select name="status" class="form-select form-select-sm">
+                                                <option value="To Do"
+                                                    {{ $ticket->status == 'To Do' ? 'selected' : '' }}>
+                                                    To Do
+                                                </option>
+
+                                                <option value="In Progress"
+                                                    {{ $ticket->status == 'In Progress' ? 'selected' : '' }}>
+                                                    In Progress
+                                                </option>
+
+                                                <option value="Completed"
+                                                    {{ $ticket->status == 'Completed' ? 'selected' : '' }}>
+                                                    Completed
+                                                </option>
+                                            </select>
+
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+
+                                        </form>
+                                    @endif
+
+                                </div>
                             </td>
                         </tr>
                     @empty

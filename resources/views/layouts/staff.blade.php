@@ -2192,13 +2192,13 @@ body.sidebar-open{
                                 {{ $notif->created_at->diffForHumans() }}
                             </small>
                             <div class="mt-3 d-flex align-items-center gap-3">
-                                <a href="{{ route('admin.notification',$notif->id) }}"
+                                <a href="{{ route('staff.notification',$notif->id) }}"
                                     class="btn btn-sm btn-light border rounded-pill px-4 py-2">
                                     <i class="bi bi-eye"></i>
                                     Lihat Tiket
                                 </a>
                                 @if(!$notif->is_read)
-                                    <form action="{{ route('admin.notification.read',$notif->id) }}"
+                                    <form action="{{ route('staff.notification.read',$notif->id) }}"
                                         method="POST">
                                         @csrf
                                         @method('PUT')

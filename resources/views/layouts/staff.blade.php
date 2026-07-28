@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','Staff')</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -450,38 +451,35 @@
     display:flex;
     align-items:center;
     gap:18px;
-    padding:22px;
+    padding:26px 22px;
     border-radius:18px;
     transition:.3s;
+    width:100%;
+    height:100%;
 }
 .status-box i{
-    font-size:28px;
+    font-size:38px;
 }
 .status-box strong{
-    font-size:32px;
-    font-weight:700;
     display:block;
+    font-size:1.8rem;
+    font-weight:700;
 }
 .status-box small{
-    font-size:15px;
+    color:#6b7280;
+    font-size:.95rem;
 }
 .status-success{
-    background:#EAF8EF;
-    color:#16A34A;
-}
-.status-success i{
+    background:#ECFDF5;
     color:#16A34A;
 }
 .status-warning{
-    background:#FFF8E6;
-    color:#D97706;
-}
-.status-warning i{
+    background:#FFF7ED;
     color:#D97706;
 }
 .status-info{
-    background:#EAF7FD;
-    color:#0284C7;
+    background:#EFF6FF;
+    color:#2563EB;
 }
 .status-info i{
     color:#0284C7;
@@ -525,13 +523,16 @@
     padding:40px;
 }
 .quick-title-icon{
-    width:56px;
-    height:56px;
-    border-radius:16px;
-    margin-right:14px;
-}
-.quick-title-icon i{
-    font-size:24px;
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:#EEF4FF;
+    color:#2563EB;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    margin-right:15px;
 }
 .quick-menu{
     position:relative;
@@ -540,7 +541,7 @@
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    height:130px;
+    min-height:150px;
     border-radius:20px;
     color:#fff;
     text-decoration:none;
@@ -562,15 +563,15 @@
     color:#fff;
 }
 .quick-menu i{
-    font-size:42px;
-    margin-bottom:14px;
+    font-size:38px;
+    margin-bottom:18px;
 }
-.quick-menu h5{
+.quick-menu h6{
     margin:0;
     text-align:center;
-    line-height:1.35;
-    font-size:1.1rem;
+    font-size:1rem;
     font-weight:700;
+    line-height:1.5;
 }
 .quick-menu span{
     font-size:1rem;
@@ -600,6 +601,7 @@
         #475569,
         #334155
     );
+    min-height:120px;
 }
 .ticket-item{
     display:flex;
@@ -651,6 +653,30 @@
     display:flex;
     gap:15px;
     margin-bottom:22px;
+}
+.timeline-v2{
+    position:relative;
+}
+.timeline-v2-item{
+    display:flex;
+    position:relative;
+    padding-bottom:30px;
+}
+.timeline-v2-item:last-child{
+    padding-bottom:0;
+}
+.timeline-v2-line{
+    position:absolute;
+    left:20px;
+    top:42px;
+    bottom:-30px;
+    width:2px;
+    background:#d6e4ff;
+    z-index:1;
+}
+.timeline-v2-item .badge{
+    position:relative;
+    z-index:2;
 }
 .timeline-icon{
     width:48px;
@@ -1362,6 +1388,11 @@ body.sidebar-open{
 .notification-card.notification-read{
     background:#f8fafc;
 }
+.notification-card.notification-read h6,
+.notification-card.notification-read p,
+.notification-card.notification-read small{
+    color:#6c757d !important;
+}
 .notification-icon{
     width:46px;
     height:46px;
@@ -1372,6 +1403,31 @@ body.sidebar-open{
     justify-content:center;
     background:#eff6ff;
     font-size:20px;
+}
+.notification-card .btn{
+    height:38px !important;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    white-space:nowrap;
+    font-weight:600;
+    transition:.2s;
+}
+.notification-card .btn:hover{
+    transform:translateY(-1px);
+}
+.notification-card .badge{
+    height:38px !important;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 18px !important;
+    border-radius:999px;
+    font-size:.875rem !important;
+    font-weight:600;
+    line-height:1 !important;
 }
 .btn-tandai-dibaca{
     background:#22c55e;
@@ -2087,17 +2143,30 @@ body.sidebar-open{
         tabindex="-1"
         id="notifCanvas">
         <div class="offcanvas-header">
-            <h5>
-                <i class="bi bi-bell-fill"></i>
+            <h5 class="fw-bolder mb-0">
+                <i class="bi bi-bell-fill text-primary me-2"></i>
                 Notifikasi
             </h5>
+
+            <div class="d-flex align-items-center gap-2 ms-auto me-2">
+                @if($notificationCount > 0)
+                <form action="{{ route('staff.notification.read-all') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-sm btn-outline-primary rounded-pill">
+                        Tandai Semua Dibaca
+                    </button>
+                </form>
+                @endif
+            </div>
+
             <button
                 class="btn-close"
                 data-bs-dismiss="offcanvas">
             </button>
         </div>
-        <div class="offcanvas-body">
-                @forelse($notifications ?? [] as $notif)
+
+        <div class="offcanvas-body p-0">
+            @forelse($notifications as $notif)
                 <div class="notification-card {{ $notif->is_read ? 'notification-read' : '' }}">
                     <div class="d-flex">
                         <div class="notification-icon me-3">
@@ -2120,40 +2189,41 @@ body.sidebar-open{
                                 {{ $notif->created_at->diffForHumans() }}
                             </small>
                             <div class="mt-3 d-flex align-items-center gap-3">
-                                <a href="{{ route('staff.notification',$notif->id) }}"
-                                    class="btn-lihat-tiket">
-                                        <i class="bi bi-eye"></i>
-                                        Lihat Tiket
+                                <a href="{{ route('admin.notification',$notif->id) }}"
+                                    class="btn btn-sm btn-light border rounded-pill px-4 py-2">
+                                    <i class="bi bi-eye"></i>
+                                    Lihat Tiket
                                 </a>
-                                    @if(!$notif->is_read)
-                                    <form action="{{ route('staff.notification.read', $notif->id) }}"
-                                        method="POST"
-                                        class="d-inline">
+                                @if(!$notif->is_read)
+                                    <form action="{{ route('admin.notification.read',$notif->id) }}"
+                                        method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button class="btn-tandai-dibaca">
-                                            <i class="bi bi-check-circle-fill"></i>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-success rounded-pill px-4 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>
                                             Tandai Dibaca
                                         </button>
                                     </form>
-                                    @else
-                                    <button class="btn-sudah-dibaca" disabled>
-                                        <i class="bi bi-check-circle-fill"></i>
+                                @else
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success px-3 py-2">
+                                        <i class="bi bi-check-circle-fill me-1"></i>
                                         Sudah Dibaca
-                                    </button>
-                                    @endif
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                @empty
+            @empty
                 <div class="text-center py-5">
                     <i class="bi bi-bell-slash fs-1 text-secondary"></i>
-                    <p class="mt-3">
+                    <p class="mt-3 mb-0">
                         Belum ada notifikasi.
                     </p>
                 </div>
-                @endforelse
+            @endforelse
         </div>
     </div>
 <script>

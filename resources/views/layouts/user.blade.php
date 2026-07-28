@@ -126,7 +126,7 @@
                 line-height:1.35;
                 font-weight:500;
                 margin-top:4px;
-                font-family:'Segoe UI',sans-serif;
+                font-family:'Plus Jakarta Sans',sans-serif;
             }
             .profile{
                 text-align:center;
@@ -361,7 +361,7 @@
                 justify-content:center;
                 gap:6px;
                 white-space: nowrap;
-                font-weight:600;      /* Tambahkan ini */
+                font-weight:600;     
             }
             .notification-card .badge{
                 height:38px;
@@ -1602,6 +1602,7 @@
                     height:72px;
                 }
             }
+            
         </style>
     </head>
     <body>
@@ -1797,20 +1798,22 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.querySelectorAll('.counter').forEach(counter=>{
-            const target=parseInt(counter.dataset.target,10);
-            let current=0;
-            const increment=Math.max(1,Math.ceil(target/50));
-            const update=()=>{
-                current+=increment;
-                if(current>=target){
-                    counter.innerText=target;
-                    return;
-                }
+            document.querySelectorAll('.counter').forEach(counter=>{
+            const target=parseInt(counter.dataset.target,10)||0;
+            const duration=1000;
+            let startTime=null;
+            const update=timestamp=>{
+                if(!startTime) startTime=timestamp;
+                const progress=Math.min((timestamp-startTime)/duration,1);
+                const current=Math.floor(progress*target);
                 counter.innerText=current;
-                requestAnimationFrame(update);
+                if(progress<1){
+                    requestAnimationFrame(update);
+                }else{
+                    counter.innerText=target;
+                }
             };
-            update();
+            requestAnimationFrame(update);
         });
         const sidebar=document.querySelector('.sidebar');
         const toggle=document.getElementById('toggleSidebar');

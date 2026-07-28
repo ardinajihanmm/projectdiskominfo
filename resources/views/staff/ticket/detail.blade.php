@@ -1,5 +1,5 @@
 @extends('layouts.staff')
-
+@section('title', 'Daftar Tiket')
 @section('content')
 
 @if(session('success') || session('error'))
@@ -308,13 +308,12 @@ document.addEventListener('DOMContentLoaded', function () {
         <i class="bi bi-clock-history"></i>
         Timeline Aktivitas
     </div>
-
-    <div class="card-body">
-
-        <div class="timeline">
+<div class="card-body">
+    <div class="timeline-v2">
 
     {{-- Tiket dibuat --}}
-    <div class="d-flex mb-4">
+    <div class="timeline-v2-item">
+        <div class="timeline-v2-line"></div>
         <div class="me-3">
             <span class="badge bg-primary rounded-circle p-3">
                 <i class="bi bi-plus-lg"></i>
@@ -331,7 +330,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {{-- Mulai dikerjakan --}}
     @if($ticket->started_at)
-    <div class="d-flex mb-4">
+    <div class="timeline-v2-item">
+        <div class="timeline-v2-line"></div>
         <div class="me-3">
             <span class="badge bg-info rounded-circle p-3">
                 <i class="bi bi-play-fill"></i>
@@ -353,7 +353,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {{-- Semua komentar --}}
     @foreach($ticket->comments as $comment)
-    <div class="d-flex mb-4">
+    <div class="timeline-v2-item">
+        <div class="timeline-v2-line"></div>
 
         <div class="me-3">
             <span class="badge bg-warning rounded-circle p-3">
@@ -379,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {{-- Tiket selesai --}}
     @if($ticket->completed_at)
-    <div class="d-flex">
+    <div class="timeline-v2-item">
 
         <div class="me-3">
             <span class="badge bg-success rounded-circle p-3">
@@ -399,7 +400,5 @@ document.addEventListener('DOMContentLoaded', function () {
     @endif
 
 </div>
-
-</div> {{-- container-fluid --}}
-
+</div>
 @endsection

@@ -72,7 +72,7 @@ use Illuminate\Support\Str;
 <div class="row g-4 mb-4">
 <div class="col-lg-8">
     <div class="card progress-modern shadow-sm border-0 h-100">
-        <div class="card-body p-4 d-flex flex-column">
+        <div class="card-body p-4">
             @if($satisfactionScore !== null)
                 @php
                     $slaLabel = $satisfactionScore >= 80 ? 'Sangat Baik' : ($satisfactionScore >= 65 ? 'Cukup Baik' : 'Perlu Perhatian');

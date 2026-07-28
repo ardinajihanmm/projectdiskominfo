@@ -4,7 +4,6 @@
 
 @section('content')
 
-<!-- ini Header -->
 <div class="dashboard-header mb-4">
     <div class="row align-items-center">
 
@@ -30,8 +29,7 @@
     </div>
 </div>
 
-<!-- ini Statistik -->
-<div class="row g-4 mb-4">
+<div class="row g-4 mb-5">
 
     <div class="col-12 col-sm-6 col-xl-3">
 
@@ -134,9 +132,8 @@
     </div>
 
 </div>
-<div class="row g-4">
+<div class="row g-4 mb-4">
 
-    <!-- ini Skor SLA -->
     <div class="col-lg-8">
         <div class="card progress-modern shadow-sm border-0 h-100">
             <div class="card-body p-4">
@@ -181,7 +178,6 @@
                     </div>
 
                     <div class="row g-2">
-
                         <div class="col-lg-4 col-md-4">
                             <div class="status-box status-success h-100">
                                 <i class="bi bi-check-circle-fill"></i>
@@ -233,7 +229,7 @@
     <!-- Quick Action -->
     <div class="col-12 col-lg-4">
 
-        <div class="card quick-card border-0 shadow-sm">
+        <div class="card quick-card border-0 shadow-sm h-100">
 
             <div class="card-body">
 
@@ -244,16 +240,15 @@
                     </div>
 
                     <div>
-                        <h2 class="fw-bold mb-1">
+                        <h4 class="fw-bold mb-1">
                           Aksi Cepat
-                        </h2>
+                        </h4>
 
                         <small class="text-muted">
                             Akses menu yang paling sering digunakan.
                         </small> 
                      </div> 
                 </div>
-
                 <div class="row g-4">
                     <div class="col-12 col-sm-6">
                         <a href="{{ route('staff.ticket.index') }}"
@@ -285,9 +280,7 @@
 
 </div>
 
-<div class="row g-4 mt-4">
-
-    <!-- Tiket Terbaru -->
+<div class="row g-4">
     <div class="col-lg-8">
 
         <div class="card latest-ticket-card border-0 shadow-sm">

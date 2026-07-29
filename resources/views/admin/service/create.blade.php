@@ -238,7 +238,7 @@
                        name="nama_bidang"
                        list="bidangList"
                        class="form-control-pro"
-                       placeholder="Ketik nama bidang (bisa pilih yang sudah ada atau tulis baru)"
+                       placeholder="Ketik nama bidang"
                        value="{{ old('nama_bidang') }}"
                        autocomplete="off"
                        required>
@@ -247,9 +247,6 @@
                         <option value="{{ $department->nama_bidang }}">
                     @endforeach
                 </datalist>
-                <small class="text-muted d-block mt-1">
-                    Kalau bidang belum ada di daftar, cukup ketik nama barunya — akan otomatis dibuat.
-                </small>
             </div>
 
             <div class="form-group-pro">

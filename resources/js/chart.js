@@ -5,14 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const dataEl = document.getElementById("chartData");
     if (!dataEl) return;
 
-    /* =====================================
-       DATA AWAL
-    ===================================== */
-
     const initialTodo = Number(dataEl.dataset.todo || 0);
     const initialProgress = Number(dataEl.dataset.progress || 0);
     const initialCompleted = Number(dataEl.dataset.completed || 0);
-    const statsUrl = dataEl.dataset.statsurl;
+
+    const statsUrl = dataEl.dataset.statsUrl;
+    const servicesUrl = dataEl.dataset.servicesUrl;
 
     const COLORS = {
         todo: "#F59E0B",
@@ -20,23 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
         completed: "#16A34A"
     };
 
-    /* =====================================
-       ELEMENT
-    ===================================== */
-
     const filterMonth = document.getElementById("filterMonth");
     const filterYear = document.getElementById("filterYear");
+    const filterDepartment = document.getElementById("filterDepartment");
     const filterService = document.getElementById("filterService");
 
     const monthText = document.getElementById("monthSelectText");
     const yearText = document.getElementById("yearSelectText");
+    const departmentText = document.getElementById("departmentSelectText");
     const serviceText = document.getElementById("serviceSelectText");
 
     const canvas = document.getElementById("statusDonutChart");
-
-    /* =====================================
-       HELPER
-    ===================================== */
 
     function setText(id, value) {
         const el = document.getElementById(id);
@@ -59,10 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
         textEl.textContent = selected && selected.value !== "" ? selected.text : fallbackLabel;
     }
 
-    /* =====================================
-       STATE FILTER 
-    ===================================== */
-
     let currentTodo = initialTodo;
     let currentProgress = initialProgress;
     let currentCompleted = initialCompleted;
@@ -73,10 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         department: "",
         service: ""
     };
-
-    /* =====================================
-       UPDATE UI 
-    ===================================== */
 
     function updateUI(todoValue, progressValue, completedValue) {
 
@@ -106,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setWidth("barProgress", pctProgress + "%");
         setWidth("barCompleted", pctCompleted + "%");
 
-        // angka besar di 4 mini card (To Do / In Progress / Completed / Total)
         setText("miniNumberTodo", todoValue.toLocaleString("id-ID"));
         setText("miniNumberProgress", progressValue.toLocaleString("id-ID"));
         setText("miniNumberCompleted", completedValue.toLocaleString("id-ID"));
@@ -114,10 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updateUI(currentTodo, currentProgress, currentCompleted);
-
-    /* =====================================
-       CHART
-    ===================================== */
 
     let donutChart = null;
 
@@ -155,9 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* =====================================
-       UPDATE DONUT
-    ===================================== */
 
     function updateDonut(todoValue, progressValue, completedValue) {
 
@@ -183,7 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (filters.month) params.append("month", filters.month);
         if (filters.year) params.append("year", filters.year);
         if (filters.service) params.append("service", filters.service);
-        if (filters.department)params.append('department', filters.department);
+        // Hanya kirim department jika filterDepartment ADA (super admin)
+        if (filterDepartment && filters.department) {
+            params.append('department', filters.department);
+        }
 
         isFetching = true;
 
@@ -220,91 +199,87 @@ document.addEventListener("DOMContentLoaded", () => {
             fetchTicketStats();
         });
     }
-    const filterDepartment = document.getElementById("filterDepartment");
-    const departmentText = document.getElementById("departmentSelectText");
+    function buildServicesUrl(departmentId) {
+        if (!departmentId) {
+            return servicesUrl;
+        }
+        const base = servicesUrl.replace(/\/+$/, '');
+        return base + '/' + encodeURIComponent(departmentId);
+    }
 
-    if (filterDepartment) {
+    function updateServiceOptions(services) {
+        if (!filterService) return;
 
-        filterDepartment.addEventListener("change", function () {
+        const wrapper = filterService.closest(".stat-pro-select");
+        const oldList = wrapper ? wrapper.querySelector(".stat-pro-dropdown-list") : null;
 
-            filters.department = this.value;
-            syncSelectText(
-                this,
-                departmentText,
-                "Semua Bidang"
-            );
-            if (this.value === "") {
+        if (oldList) {
+            oldList.remove();
+        }
 
-                filterService.innerHTML =
-                    '<option value="">Semua Layanan</option>';
+        filterService.innerHTML = '<option value="">Semua Layanan</option>';
 
-                filters.service = "";
-                serviceText.textContent = "Semua Layanan";
-
-                fetch("/admin/dashboard/services")
-                    .then(res => res.json())
-                    .then(data => {
-
-                        data.forEach(service => {
-                            filterService.innerHTML += `
-                                <option value="${service.id}">
-                                    ${service.nama_layanan}
-                                </option>`;
-                        });
-                        const oldDropdown = filterService
-                            .closest(".stat-pro-select")
-                            .querySelector(".stat-pro-dropdown-list");
-
-                        if (oldDropdown) {
-                            oldDropdown.remove();
-                        }
-
-                        initCustomDropdown(
-                            "filterService",
-                            "serviceSelectText",
-                            "Semua Layanan"
-                        );
-
-                        fetchTicketStats();
-                    });
-
-                return;
-            }
-            fetch(`/admin/dashboard/services/${this.value}`)
-                .then(res => res.json())
-                .then(data => {
-
-                    filterService.innerHTML =
-                        '<option value="">Semua Layanan</option>';
-
-                    data.forEach(service => {
-
-                        filterService.innerHTML += `
-                            <option value="${service.id}">
-                                ${service.nama_layanan}
-                            </option>`;
-                    });
-
-                    filters.service = "";
-                    serviceText.textContent = "Semua Layanan";
-                    const oldDropdown = filterService
-                        .closest(".stat-pro-select")
-                        .querySelector(".stat-pro-dropdown-list");
-
-                    if (oldDropdown) {
-                        oldDropdown.remove();
-                    }
-
-                    initCustomDropdown(
-                        "filterService",
-                        "serviceSelectText",
-                        "Semua Layanan"
-                    );
-                    fetchTicketStats();
-                });
-
+        services.forEach(service => {
+            const option = document.createElement("option");
+            option.value = service.id;
+            option.textContent = service.nama_layanan;
+            filterService.appendChild(option);
         });
 
+        filters.service = "";
+        filterService.value = "";
+
+        if (serviceText) {
+            serviceText.textContent = "Semua Layanan";
+        }
+
+        initCustomDropdown("filterService", "serviceSelectText", "Semua Layanan");
+    }
+
+    async function fetchServicesByDepartment(departmentId) {
+        if (!servicesUrl) {
+            console.error("URL layanan tidak ditemukan.");
+            return;
+        }
+
+        const requestUrl = buildServicesUrl(departmentId);
+
+        try {
+            const response = await fetch(requestUrl, {
+                headers: {
+                    Accept: "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Gagal mengambil layanan. Status: ${response.status}`);
+            }
+
+            const services = await response.json();
+            updateServiceOptions(services);
+        } catch (error) {
+            console.error("Gagal mengambil data layanan:", error);
+        }
+    }
+
+    if (filterDepartment) {
+        filterDepartment.addEventListener("change", async function () {
+            filters.department = this.value;
+            syncSelectText(this, departmentText, "Semua Bidang");
+
+            filters.service = "";
+            if (filterService) {
+                filterService.value = "";
+            }
+            if (serviceText) {
+                serviceText.textContent = "Semua Layanan";
+            }
+
+            await fetchServicesByDepartment(this.value);
+
+            fetchTicketStats();
+        });
     }
 
     if (filterService) {
@@ -316,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const counters = document.querySelectorAll(".counter");
-    const COUNTER_DURATION = 2000; 
+    const COUNTER_DURATION = 2000;
 
     counters.forEach(counter => {
         const target = Number(counter.dataset.target);
@@ -324,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function step(now) {
             const progress = Math.min((now - startTime) / COUNTER_DURATION, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); 
+            const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(eased * target);
 
             counter.textContent = current.toLocaleString("id-ID");
@@ -336,48 +311,43 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-    requestAnimationFrame(step);
-});
-
-    /* =====================================
-       CARD HOVER
-    ===================================== */
-
-document.querySelectorAll(".modern-card").forEach(card => {
-    card.addEventListener("mouseenter", () => {
-        card.style.transition = ".3s";
+        requestAnimationFrame(step);
     });
-});
 
-initCustomDropdown(
-    'filterMonth',
-    'monthSelectText',
-    'Semua Bulan'
-);
-
-initCustomDropdown(
-    'filterYear',
-    'yearSelectText',
-    'Semua Tahun'
-);
-
-initCustomDropdown(
-    'filterService',
-    'serviceSelectText',
-    'Semua Layanan'
-);
-
-if (filterDepartment) {
+    document.querySelectorAll(".modern-card").forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transition = ".3s";
+        });
+    });
 
     initCustomDropdown(
-        'filterDepartment',
-        'departmentSelectText',
-        'Semua Bidang'
+        'filterMonth',
+        'monthSelectText',
+        'Semua Bulan'
     );
 
-}
+    initCustomDropdown(
+        'filterYear',
+        'yearSelectText',
+        'Semua Tahun'
+    );
+
+    initCustomDropdown(
+        'filterService',
+        'serviceSelectText',
+        'Semua Layanan'
+    );
+
+    if (filterDepartment) {
+        initCustomDropdown(
+            'filterDepartment',
+            'departmentSelectText',
+            'Semua Bidang'
+        );
+    }
 
 });
+
 function initCustomDropdown(selectId, textId, fallbackLabel) {
 
     const select = document.getElementById(selectId);
@@ -386,6 +356,11 @@ function initCustomDropdown(selectId, textId, fallbackLabel) {
 
     const wrapper = select.closest('.stat-pro-select');
     if (!wrapper) return;
+
+    const existingList = wrapper.querySelector('.stat-pro-dropdown-list');
+    if (existingList) {
+        existingList.remove();
+    }
 
     const list = document.createElement('div');
     list.className = 'stat-pro-dropdown-list';
@@ -421,6 +396,7 @@ function initCustomDropdown(selectId, textId, fallbackLabel) {
         list.appendChild(item);
     });
     wrapper.appendChild(list);
+
     wrapper.addEventListener('click', (e) => {
         if (e.target.closest('.stat-pro-dropdown-item')) return;
         document.querySelectorAll('.stat-pro-dropdown-list.show')
@@ -432,6 +408,7 @@ function initCustomDropdown(selectId, textId, fallbackLabel) {
         list.classList.toggle('show');
     });
 }
+
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.stat-pro-select')) {
         document.querySelectorAll('.stat-pro-dropdown-list.show')

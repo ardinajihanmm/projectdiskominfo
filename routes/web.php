@@ -117,20 +117,19 @@ Route::middleware(['auth','role:admin'])
 
         Route::get('/dashboard/ticket-stats', [AdminDashboard::class, 'ticketStats'])
             ->name('dashboard.ticket-stats');
-            
-        Route::get('/dashboard/services', [ServiceController::class, 'allServices'])
+
+        Route::get('/dashboard/services', [AdminDashboard::class, 'services'])
             ->name('dashboard.services');
 
-        Route::get('/dashboard/services/{department}', [ServiceController::class, 'servicesByDepartment'])
+        Route::get('/dashboard/services/{department}', [AdminDashboard::class, 'servicesByDepartment'])
             ->name('dashboard.services.department');
 
         Route::resource('ticket', AdminTicket::class)
             ->names('ticket');
 
-        Route::get('/ticket/export/pdf',
-            [AdminTicket::class, 'exportPdf'])
+        Route::get('/ticket/export/pdf', [AdminTicket::class, 'exportPdf'])
             ->name('ticket.export.pdf');
-
+            
         Route::get('/ticket/export/excel',
             [AdminTicket::class, 'exportExcel'])
             ->name('ticket.export.excel');

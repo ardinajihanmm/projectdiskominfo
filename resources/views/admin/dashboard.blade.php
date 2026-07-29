@@ -1076,12 +1076,16 @@
 
                 <div
                     id="chartData"
+
                     data-todo="{{ $todo }}"
                     data-progress="{{ $progress }}"
                     data-completed="{{ $completed }}"
-                    data-statsurl="{{ route('admin.dashboard.ticket-stats') }}">
-                </div>
 
+                    data-stats-url="{{ route('admin.dashboard.ticket-stats') }}"
+
+                    data-services-url="{{ route('admin.dashboard.services') }}"
+                    >
+                </div>
             </div>
         </div>
     </div>

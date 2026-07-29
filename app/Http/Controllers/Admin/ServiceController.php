@@ -111,6 +111,10 @@ class ServiceController extends Controller
         $oldDepartmentId = $service->department_id;
         $department = $this->resolveDepartment($request->nama_bidang);
 
+        if ($admin->isScopedToDepartment() && $department->id != $admin->department_id) {
+            abort(403, 'Anda hanya bisa mengatur layanan untuk bidang Anda sendiri.');
+        }
+
         $data = $request->except('icon', 'hapus_icon', 'nama_bidang');
         $data['department_id'] = $department->id;
 

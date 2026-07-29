@@ -53,6 +53,7 @@
             overflow-x: hidden;
             box-shadow: 8px 0 25px rgba(0, 0, 0, .08);
             transition: all .35s ease;
+            z-index: 1040;
         }
 
         .sidebar::-webkit-scrollbar {

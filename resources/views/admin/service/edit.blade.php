@@ -59,13 +59,17 @@
                 class="form-control rounded-4 shadow-sm"
                 placeholder="Ketik nama bidang (bisa pilih yang sudah ada atau tulis baru)"
                 value="{{ old('nama_bidang', $service->department->nama_bidang ?? '') }}"
+                {{ auth()->user()->isScopedToDepartment() ? 'readonly' : '' }}
+                style="{{ auth()->user()->isScopedToDepartment() ? 'background-color: #e9ecef; cursor: not-allowed;' : '' }}"
                 autocomplete="off"
                 required>
+            @if(!auth()->user()->isScopedToDepartment())
             <datalist id="bidangList">
                 @foreach($departments as $department)
                     <option value="{{ $department->nama_bidang }}">
                 @endforeach
             </datalist>
+            @endif
     </div>
     <div class="col-md-6 mb-4">
         <label class="form-label fw-semibold">

@@ -239,14 +239,18 @@
                        list="bidangList"
                        class="form-control-pro"
                        placeholder="Ketik nama bidang"
-                       value="{{ old('nama_bidang') }}"
+                       value="{{ old('nama_bidang', auth()->user()->isScopedToDepartment() ? (auth()->user()->department->nama_bidang ?? '') : '') }}"
+                       {{ auth()->user()->isScopedToDepartment() ? 'readonly' : '' }}
+                       style="{{ auth()->user()->isScopedToDepartment() ? 'background-color: #f1f5f9; cursor: not-allowed;' : '' }}"
                        autocomplete="off"
                        required>
+                @if(!auth()->user()->isScopedToDepartment())
                 <datalist id="bidangList">
                     @foreach($departments as $department)
                         <option value="{{ $department->nama_bidang }}">
                     @endforeach
                 </datalist>
+                @endif
             </div>
 
             <div class="form-group-pro">

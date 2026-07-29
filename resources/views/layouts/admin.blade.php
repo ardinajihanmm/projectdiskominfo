@@ -327,6 +327,7 @@
 
         .main {
             flex: 1;
+            min-height: 0;
             overflow-y: auto;
             padding: 30px;
         }
@@ -538,6 +539,9 @@
 
             .main {
                 min-width: 0;
+                min-height: 0;
+                flex: 1;
+                overflow-y: auto;
                 padding: 20px 16px;
             }
 
@@ -600,7 +604,11 @@
 
         @media (max-width: 767.98px) {
             .main {
-                padding: 18px 12px;
+                min-width: 0;
+                min-height: 0;
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px 16px;
             }
 
             .main .card {
@@ -659,7 +667,11 @@
             }
 
             .main {
-                padding: 16px 10px;
+                min-width: 0;
+                min-height: 0;
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px 16px;
             }
 
             .notification-card {
@@ -798,6 +810,7 @@
         <div class="footer">
             &copy; {{ date('Y') }} Helpdesk Pemkab Pemalang
         </div>
+        
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

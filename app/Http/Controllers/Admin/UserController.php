@@ -46,9 +46,13 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|in:admin,staff,user',
+            'role' => 'required|in:super_admin,admin,staff,user',
             'department_id' => 'nullable|exists:departments,id',
         ]);
+
+        if ($request->role === 'super_admin' && ! $admin->isSuperAdmin()) {
+            abort(403, 'Hanya Super Admin yang bisa membuat akun Super Admin.');
+        }
 
         User::create([
             'name' => $request->name,
@@ -90,9 +94,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role' => 'required|in:admin,staff,user',
+            'role' => 'required|in:super_admin,admin,staff,user',
             'department_id' => 'nullable|exists:departments,id',
         ]);
+
+        if ($request->role === 'super_admin' && ! $admin->isSuperAdmin()) {
+            abort(403, 'Hanya Super Admin yang bisa mengubah role menjadi Super Admin.');
+        }
 
         $user->update([
             'name' => $request->name,
@@ -100,7 +108,9 @@ class UserController extends Controller
             'no_hp' => $request->no_hp,
             'instansi' => $request->instansi,
             'role' => $request->role,
-            'department_id' => in_array($request->role, ['staff', 'admin']) ? $request->department_id : null,
+            'department_id' => in_array($request->role, ['staff', 'admin'])
+                ? ($admin->isScopedToDepartment() ? $admin->department_id : $request->department_id)
+                : null,
         ]);
 
         if ($request->password) {
@@ -113,7 +123,6 @@ class UserController extends Controller
             ->route('admin.user.index')
             ->with('success', 'User berhasil diupdate');
     }
-
     public function destroy(User $user)
     {
         $user->delete();

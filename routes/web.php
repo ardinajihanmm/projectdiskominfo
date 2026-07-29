@@ -117,6 +117,12 @@ Route::middleware(['auth','role:admin'])
 
         Route::get('/dashboard/ticket-stats', [AdminDashboard::class, 'ticketStats'])
             ->name('dashboard.ticket-stats');
+            
+        Route::get('/dashboard/services', [ServiceController::class, 'allServices'])
+            ->name('dashboard.services');
+
+        Route::get('/dashboard/services/{department}', [ServiceController::class, 'servicesByDepartment'])
+            ->name('dashboard.services.department');
 
         Route::resource('ticket', AdminTicket::class)
             ->names('ticket');

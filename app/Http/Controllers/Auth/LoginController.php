@@ -24,6 +24,7 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
             switch (auth()->user()->role) {
+                case 'super_admin':
                 case 'admin':
                     return redirect()->route('admin.dashboard');
                 case 'staff':

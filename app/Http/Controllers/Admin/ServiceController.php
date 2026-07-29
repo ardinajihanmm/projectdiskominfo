@@ -108,7 +108,9 @@ class ServiceController extends Controller
             'status' => 'required',
         ]);
 
+        $oldDepartmentId = $service->department_id;
         $department = $this->resolveDepartment($request->nama_bidang);
+
         $data = $request->except('icon', 'hapus_icon', 'nama_bidang');
         $data['department_id'] = $department->id;
 
@@ -127,6 +129,10 @@ class ServiceController extends Controller
         }
 
         $service->update($data);
+
+        if ($oldDepartmentId != $department->id) {
+            $this->pruneDepartmentIfUnused($oldDepartmentId);
+        }
 
         return redirect()
             ->route('admin.service.index')
@@ -153,11 +159,31 @@ class ServiceController extends Controller
             Storage::disk('public')->delete($service->icon);
         }
 
+        $departmentId = $service->department_id;
+
         $service->delete();
+
+        $this->pruneDepartmentIfUnused($departmentId);
 
         return redirect()
             ->route('admin.service.index')
             ->with('success', 'Layanan berhasil dihapus.');
+    }
+    public function allServices()
+    {
+        return response()->json(
+            Service::orderBy('nama_layanan')
+                ->get(['id', 'nama_layanan'])
+        );
+    }
+
+    public function servicesByDepartment($department)
+    {
+        return response()->json(
+            Service::where('department_id', $department)
+                ->orderBy('nama_layanan')
+                ->get(['id', 'nama_layanan'])
+        );
     }
 
     private function resolveDepartment(string $namaBidang): Department
@@ -178,5 +204,18 @@ class ServiceController extends Controller
             'agency_id' => $agencyId,
             'status' => 1,
         ]);
+    }
+
+    private function pruneDepartmentIfUnused(?int $departmentId): void
+    {
+        if (! $departmentId) {
+            return;
+        }
+
+        $stillUsed = Service::where('department_id', $departmentId)->exists();
+
+        if (! $stillUsed) {
+            Department::where('id', $departmentId)->delete();
+        }
     }
 }

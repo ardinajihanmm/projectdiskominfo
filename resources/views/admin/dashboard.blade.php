@@ -928,7 +928,26 @@
                             @endforeach
                         </select>
                     </div>
+                    @if(auth()->user()->isSuperAdmin())
+                    <div class="stat-pro-select">
+                        <i class="bi bi-diagram-3-fill"></i>
+                        <span class="stat-pro-select-text" id="departmentSelectText">
+                            Semua Bidang
+                        </span>
 
+                        <i class="bi bi-chevron-down chevron"></i>
+
+                        <select id="filterDepartment" class="stat-pro-select-native">
+                            <option value="">Semua Bidang</option>
+
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">
+                                    {{ $department->nama_bidang }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
                     <div class="stat-pro-select">
                         <i class="bi bi-grid-fill"></i>
                         <span class="stat-pro-select-text" id="serviceSelectText">Semua Layanan</span>

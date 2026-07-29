@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-   
         $admin = auth()->user();
 
         $ticketBase = Ticket::query();
@@ -51,40 +50,45 @@ class DashboardController extends Controller
 
         $tepatWaktu = $completedWithPoint->where('point', '>=', 100)->count();
         $telat = $completedWithPoint->where('point', '<', 100)->count();
-            
-        $activities = (clone $ticketBase)->latest('updated_at')
+
+        $activities = (clone $ticketBase)
+            ->latest('updated_at')
             ->take(5)
             ->get();
 
+        $services = (clone $serviceBase)
+            ->orderBy('nama_layanan')
+            ->get();
 
-        $services = (clone $serviceBase)->orderBy('nama_layanan')->get();
+        // Hanya dipakai oleh Super Admin
+        $departments = Department::orderBy('nama_bidang')->get();
 
         $months = $this->monthNames();
         $years = $this->availableYears();
 
         return view('admin.dashboard', [
 
-        'totalUser' => $totalUser,
-        'totalService' => $totalService,
-        'totalTicket' => $totalTicket,
+            'totalUser' => $totalUser,
+            'totalService' => $totalService,
+            'totalTicket' => $totalTicket,
 
-        'todo' => $todo,
-        'progress' => $progress,
-        'completed' => $completed,
+            'todo' => $todo,
+            'progress' => $progress,
+            'completed' => $completed,
 
-        'progressPercent' => $progressPercent,
-        'averagePoint' => $averagePoint,
-        'tepatWaktu' => $tepatWaktu,
-        'telat' => $telat,
+            'progressPercent' => $progressPercent,
+            'averagePoint' => $averagePoint,
+            'tepatWaktu' => $tepatWaktu,
+            'telat' => $telat,
 
-        'activities' => $activities,
+            'activities' => $activities,
 
-        'services' => $services,
+            'services' => $services,
+            'departments' => $departments,
 
-        'months' => $months,
-        'years' => $years,
-
-    ]);
+            'months' => $months,
+            'years' => $years,
+        ]);
     }
 
     public function ticketStats(Request $request): JsonResponse
@@ -113,18 +117,24 @@ class DashboardController extends Controller
         ]);
     }
 
-    private function applyTicketFilters(\Illuminate\Database\Eloquent\Builder $query, Request $request): \Illuminate\Database\Eloquent\Builder
+    private function applyTicketFilters($query, Request $request)
     {
         if ($request->filled('month')) {
-            $query->whereMonth('created_at', (int) $request->input('month'));
+            $query->whereMonth('created_at', (int) $request->month);
         }
 
         if ($request->filled('year')) {
-            $query->whereYear('created_at', (int) $request->input('year'));
+            $query->whereYear('created_at', (int) $request->year);
+        }
+
+        if ($request->filled('department')) {
+            $query->whereHas('service', function ($q) use ($request) {
+                $q->where('department_id', (int) $request->department);
+            });
         }
 
         if ($request->filled('service')) {
-            $query->where('service_id', (int) $request->input('service'));
+            $query->where('service_id', (int) $request->service);
         }
 
         return $query;
@@ -162,7 +172,7 @@ class DashboardController extends Controller
 
         $years = $query->selectRaw('DISTINCT YEAR(created_at) as year')
             ->pluck('year')
-            ->map(fn ($year) => (int) $year);
+            ->map(fn($year) => (int) $year);
 
         return $years
             ->push(now()->year)
@@ -176,7 +186,9 @@ class DashboardController extends Controller
         $notif = \App\Models\Notification::where('user_id', auth()->id())
             ->findOrFail($id);
 
-        $notif->update(['is_read' => true]);
+        $notif->update([
+            'is_read' => true,
+        ]);
 
         return redirect()->back();
     }

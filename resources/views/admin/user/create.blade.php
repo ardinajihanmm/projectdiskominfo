@@ -267,7 +267,7 @@
                 <input type="password"
                        name="password"
                        class="form-control-pro"
-                       placeholder="Minimal 8 karakter"
+                       placeholder="Minimal 6 karakter"
                        required>
             </div>
 

@@ -51,7 +51,10 @@ class User extends Authenticatable
     {
         return $this->role === 'admin' && !is_null($this->department_id);
     }
-
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
     public function assignedTickets()
     {
         return $this->hasMany(Ticket::class, 'staff_id');

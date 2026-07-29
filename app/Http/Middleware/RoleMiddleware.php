@@ -14,7 +14,14 @@ class RoleMiddleware
             abort(403);
         }
 
-        if (auth()->user()->role != $role) {
+        $user = auth()->user();
+
+        // Super Admin boleh mengakses semua route admin
+        if ($role === 'admin' && in_array($user->role, ['admin', 'super_admin'])) {
+            return $next($request);
+        }
+
+        if ($user->role !== $role) {
             abort(403, 'AKSES DITOLAK.');
         }
 

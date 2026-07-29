@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const filters = {
         month: "",
         year: "",
+        department: "",
         service: ""
     };
 
@@ -182,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (filters.month) params.append("month", filters.month);
         if (filters.year) params.append("year", filters.year);
         if (filters.service) params.append("service", filters.service);
+        if (filters.department)params.append('department', filters.department);
 
         isFetching = true;
 
@@ -217,6 +219,92 @@ document.addEventListener("DOMContentLoaded", () => {
             syncSelectText(this, yearText, "Semua Tahun");
             fetchTicketStats();
         });
+    }
+    const filterDepartment = document.getElementById("filterDepartment");
+    const departmentText = document.getElementById("departmentSelectText");
+
+    if (filterDepartment) {
+
+        filterDepartment.addEventListener("change", function () {
+
+            filters.department = this.value;
+            syncSelectText(
+                this,
+                departmentText,
+                "Semua Bidang"
+            );
+            if (this.value === "") {
+
+                filterService.innerHTML =
+                    '<option value="">Semua Layanan</option>';
+
+                filters.service = "";
+                serviceText.textContent = "Semua Layanan";
+
+                fetch("/admin/dashboard/services")
+                    .then(res => res.json())
+                    .then(data => {
+
+                        data.forEach(service => {
+                            filterService.innerHTML += `
+                                <option value="${service.id}">
+                                    ${service.nama_layanan}
+                                </option>`;
+                        });
+                        const oldDropdown = filterService
+                            .closest(".stat-pro-select")
+                            .querySelector(".stat-pro-dropdown-list");
+
+                        if (oldDropdown) {
+                            oldDropdown.remove();
+                        }
+
+                        initCustomDropdown(
+                            "filterService",
+                            "serviceSelectText",
+                            "Semua Layanan"
+                        );
+
+                        fetchTicketStats();
+                    });
+
+                return;
+            }
+            fetch(`/admin/dashboard/services/${this.value}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    filterService.innerHTML =
+                        '<option value="">Semua Layanan</option>';
+
+                    data.forEach(service => {
+
+                        filterService.innerHTML += `
+                            <option value="${service.id}">
+                                ${service.nama_layanan}
+                            </option>`;
+                    });
+
+                    filters.service = "";
+                    serviceText.textContent = "Semua Layanan";
+                    const oldDropdown = filterService
+                        .closest(".stat-pro-select")
+                        .querySelector(".stat-pro-dropdown-list");
+
+                    if (oldDropdown) {
+                        oldDropdown.remove();
+                    }
+
+                    initCustomDropdown(
+                        "filterService",
+                        "serviceSelectText",
+                        "Semua Layanan"
+                    );
+                    fetchTicketStats();
+                });
+
+        });
+
     }
 
     if (filterService) {
@@ -255,70 +343,98 @@ document.addEventListener("DOMContentLoaded", () => {
        CARD HOVER
     ===================================== */
 
-    document.querySelectorAll(".modern-card").forEach(card => {
-        card.addEventListener("mouseenter", () => {
-            card.style.transition = ".3s";
-        });
+document.querySelectorAll(".modern-card").forEach(card => {
+    card.addEventListener("mouseenter", () => {
+        card.style.transition = ".3s";
     });
-
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+initCustomDropdown(
+    'filterMonth',
+    'monthSelectText',
+    'Semua Bulan'
+);
 
-    function initCustomDropdown(selectId, textId, fallbackLabel) {
-        const select = document.getElementById(selectId);
-        const textEl = document.getElementById(textId);
-        if (!select || !textEl) return;
+initCustomDropdown(
+    'filterYear',
+    'yearSelectText',
+    'Semua Tahun'
+);
 
-        const wrapper = select.closest('.stat-pro-select');
-        if (!wrapper) return;
+initCustomDropdown(
+    'filterService',
+    'serviceSelectText',
+    'Semua Layanan'
+);
 
-        const list = document.createElement('div');
-        list.className = 'stat-pro-dropdown-list';
+if (filterDepartment) {
 
-        Array.from(select.options).forEach(opt => {
-            const item = document.createElement('div');
-            item.className = 'stat-pro-dropdown-item';
-            if (opt.value === select.value) item.classList.add('active');
+    initCustomDropdown(
+        'filterDepartment',
+        'departmentSelectText',
+        'Semua Bidang'
+    );
 
-            item.innerHTML = `<span>${opt.text}</span><i class="bi bi-check-lg check-icon"></i>`;
+}
 
-            item.addEventListener('click', () => {
-                select.value = opt.value;
-                select.dispatchEvent(new Event('change'));
+});
+function initCustomDropdown(selectId, textId, fallbackLabel) {
 
-                textEl.textContent = opt.value === '' ? fallbackLabel : opt.text;
+    const select = document.getElementById(selectId);
+    const textEl = document.getElementById(textId);
+    if (!select || !textEl) return;
 
-                list.querySelectorAll('.stat-pro-dropdown-item').forEach(el => el.classList.remove('active'));
-                item.classList.add('active');
+    const wrapper = select.closest('.stat-pro-select');
+    if (!wrapper) return;
 
-                list.classList.remove('show');
-            });
+    const list = document.createElement('div');
+    list.className = 'stat-pro-dropdown-list';
 
-            list.appendChild(item);
-        });
+    Array.from(select.options).forEach(opt => {
 
-        wrapper.appendChild(list);
+        const item = document.createElement('div');
+        item.className = 'stat-pro-dropdown-item';
 
-        wrapper.addEventListener('click', (e) => {
-            if (e.target.closest('.stat-pro-dropdown-item')) return;
-
-            document.querySelectorAll('.stat-pro-dropdown-list.show').forEach(el => {
-                if (el !== list) el.classList.remove('show');
-            });
-
-            list.classList.toggle('show');
-        });
-    }
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.stat-pro-select')) {
-            document.querySelectorAll('.stat-pro-dropdown-list.show').forEach(el => el.classList.remove('show'));
+        if (opt.value === select.value) {
+            item.classList.add('active');
         }
+
+        item.innerHTML = `
+            <span>${opt.text}</span>
+            <i class="bi bi-check-lg check-icon"></i>
+        `;
+
+        item.addEventListener('click', () => {
+
+            select.value = opt.value;
+            select.dispatchEvent(new Event('change'));
+
+            textEl.textContent =
+                opt.value === ""
+                    ? fallbackLabel
+                    : opt.text;
+            list.querySelectorAll('.stat-pro-dropdown-item')
+                .forEach(el => el.classList.remove('active'));
+            item.classList.add('active');
+            list.classList.remove('show');
+        });
+        list.appendChild(item);
     });
-
-    initCustomDropdown('filterMonth', 'monthSelectText', 'Semua Bulan');
-    initCustomDropdown('filterYear', 'yearSelectText', 'Semua Tahun');
-    initCustomDropdown('filterService', 'serviceSelectText', 'Semua Layanan');
-
+    wrapper.appendChild(list);
+    wrapper.addEventListener('click', (e) => {
+        if (e.target.closest('.stat-pro-dropdown-item')) return;
+        document.querySelectorAll('.stat-pro-dropdown-list.show')
+            .forEach(el => {
+                if (el !== list) {
+                    el.classList.remove('show');
+                }
+            });
+        list.classList.toggle('show');
+    });
+}
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.stat-pro-select')) {
+        document.querySelectorAll('.stat-pro-dropdown-list.show')
+            .forEach(el => el.classList.remove('show'));
+    }
 });

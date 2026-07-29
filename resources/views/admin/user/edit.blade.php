@@ -119,6 +119,11 @@
                                 <i class="bi bi-person-badge-fill"></i>
                             </span>
                             <select name="role" id="roleSelect" class="form-select" onchange="toggleDepartmentField()">
+                                @if(auth()->user()->isSuperAdmin())
+                                    <option value="super_admin" {{ $user->role=='super_admin' ? 'selected' : '' }}>
+                                        Super Admin
+                                    </option>
+                                @endif
                                 <option value="admin" {{ $user->role=='admin' ? 'selected' : '' }}>
                                     Administrator
                                 </option>
@@ -140,18 +145,33 @@
                             <span class="input-group-text bg-primary text-white">
                                 <i class="bi bi-diagram-3"></i>
                             </span>
-                            <select name="department_id" class="form-select">
-                                <option value="">-- Pilih Bidang --</option>
-                                @foreach($departments as $department)
-                                    <option value="{{ $department->id }}"
-                                        {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>
-                                        {{ $department->nama_bidang }}
-                                    </option>
-                                @endforeach
-                            </select>
+
+                            @if(auth()->user()->isScopedToDepartment())
+                                {{-- Admin Bidang: bidang sudah ditentukan super admin, tidak bisa diubah --}}
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    value="{{ auth()->user()->department->nama_bidang ?? '-' }}"
+                                    disabled>
+                                <input type="hidden" name="department_id" value="{{ auth()->user()->department_id }}">
+                            @else
+                                {{-- Super Admin: bebas pilih bidang --}}
+                                <select name="department_id" class="form-select">
+                                    <option value="">-- Pilih Bidang --</option>
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department->id }}"
+                                            {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>
+                                            {{ $department->nama_bidang }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        @if(auth()->user()->isScopedToDepartment())
+                            <small class="text-muted">Bidang untuk role Admin/Staff sudah ditentukan oleh Super Admin dan tidak dapat diubah di sini.</small>
+                        @endif
+                    </div>  
+                  <div class="d-flex justify-content-between align-items-center mt-2">
                         <a href="{{ route('admin.user.index') }}" class="btn btn-light border rounded-pill px-4">
                             <i class="bi bi-arrow-left-circle"></i>
                             Kembali

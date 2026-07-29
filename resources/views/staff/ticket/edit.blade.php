@@ -1,4 +1,4 @@
-@extends('layouts.staff')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-4">
@@ -6,7 +6,7 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <form action="{{ route('staff.ticket.update', $ticket->id) }}" method="POST">
+            <form action="{{ route('admin.ticket.update', $ticket->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -53,7 +53,7 @@
                     Simpan
                 </button>
 
-                <a href="{{ route('staff.ticket.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.ticket.index') }}" class="btn btn-secondary">
                     Kembali
                 </a>
             </form>

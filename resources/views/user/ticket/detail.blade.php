@@ -114,7 +114,7 @@
                 <div class="mt-4">
                     <h4 class="fw-bold mb-3"><i class="bi bi-chat-dots-fill text-primary"></i> Percakapan</h4>
                     <div class="border rounded-4 p-4" style="min-height:350px; background:#f8fafc;">
-                        @forelse($ticket->comments as $comment)
+                            @forelse($ticket->comments->sortBy('created_at') as $comment)
                             @php $mine = $comment->user_id == auth()->id(); @endphp
                             <div class="d-flex mb-4 {{ $mine ? 'justify-content-end' : 'justify-content-start' }}">
                                 <div class="shadow-sm rounded-4 px-4 py-3 {{ $mine ? 'bg-primary text-white' : 'bg-white border-start border-4 border-primary' }}" style="max-width:70%;">
@@ -160,4 +160,12 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chatBox = document.querySelector('.border.rounded-4.p-4[style*="min-height"]');
+    if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+});
+</script>
 @endsection

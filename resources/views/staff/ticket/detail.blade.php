@@ -175,25 +175,37 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
     <div class="card comment-card mt-4">
-        <div class="card-header comment-header">
-            <i class="bi bi-chat-dots"></i>
-            Diskusi Tiket
-        </div>
-        <div class="card-body">
-            @forelse($ticket->comments as $comment)
-                <div class="border rounded p-3 mb-3">
-                    <strong>{{ $comment->user->name }}</strong>
-                    <small class="float-end text-muted">
-                        {{ $comment->created_at->format('d M Y H:i') }}
-                    </small>
-                    <hr>
-                    {{ $comment->komentar }}
+            <div class="card-header comment-header">
+                <i class="bi bi-chat-dots"></i>
+                Diskusi Tiket
+            </div>
+            <div class="card-body">
+                <div class="border rounded-4 p-4 mb-4" style="min-height:350px; background:#f8fafc;">
+                    @forelse($ticket->comments->sortBy('created_at') as $comment)
+                        @php $mine = $comment->user_id == auth()->id(); @endphp
+                        <div class="d-flex mb-4 {{ $mine ? 'justify-content-end' : 'justify-content-start' }}">
+                            <div class="shadow-sm rounded-4 px-4 py-3 {{ $mine ? 'bg-primary text-white' : 'bg-white border-start border-4 border-primary' }}" style="max-width:70%;">
+                                <div class="mb-2">
+                                    <div class="d-flex align-items-center mb-1">
+                                        @if($mine)
+                                            <i class="bi bi-person-circle text-white me-2"></i><strong>Anda</strong>
+                                        @else
+                                            <i class="bi bi-headset text-primary me-2"></i><strong>{{ $comment->user->name }}</strong>
+                                        @endif
+                                    </div>
+                                    <small class="{{ $mine ? 'text-white-50' : 'text-muted' }}">{{ $comment->created_at->format('d M Y • H:i') }}</small>
+                                </div>
+                                <div class="mt-3">{{ $comment->komentar }}</div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-5">
+                            <i class="bi bi-chat-square-dots display-4 text-secondary"></i>
+                            <h5 class="mt-3">Belum ada percakapan</h5>
+                            <p class="text-muted">Balasan dari staf/user akan muncul di sini.</p>
+                        </div>
+                    @endforelse
                 </div>
-            @empty
-                <div class="alert alert-light">
-                    Belum ada komentar.
-                </div>
-            @endforelse
             <form action="{{ route('staff.comment.store') }}" method="POST">
                 @csrf
                 <input type="hidden"

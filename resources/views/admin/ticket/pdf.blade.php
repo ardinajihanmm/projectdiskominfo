@@ -185,11 +185,9 @@
         <th>No</th>
         <th>Kode Tiket</th>
         <th>Judul</th>
-        <th>Pelapor</th>
         <th>Layanan</th>
         <th>Bidang</th>
         <th>Staff</th>
-        <th>Prioritas</th>
         <th>Status</th>
         <th>Tgl Dibuat</th>
         <th>Tgl Selesai</th>
@@ -208,11 +206,9 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $ticket->kode_ticket }}</td>
         <td>{{ $ticket->judul }}</td>
-        <td>{{ $ticket->user->name ?? '-' }}</td>
         <td>{{ $ticket->service->nama_layanan ?? '-' }}</td>
         <td>{{ $ticket->service->department->nama_bidang ?? '-' }}</td>
         <td>{{ $ticket->staff->name ?? 'Belum diambil' }}</td>
-        <td>{{ $ticket->prioritas }}</td>
 
         <td>
             @if($ticket->status == 'Completed')
@@ -236,7 +232,7 @@
     @empty
 
     <tr>
-        <td colspan="13" class="text-center">Belum ada data tiket pada periode ini.</td>
+        <td colspan="11" class="text-center">Belum ada data tiket pada periode ini.</td>
     </tr>
 
     @endforelse

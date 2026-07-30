@@ -191,8 +191,7 @@
                                     <input
                                         type="text"
                                         class="form-control bg-light"
-                                        value="{{ auth()->user()->department->nama_bidang ?? 'Semua Bidang (Superadmin)' }}"
-                                        readonly
+                                        value="{{ auth()->user()->role === 'super_admin' ? 'Super Admin' : (auth()->user()->department->nama_bidang ?? '-') }}"                                         readonly
                                         style="cursor: not-allowed;">
                                 </div>
                                 <small class="text-muted">
